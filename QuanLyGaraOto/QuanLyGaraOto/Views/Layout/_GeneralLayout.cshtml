@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+@{
+    ViewBag.Title = "General";
+}
+<html>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/bootstrap")
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<title>@ViewBag.Title</title>*@
+
+    <style>
+        html, body {
+            margin: 0px !important;
+            padding: 0px !important;
+            overflow-x: hidden;
+        }
+
+        .row.content {
+            height: 450px;
+        }
+    </style>
+</head>
+<body style="background-color:#e6e6e6; ">
+    @Html.Partial("~/Views/PartialViews/_HeaderBar.cshtml")
+    <div class="clearfix"></div>
+    <div class="container-fluid ">
+
+
+
+        <div class="row content">
+            <div class="row">
+                <div class="col-md-2" style="height:100%; ">
+                    @Html.Partial("~/Views/PartialViews/_Sidebar.cshtml")
+                </div>
+
+                <div class="col-md-10">
+
+                    @RenderBody()
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</body>
+</html>

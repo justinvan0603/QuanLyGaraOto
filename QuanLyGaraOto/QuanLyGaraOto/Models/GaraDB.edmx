@@ -1,0 +1,1347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GARADBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BANGTHAMSO">
+          <Key>
+            <PropertyRef Name="TENTHAMSO" />
+          </Key>
+          <Property Name="TENTHAMSO" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="GIATRI" Type="char" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CHITIET_PHIEUBH">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MA_PHIEUDV" Type="int" Nullable="false" />
+          <Property Name="MA_PHUTUNG" Type="int" Nullable="false" />
+          <Property Name="MA_PHIEUBH" Type="int" Nullable="false" />
+          <Property Name="NGAYHENTRA" Type="date" />
+          <Property Name="NGAYTRA" Type="date" />
+        </EntityType>
+        <EntityType Name="CHITIET_PHIEUDV">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MA_PHIEUDV" Type="int" Nullable="false" />
+          <Property Name="MA_PT" Type="int" Nullable="false" />
+          <Property Name="MA_TIENCONG" Type="nvarchar" MaxLength="255" />
+          <Property Name="SOLUONG" Type="int" />
+          <Property Name="DONGIA" Type="money" />
+          <Property Name="TIENCONG" Type="money" />
+          <Property Name="THANHTIEN" Type="money" />
+          <Property Name="THOIHAN_BAOHANH" Type="int" />
+        </EntityType>
+        <EntityType Name="CHITIET_PHIEUNH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MA_PHIEUNH" Type="int" Nullable="false" />
+          <Property Name="MA_PHUTUNG" Type="int" Nullable="false" />
+          <Property Name="SOLUONG" Type="int" />
+          <Property Name="DONGIA" Type="money" />
+          <Property Name="THANHTIEN" Type="money" />
+        </EntityType>
+        <EntityType Name="HIEUXE">
+          <Key>
+            <PropertyRef Name="MA_HIEUXE" />
+          </Key>
+          <Property Name="MA_HIEUXE" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KHACHHANG">
+          <Key>
+            <PropertyRef Name="MA_KH" />
+          </Key>
+          <Property Name="MA_KH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TEN_KH" Type="nvarchar" MaxLength="255" />
+          <Property Name="CMND" Type="varchar" MaxLength="100" />
+          <Property Name="SDT" Type="char" MaxLength="20" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="255" />
+          <Property Name="SOTIENNO" Type="money" />
+        </EntityType>
+        <EntityType Name="NHANVIEN">
+          <Key>
+            <PropertyRef Name="MA_NV" />
+          </Key>
+          <Property Name="MA_NV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HOTEN" Type="nvarchar" MaxLength="255" />
+          <Property Name="SDT" Type="char" MaxLength="20" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="255" />
+          <Property Name="MA_NHOMNGUOIDUNG" Type="int" />
+        </EntityType>
+        <EntityType Name="NHOMNGUOIDUNG">
+          <Key>
+            <PropertyRef Name="MA_NHOMNGUOIDUNG" />
+          </Key>
+          <Property Name="MA_NHOMNGUOIDUNG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TEN_NHOM" Type="nvarchar" MaxLength="100" />
+          <Property Name="CAPDO" Type="int" />
+        </EntityType>
+        <EntityType Name="PHIEU_BAOHANH">
+          <Key>
+            <PropertyRef Name="MA_PHIEUBH" />
+          </Key>
+          <Property Name="MA_PHIEUBH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NGAYCAP" Type="date" />
+          <Property Name="MA_NV" Type="int" />
+          <Property Name="TINHTRANG" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PHIEU_DICHVU">
+          <Key>
+            <PropertyRef Name="MA_PHIEUDV" />
+          </Key>
+          <Property Name="MA_PHIEUDV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NGAYLAP" Type="date" />
+          <Property Name="MAPHIEU_TIEPNHAN" Type="int" />
+          <Property Name="TONGTIEN" Type="money" />
+          <Property Name="SOTIEN_CONLAI" Type="money" />
+          <Property Name="TINHTRANG" Type="nvarchar" MaxLength="255" />
+          <Property Name="MATHO" Type="int" />
+          <Property Name="MA_NHANVIEN" Type="int" />
+        </EntityType>
+        <EntityType Name="PHIEU_NHAPHANG">
+          <Key>
+            <PropertyRef Name="MA_PHIEUNHAPHANG" />
+          </Key>
+          <Property Name="MA_PHIEUNHAPHANG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NGAYLAP" Type="date" />
+          <Property Name="MA_NV" Type="int" />
+          <Property Name="TONGTIEN" Type="money" />
+          <Property Name="TINHTRANG" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PHIEU_THUTIEN">
+          <Key>
+            <PropertyRef Name="MA_PHIEUTHUTIEN" />
+          </Key>
+          <Property Name="MA_PHIEUTHUTIEN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NGAYLAP" Type="date" />
+          <Property Name="MA_PHIEUDV" Type="int" />
+          <Property Name="NOIDUNG_THU" Type="nvarchar" MaxLength="255" />
+          <Property Name="SOTIEN" Type="money" />
+          <Property Name="MA_NV" Type="int" />
+          <Property Name="TINHTRANG" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PHIEU_TIEPNHAN">
+          <Key>
+            <PropertyRef Name="MA_PHIEUTIEPNHAN" />
+          </Key>
+          <Property Name="MA_PHIEUTIEPNHAN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MA_KH" Type="int" Nullable="false" />
+          <Property Name="NGAYLAP" Type="date" />
+          <Property Name="BIENSO_XE" Type="char" MaxLength="20" />
+          <Property Name="MASOCHO" Type="int" />
+          <Property Name="TINHTRANG" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PHIEUCHI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MA_PHIEUCHI" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="NOIDUNG" Type="nvarchar" MaxLength="255" />
+          <Property Name="SOTIEN" Type="money" />
+          <Property Name="MA_NV" Type="int" />
+          <Property Name="MA_PHIEUNHAP" Type="int" />
+          <Property Name="TINHTRANG" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PHUTUNG">
+          <Key>
+            <PropertyRef Name="MA_PHUTUNG" />
+          </Key>
+          <Property Name="MA_PHUTUNG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TEN_PHUTUNG" Type="nvarchar" MaxLength="255" />
+          <Property Name="SOLUONGTON" Type="int" />
+        </EntityType>
+        <EntityType Name="THO">
+          <Key>
+            <PropertyRef Name="MA_THO" />
+          </Key>
+          <Property Name="MA_THO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENTHO" Type="nvarchar" MaxLength="255" />
+          <Property Name="SDT" Type="char" MaxLength="20" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="TIENCONG">
+          <Key>
+            <PropertyRef Name="MA_TIENCONG" />
+          </Key>
+          <Property Name="MA_TIENCONG" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="SOTIEN" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="XE">
+          <Key>
+            <PropertyRef Name="BS_XE" />
+          </Key>
+          <Property Name="BS_XE" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="MA_KH" Type="int" />
+          <Property Name="NGAY_TIEPNHAN" Type="date" />
+          <Property Name="HIEU_XE" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_CHITIET_PHIEUBH_PHIEU_BAOHANH">
+          <End Role="PHIEU_BAOHANH" Type="Self.PHIEU_BAOHANH" Multiplicity="1" />
+          <End Role="CHITIET_PHIEUBH" Type="Self.CHITIET_PHIEUBH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_BAOHANH">
+              <PropertyRef Name="MA_PHIEUBH" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUBH">
+              <PropertyRef Name="MA_PHIEUBH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIET_PHIEUBH_PHIEU_DICHVU">
+          <End Role="PHIEU_DICHVU" Type="Self.PHIEU_DICHVU" Multiplicity="1" />
+          <End Role="CHITIET_PHIEUBH" Type="Self.CHITIET_PHIEUBH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_DICHVU">
+              <PropertyRef Name="MA_PHIEUDV" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUBH">
+              <PropertyRef Name="MA_PHIEUDV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIET_PHIEUBH_PHUTUNG">
+          <End Role="PHUTUNG" Type="Self.PHUTUNG" Multiplicity="1" />
+          <End Role="CHITIET_PHIEUBH" Type="Self.CHITIET_PHIEUBH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHUTUNG">
+              <PropertyRef Name="MA_PHUTUNG" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUBH">
+              <PropertyRef Name="MA_PHUTUNG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIET_PHIEUDV_PHIEU_DICHVU">
+          <End Role="PHIEU_DICHVU" Type="Self.PHIEU_DICHVU" Multiplicity="1" />
+          <End Role="CHITIET_PHIEUDV" Type="Self.CHITIET_PHIEUDV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_DICHVU">
+              <PropertyRef Name="MA_PHIEUDV" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUDV">
+              <PropertyRef Name="MA_PHIEUDV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIET_PHIEUDV_PHUTUNG">
+          <End Role="PHUTUNG" Type="Self.PHUTUNG" Multiplicity="1" />
+          <End Role="CHITIET_PHIEUDV" Type="Self.CHITIET_PHIEUDV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHUTUNG">
+              <PropertyRef Name="MA_PHUTUNG" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUDV">
+              <PropertyRef Name="MA_PT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIET_PHIEUDV_TIENCONG">
+          <End Role="TIENCONG" Type="Self.TIENCONG" Multiplicity="0..1" />
+          <End Role="CHITIET_PHIEUDV" Type="Self.CHITIET_PHIEUDV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIENCONG">
+              <PropertyRef Name="MA_TIENCONG" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUDV">
+              <PropertyRef Name="MA_TIENCONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIET_PHIEUNH_PHIEU_NHAPHANG">
+          <End Role="PHIEU_NHAPHANG" Type="Self.PHIEU_NHAPHANG" Multiplicity="1" />
+          <End Role="CHITIET_PHIEUNH" Type="Self.CHITIET_PHIEUNH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_NHAPHANG">
+              <PropertyRef Name="MA_PHIEUNHAPHANG" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUNH">
+              <PropertyRef Name="MA_PHIEUNH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIET_PHIEUNH_PHUTUNG">
+          <End Role="PHUTUNG" Type="Self.PHUTUNG" Multiplicity="1" />
+          <End Role="CHITIET_PHIEUNH" Type="Self.CHITIET_PHIEUNH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHUTUNG">
+              <PropertyRef Name="MA_PHUTUNG" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUNH">
+              <PropertyRef Name="MA_PHUTUNG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NHANVIEN_NHOMNGUOIDUNG">
+          <End Role="NHOMNGUOIDUNG" Type="Self.NHOMNGUOIDUNG" Multiplicity="0..1" />
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHOMNGUOIDUNG">
+              <PropertyRef Name="MA_NHOMNGUOIDUNG" />
+            </Principal>
+            <Dependent Role="NHANVIEN">
+              <PropertyRef Name="MA_NHOMNGUOIDUNG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEU_BAOHANH_NHANVIEN">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+          <End Role="PHIEU_BAOHANH" Type="Self.PHIEU_BAOHANH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MA_NV" />
+            </Principal>
+            <Dependent Role="PHIEU_BAOHANH">
+              <PropertyRef Name="MA_NV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEU_DICHVU_NHANVIEN">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+          <End Role="PHIEU_DICHVU" Type="Self.PHIEU_DICHVU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MA_NV" />
+            </Principal>
+            <Dependent Role="PHIEU_DICHVU">
+              <PropertyRef Name="MA_NHANVIEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEU_DICHVU_PHIEUTIEPNHAN">
+          <End Role="PHIEU_TIEPNHAN" Type="Self.PHIEU_TIEPNHAN" Multiplicity="0..1" />
+          <End Role="PHIEU_DICHVU" Type="Self.PHIEU_DICHVU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_TIEPNHAN">
+              <PropertyRef Name="MA_PHIEUTIEPNHAN" />
+            </Principal>
+            <Dependent Role="PHIEU_DICHVU">
+              <PropertyRef Name="MAPHIEU_TIEPNHAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEU_NHAPHANG_NHANVIEN">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+          <End Role="PHIEU_NHAPHANG" Type="Self.PHIEU_NHAPHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MA_NV" />
+            </Principal>
+            <Dependent Role="PHIEU_NHAPHANG">
+              <PropertyRef Name="MA_NV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUCHI_NHANVIEN">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+          <End Role="PHIEUCHI" Type="Self.PHIEUCHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MA_NV" />
+            </Principal>
+            <Dependent Role="PHIEUCHI">
+              <PropertyRef Name="MA_NV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUCHI_PHIEU_NHAPHANG">
+          <End Role="PHIEU_NHAPHANG" Type="Self.PHIEU_NHAPHANG" Multiplicity="0..1" />
+          <End Role="PHIEUCHI" Type="Self.PHIEUCHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_NHAPHANG">
+              <PropertyRef Name="MA_PHIEUNHAPHANG" />
+            </Principal>
+            <Dependent Role="PHIEUCHI">
+              <PropertyRef Name="MA_PHIEUNHAP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUDV_THO">
+          <End Role="THO" Type="Self.THO" Multiplicity="0..1" />
+          <End Role="PHIEU_DICHVU" Type="Self.PHIEU_DICHVU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THO">
+              <PropertyRef Name="MA_THO" />
+            </Principal>
+            <Dependent Role="PHIEU_DICHVU">
+              <PropertyRef Name="MATHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUTHUTIEN_NHANVIEN">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+          <End Role="PHIEU_THUTIEN" Type="Self.PHIEU_THUTIEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MA_NV" />
+            </Principal>
+            <Dependent Role="PHIEU_THUTIEN">
+              <PropertyRef Name="MA_NV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUTHUTIEN_PHIEU_DICHVU">
+          <End Role="PHIEU_DICHVU" Type="Self.PHIEU_DICHVU" Multiplicity="0..1" />
+          <End Role="PHIEU_THUTIEN" Type="Self.PHIEU_THUTIEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_DICHVU">
+              <PropertyRef Name="MA_PHIEUDV" />
+            </Principal>
+            <Dependent Role="PHIEU_THUTIEN">
+              <PropertyRef Name="MA_PHIEUDV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUTIEPNHAN_KHACHHANG">
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
+          <End Role="PHIEU_TIEPNHAN" Type="Self.PHIEU_TIEPNHAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MA_KH" />
+            </Principal>
+            <Dependent Role="PHIEU_TIEPNHAN">
+              <PropertyRef Name="MA_KH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUTIEPNHAN_XE">
+          <End Role="XE" Type="Self.XE" Multiplicity="0..1" />
+          <End Role="PHIEU_TIEPNHAN" Type="Self.PHIEU_TIEPNHAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XE">
+              <PropertyRef Name="BS_XE" />
+            </Principal>
+            <Dependent Role="PHIEU_TIEPNHAN">
+              <PropertyRef Name="BIENSO_XE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_XE_HIEUXE">
+          <End Role="HIEUXE" Type="Self.HIEUXE" Multiplicity="0..1" />
+          <End Role="XE" Type="Self.XE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HIEUXE">
+              <PropertyRef Name="MA_HIEUXE" />
+            </Principal>
+            <Dependent Role="XE">
+              <PropertyRef Name="HIEU_XE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GARADBModelStoreContainer">
+          <EntitySet Name="BANGTHAMSO" EntityType="Self.BANGTHAMSO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHITIET_PHIEUBH" EntityType="Self.CHITIET_PHIEUBH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHITIET_PHIEUDV" EntityType="Self.CHITIET_PHIEUDV" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHITIET_PHIEUNH" EntityType="Self.CHITIET_PHIEUNH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HIEUXE" EntityType="Self.HIEUXE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NHANVIEN" EntityType="Self.NHANVIEN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NHOMNGUOIDUNG" EntityType="Self.NHOMNGUOIDUNG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHIEU_BAOHANH" EntityType="Self.PHIEU_BAOHANH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHIEU_DICHVU" EntityType="Self.PHIEU_DICHVU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHIEU_NHAPHANG" EntityType="Self.PHIEU_NHAPHANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHIEU_THUTIEN" EntityType="Self.PHIEU_THUTIEN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHIEU_TIEPNHAN" EntityType="Self.PHIEU_TIEPNHAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHIEUCHI" EntityType="Self.PHIEUCHI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHUTUNG" EntityType="Self.PHUTUNG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="THO" EntityType="Self.THO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIENCONG" EntityType="Self.TIENCONG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="XE" EntityType="Self.XE" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CHITIET_PHIEUBH_PHIEU_BAOHANH" Association="Self.FK_CHITIET_PHIEUBH_PHIEU_BAOHANH">
+            <End Role="PHIEU_BAOHANH" EntitySet="PHIEU_BAOHANH" />
+            <End Role="CHITIET_PHIEUBH" EntitySet="CHITIET_PHIEUBH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHITIET_PHIEUBH_PHIEU_DICHVU" Association="Self.FK_CHITIET_PHIEUBH_PHIEU_DICHVU">
+            <End Role="PHIEU_DICHVU" EntitySet="PHIEU_DICHVU" />
+            <End Role="CHITIET_PHIEUBH" EntitySet="CHITIET_PHIEUBH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHITIET_PHIEUBH_PHUTUNG" Association="Self.FK_CHITIET_PHIEUBH_PHUTUNG">
+            <End Role="PHUTUNG" EntitySet="PHUTUNG" />
+            <End Role="CHITIET_PHIEUBH" EntitySet="CHITIET_PHIEUBH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHITIET_PHIEUDV_PHIEU_DICHVU" Association="Self.FK_CHITIET_PHIEUDV_PHIEU_DICHVU">
+            <End Role="PHIEU_DICHVU" EntitySet="PHIEU_DICHVU" />
+            <End Role="CHITIET_PHIEUDV" EntitySet="CHITIET_PHIEUDV" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHITIET_PHIEUDV_PHUTUNG" Association="Self.FK_CHITIET_PHIEUDV_PHUTUNG">
+            <End Role="PHUTUNG" EntitySet="PHUTUNG" />
+            <End Role="CHITIET_PHIEUDV" EntitySet="CHITIET_PHIEUDV" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHITIET_PHIEUDV_TIENCONG" Association="Self.FK_CHITIET_PHIEUDV_TIENCONG">
+            <End Role="TIENCONG" EntitySet="TIENCONG" />
+            <End Role="CHITIET_PHIEUDV" EntitySet="CHITIET_PHIEUDV" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHITIET_PHIEUNH_PHIEU_NHAPHANG" Association="Self.FK_CHITIET_PHIEUNH_PHIEU_NHAPHANG">
+            <End Role="PHIEU_NHAPHANG" EntitySet="PHIEU_NHAPHANG" />
+            <End Role="CHITIET_PHIEUNH" EntitySet="CHITIET_PHIEUNH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHITIET_PHIEUNH_PHUTUNG" Association="Self.FK_CHITIET_PHIEUNH_PHUTUNG">
+            <End Role="PHUTUNG" EntitySet="PHUTUNG" />
+            <End Role="CHITIET_PHIEUNH" EntitySet="CHITIET_PHIEUNH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NHANVIEN_NHOMNGUOIDUNG" Association="Self.FK_NHANVIEN_NHOMNGUOIDUNG">
+            <End Role="NHOMNGUOIDUNG" EntitySet="NHOMNGUOIDUNG" />
+            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEU_BAOHANH_NHANVIEN" Association="Self.FK_PHIEU_BAOHANH_NHANVIEN">
+            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+            <End Role="PHIEU_BAOHANH" EntitySet="PHIEU_BAOHANH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEU_DICHVU_NHANVIEN" Association="Self.FK_PHIEU_DICHVU_NHANVIEN">
+            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+            <End Role="PHIEU_DICHVU" EntitySet="PHIEU_DICHVU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEU_DICHVU_PHIEUTIEPNHAN" Association="Self.FK_PHIEU_DICHVU_PHIEUTIEPNHAN">
+            <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
+            <End Role="PHIEU_DICHVU" EntitySet="PHIEU_DICHVU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEU_NHAPHANG_NHANVIEN" Association="Self.FK_PHIEU_NHAPHANG_NHANVIEN">
+            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+            <End Role="PHIEU_NHAPHANG" EntitySet="PHIEU_NHAPHANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUCHI_NHANVIEN" Association="Self.FK_PHIEUCHI_NHANVIEN">
+            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+            <End Role="PHIEUCHI" EntitySet="PHIEUCHI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUCHI_PHIEU_NHAPHANG" Association="Self.FK_PHIEUCHI_PHIEU_NHAPHANG">
+            <End Role="PHIEU_NHAPHANG" EntitySet="PHIEU_NHAPHANG" />
+            <End Role="PHIEUCHI" EntitySet="PHIEUCHI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUDV_THO" Association="Self.FK_PHIEUDV_THO">
+            <End Role="THO" EntitySet="THO" />
+            <End Role="PHIEU_DICHVU" EntitySet="PHIEU_DICHVU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUTHUTIEN_NHANVIEN" Association="Self.FK_PHIEUTHUTIEN_NHANVIEN">
+            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+            <End Role="PHIEU_THUTIEN" EntitySet="PHIEU_THUTIEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUTHUTIEN_PHIEU_DICHVU" Association="Self.FK_PHIEUTHUTIEN_PHIEU_DICHVU">
+            <End Role="PHIEU_DICHVU" EntitySet="PHIEU_DICHVU" />
+            <End Role="PHIEU_THUTIEN" EntitySet="PHIEU_THUTIEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUTIEPNHAN_KHACHHANG" Association="Self.FK_PHIEUTIEPNHAN_KHACHHANG">
+            <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+            <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUTIEPNHAN_XE" Association="Self.FK_PHIEUTIEPNHAN_XE">
+            <End Role="XE" EntitySet="XE" />
+            <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_XE_HIEUXE" Association="Self.FK_XE_HIEUXE">
+            <End Role="HIEUXE" EntitySet="HIEUXE" />
+            <End Role="XE" EntitySet="XE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GARADBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BANGTHAMSO">
+          <Key>
+            <PropertyRef Name="TENTHAMSO" />
+          </Key>
+          <Property Name="TENTHAMSO" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="GIATRI" Type="String" MaxLength="255" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CHITIET_PHIEUBH">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MA_PHIEUDV" Type="Int32" Nullable="false" />
+          <Property Name="MA_PHUTUNG" Type="Int32" Nullable="false" />
+          <Property Name="MA_PHIEUBH" Type="Int32" Nullable="false" />
+          <Property Name="NGAYHENTRA" Type="DateTime" Precision="0" />
+          <Property Name="NGAYTRA" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="PHIEU_BAOHANH" Relationship="Self.FK_CHITIET_PHIEUBH_PHIEU_BAOHANH" FromRole="CHITIET_PHIEUBH" ToRole="PHIEU_BAOHANH" />
+          <NavigationProperty Name="PHUTUNG" Relationship="Self.FK_CHITIET_PHIEUBH_PHUTUNG" FromRole="CHITIET_PHIEUBH" ToRole="PHUTUNG" />
+          <NavigationProperty Name="PHIEU_DICHVU" Relationship="GARADBModel.FK_CHITIET_PHIEUBH_PHIEU_DICHVU" FromRole="CHITIET_PHIEUBH" ToRole="PHIEU_DICHVU" />
+        </EntityType>
+        <EntityType Name="CHITIET_PHIEUDV">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MA_PHIEUDV" Type="Int32" Nullable="false" />
+          <Property Name="MA_PT" Type="Int32" Nullable="false" />
+          <Property Name="MA_TIENCONG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <Property Name="DONGIA" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TIENCONG" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="THANHTIEN" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="THOIHAN_BAOHANH" Type="Int32" />
+          <NavigationProperty Name="PHUTUNG" Relationship="Self.FK_CHITIET_PHIEUDV_PHUTUNG" FromRole="CHITIET_PHIEUDV" ToRole="PHUTUNG" />
+          <NavigationProperty Name="TIENCONG1" Relationship="Self.FK_CHITIET_PHIEUDV_TIENCONG" FromRole="CHITIET_PHIEUDV" ToRole="TIENCONG" />
+          <NavigationProperty Name="PHIEU_DICHVU" Relationship="GARADBModel.FK_CHITIET_PHIEUDV_PHIEU_DICHVU" FromRole="CHITIET_PHIEUDV" ToRole="PHIEU_DICHVU" />
+        </EntityType>
+        <EntityType Name="CHITIET_PHIEUNH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MA_PHIEUNH" Type="Int32" Nullable="false" />
+          <Property Name="MA_PHUTUNG" Type="Int32" Nullable="false" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <Property Name="DONGIA" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="THANHTIEN" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="PHIEU_NHAPHANG" Relationship="Self.FK_CHITIET_PHIEUNH_PHIEU_NHAPHANG" FromRole="CHITIET_PHIEUNH" ToRole="PHIEU_NHAPHANG" />
+          <NavigationProperty Name="PHUTUNG" Relationship="Self.FK_CHITIET_PHIEUNH_PHUTUNG" FromRole="CHITIET_PHIEUNH" ToRole="PHUTUNG" />
+        </EntityType>
+        <EntityType Name="HIEUXE">
+          <Key>
+            <PropertyRef Name="MA_HIEUXE" />
+          </Key>
+          <Property Name="MA_HIEUXE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="XEs" Relationship="Self.FK_XE_HIEUXE" FromRole="HIEUXE" ToRole="XE" />
+        </EntityType>
+        <EntityType Name="KHACHHANG">
+          <Key>
+            <PropertyRef Name="MA_KH" />
+          </Key>
+          <Property Name="MA_KH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TEN_KH" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CMND" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="DIACHI" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SOTIENNO" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="PHIEU_TIEPNHAN" Relationship="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG" FromRole="KHACHHANG" ToRole="PHIEU_TIEPNHAN" />
+        </EntityType>
+        <EntityType Name="NHANVIEN">
+          <Key>
+            <PropertyRef Name="MA_NV" />
+          </Key>
+          <Property Name="MA_NV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HOTEN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="DIACHI" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MA_NHOMNGUOIDUNG" Type="Int32" />
+          <NavigationProperty Name="NHOMNGUOIDUNG" Relationship="Self.FK_NHANVIEN_NHOMNGUOIDUNG" FromRole="NHANVIEN" ToRole="NHOMNGUOIDUNG" />
+          <NavigationProperty Name="PHIEU_BAOHANH" Relationship="Self.FK_PHIEU_BAOHANH_NHANVIEN" FromRole="NHANVIEN" ToRole="PHIEU_BAOHANH" />
+          <NavigationProperty Name="PHIEU_NHAPHANG" Relationship="Self.FK_PHIEU_NHAPHANG_NHANVIEN" FromRole="NHANVIEN" ToRole="PHIEU_NHAPHANG" />
+          <NavigationProperty Name="PHIEUCHIs" Relationship="Self.FK_PHIEUCHI_NHANVIEN" FromRole="NHANVIEN" ToRole="PHIEUCHI" />
+          <NavigationProperty Name="PHIEU_THUTIEN" Relationship="Self.FK_PHIEUTHUTIEN_NHANVIEN" FromRole="NHANVIEN" ToRole="PHIEU_THUTIEN" />
+          <NavigationProperty Name="PHIEU_DICHVU" Relationship="GARADBModel.FK_PHIEU_DICHVU_NHANVIEN" FromRole="NHANVIEN" ToRole="PHIEU_DICHVU" />
+        </EntityType>
+        <EntityType Name="NHOMNGUOIDUNG">
+          <Key>
+            <PropertyRef Name="MA_NHOMNGUOIDUNG" />
+          </Key>
+          <Property Name="MA_NHOMNGUOIDUNG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TEN_NHOM" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CAPDO" Type="Int32" />
+          <NavigationProperty Name="NHANVIENs" Relationship="Self.FK_NHANVIEN_NHOMNGUOIDUNG" FromRole="NHOMNGUOIDUNG" ToRole="NHANVIEN" />
+        </EntityType>
+        <EntityType Name="PHIEU_BAOHANH">
+          <Key>
+            <PropertyRef Name="MA_PHIEUBH" />
+          </Key>
+          <Property Name="MA_PHIEUBH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NGAYCAP" Type="DateTime" Precision="0" />
+          <Property Name="MA_NV" Type="Int32" />
+          <Property Name="TINHTRANG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CHITIET_PHIEUBH" Relationship="Self.FK_CHITIET_PHIEUBH_PHIEU_BAOHANH" FromRole="PHIEU_BAOHANH" ToRole="CHITIET_PHIEUBH" />
+          <NavigationProperty Name="NHANVIEN" Relationship="Self.FK_PHIEU_BAOHANH_NHANVIEN" FromRole="PHIEU_BAOHANH" ToRole="NHANVIEN" />
+        </EntityType>
+        <EntityType Name="PHIEU_NHAPHANG">
+          <Key>
+            <PropertyRef Name="MA_PHIEUNHAPHANG" />
+          </Key>
+          <Property Name="MA_PHIEUNHAPHANG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NGAYLAP" Type="DateTime" Precision="0" />
+          <Property Name="MA_NV" Type="Int32" />
+          <Property Name="TONGTIEN" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TINHTRANG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CHITIET_PHIEUNH" Relationship="Self.FK_CHITIET_PHIEUNH_PHIEU_NHAPHANG" FromRole="PHIEU_NHAPHANG" ToRole="CHITIET_PHIEUNH" />
+          <NavigationProperty Name="NHANVIEN" Relationship="Self.FK_PHIEU_NHAPHANG_NHANVIEN" FromRole="PHIEU_NHAPHANG" ToRole="NHANVIEN" />
+          <NavigationProperty Name="PHIEUCHIs" Relationship="Self.FK_PHIEUCHI_PHIEU_NHAPHANG" FromRole="PHIEU_NHAPHANG" ToRole="PHIEUCHI" />
+        </EntityType>
+        <EntityType Name="PHIEU_THUTIEN">
+          <Key>
+            <PropertyRef Name="MA_PHIEUTHUTIEN" />
+          </Key>
+          <Property Name="MA_PHIEUTHUTIEN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NGAYLAP" Type="DateTime" Precision="0" />
+          <Property Name="MA_PHIEUDV" Type="Int32" />
+          <Property Name="NOIDUNG_THU" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SOTIEN" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MA_NV" Type="Int32" />
+          <Property Name="TINHTRANG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NHANVIEN" Relationship="Self.FK_PHIEUTHUTIEN_NHANVIEN" FromRole="PHIEU_THUTIEN" ToRole="NHANVIEN" />
+          <NavigationProperty Name="PHIEU_DICHVU" Relationship="GARADBModel.FK_PHIEUTHUTIEN_PHIEU_DICHVU" FromRole="PHIEU_THUTIEN" ToRole="PHIEU_DICHVU" />
+        </EntityType>
+        <EntityType Name="PHIEUCHI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MA_PHIEUCHI" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NOIDUNG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SOTIEN" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MA_NV" Type="Int32" />
+          <Property Name="MA_PHIEUNHAP" Type="Int32" />
+          <Property Name="TINHTRANG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NHANVIEN" Relationship="Self.FK_PHIEUCHI_NHANVIEN" FromRole="PHIEUCHI" ToRole="NHANVIEN" />
+          <NavigationProperty Name="PHIEU_NHAPHANG" Relationship="Self.FK_PHIEUCHI_PHIEU_NHAPHANG" FromRole="PHIEUCHI" ToRole="PHIEU_NHAPHANG" />
+        </EntityType>
+        <EntityType Name="PHUTUNG">
+          <Key>
+            <PropertyRef Name="MA_PHUTUNG" />
+          </Key>
+          <Property Name="MA_PHUTUNG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TEN_PHUTUNG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SOLUONGTON" Type="Int32" />
+          <NavigationProperty Name="CHITIET_PHIEUBH" Relationship="Self.FK_CHITIET_PHIEUBH_PHUTUNG" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUBH" />
+          <NavigationProperty Name="CHITIET_PHIEUDV" Relationship="Self.FK_CHITIET_PHIEUDV_PHUTUNG" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUDV" />
+          <NavigationProperty Name="CHITIET_PHIEUNH" Relationship="Self.FK_CHITIET_PHIEUNH_PHUTUNG" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUNH" />
+        </EntityType>
+        <EntityType Name="THO">
+          <Key>
+            <PropertyRef Name="MA_THO" />
+          </Key>
+          <Property Name="MA_THO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENTHO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="DIACHI" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PHIEU_DICHVU" Relationship="GARADBModel.FK_PHIEUDV_THO" FromRole="THO" ToRole="PHIEU_DICHVU" />
+        </EntityType>
+        <EntityType Name="TIENCONG">
+          <Key>
+            <PropertyRef Name="MA_TIENCONG" />
+          </Key>
+          <Property Name="MA_TIENCONG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SOTIEN" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="CHITIET_PHIEUDV" Relationship="Self.FK_CHITIET_PHIEUDV_TIENCONG" FromRole="TIENCONG" ToRole="CHITIET_PHIEUDV" />
+        </EntityType>
+        <EntityType Name="XE">
+          <Key>
+            <PropertyRef Name="BS_XE" />
+          </Key>
+          <Property Name="BS_XE" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MA_KH" Type="Int32" />
+          <Property Name="NGAY_TIEPNHAN" Type="DateTime" Precision="0" />
+          <Property Name="HIEU_XE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HIEUXE" Relationship="Self.FK_XE_HIEUXE" FromRole="XE" ToRole="HIEUXE" />
+          <NavigationProperty Name="PHIEU_TIEPNHAN" Relationship="GARADBModel.FK_PHIEUTIEPNHAN_XE" FromRole="XE" ToRole="PHIEU_TIEPNHAN" />
+        </EntityType>
+        <Association Name="FK_CHITIET_PHIEUBH_PHIEU_BAOHANH">
+          <End Role="PHIEU_BAOHANH" Type="Self.PHIEU_BAOHANH" Multiplicity="1" />
+          <End Role="CHITIET_PHIEUBH" Type="Self.CHITIET_PHIEUBH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_BAOHANH">
+              <PropertyRef Name="MA_PHIEUBH" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUBH">
+              <PropertyRef Name="MA_PHIEUBH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIET_PHIEUBH_PHUTUNG">
+          <End Role="PHUTUNG" Type="Self.PHUTUNG" Multiplicity="1" />
+          <End Role="CHITIET_PHIEUBH" Type="Self.CHITIET_PHIEUBH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHUTUNG">
+              <PropertyRef Name="MA_PHUTUNG" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUBH">
+              <PropertyRef Name="MA_PHUTUNG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIET_PHIEUDV_PHUTUNG">
+          <End Role="PHUTUNG" Type="Self.PHUTUNG" Multiplicity="1" />
+          <End Role="CHITIET_PHIEUDV" Type="Self.CHITIET_PHIEUDV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHUTUNG">
+              <PropertyRef Name="MA_PHUTUNG" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUDV">
+              <PropertyRef Name="MA_PT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIET_PHIEUDV_TIENCONG">
+          <End Role="TIENCONG" Type="Self.TIENCONG" Multiplicity="0..1" />
+          <End Role="CHITIET_PHIEUDV" Type="Self.CHITIET_PHIEUDV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIENCONG">
+              <PropertyRef Name="MA_TIENCONG" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUDV">
+              <PropertyRef Name="MA_TIENCONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIET_PHIEUNH_PHIEU_NHAPHANG">
+          <End Role="PHIEU_NHAPHANG" Type="Self.PHIEU_NHAPHANG" Multiplicity="1" />
+          <End Role="CHITIET_PHIEUNH" Type="Self.CHITIET_PHIEUNH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_NHAPHANG">
+              <PropertyRef Name="MA_PHIEUNHAPHANG" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUNH">
+              <PropertyRef Name="MA_PHIEUNH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIET_PHIEUNH_PHUTUNG">
+          <End Role="PHUTUNG" Type="Self.PHUTUNG" Multiplicity="1" />
+          <End Role="CHITIET_PHIEUNH" Type="Self.CHITIET_PHIEUNH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHUTUNG">
+              <PropertyRef Name="MA_PHUTUNG" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUNH">
+              <PropertyRef Name="MA_PHUTUNG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_XE_HIEUXE">
+          <End Role="HIEUXE" Type="Self.HIEUXE" Multiplicity="0..1" />
+          <End Role="XE" Type="Self.XE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HIEUXE">
+              <PropertyRef Name="MA_HIEUXE" />
+            </Principal>
+            <Dependent Role="XE">
+              <PropertyRef Name="HIEU_XE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NHANVIEN_NHOMNGUOIDUNG">
+          <End Role="NHOMNGUOIDUNG" Type="Self.NHOMNGUOIDUNG" Multiplicity="0..1" />
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHOMNGUOIDUNG">
+              <PropertyRef Name="MA_NHOMNGUOIDUNG" />
+            </Principal>
+            <Dependent Role="NHANVIEN">
+              <PropertyRef Name="MA_NHOMNGUOIDUNG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEU_BAOHANH_NHANVIEN">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+          <End Role="PHIEU_BAOHANH" Type="Self.PHIEU_BAOHANH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MA_NV" />
+            </Principal>
+            <Dependent Role="PHIEU_BAOHANH">
+              <PropertyRef Name="MA_NV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEU_NHAPHANG_NHANVIEN">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+          <End Role="PHIEU_NHAPHANG" Type="Self.PHIEU_NHAPHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MA_NV" />
+            </Principal>
+            <Dependent Role="PHIEU_NHAPHANG">
+              <PropertyRef Name="MA_NV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUCHI_NHANVIEN">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+          <End Role="PHIEUCHI" Type="Self.PHIEUCHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MA_NV" />
+            </Principal>
+            <Dependent Role="PHIEUCHI">
+              <PropertyRef Name="MA_NV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUTHUTIEN_NHANVIEN">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+          <End Role="PHIEU_THUTIEN" Type="Self.PHIEU_THUTIEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MA_NV" />
+            </Principal>
+            <Dependent Role="PHIEU_THUTIEN">
+              <PropertyRef Name="MA_NV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUCHI_PHIEU_NHAPHANG">
+          <End Role="PHIEU_NHAPHANG" Type="Self.PHIEU_NHAPHANG" Multiplicity="0..1" />
+          <End Role="PHIEUCHI" Type="Self.PHIEUCHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_NHAPHANG">
+              <PropertyRef Name="MA_PHIEUNHAPHANG" />
+            </Principal>
+            <Dependent Role="PHIEUCHI">
+              <PropertyRef Name="MA_PHIEUNHAP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GARADBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BANGTHAMSOes" EntityType="Self.BANGTHAMSO" />
+          <EntitySet Name="CHITIET_PHIEUBH" EntityType="Self.CHITIET_PHIEUBH" />
+          <EntitySet Name="CHITIET_PHIEUDV" EntityType="Self.CHITIET_PHIEUDV" />
+          <EntitySet Name="CHITIET_PHIEUNH" EntityType="Self.CHITIET_PHIEUNH" />
+          <EntitySet Name="HIEUXEs" EntityType="Self.HIEUXE" />
+          <EntitySet Name="KHACHHANGs" EntityType="Self.KHACHHANG" />
+          <EntitySet Name="NHANVIENs" EntityType="Self.NHANVIEN" />
+          <EntitySet Name="NHOMNGUOIDUNGs" EntityType="Self.NHOMNGUOIDUNG" />
+          <EntitySet Name="PHIEU_BAOHANH" EntityType="Self.PHIEU_BAOHANH" />
+          <EntitySet Name="PHIEU_NHAPHANG" EntityType="Self.PHIEU_NHAPHANG" />
+          <EntitySet Name="PHIEU_THUTIEN" EntityType="Self.PHIEU_THUTIEN" />
+          <EntitySet Name="PHIEUCHIs" EntityType="Self.PHIEUCHI" />
+          <EntitySet Name="PHUTUNGs" EntityType="Self.PHUTUNG" />
+          <EntitySet Name="THOes" EntityType="Self.THO" />
+          <EntitySet Name="TIENCONGs" EntityType="Self.TIENCONG" />
+          <EntitySet Name="XEs" EntityType="Self.XE" />
+          <AssociationSet Name="FK_CHITIET_PHIEUBH_PHIEU_BAOHANH" Association="Self.FK_CHITIET_PHIEUBH_PHIEU_BAOHANH">
+            <End Role="PHIEU_BAOHANH" EntitySet="PHIEU_BAOHANH" />
+            <End Role="CHITIET_PHIEUBH" EntitySet="CHITIET_PHIEUBH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHITIET_PHIEUBH_PHUTUNG" Association="Self.FK_CHITIET_PHIEUBH_PHUTUNG">
+            <End Role="PHUTUNG" EntitySet="PHUTUNGs" />
+            <End Role="CHITIET_PHIEUBH" EntitySet="CHITIET_PHIEUBH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHITIET_PHIEUDV_PHUTUNG" Association="Self.FK_CHITIET_PHIEUDV_PHUTUNG">
+            <End Role="PHUTUNG" EntitySet="PHUTUNGs" />
+            <End Role="CHITIET_PHIEUDV" EntitySet="CHITIET_PHIEUDV" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHITIET_PHIEUDV_TIENCONG" Association="Self.FK_CHITIET_PHIEUDV_TIENCONG">
+            <End Role="TIENCONG" EntitySet="TIENCONGs" />
+            <End Role="CHITIET_PHIEUDV" EntitySet="CHITIET_PHIEUDV" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHITIET_PHIEUNH_PHIEU_NHAPHANG" Association="Self.FK_CHITIET_PHIEUNH_PHIEU_NHAPHANG">
+            <End Role="PHIEU_NHAPHANG" EntitySet="PHIEU_NHAPHANG" />
+            <End Role="CHITIET_PHIEUNH" EntitySet="CHITIET_PHIEUNH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHITIET_PHIEUNH_PHUTUNG" Association="Self.FK_CHITIET_PHIEUNH_PHUTUNG">
+            <End Role="PHUTUNG" EntitySet="PHUTUNGs" />
+            <End Role="CHITIET_PHIEUNH" EntitySet="CHITIET_PHIEUNH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_XE_HIEUXE" Association="Self.FK_XE_HIEUXE">
+            <End Role="HIEUXE" EntitySet="HIEUXEs" />
+            <End Role="XE" EntitySet="XEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NHANVIEN_NHOMNGUOIDUNG" Association="Self.FK_NHANVIEN_NHOMNGUOIDUNG">
+            <End Role="NHOMNGUOIDUNG" EntitySet="NHOMNGUOIDUNGs" />
+            <End Role="NHANVIEN" EntitySet="NHANVIENs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEU_BAOHANH_NHANVIEN" Association="Self.FK_PHIEU_BAOHANH_NHANVIEN">
+            <End Role="NHANVIEN" EntitySet="NHANVIENs" />
+            <End Role="PHIEU_BAOHANH" EntitySet="PHIEU_BAOHANH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEU_NHAPHANG_NHANVIEN" Association="Self.FK_PHIEU_NHAPHANG_NHANVIEN">
+            <End Role="NHANVIEN" EntitySet="NHANVIENs" />
+            <End Role="PHIEU_NHAPHANG" EntitySet="PHIEU_NHAPHANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUCHI_NHANVIEN" Association="Self.FK_PHIEUCHI_NHANVIEN">
+            <End Role="NHANVIEN" EntitySet="NHANVIENs" />
+            <End Role="PHIEUCHI" EntitySet="PHIEUCHIs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUTHUTIEN_NHANVIEN" Association="Self.FK_PHIEUTHUTIEN_NHANVIEN">
+            <End Role="NHANVIEN" EntitySet="NHANVIENs" />
+            <End Role="PHIEU_THUTIEN" EntitySet="PHIEU_THUTIEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUCHI_PHIEU_NHAPHANG" Association="Self.FK_PHIEUCHI_PHIEU_NHAPHANG">
+            <End Role="PHIEU_NHAPHANG" EntitySet="PHIEU_NHAPHANG" />
+            <End Role="PHIEUCHI" EntitySet="PHIEUCHIs" />
+          </AssociationSet>
+          <EntitySet Name="PHIEU_DICHVU" EntityType="GARADBModel.PHIEU_DICHVU" />
+          <EntitySet Name="PHIEU_TIEPNHAN" EntityType="GARADBModel.PHIEU_TIEPNHAN" />
+          <AssociationSet Name="FK_CHITIET_PHIEUBH_PHIEU_DICHVU" Association="GARADBModel.FK_CHITIET_PHIEUBH_PHIEU_DICHVU">
+            <End Role="PHIEU_DICHVU" EntitySet="PHIEU_DICHVU" />
+            <End Role="CHITIET_PHIEUBH" EntitySet="CHITIET_PHIEUBH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHITIET_PHIEUDV_PHIEU_DICHVU" Association="GARADBModel.FK_CHITIET_PHIEUDV_PHIEU_DICHVU">
+            <End Role="PHIEU_DICHVU" EntitySet="PHIEU_DICHVU" />
+            <End Role="CHITIET_PHIEUDV" EntitySet="CHITIET_PHIEUDV" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUTIEPNHAN_KHACHHANG" Association="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG">
+            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
+            <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEU_DICHVU_NHANVIEN" Association="GARADBModel.FK_PHIEU_DICHVU_NHANVIEN">
+            <End Role="NHANVIEN" EntitySet="NHANVIENs" />
+            <End Role="PHIEU_DICHVU" EntitySet="PHIEU_DICHVU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEU_DICHVU_PHIEUTIEPNHAN" Association="GARADBModel.FK_PHIEU_DICHVU_PHIEUTIEPNHAN">
+            <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
+            <End Role="PHIEU_DICHVU" EntitySet="PHIEU_DICHVU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUDV_THO" Association="GARADBModel.FK_PHIEUDV_THO">
+            <End Role="THO" EntitySet="THOes" />
+            <End Role="PHIEU_DICHVU" EntitySet="PHIEU_DICHVU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUTHUTIEN_PHIEU_DICHVU" Association="GARADBModel.FK_PHIEUTHUTIEN_PHIEU_DICHVU">
+            <End Role="PHIEU_DICHVU" EntitySet="PHIEU_DICHVU" />
+            <End Role="PHIEU_THUTIEN" EntitySet="PHIEU_THUTIEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUTIEPNHAN_XE" Association="GARADBModel.FK_PHIEUTIEPNHAN_XE">
+            <End Role="XE" EntitySet="XEs" />
+            <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="PHIEU_DICHVU">
+          <Key>
+            <PropertyRef Name="MA_PHIEUDV" />
+          </Key>
+          <Property Name="MA_PHIEUDV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NGAYLAP" Type="DateTime" Precision="0" />
+          <Property Name="MAPHIEU_TIEPNHAN" Type="Int32" />
+          <Property Name="TONGTIEN" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SOTIEN_CONLAI" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TINHTRANG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MATHO" Type="Int32" />
+          <Property Name="MA_NHANVIEN" Type="Int32" />
+          <NavigationProperty Name="CHITIET_PHIEUBH" Relationship="GARADBModel.FK_CHITIET_PHIEUBH_PHIEU_DICHVU" FromRole="PHIEU_DICHVU" ToRole="CHITIET_PHIEUBH" />
+          <NavigationProperty Name="CHITIET_PHIEUDV" Relationship="GARADBModel.FK_CHITIET_PHIEUDV_PHIEU_DICHVU" FromRole="PHIEU_DICHVU" ToRole="CHITIET_PHIEUDV" />
+          <NavigationProperty Name="NHANVIEN" Relationship="GARADBModel.FK_PHIEU_DICHVU_NHANVIEN" FromRole="PHIEU_DICHVU" ToRole="NHANVIEN" />
+          <NavigationProperty Name="PHIEU_TIEPNHAN" Relationship="GARADBModel.FK_PHIEU_DICHVU_PHIEUTIEPNHAN" FromRole="PHIEU_DICHVU" ToRole="PHIEU_TIEPNHAN" />
+          <NavigationProperty Name="THO" Relationship="GARADBModel.FK_PHIEUDV_THO" FromRole="PHIEU_DICHVU" ToRole="THO" />
+          <NavigationProperty Name="PHIEU_THUTIEN" Relationship="GARADBModel.FK_PHIEUTHUTIEN_PHIEU_DICHVU" FromRole="PHIEU_DICHVU" ToRole="PHIEU_THUTIEN" />
+        </EntityType>
+        <EntityType Name="PHIEU_TIEPNHAN">
+          <Key>
+            <PropertyRef Name="MA_PHIEUTIEPNHAN" />
+          </Key>
+          <Property Name="MA_PHIEUTIEPNHAN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MA_KH" Type="Int32" Nullable="false" />
+          <Property Name="NGAYLAP" Type="DateTime" Precision="0" />
+          <Property Name="BIENSO_XE" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="MASOCHO" Type="Int32" />
+          <Property Name="TINHTRANG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="KHACHHANG" Relationship="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG" FromRole="PHIEU_TIEPNHAN" ToRole="KHACHHANG" />
+          <NavigationProperty Name="PHIEU_DICHVU" Relationship="GARADBModel.FK_PHIEU_DICHVU_PHIEUTIEPNHAN" FromRole="PHIEU_TIEPNHAN" ToRole="PHIEU_DICHVU" />
+          <NavigationProperty Name="XE" Relationship="GARADBModel.FK_PHIEUTIEPNHAN_XE" FromRole="PHIEU_TIEPNHAN" ToRole="XE" />
+        </EntityType>
+        <Association Name="FK_CHITIET_PHIEUBH_PHIEU_DICHVU">
+          <End Type="GARADBModel.PHIEU_DICHVU" Role="PHIEU_DICHVU" Multiplicity="1" />
+          <End Type="GARADBModel.CHITIET_PHIEUBH" Role="CHITIET_PHIEUBH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_DICHVU">
+              <PropertyRef Name="MA_PHIEUDV" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUBH">
+              <PropertyRef Name="MA_PHIEUDV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIET_PHIEUDV_PHIEU_DICHVU">
+          <End Type="GARADBModel.PHIEU_DICHVU" Role="PHIEU_DICHVU" Multiplicity="1" />
+          <End Type="GARADBModel.CHITIET_PHIEUDV" Role="CHITIET_PHIEUDV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_DICHVU">
+              <PropertyRef Name="MA_PHIEUDV" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUDV">
+              <PropertyRef Name="MA_PHIEUDV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUTIEPNHAN_KHACHHANG">
+          <End Type="GARADBModel.KHACHHANG" Role="KHACHHANG" Multiplicity="1" />
+          <End Type="GARADBModel.PHIEU_TIEPNHAN" Role="PHIEU_TIEPNHAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MA_KH" />
+            </Principal>
+            <Dependent Role="PHIEU_TIEPNHAN">
+              <PropertyRef Name="MA_KH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEU_DICHVU_NHANVIEN">
+          <End Type="GARADBModel.NHANVIEN" Role="NHANVIEN" Multiplicity="0..1" />
+          <End Type="GARADBModel.PHIEU_DICHVU" Role="PHIEU_DICHVU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MA_NV" />
+            </Principal>
+            <Dependent Role="PHIEU_DICHVU">
+              <PropertyRef Name="MA_NHANVIEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEU_DICHVU_PHIEUTIEPNHAN">
+          <End Type="GARADBModel.PHIEU_TIEPNHAN" Role="PHIEU_TIEPNHAN" Multiplicity="0..1" />
+          <End Type="GARADBModel.PHIEU_DICHVU" Role="PHIEU_DICHVU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_TIEPNHAN">
+              <PropertyRef Name="MA_PHIEUTIEPNHAN" />
+            </Principal>
+            <Dependent Role="PHIEU_DICHVU">
+              <PropertyRef Name="MAPHIEU_TIEPNHAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUDV_THO">
+          <End Type="GARADBModel.THO" Role="THO" Multiplicity="0..1" />
+          <End Type="GARADBModel.PHIEU_DICHVU" Role="PHIEU_DICHVU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THO">
+              <PropertyRef Name="MA_THO" />
+            </Principal>
+            <Dependent Role="PHIEU_DICHVU">
+              <PropertyRef Name="MATHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUTHUTIEN_PHIEU_DICHVU">
+          <End Type="GARADBModel.PHIEU_DICHVU" Role="PHIEU_DICHVU" Multiplicity="0..1" />
+          <End Type="GARADBModel.PHIEU_THUTIEN" Role="PHIEU_THUTIEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_DICHVU">
+              <PropertyRef Name="MA_PHIEUDV" />
+            </Principal>
+            <Dependent Role="PHIEU_THUTIEN">
+              <PropertyRef Name="MA_PHIEUDV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUTIEPNHAN_XE">
+          <End Type="GARADBModel.XE" Role="XE" Multiplicity="0..1" />
+          <End Type="GARADBModel.PHIEU_TIEPNHAN" Role="PHIEU_TIEPNHAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XE">
+              <PropertyRef Name="BS_XE" />
+            </Principal>
+            <Dependent Role="PHIEU_TIEPNHAN">
+              <PropertyRef Name="BIENSO_XE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GARADBModelStoreContainer" CdmEntityContainer="GARADBEntities">
+          <EntitySetMapping Name="BANGTHAMSOes">
+            <EntityTypeMapping TypeName="GARADBModel.BANGTHAMSO">
+              <MappingFragment StoreEntitySet="BANGTHAMSO">
+                <ScalarProperty Name="TENTHAMSO" ColumnName="TENTHAMSO" />
+                <ScalarProperty Name="GIATRI" ColumnName="GIATRI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHITIET_PHIEUBH">
+            <EntityTypeMapping TypeName="GARADBModel.CHITIET_PHIEUBH">
+              <MappingFragment StoreEntitySet="CHITIET_PHIEUBH">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MA_PHIEUDV" ColumnName="MA_PHIEUDV" />
+                <ScalarProperty Name="MA_PHUTUNG" ColumnName="MA_PHUTUNG" />
+                <ScalarProperty Name="MA_PHIEUBH" ColumnName="MA_PHIEUBH" />
+                <ScalarProperty Name="NGAYHENTRA" ColumnName="NGAYHENTRA" />
+                <ScalarProperty Name="NGAYTRA" ColumnName="NGAYTRA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHITIET_PHIEUDV">
+            <EntityTypeMapping TypeName="GARADBModel.CHITIET_PHIEUDV">
+              <MappingFragment StoreEntitySet="CHITIET_PHIEUDV">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MA_PHIEUDV" ColumnName="MA_PHIEUDV" />
+                <ScalarProperty Name="MA_PT" ColumnName="MA_PT" />
+                <ScalarProperty Name="MA_TIENCONG" ColumnName="MA_TIENCONG" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="TIENCONG" ColumnName="TIENCONG" />
+                <ScalarProperty Name="THANHTIEN" ColumnName="THANHTIEN" />
+                <ScalarProperty Name="THOIHAN_BAOHANH" ColumnName="THOIHAN_BAOHANH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHITIET_PHIEUNH">
+            <EntityTypeMapping TypeName="GARADBModel.CHITIET_PHIEUNH">
+              <MappingFragment StoreEntitySet="CHITIET_PHIEUNH">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MA_PHIEUNH" ColumnName="MA_PHIEUNH" />
+                <ScalarProperty Name="MA_PHUTUNG" ColumnName="MA_PHUTUNG" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="THANHTIEN" ColumnName="THANHTIEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HIEUXEs">
+            <EntityTypeMapping TypeName="GARADBModel.HIEUXE">
+              <MappingFragment StoreEntitySet="HIEUXE">
+                <ScalarProperty Name="MA_HIEUXE" ColumnName="MA_HIEUXE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KHACHHANGs">
+            <EntityTypeMapping TypeName="GARADBModel.KHACHHANG">
+              <MappingFragment StoreEntitySet="KHACHHANG">
+                <ScalarProperty Name="MA_KH" ColumnName="MA_KH" />
+                <ScalarProperty Name="TEN_KH" ColumnName="TEN_KH" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="SOTIENNO" ColumnName="SOTIENNO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NHANVIENs">
+            <EntityTypeMapping TypeName="GARADBModel.NHANVIEN">
+              <MappingFragment StoreEntitySet="NHANVIEN">
+                <ScalarProperty Name="MA_NV" ColumnName="MA_NV" />
+                <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="MA_NHOMNGUOIDUNG" ColumnName="MA_NHOMNGUOIDUNG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NHOMNGUOIDUNGs">
+            <EntityTypeMapping TypeName="GARADBModel.NHOMNGUOIDUNG">
+              <MappingFragment StoreEntitySet="NHOMNGUOIDUNG">
+                <ScalarProperty Name="MA_NHOMNGUOIDUNG" ColumnName="MA_NHOMNGUOIDUNG" />
+                <ScalarProperty Name="TEN_NHOM" ColumnName="TEN_NHOM" />
+                <ScalarProperty Name="CAPDO" ColumnName="CAPDO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHIEU_BAOHANH">
+            <EntityTypeMapping TypeName="GARADBModel.PHIEU_BAOHANH">
+              <MappingFragment StoreEntitySet="PHIEU_BAOHANH">
+                <ScalarProperty Name="MA_PHIEUBH" ColumnName="MA_PHIEUBH" />
+                <ScalarProperty Name="NGAYCAP" ColumnName="NGAYCAP" />
+                <ScalarProperty Name="MA_NV" ColumnName="MA_NV" />
+                <ScalarProperty Name="TINHTRANG" ColumnName="TINHTRANG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHIEU_NHAPHANG">
+            <EntityTypeMapping TypeName="GARADBModel.PHIEU_NHAPHANG">
+              <MappingFragment StoreEntitySet="PHIEU_NHAPHANG">
+                <ScalarProperty Name="MA_PHIEUNHAPHANG" ColumnName="MA_PHIEUNHAPHANG" />
+                <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
+                <ScalarProperty Name="MA_NV" ColumnName="MA_NV" />
+                <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+                <ScalarProperty Name="TINHTRANG" ColumnName="TINHTRANG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHIEU_THUTIEN">
+            <EntityTypeMapping TypeName="GARADBModel.PHIEU_THUTIEN">
+              <MappingFragment StoreEntitySet="PHIEU_THUTIEN">
+                <ScalarProperty Name="MA_PHIEUTHUTIEN" ColumnName="MA_PHIEUTHUTIEN" />
+                <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
+                <ScalarProperty Name="MA_PHIEUDV" ColumnName="MA_PHIEUDV" />
+                <ScalarProperty Name="NOIDUNG_THU" ColumnName="NOIDUNG_THU" />
+                <ScalarProperty Name="SOTIEN" ColumnName="SOTIEN" />
+                <ScalarProperty Name="MA_NV" ColumnName="MA_NV" />
+                <ScalarProperty Name="TINHTRANG" ColumnName="TINHTRANG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHIEUCHIs">
+            <EntityTypeMapping TypeName="GARADBModel.PHIEUCHI">
+              <MappingFragment StoreEntitySet="PHIEUCHI">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MA_PHIEUCHI" ColumnName="MA_PHIEUCHI" />
+                <ScalarProperty Name="NOIDUNG" ColumnName="NOIDUNG" />
+                <ScalarProperty Name="SOTIEN" ColumnName="SOTIEN" />
+                <ScalarProperty Name="MA_NV" ColumnName="MA_NV" />
+                <ScalarProperty Name="MA_PHIEUNHAP" ColumnName="MA_PHIEUNHAP" />
+                <ScalarProperty Name="TINHTRANG" ColumnName="TINHTRANG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHUTUNGs">
+            <EntityTypeMapping TypeName="GARADBModel.PHUTUNG">
+              <MappingFragment StoreEntitySet="PHUTUNG">
+                <ScalarProperty Name="MA_PHUTUNG" ColumnName="MA_PHUTUNG" />
+                <ScalarProperty Name="TEN_PHUTUNG" ColumnName="TEN_PHUTUNG" />
+                <ScalarProperty Name="SOLUONGTON" ColumnName="SOLUONGTON" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="THOes">
+            <EntityTypeMapping TypeName="GARADBModel.THO">
+              <MappingFragment StoreEntitySet="THO">
+                <ScalarProperty Name="MA_THO" ColumnName="MA_THO" />
+                <ScalarProperty Name="TENTHO" ColumnName="TENTHO" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIENCONGs">
+            <EntityTypeMapping TypeName="GARADBModel.TIENCONG">
+              <MappingFragment StoreEntitySet="TIENCONG">
+                <ScalarProperty Name="MA_TIENCONG" ColumnName="MA_TIENCONG" />
+                <ScalarProperty Name="SOTIEN" ColumnName="SOTIEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="XEs">
+            <EntityTypeMapping TypeName="GARADBModel.XE">
+              <MappingFragment StoreEntitySet="XE">
+                <ScalarProperty Name="BS_XE" ColumnName="BS_XE" />
+                <ScalarProperty Name="MA_KH" ColumnName="MA_KH" />
+                <ScalarProperty Name="NGAY_TIEPNHAN" ColumnName="NGAY_TIEPNHAN" />
+                <ScalarProperty Name="HIEU_XE" ColumnName="HIEU_XE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHIEU_DICHVU">
+            <EntityTypeMapping TypeName="GARADBModel.PHIEU_DICHVU">
+              <MappingFragment StoreEntitySet="PHIEU_DICHVU">
+                <ScalarProperty Name="MA_NHANVIEN" ColumnName="MA_NHANVIEN" />
+                <ScalarProperty Name="MATHO" ColumnName="MATHO" />
+                <ScalarProperty Name="TINHTRANG" ColumnName="TINHTRANG" />
+                <ScalarProperty Name="SOTIEN_CONLAI" ColumnName="SOTIEN_CONLAI" />
+                <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+                <ScalarProperty Name="MAPHIEU_TIEPNHAN" ColumnName="MAPHIEU_TIEPNHAN" />
+                <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
+                <ScalarProperty Name="MA_PHIEUDV" ColumnName="MA_PHIEUDV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHIEU_TIEPNHAN">
+            <EntityTypeMapping TypeName="GARADBModel.PHIEU_TIEPNHAN">
+              <MappingFragment StoreEntitySet="PHIEU_TIEPNHAN">
+                <ScalarProperty Name="TINHTRANG" ColumnName="TINHTRANG" />
+                <ScalarProperty Name="MASOCHO" ColumnName="MASOCHO" />
+                <ScalarProperty Name="BIENSO_XE" ColumnName="BIENSO_XE" />
+                <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
+                <ScalarProperty Name="MA_KH" ColumnName="MA_KH" />
+                <ScalarProperty Name="MA_PHIEUTIEPNHAN" ColumnName="MA_PHIEUTIEPNHAN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
