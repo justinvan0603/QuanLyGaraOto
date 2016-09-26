@@ -23,6 +23,5 @@ namespace QuanLyGaraOto.Models
     
         public virtual PHIEU_BAOHANH PHIEU_BAOHANH { get; set; }
         public virtual PHUTUNG PHUTUNG { get; set; }
-        public virtual PHIEU_DICHVU PHIEU_DICHVU { get; set; }
     }
 }

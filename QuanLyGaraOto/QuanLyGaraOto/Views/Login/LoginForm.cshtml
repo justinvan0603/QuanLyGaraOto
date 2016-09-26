@@ -1,0 +1,84 @@
+﻿@model QuanLyGaraOto.Models.NHANVIEN
+@{
+    Layout = null;
+    string error = "";
+    if(ViewBag.ErrorMessage != null)
+    {
+        error = ViewBag.ErrorMessage;
+    }
+}
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/bootstrap")
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Đăng nhập</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<title>@ViewBag.Title</title>*@
+
+    <style>
+
+        .wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+
+}
+        html, body {
+            margin: 0px !important;
+            padding: 0px !important;
+            overflow-x: hidden;
+        }
+
+
+    </style>
+</head>
+<body style="background-color:#e6e6e6; ">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row " style="background-color:#005299; ">
+                <h2 class="text-center" style="color:white;">PHẦN MỀM QUẢN LÝ GARA ÔTÔ</h2>
+            </div>
+            <div class="row " style="padding-top:5%">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading text-center" style="background-color:#005299;">
+                            <h4 style="color:white;">ĐĂNG NHẬP</h4>
+                        </div>
+                        <div class="panel-body">
+                            @using (Html.BeginForm("LoginForm", "Login",FormMethod.Post, new { @class = "form-horizontal " }))
+                            {
+                                <div class="form-group" style="margin-left:9%;">
+                                    <label>Tên đăng nhập:</label>
+                                    <input class="form-control" name="USERNAME" type="text" maxlength="30" required />
+                                </div>
+                                <div class="form-group" style="margin-left:9%;">
+                                    <label>Mật khẩu:</label>
+                                    <input class="form-control" name="PASSWORD" type="password" maxlength="30" required />
+                                </div>
+                                <p style="margin-left:9%; color:red;">@error</p>
+                                <button style="margin-left:9%; background-color:#005299;" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</button>
+                            }                   
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        @*<div class="row content" style="background-color:#005299;">
+            <div class="col-md-6">
+                <p>afasdfsdfasdfsd</p>
+            </div>
+            <div class="col-md-6">
+                <p>afasdfsdfasdfsd</p>
+            </div>
+        </div>*@
+
+</body>
+</html>

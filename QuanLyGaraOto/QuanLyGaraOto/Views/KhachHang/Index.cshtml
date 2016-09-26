@@ -2,7 +2,11 @@
 @using PagedList.Mvc;
 @{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Danh sách khách hàng";
 }
+<head>
+    <title>@ViewBag.Title</title>
+</head>
 
 <style>
     .table th{
@@ -31,7 +35,7 @@
 @Html.ActionLink("Thêm", "ThemMoi", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
 
     <div class="table-responsive" style="padding-top:10px;" >
-        <table id="product-table" class="table table-bordered table table-hover " >
+        <table id="khachhang-table" class="table table-bordered table table-hover " >
             <thead style="color:red;">
                 <tr>
                     <th style="display:none">Id</th>
@@ -40,7 +44,7 @@
                     <th>Điện thoại</th>
                     <th>Địa chỉ</th>
                     <th>@Html.ActionLink("Số tiền nợ", "Index", new { sortOrder = ViewBag.OweSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })<span class="glyphicon glyphicon-arrow-down"></span></th>
-                    <th>Điều khiển</th>
+                    <th>Thao tác</th>
                 </tr>
             </thead>
             <tbody >
@@ -77,7 +81,7 @@
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
-    $('#product-table').on('click', '.clickable-row', function (event) {
+    $('#khachhang-table').on('click', '.clickable-row', function (event) {
         if ($(this).hasClass('active')) {
             $(this).removeClass('active');
         } else {

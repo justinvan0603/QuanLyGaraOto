@@ -18,7 +18,7 @@ namespace QuanLyGaraOto.Controllers
             ViewBag.CurrentSearchOption = searchOption;
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParam = sortOrder == "name_asc"? "name_desc" : "name_asc";
-            ViewBag.OweSortParam = sortOrder == "owe_asc" ? "owe_asc" : "owe_asc";
+            ViewBag.OweSortParam = sortOrder == "owe_asc" ? "owe_desc" : "owe_asc";
             GARADBEntities context = new GARADBEntities();
             List<KHACHHANG> listClient = context.KHACHHANGs.ToList();
             if(searchString != null)
@@ -54,7 +54,7 @@ namespace QuanLyGaraOto.Controllers
                 case "owe_desc": { listClient = listClient.OrderByDescending(c => c.SOTIENNO).ToList(); break; }
                 default: { break; }
             }
-            int pageSize = 2;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             KhachHangViewModel KHViewModel = new KhachHangViewModel();
             KHViewModel.ListKhachHang = listClient.ToPagedList(pageNumber,pageSize);
@@ -69,6 +69,7 @@ namespace QuanLyGaraOto.Controllers
            
             return View();
         }
+        
         public ActionResult ThemMoi(KHACHHANG client)
         {
             try
@@ -83,7 +84,7 @@ namespace QuanLyGaraOto.Controllers
                 TempData["msg"] = "<script>alert('Đã xảy ra lỗi. Vui lòng thử lại!');</script>";
             }
 
-            return View();
+            return RedirectToAction("ThemMoi");
         }
         [HttpGet]
         public ActionResult CapNhat(int id)

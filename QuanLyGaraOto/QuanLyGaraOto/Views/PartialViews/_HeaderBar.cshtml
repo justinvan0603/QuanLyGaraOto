@@ -1,4 +1,10 @@
-﻿
+﻿@{
+    string Username = "Người dùng";
+    if(ViewBag.Username != null)
+    {
+        Username = ViewBag.Username;
+    }
+}
 <style>
     .navbar-default {
         color: white;
@@ -20,8 +26,8 @@
 
             <ul class="nav navbar-nav navbar-right" style="right:10px;">
 
-                <li><a href="#">Xin chào, Username</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Đăng xuất</a></li>
+                <li><a href="#">Xin chào, @Username</a></li>
+                <li><a href="@Url.Action("LoginForm", "Login")"><span class="glyphicon glyphicon-log-out"></span> Đăng xuất</a></li>
             </ul>
         </div>
     </div>

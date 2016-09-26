@@ -15,7 +15,7 @@ namespace QuanLyGaraOto.Models
     public partial class CHITIET_PHIEUNH
     {
         public int ID { get; set; }
-        public int MA_PHIEUNH { get; set; }
+        public int ID_PHIEUNHAPHANG { get; set; }
         public int MA_PHUTUNG { get; set; }
         public Nullable<int> SOLUONG { get; set; }
         public Nullable<decimal> DONGIA { get; set; }

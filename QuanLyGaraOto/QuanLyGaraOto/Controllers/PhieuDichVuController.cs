@@ -5,14 +5,87 @@ using System.Web;
 using System.Web.Mvc;
 using QuanLyGaraOto.ViewModel;
 using QuanLyGaraOto.Models;
+using PagedList;
 namespace QuanLyGaraOto.Controllers
 {
     public class PhieuDichVuController : Controller
     {
         // GET: PhieuDichVu
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? searchOption, int? page)
         {
-            return View();
+            ViewBag.CurrentSearchOption = searchOption;
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.DateSortParam = sortOrder == "date_asc" ? "date_desc" : "date_asc";
+            ViewBag.TotalSortParam = sortOrder == "total_asc" ? "total_desc" : "total_asc";
+            ViewBag.RemainSortParam = sortOrder == "remain_asc" ? "remain_desc" : "remain_desc";
+            GARADBEntities context = new GARADBEntities();
+
+            var dsPhieuDVQuery = (from pdv in context.PHIEU_DICHVU
+                                  join nv in context.NHANVIENs on pdv.MA_NHANVIEN equals nv.MA_NV
+                                  join tho in context.THOes on pdv.MATHO equals tho.MA_THO
+                                  select new
+                                  {
+                                      Id_PhieuDV = pdv.ID_PHIEUDV,
+                                      MaPhieuDV = pdv.MA_PHIEUDV,
+                                      NgayLap = pdv.NGAYLAP,
+                                      TenNV = nv.HOTEN,
+                                      TenTho = tho.TENTHO,
+                                      TongTien = pdv.TONGTIEN,
+                                      SoTienConLai = pdv.SOTIEN_CONLAI,
+                                      TinhTrang = pdv.TINHTRANG
+                                  }).ToList();
+           
+            List<DSPhieuDVTableData> listPhieuDV = new List<DSPhieuDVTableData>();
+            foreach(var item in dsPhieuDVQuery)
+            {
+                DSPhieuDVTableData data= new DSPhieuDVTableData();
+                data.Id_PhieuDV = item.Id_PhieuDV;
+                data.MaPhieuDV = item.MaPhieuDV;
+                data.NgayLap = item.NgayLap.Value;
+                data.TenNV = item.TenNV;
+                data.TenTho = item.TenTho;
+                data.TongTien = item.TongTien.Value;
+                data.SoTienConLai = item.SoTienConLai.Value;
+                data.TinhTrang = item.TinhTrang;
+                listPhieuDV.Add(data);
+            }
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                if (searchOption != null)
+                {
+                    switch (searchOption)
+                    {
+                        case 0: { break; }
+                        case 1: { listPhieuDV = listPhieuDV.Where(c => c.MaPhieuDV.Contains(searchString)).ToList(); break; }
+                        default: { break; }
+                    }
+                }
+
+            }
+            switch (sortOrder)
+            {
+                case "date_asc": { listPhieuDV = listPhieuDV.OrderBy(c => c.NgayLap).ToList(); break; }
+                case "date_desc": { listPhieuDV = listPhieuDV.OrderByDescending(c => c.NgayLap).ToList(); break; }
+                case "total_asc": { listPhieuDV = listPhieuDV.OrderBy(c => c.TongTien).ToList(); break; }
+                case "total_desc": { listPhieuDV = listPhieuDV.OrderByDescending(c => c.TongTien).ToList(); break; }
+                case "remain_asc": { listPhieuDV = listPhieuDV.OrderBy(c => c.SoTienConLai).ToList(); break; }
+                case "remain_desc": { listPhieuDV = listPhieuDV.OrderByDescending(c => c.SoTienConLai).ToList(); break; }
+                default: { break; }
+            }
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            DSPhieuDVViewModel vmDSPhieuDV = new DSPhieuDVViewModel();
+            vmDSPhieuDV.ListData = listPhieuDV.ToPagedList(pageNumber, pageSize);
+            return View(vmDSPhieuDV);
         }
         [HttpGet]
         public ActionResult NhapPhieuDichVu()
@@ -36,7 +109,7 @@ namespace QuanLyGaraOto.Controllers
             return NhapPhieuDichVu();
         }
         [HttpGet]
-        public ActionResult SuaPhieuDichVu()
+        public ActionResult SuaPhieuDichVu(int id)
         {
             GARADBEntities context = new GARADBEntities();
             PhieuDVViewModel vmPhieuDV = new PhieuDVViewModel();
@@ -49,9 +122,13 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuDV.MaNV = 1;
             return View(vmPhieuDV);
         }
+        //[HttpPost]
+        //public ActionResult SuaPhieuDichVu(PhieuDVViewModel viewModel, List<CHITIET_PHIEUDV> listChiTiet)
+        //{
 
+        //}
         [HttpPost]
-        public JsonResult Xoa(int id)
+        public JsonResult XoaChiTiet(int id)
         {
             int result = 1;
             return Json(result, JsonRequestBehavior.AllowGet);

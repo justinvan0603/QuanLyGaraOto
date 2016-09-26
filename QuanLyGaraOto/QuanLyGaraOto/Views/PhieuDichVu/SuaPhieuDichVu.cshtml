@@ -6,8 +6,13 @@
     {
         slTon = Model.ListPhuTung[0].SOLUONGTON.Value;
     }
+    ViewBag.Title = "Cập nhật phiếu dịch vụ";
 }
+
 <!DOCTYPE html>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
 <style>
     .table th {
         width: auto !important;
@@ -62,11 +67,11 @@
             <label class="input-sm">Lượng tồn:</label>
             <label class="lblTonKho input-sm" style="width:4%">@slTon</label>
             <label class="input-sm">Số lượng:</label>
-            <input type="number" pattern="[0-9]" class=" txtSoLuong form-control input-sm" style="width:8%" />
+            <input type="number" maxlength="3" pattern="[0-9]" class=" txtSoLuong form-control input-sm" style="width:8%" />
             <label class="input-sm">Đơn giá:</label>
-            <input type="number" pattern="[0-9]" class="txtDonGia form-control input-sm" style="width:10%" />
+            <input type="number" maxlength="8" pattern="[0-9]" class="txtDonGia form-control input-sm" style="width:10%" />
             <label class="input-sm">Bảo hành:</label>
-            <input type="number" pattern="[0-9]" class="txtBH form-control input-sm" style="width:6%;" />
+            <input type="number" maxlength="2" pattern="[0-9]" class="txtBH form-control input-sm" style="width:6%;" />
             <label class="input-sm">Thành tiền:</label>
             <label class="lblThanhTien input-sm" style="width:10%"></label>
 
@@ -77,7 +82,7 @@
 
         </div>
         <div class="table-responsive" style="padding-top:10px; margin-right:20px;">
-            <table id="product-table" class="table table-bordered table table-hover ">
+            <table id="chitietphieu-table" class="table table-bordered table table-hover ">
                 @*<thead style="color:red;">*@
                 <tr class="trFirstRow" style="color:red;" data-id="-1">
                     <th style="display:none">Id</th>
@@ -94,7 +99,7 @@
                 <tbody>
                     <tr class="record-template" style="display:none">
                         <td style="display:none">
-                            <input type="hidden" class="ID" name="ID" value="1" />
+                            <input type="hidden" class="ID" name="ID" value="" />
                         </td>
                         <td style="display:none;">
                             <input type="hidden" class="maPDV" name="MA_PHIEUDV" value="@Model.MaPhieuDV" />
@@ -190,6 +195,13 @@
 
 </div>
 <script>
+    $('#chitietphieu-table').on('click', '.clickable-row', function (event) {
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+        } else {
+            $(this).addClass('active').siblings().removeClass('active');
+        }
+    });
 
     $("body").delegate(".btnDelete", "click", function () {
         var row = $(this).closest("tr");
@@ -208,7 +220,7 @@
         $.ajax({
 
 
-            url: '/PhieuDichVu/Xoa/',
+            url: '/PhieuDichVu/XoaChiTiet/',
             data: JSON.stringify({ id: recordid }),
             //data: JSON.stringify({ id: itemid, product: myitem, list: list, item: myitem }),
 
@@ -322,49 +334,49 @@
 
 
 
-        var id_cuoi = $("#product-table").find("tr:last-child").attr("data-id");
+        var id_cuoi = $("#chitietphieu-table").find("tr:last-child").attr("data-id");
 
         i = parseInt(id_cuoi) + 1;
         //alert(i);
         var tdnoidung = $(".record-template").html();
 
         var trnoidung = "<tr class=\"record-template\" data-id=\"" + i + "\">" + tdnoidung + "</tr>";
-        $("#product-table").append(trnoidung);
+        $("#chitietphieu-table").append(trnoidung);
 
         var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
 
         var matiencong = $('.cboTC').children("option").filter(":selected").attr("value");
 
-        var $matiencong = $("#product-table").find("tr:last-child").find('td input.maTC')
+        var $matiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.maTC')
         $matiencong.attr("value", matiencong);
 
         var maphutung = $('.cboPT').children("option").filter(":selected").attr("value");
-        var $maphutung = $("#product-table").find("tr:last-child").find('td input.maPT');
+        var $maphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.maPT');
         $maphutung.attr("value", maphutung);
 
         var tenpt = $('.cboPT').children("option").filter(":selected").text();
 
-        var $tenphutung = $("#product-table").find("tr:last-child").find('td input.txtTenPT');
+        var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
         $tenphutung.attr("value", tenpt);
 
         var loaitiencong = $('.cboTC').children("option").filter(":selected").attr("value");
-        var $tentiencong = $("#product-table").find("tr:last-child").find('td input.txtTenTC');
+        var $tentiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenTC');
         $tentiencong.attr("value", loaitiencong);
 
-        var $txtsoluong = $("#product-table").find("tr:last-child").find('td input.txtSoluong');
+        var $txtsoluong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtSoluong');
         $txtsoluong.attr("value", soluong);
 
-        var $txtdongia = $("#product-table").find("tr:last-child").find('td input.txtDonGia');
+        var $txtdongia = $("#chitietphieu-table").find("tr:last-child").find('td input.txtDonGia');
         $txtdongia.attr("value", dongia);
 
-        var $txttiencong = $("#product-table").find("tr:last-child").find('td input.txtTienCong');
+        var $txttiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTienCong');
         $txttiencong.attr("value", tiencong);
 
         var thanhtien = parseInt(soluong * dongia) + parseInt(tiencong);
-        var $txtthanhtien = $("#product-table").find("tr:last-child").find('td input.txtThanhTien');
+        var $txtthanhtien = $("#chitietphieu-table").find("tr:last-child").find('td input.txtThanhTien');
         $txtthanhtien.attr("value", thanhtien);
         var baohanh = $('.txtBH').val();
-        var $txtbaohanh = $("#product-table").find("tr:last-child").find('td input.txtBaoHanh');
+        var $txtbaohanh = $("#chitietphieu-table").find("tr:last-child").find('td input.txtBaoHanh');
         $txtbaohanh.attr("value", baohanh);
         loadIDLENTHE();
 
@@ -382,7 +394,7 @@
             success: function (result) {
                 isSuccess = result.issucess;
                 id = result.newid;
-                var $newrow = $("#product-table").find("tr:last-child").find('td input.ID');
+                var $newrow = $("#chitietphieu-table").find("tr:last-child").find('td input.ID');
                 $newrow.attr("value", id);
                 alert($newrow.attr("value"))
                 message = result.message;
@@ -433,7 +445,7 @@
     };
 
     function CapNhapID() {
-        var id_cuoi = $("#product-table").find(".trFirstRow").attr("data-id");
+        var id_cuoi = $("#chitietphieu-table").find(".trFirstRow").attr("data-id");
         i = parseInt(id_cuoi) + 1;
 
         $(".record-template").each(function () {

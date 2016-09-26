@@ -7,13 +7,13 @@
 <head>
     <title>@ViewBag.Title</title>
 </head>
+
 <h3 class="text-center" style="color:green;">THÔNG TIN KHÁCH HÀNG</h3>
-@using(@Html.BeginForm("ThemMoi","KhachHang",FormMethod.Post))
+@using (@Html.BeginForm("ThemMoi", "KhachHang", FormMethod.Post))
 {
     <div class="form-group">
-        <label >Họ tên:</label>
-        
-        @Html.TextBoxFor(Model => Model.TEN_KH, new { @class="form-control"})
+        <label>Họ tên:</label>
+        @Html.TextBoxFor(Model => Model.TEN_KH, new { @class = "form-control" })
     </div>
     <div class="form-group">
         <label>Số CMND:</label>
@@ -31,3 +31,4 @@
         <button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-plus"></span> Lưu</button>
     </div>
 }
+

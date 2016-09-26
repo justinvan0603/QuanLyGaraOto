@@ -1,0 +1,12 @@
+﻿@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Error";
+}
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<div class="alert alert-danger" style="margin-top:15px;">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>@ViewBag.ErrorMessage</strong>
+</div>
+

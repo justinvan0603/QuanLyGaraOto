@@ -14,15 +14,16 @@ namespace QuanLyGaraOto.Models
     
     public partial class PHIEU_THUTIEN
     {
-        public int MA_PHIEUTHUTIEN { get; set; }
+        public int ID_PHIEUTHUTIEN { get; set; }
+        public string MAPHIEUTHU { get; set; }
         public Nullable<System.DateTime> NGAYLAP { get; set; }
-        public Nullable<int> MA_PHIEUDV { get; set; }
+        public Nullable<int> ID_PHIEUDV { get; set; }
         public string NOIDUNG_THU { get; set; }
         public Nullable<decimal> SOTIEN { get; set; }
         public Nullable<int> MA_NV { get; set; }
         public string TINHTRANG { get; set; }
     
-        public virtual NHANVIEN NHANVIEN { get; set; }
         public virtual PHIEU_DICHVU PHIEU_DICHVU { get; set; }
+        public virtual NHANVIEN NHANVIEN { get; set; }
     }
 }
