@@ -40,9 +40,26 @@
     <label>Chủ xe:</label>
     <label>@Model.TenKH</label>
 </div>
-<div class="form-inline">
-    <label>Thợ phụ trách:</label>
-    <label>@Model.TenTho</label>
+<div class="form-group form-inline">
+    <label class="input-sm">Thợ phụ trách:</label>
+    <select name="MATHO" class="cboTho form-control input-sm">
+        @foreach (var item in Model.ListTho)
+        {
+            <option value="@item.MA_THO">@item.TENTHO</option>
+        }
+    </select>
+    <label>Số điện thoại:</label>
+    <label>1234</label>
+</div>
+
+<div class="form-group form-inline">
+    <label class="input-sm">Tiền công:</label>
+    <select name="MaTienCong" class="cboTC form-control input-sm" style="width:12%" onchange="cboTCSelectChanged()">
+        @foreach (var item in Model.ListTienCong)
+        {
+            <option value="@item.MA_TIENCONG" title="@item.SOTIEN">@item.MA_TIENCONG</option>
+        }
+    </select>
 </div>
 <div class="panel panel-default" style="width:99%;">
     <div class="panel-heading">Thông tin chi tiết:</div>
@@ -57,13 +74,7 @@
                 }
             </select>
 
-            <label class="input-sm">Tiền công:</label>
-            <select class="cboTC form-control input-sm" style="width:12%" onchange="cboTCSelectChanged()">
-                @foreach (var item in Model.ListTienCong)
-                {
-                    <option value="@item.MA_TIENCONG" title="@item.SOTIEN">@item.MA_TIENCONG</option>
-                }
-            </select>
+
             <label class="input-sm">Lượng tồn:</label>
             <label class="lblTonKho input-sm" style="width:4%">@slTon</label>
             <label class="input-sm">Số lượng:</label>
@@ -90,7 +101,7 @@
                     <th>Tiền công</th>
                     <th>Số lượng</th>
                     <th>Đơn giá</th>
-                    <th>Số tiền công</th>
+                    @*<th>Số tiền công</th>*@
                     <th>Thành tiền</th>
                     <th>Thời gian bảo hành (tháng)</th>
                     <th>Thao tác</th>
@@ -108,31 +119,27 @@
                             <input type="hidden" class="maPT" name="MA_PT" value="" />
                         </td>
                         <td>
-                            <input class="txtTenPT form-control input-sm" type="text" value="" disabled />
+                            <input class="txtTenPT form-control input-sm" type="text" value="" readonly />
 
                         </td>
-                        <td style="display:none;">
-                            <input type="hidden" class="maTC" name="MA_TIENCONG" value="" />
-                        </td>
-                        <td>
-                            <input type="text" class="txtTenTC form-control input-sm" value="" disabled />
 
-                        </td>
                         <td>
-                            <input type="text" class="txtSoluong form-control input-sm" name="SOLUONG" value="" disabled />
+                            <input type="text" class="txtTenTC form-control input-sm" value="" readonly />
 
                         </td>
                         <td>
-                            <input type="text" class="txtDonGia form-control input-sm" name="DONGIA" value="" disabled />
+                            <input type="text" class="txtSoluong form-control input-sm" name="SOLUONG" value="" readonly />
+
                         </td>
                         <td>
-                            <input type="text" class="txtTienCong form-control input-sm" name="TIENCONG" value="" disabled />
+                            <input type="text" class="txtDonGia form-control input-sm" name="DONGIA" value="" readonly />
+                        </td>
+
+                        <td>
+                            <input type="text" class=" txtThanhTien form-control input-sm" name="THANHTIEN" value="" readonly />
                         </td>
                         <td>
-                            <input type="text" class=" txtThanhTien form-control input-sm" name="THANHTIEN" value="" disabled />
-                        </td>
-                        <td>
-                            <input type="text" class="txtBaoHanh form-control input-sm" name="THOIHAN_BAOHANH" value="" disabled />
+                            <input type="text" class="txtBaoHanh form-control input-sm" name="THOIHAN_BAOHANH" value="" readonly />
                         </td>
                         <td>
                             <input type="button" value="Xóa" class="btnDelete btn btn-danger" />
@@ -151,31 +158,31 @@
                                 <input type="hidden" class="maPT" name="MA_PT" value="" />
                             </td>
                             <td>
-                                <input class="txtTenPT form-control input-sm" type="text" value="" disabled />
+                                <input class="txtTenPT form-control input-sm" type="text" value="" readonly />
 
                             </td>
-                            <td style="display:none;">
+                            @*<td style="display:none;">
                                 <input type="hidden" class="maTC" name="MA_TIENCONG" value="" />
-                            </td>
+                            </td>*@
                             <td>
-                                <input type="text" class="txtTenTC form-control input-sm" value="" disabled />
+                                <input type="text" class="txtTenTC form-control input-sm" value="" readonly />
 
                             </td>
                             <td>
-                                <input type="text" class="txtSoluong form-control input-sm" name="SOLUONG" value="" disabled />
+                                <input type="text" class="txtSoluong form-control input-sm" name="SOLUONG" value="" readonly />
 
                             </td>
                             <td>
-                                <input type="text" class="txtDonGia form-control input-sm" name="DONGIA" value="" disabled />
+                                <input type="text" class="txtDonGia form-control input-sm" name="DONGIA" value="" readonly />
                             </td>
-                            <td>
+                            @*<td>
                                 <input type="text" class="txtTienCong form-control input-sm" name="TIENCONG" value="" disabled />
+                            </td>*@
+                            <td>
+                                <input type="text" class=" txtThanhTien form-control input-sm" name="THANHTIEN" value="" readonly />
                             </td>
                             <td>
-                                <input type="text" class=" txtThanhTien form-control input-sm" name="THANHTIEN" value="" disabled />
-                            </td>
-                            <td>
-                                <input type="text" class="txtBaoHanh form-control input-sm" name="THOIHAN_BAOHANH" value="" disabled />
+                                <input type="text" class="txtBaoHanh form-control input-sm" name="THOIHAN_BAOHANH" value="" readonly />
                             </td>
                             <td>
                                 <input type="button" value="Xóa" class="btnDelete btn btn-danger"  />
@@ -195,6 +202,11 @@
 
 </div>
 <script>
+    $('document').ready(function () {
+        //$(".cboTC").val("2");
+        //$(".cboTC option[value='2']").attr("selected", true);
+        $('.cboTho').val('2').prop('selected', true);
+    })
     $('#chitietphieu-table').on('click', '.clickable-row', function (event) {
         if ($(this).hasClass('active')) {
             $(this).removeClass('active');
@@ -345,10 +357,10 @@
 
         var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
 
-        var matiencong = $('.cboTC').children("option").filter(":selected").attr("value");
+        //var matiencong = $('.cboTC').children("option").filter(":selected").attr("value");
 
-        var $matiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.maTC')
-        $matiencong.attr("value", matiencong);
+        //var $matiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.maTC')
+        //$matiencong.attr("value", matiencong);
 
         var maphutung = $('.cboPT').children("option").filter(":selected").attr("value");
         var $maphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.maPT');
@@ -369,8 +381,8 @@
         var $txtdongia = $("#chitietphieu-table").find("tr:last-child").find('td input.txtDonGia');
         $txtdongia.attr("value", dongia);
 
-        var $txttiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTienCong');
-        $txttiencong.attr("value", tiencong);
+        //var $txttiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTienCong');
+        //$txttiencong.attr("value", tiencong);
 
         var thanhtien = parseInt(soluong * dongia) + parseInt(tiencong);
         var $txtthanhtien = $("#chitietphieu-table").find("tr:last-child").find('td input.txtThanhTien');
@@ -379,12 +391,12 @@
         var $txtbaohanh = $("#chitietphieu-table").find("tr:last-child").find('td input.txtBaoHanh');
         $txtbaohanh.attr("value", baohanh);
         loadIDLENTHE();
-
+        var ct = { "MA_PT": maphutung, "SOLUONG": soluong, "DONGIA": dongia, "THANHTIEN": thanhtien, "THOIHAN_BAOHANH": baohanh }
         $.ajax({
 
 
             url: '/PhieuDichVu/ThemChiTiet/',
-            //data: JSON.stringify({ id: recordid }),
+            data: JSON.stringify({ chitiet: ct }),
             //data: JSON.stringify({ id: itemid, product: myitem, list: list, item: myitem }),
 
             type: 'POST',
@@ -434,10 +446,10 @@
 
             $(this).find(".maPDV").attr("name", nameDV);
             $(this).find(".maPT").attr("name", nameMaPhuTung);
-            $(this).find(".maTC").attr("name", nameMaTienCong);
+            //$(this).find(".maTC").attr("name", nameMaTienCong);
             $(this).find(".txtSoluong").attr("name", nameSoLuong);
             $(this).find(".txtDonGia").attr("name", nameDonGia);
-            $(this).find(".txtTienCong").attr("name", nameTienCong);
+            //$(this).find(".txtTienCong").attr("name", nameTienCong);
             $(this).find(".txtThanhTien").attr("name", nameThanhTien);
             $(this).find(".txtBaoHanh").attr("name", nameThoiHanBaoHanh);
 
@@ -453,20 +465,20 @@
             $(this).attr("data-id", i);
             var nameDV = "[" + id + "].MA_PHIEUDV";
             var nameMaPhuTung = "[" + id + "].MA_PT";
-            var nameMaTienCong = "[" + id + "].MA_TIENCONG";
+            //var nameMaTienCong = "[" + id + "].MA_TIENCONG";
 
             var nameSoLuong = "[" + id + "].SOLUONG";
             var nameDonGia = "[" + id + "].DONGIA";
-            var nameTienCong = "[" + id + "].TIENCONG";
+            //var nameTienCong = "[" + id + "].TIENCONG";
             var nameThanhTien = "[" + id + "].THANHTIEN";
             var nameThoiHanBaoHanh = "[" + id + "].THOIHAN_BAOHANH"
 
             $(this).find(".maPDV").attr("name", nameDV);
             $(this).find(".maPT").attr("name", nameMaPhuTung);
-            $(this).find(".maTC").attr("name", nameMaTienCong);
+            //$(this).find(".maTC").attr("name", nameMaTienCong);
             $(this).find(".txtSoluong").attr("name", nameSoLuong);
             $(this).find(".txtDonGia").attr("name", nameDonGia);
-            $(this).find(".txtTienCong").attr("name", nameTienCong);
+            //$(this).find(".txtTienCong").attr("name", nameTienCong);
             $(this).find(".txtThanhTien").attr("name", nameThanhTien);
             $(this).find(".txtBaoHanh").attr("name", nameThoiHanBaoHanh);
 

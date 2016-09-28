@@ -17,13 +17,13 @@ namespace QuanLyGaraOto.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TIENCONG()
         {
-            this.CHITIET_PHIEUDV = new HashSet<CHITIET_PHIEUDV>();
+            this.PHIEU_DICHVU = new HashSet<PHIEU_DICHVU>();
         }
     
         public string MA_TIENCONG { get; set; }
         public decimal SOTIEN { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHITIET_PHIEUDV> CHITIET_PHIEUDV { get; set; }
+        public virtual ICollection<PHIEU_DICHVU> PHIEU_DICHVU { get; set; }
     }
 }

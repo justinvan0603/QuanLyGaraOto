@@ -24,6 +24,12 @@ namespace QuanLyGaraOto.Models
         public Nullable<int> MA_KH { get; set; }
         public Nullable<System.DateTime> NGAY_TIEPNHAN { get; set; }
         public string HIEU_XE { get; set; }
+        public string TINH_TRANG { get; set; }
+        public Nullable<bool> HINHTHUC { get; set; }
+        public string SO_MAY { get; set; }
+        public string SO_KHUNG { get; set; }
+        public string DOI_XE { get; set; }
+        public Nullable<int> SO_KM { get; set; }
     
         public virtual HIEUXE HIEUXE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

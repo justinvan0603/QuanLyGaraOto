@@ -1,0 +1,143 @@
+﻿@using PagedList.Mvc;
+@model QuanLyGaraOto.ViewModel.NhanVienViewModel
+@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Danh sách nhân viên";
+}
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+
+
+<style>
+    .table th {
+        width: auto !important;
+    }
+</style>
+
+@using (@Html.BeginForm("Index", "NhanVien", FormMethod.Get, new { @class = "form-inline" }))
+{
+    <div class="form-inline">
+        <div class="form-group">
+            <label for="searchOption">Tìm theo:</label>
+            @Html.DropDownList("searchOption", Model.listSearchOption, new { @class = "form-control" })
+            @* @Html.DropDownListFor(m => m.selectedValue, Model.listSearchOption, new { @class = "form-control" })*@
+
+        </div>
+        <div class="form-group">
+            <label for="searchOption">Giá trị:</label>
+            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+        </div>
+    </div>
+}
+@Html.ActionLink("Thêm", "ThemMoi", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
+
+<div class="table-responsive" style="padding-top:10px;">
+    <table id="khachhang-table" class="table table-bordered table table-hover ">
+        <thead style="color:red;">
+            <tr>
+                <th style="display:none">Id</th>
+                <th>Họ tên</th>
+                <th>Username</th>
+                <th>Điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Nhóm người dùng</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                //List<ASPExample.Models.Product> listProduct = (List<ASPExample.Models.Product>)Model.listProduct;
+                foreach (var item in Model.ListNhanVien.ToList())
+                {
+                    <tr class="clickable-row">
+                        <td id="id" style="display:none">@item.MA_NV</td>
+                        <td> @item.HOTEN</td>
+                        <td> @item.USERNAME</td>
+                        <td> @item.SDT</td>
+                        <td>@item.DIACHI</td>
+                        <td> @Math.Round(item.SOTIENNO.Value)</td>
+
+                        <td>
+
+                            @Html.ActionLink("Sửa", "CapNhat", new { id = @item.MA_KH }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
+
+                            <!--<button id="btnDelete" type="button" class="btn btn-danger glyphicon-remove">Delete</button>-->
+                            <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+
+                        </td>
+                    </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+    Page @(Model.ListNhanVien.PageCount < Model.ListNhanVien.PageNumber ? 0 : Model.ListNhanVien.PageNumber) of @Model.ListNhanVien.PageCount
+
+    @Html.PagedListPager(Model.ListNhanVien, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $('#khachhang-table').on('click', '.clickable-row', function (event) {
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+        } else {
+            $(this).addClass('active').siblings().removeClass('active');
+        }
+    });
+
+
+
+
+    $(document).ready(function ()
+    {
+        $(".btnDelete").on("click", function (e)
+        {
+            e.preventDefault();
+            var $item = $(this).closest("tr").find("#id").text();
+            var itemid = $item.valueOf();
+
+
+            var isSucess = -1;
+            var message = "";
+            var row = $(this).closest("tr");
+
+            $.ajax({
+
+
+                url: '/KhachHang/Xoa/',
+
+                data: JSON.stringify({id:itemid}),
+
+                type: 'POST',
+
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (result) {
+                    isSuccess = result.value;
+                    message = result.message;
+
+                },
+                error: function (result) {
+                    isSuccess = result.value;
+                    message = result.message;
+                }
+
+            }).done(function () {
+                if (isSuccess == "1") {
+                    row.remove();
+                    alert(message);
+                    // window.location.replace("index");
+                }
+                else {
+                    alert(message);
+                }
+            });
+        })
+    })
+
+</script>

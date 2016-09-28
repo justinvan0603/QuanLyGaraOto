@@ -17,6 +17,7 @@ namespace QuanLyGaraOto.ViewModel
         public DateTime NgayLap { get; set; }
         public string TenNV { get; set; }
         public string TenKH { get; set; }
-        public string TenTho { get; set; }
+        public int MaTho { get; set; }
+        public string MaTienCong { get; set; }
     }
 }

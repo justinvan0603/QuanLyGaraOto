@@ -95,7 +95,7 @@ namespace QuanLyGaraOto.Controllers
 
             vmPhieuDV.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuDV.ListTho = new List<THO>();
-
+            vmPhieuDV.ListTho = context.THOes.ToList();
             vmPhieuDV.ListTienCong = context.TIENCONGs.ToList();
             vmPhieuDV.MaPhieuDV = 1;
             vmPhieuDV.MaPhieuTiepNhan = 1;
@@ -109,12 +109,13 @@ namespace QuanLyGaraOto.Controllers
             return NhapPhieuDichVu();
         }
         [HttpGet]
-        public ActionResult SuaPhieuDichVu(int id)
+        public ActionResult SuaPhieuDichVu()
         {
             GARADBEntities context = new GARADBEntities();
             PhieuDVViewModel vmPhieuDV = new PhieuDVViewModel();
             vmPhieuDV.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuDV.ListTho = new List<THO>();
+            vmPhieuDV.ListTho = context.THOes.ToList();
             vmPhieuDV.ListChiTietPhieu = new List<CHITIET_PHIEUDV>();
             vmPhieuDV.ListTienCong = context.TIENCONGs.ToList();
             vmPhieuDV.MaPhieuDV = 1;

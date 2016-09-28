@@ -17,15 +17,12 @@ namespace QuanLyGaraOto.Models
         public int ID { get; set; }
         public int ID_PHIEUDV { get; set; }
         public int MA_PT { get; set; }
-        public string MA_TIENCONG { get; set; }
         public Nullable<int> SOLUONG { get; set; }
         public Nullable<decimal> DONGIA { get; set; }
-        public Nullable<decimal> TIENCONG { get; set; }
         public Nullable<decimal> THANHTIEN { get; set; }
         public Nullable<int> THOIHAN_BAOHANH { get; set; }
     
         public virtual PHIEU_DICHVU PHIEU_DICHVU { get; set; }
         public virtual PHUTUNG PHUTUNG { get; set; }
-        public virtual TIENCONG TIENCONG1 { get; set; }
     }
 }

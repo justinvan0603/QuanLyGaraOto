@@ -18,10 +18,10 @@ namespace QuanLyGaraOto.Models
         public NHANVIEN()
         {
             this.PHIEU_BAOHANH = new HashSet<PHIEU_BAOHANH>();
-            this.PHIEU_DICHVU = new HashSet<PHIEU_DICHVU>();
             this.PHIEU_NHAPHANG = new HashSet<PHIEU_NHAPHANG>();
             this.PHIEUCHIs = new HashSet<PHIEUCHI>();
             this.PHIEU_THUTIEN = new HashSet<PHIEU_THUTIEN>();
+            this.PHIEU_DICHVU = new HashSet<PHIEU_DICHVU>();
         }
     
         public int MA_NV { get; set; }
@@ -36,12 +36,12 @@ namespace QuanLyGaraOto.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEU_BAOHANH> PHIEU_BAOHANH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PHIEU_DICHVU> PHIEU_DICHVU { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEU_NHAPHANG> PHIEU_NHAPHANG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEUCHI> PHIEUCHIs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEU_THUTIEN> PHIEU_THUTIEN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PHIEU_DICHVU> PHIEU_DICHVU { get; set; }
     }
 }
