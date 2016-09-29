@@ -25,11 +25,12 @@ namespace QuanLyGaraOto.Models
         public Nullable<System.DateTime> NGAYLAP { get; set; }
         public string BIENSO_XE { get; set; }
         public Nullable<int> MASOCHO { get; set; }
+        public Nullable<System.DateTime> NGAYTRAXE { get; set; }
         public string TINHTRANG { get; set; }
     
         public virtual KHACHHANG KHACHHANG { get; set; }
-        public virtual XE XE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEU_DICHVU> PHIEU_DICHVU { get; set; }
+        public virtual XE XE { get; set; }
     }
 }

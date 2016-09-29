@@ -26,7 +26,7 @@ namespace QuanLyGaraOto.Models
         public string TINHTRANG { get; set; }
     
         public virtual NHANVIEN NHANVIEN { get; set; }
-        public virtual PHIEUBANXE PHIEUBANXE { get; set; }
         public virtual PHIEU_DICHVU PHIEU_DICHVU { get; set; }
+        public virtual PHIEUBANXE PHIEUBANXE { get; set; }
     }
 }

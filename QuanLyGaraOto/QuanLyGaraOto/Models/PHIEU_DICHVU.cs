@@ -24,6 +24,7 @@ namespace QuanLyGaraOto.Models
         public int ID_PHIEUDV { get; set; }
         public string MA_PHIEUDV { get; set; }
         public Nullable<System.DateTime> NGAYLAP { get; set; }
+        public Nullable<System.DateTime> HANCHOTTHANHTOAN { get; set; }
         public Nullable<int> MAPHIEU_TIEPNHAN { get; set; }
         public Nullable<decimal> TONGTIEN { get; set; }
         public Nullable<decimal> SOTIEN_CONLAI { get; set; }

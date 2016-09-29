@@ -16,15 +16,16 @@ namespace QuanLyGaraOto.Models
     {
         public int ID { get; set; }
         public string MA_PHIEUCHI { get; set; }
+        public Nullable<System.DateTime> NGAYLAP { get; set; }
         public string NOIDUNG { get; set; }
         public Nullable<decimal> SOTIEN { get; set; }
         public Nullable<int> MA_NV { get; set; }
         public Nullable<int> ID_PHIEUNHAPHANG { get; set; }
-        public string TINHTRANG { get; set; }
         public Nullable<int> ID_PHIEUMUAXE { get; set; }
+        public string TINHTRANG { get; set; }
     
-        public virtual PHIEU_NHAPHANG PHIEU_NHAPHANG { get; set; }
         public virtual NHANVIEN NHANVIEN { get; set; }
+        public virtual PHIEU_NHAPHANG PHIEU_NHAPHANG { get; set; }
         public virtual PHIEUMUAXE PHIEUMUAXE { get; set; }
     }
 }

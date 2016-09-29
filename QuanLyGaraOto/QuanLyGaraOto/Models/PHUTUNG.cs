@@ -25,6 +25,7 @@ namespace QuanLyGaraOto.Models
     
         public int MA_PHUTUNG { get; set; }
         public string TEN_PHUTUNG { get; set; }
+        public string MA_HIEUXE { get; set; }
         public Nullable<int> SOLUONGTON { get; set; }
         public Nullable<decimal> DONGIAXUAT { get; set; }
     
@@ -36,5 +37,6 @@ namespace QuanLyGaraOto.Models
         public virtual ICollection<CHITIET_PHIEUDV> CHITIET_PHIEUDV { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_PHIEUNH> CHITIET_PHIEUNH { get; set; }
+        public virtual HIEUXE HIEUXE { get; set; }
     }
 }
