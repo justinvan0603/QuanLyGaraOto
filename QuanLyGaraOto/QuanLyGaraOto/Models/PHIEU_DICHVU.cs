@@ -28,7 +28,6 @@ namespace QuanLyGaraOto.Models
         public Nullable<int> MAPHIEU_TIEPNHAN { get; set; }
         public Nullable<decimal> TONGTIEN { get; set; }
         public Nullable<decimal> SOTIEN_CONLAI { get; set; }
-        public string TINHTRANG { get; set; }
         public Nullable<int> MATHO { get; set; }
         public string MA_TIENCONG { get; set; }
         public Nullable<int> MA_NHANVIEN { get; set; }

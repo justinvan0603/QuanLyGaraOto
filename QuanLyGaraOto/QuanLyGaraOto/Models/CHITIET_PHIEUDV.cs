@@ -22,7 +22,7 @@ namespace QuanLyGaraOto.Models
         public Nullable<decimal> THANHTIEN { get; set; }
         public Nullable<int> THOIHAN_BAOHANH { get; set; }
     
-        public virtual PHIEU_DICHVU PHIEU_DICHVU { get; set; }
         public virtual PHUTUNG PHUTUNG { get; set; }
+        public virtual PHIEU_DICHVU PHIEU_DICHVU { get; set; }
     }
 }

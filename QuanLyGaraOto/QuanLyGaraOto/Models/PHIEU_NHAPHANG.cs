@@ -26,7 +26,6 @@ namespace QuanLyGaraOto.Models
         public Nullable<System.DateTime> NGAYLAP { get; set; }
         public Nullable<int> MA_NV { get; set; }
         public Nullable<decimal> TONGTIEN { get; set; }
-        public string TINHTRANG { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_PHIEUNH> CHITIET_PHIEUNH { get; set; }

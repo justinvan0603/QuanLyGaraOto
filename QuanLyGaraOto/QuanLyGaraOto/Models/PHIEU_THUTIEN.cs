@@ -23,10 +23,9 @@ namespace QuanLyGaraOto.Models
         public string NOIDUNG_THU { get; set; }
         public Nullable<decimal> SOTIEN { get; set; }
         public Nullable<int> MA_NV { get; set; }
-        public string TINHTRANG { get; set; }
     
         public virtual NHANVIEN NHANVIEN { get; set; }
-        public virtual PHIEU_DICHVU PHIEU_DICHVU { get; set; }
         public virtual PHIEUBANXE PHIEUBANXE { get; set; }
+        public virtual PHIEU_DICHVU PHIEU_DICHVU { get; set; }
     }
 }

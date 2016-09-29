@@ -22,10 +22,9 @@ namespace QuanLyGaraOto.Models
         public Nullable<int> MA_NV { get; set; }
         public Nullable<int> ID_PHIEUNHAPHANG { get; set; }
         public Nullable<int> ID_PHIEUMUAXE { get; set; }
-        public string TINHTRANG { get; set; }
     
         public virtual NHANVIEN NHANVIEN { get; set; }
-        public virtual PHIEU_NHAPHANG PHIEU_NHAPHANG { get; set; }
         public virtual PHIEUMUAXE PHIEUMUAXE { get; set; }
+        public virtual PHIEU_NHAPHANG PHIEU_NHAPHANG { get; set; }
     }
 }
