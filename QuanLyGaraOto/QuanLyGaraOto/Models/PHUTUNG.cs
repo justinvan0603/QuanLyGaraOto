@@ -21,6 +21,7 @@ namespace QuanLyGaraOto.Models
             this.CHITIET_PHIEUBH = new HashSet<CHITIET_PHIEUBH>();
             this.CHITIET_PHIEUDV = new HashSet<CHITIET_PHIEUDV>();
             this.CHITIET_PHIEUNH = new HashSet<CHITIET_PHIEUNH>();
+            this.CHITIET_PHIEUDATHANG = new HashSet<CHITIET_PHIEUDATHANG>();
         }
     
         public int MA_PHUTUNG { get; set; }
@@ -38,5 +39,7 @@ namespace QuanLyGaraOto.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_PHIEUNH> CHITIET_PHIEUNH { get; set; }
         public virtual HIEUXE HIEUXE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CHITIET_PHIEUDATHANG> CHITIET_PHIEUDATHANG { get; set; }
     }
 }

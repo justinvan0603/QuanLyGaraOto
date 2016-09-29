@@ -21,7 +21,7 @@ namespace QuanLyGaraOto.Models
         }
     
         public int MA_PHIEUBH { get; set; }
-        public Nullable<System.DateTime> NGAYCAP { get; set; }
+        public Nullable<System.DateTime> NGAYLAP { get; set; }
         public Nullable<int> MA_NV { get; set; }
         public string TINHTRANG { get; set; }
     

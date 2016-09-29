@@ -25,7 +25,7 @@ namespace QuanLyGaraOto.Models
         public Nullable<int> MA_NV { get; set; }
     
         public virtual NHANVIEN NHANVIEN { get; set; }
-        public virtual PHIEUBANXE PHIEUBANXE { get; set; }
         public virtual PHIEU_DICHVU PHIEU_DICHVU { get; set; }
+        public virtual PHIEUBANXE PHIEUBANXE { get; set; }
     }
 }

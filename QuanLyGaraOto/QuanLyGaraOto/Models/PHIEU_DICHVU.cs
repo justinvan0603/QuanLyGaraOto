@@ -29,13 +29,12 @@ namespace QuanLyGaraOto.Models
         public Nullable<decimal> TONGTIEN { get; set; }
         public Nullable<decimal> SOTIEN_CONLAI { get; set; }
         public Nullable<int> MATHO { get; set; }
-        public string MA_TIENCONG { get; set; }
+        public Nullable<decimal> TIENCONG { get; set; }
         public Nullable<int> MA_NHANVIEN { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_PHIEUDV> CHITIET_PHIEUDV { get; set; }
         public virtual NHANVIEN NHANVIEN { get; set; }
-        public virtual TIENCONG TIENCONG { get; set; }
         public virtual PHIEU_TIEPNHAN PHIEU_TIEPNHAN { get; set; }
         public virtual THO THO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
