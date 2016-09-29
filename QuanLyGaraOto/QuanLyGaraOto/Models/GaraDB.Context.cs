@@ -36,20 +36,20 @@ namespace QuanLyGaraOto.Models
         public virtual DbSet<NHANVIEN> NHANVIENs { get; set; }
         public virtual DbSet<NHACUNGCAP> NHACUNGCAPs { get; set; }
         public virtual DbSet<NHOMNHACUNGCAP> NHOMNHACUNGCAPs { get; set; }
-        public virtual DbSet<PHIEUMUAXE> PHIEUMUAXEs { get; set; }
         public virtual DbSet<XE> XEs { get; set; }
         public virtual DbSet<CHITIET_PHIEUDV> CHITIET_PHIEUDV { get; set; }
         public virtual DbSet<CHITIET_PHIEUBANLE> CHITIET_PHIEUBANLE { get; set; }
         public virtual DbSet<PHIEU_TIEPNHAN> PHIEU_TIEPNHAN { get; set; }
         public virtual DbSet<PHUTUNG> PHUTUNGs { get; set; }
         public virtual DbSet<PHIEU_THUTIEN> PHIEU_THUTIEN { get; set; }
-        public virtual DbSet<PHIEUBANLE> PHIEUBANLEs { get; set; }
-        public virtual DbSet<PHIEUCHI> PHIEUCHIs { get; set; }
         public virtual DbSet<PHIEU_NHAPHANG> PHIEU_NHAPHANG { get; set; }
         public virtual DbSet<PHIEU_DICHVU> PHIEU_DICHVU { get; set; }
-        public virtual DbSet<CHITIET_PHIEUDATHANG> CHITIET_PHIEUDATHANG { get; set; }
-        public virtual DbSet<PHIEUBANXE> PHIEUBANXEs { get; set; }
-        public virtual DbSet<PHIEUDATHANG> PHIEUDATHANGs { get; set; }
         public virtual DbSet<PHIEU_BAOHANH> PHIEU_BAOHANH { get; set; }
+        public virtual DbSet<PHIEU_BANLE> PHIEU_BANLE { get; set; }
+        public virtual DbSet<PHIEU_BANXE> PHIEU_BANXE { get; set; }
+        public virtual DbSet<PHIEU_CHI> PHIEU_CHI { get; set; }
+        public virtual DbSet<PHIEU_DATHANG> PHIEU_DATHANG { get; set; }
+        public virtual DbSet<PHIEU_MUAXE> PHIEU_MUAXE { get; set; }
+        public virtual DbSet<CHITIET_PHIEUDATHANG> CHITIET_PHIEUDATHANG { get; set; }
     }
 }
