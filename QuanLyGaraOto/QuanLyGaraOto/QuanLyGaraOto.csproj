@@ -128,17 +128,28 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\MD5Encryptor.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Controllers\PhieuDichVuController.cs" />
+    <Compile Include="Controllers\ThamSoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BANGTHAMSO.cs">
       <DependentUpon>GaraDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CHITIET_PHIEUBANLE.cs">
+      <DependentUpon>GaraDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CHITIET_PHIEUBH.cs">
+      <DependentUpon>GaraDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CHITIET_PHIEUDATHANG.cs">
       <DependentUpon>GaraDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CHITIET_PHIEUDV.cs">
@@ -168,19 +179,37 @@
     <Compile Include="Models\KHACHHANG.cs">
       <DependentUpon>GaraDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NHACUNGCAP.cs">
+      <DependentUpon>GaraDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\NHANVIEN.cs">
       <DependentUpon>GaraDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NHOMNGUOIDUNG.cs">
       <DependentUpon>GaraDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PHIEUCHI.cs">
+    <Compile Include="Models\NHOMNHACUNGCAP.cs">
+      <DependentUpon>GaraDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PHIEU_BANLE.cs">
+      <DependentUpon>GaraDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PHIEU_BANXE.cs">
       <DependentUpon>GaraDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PHIEU_BAOHANH.cs">
       <DependentUpon>GaraDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PHIEU_CHI.cs">
+      <DependentUpon>GaraDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PHIEU_DATHANG.cs">
+      <DependentUpon>GaraDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PHIEU_DICHVU.cs">
+      <DependentUpon>GaraDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PHIEU_MUAXE.cs">
       <DependentUpon>GaraDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PHIEU_NHAPHANG.cs">
@@ -205,8 +234,14 @@
       <DependentUpon>GaraDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\DSPhieuDVTableData.cs" />
+    <Compile Include="ViewModel\DSPhieuDVViewModel.cs" />
     <Compile Include="ViewModel\KhachHangViewModel.cs" />
+    <Compile Include="ViewModel\NhanVienTableData.cs" />
+    <Compile Include="ViewModel\NhanVienViewModel.cs" />
     <Compile Include="ViewModel\PhieuDVViewModel.cs" />
+    <Compile Include="ViewModel\SuaNhanVienViewModel.cs" />
+    <Compile Include="ViewModel\ThamSoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\GARADB.mdf" />
@@ -272,6 +307,14 @@
     <Content Include="Views\KhachHang\CapNhat.cshtml" />
     <Content Include="Views\PhieuDichVu\NhapPhieuDichVu.cshtml" />
     <Content Include="Views\PhieuDichVu\SuaPhieuDichVu.cshtml" />
+    <Content Include="Views\PhieuDichVu\Index.cshtml" />
+    <Content Include="Views\Login\LoginForm.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\ThamSo\Index.cshtml" />
+    <Content Include="Views\ThamSo\SuaThamSo.cshtml" />
+    <Content Include="Views\NhanVien\Index.cshtml" />
+    <Content Include="Views\NhanVien\NhapNhanVien.cshtml" />
+    <Content Include="Views\NhanVien\SuaNhanVien.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
