@@ -15,6 +15,6 @@ namespace QuanLyGaraOto.ViewModel
         public string TenTho { get; set; }
         public decimal TongTien { get; set; }
         public decimal SoTienConLai { get; set; }
-        public string TinhTrang { get; set; }
+        //public string TinhTrang { get; set; }
     }
 }

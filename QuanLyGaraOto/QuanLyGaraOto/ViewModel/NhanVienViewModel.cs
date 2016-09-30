@@ -12,7 +12,8 @@ namespace QuanLyGaraOto.ViewModel
         public int selectedValue { get; set; }
         public List<SelectListItem> listSearchOption = new List<SelectListItem>() { new SelectListItem(){Text = "", Value="0"},
                                                                                     new SelectListItem(){Text = "Họ tên", Value="1"},
-                                                                                    new SelectListItem(){Text = "Username", Value="2"}};
-        public IPagedList<NHANVIEN> ListNhanVien { get; set; }
+                                                                                    new SelectListItem(){Text = "Username", Value="2"},
+                                                                                    new SelectListItem(){Text = "SĐT", Value="3"}};
+        public IPagedList<NhanVienTableData> ListNhanVien { get; set; }
     }
 }

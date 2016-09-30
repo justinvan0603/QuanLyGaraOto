@@ -1,0 +1,53 @@
+﻿@model QuanLyGaraOto.ViewModel.SuaNhanVienViewModel
+@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Cập nhật nhân viên";
+}
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<h3 class="text-center" style="color:green;">THÔNG TIN NHÂN VIÊN</h3>
+
+@using (Html.BeginForm("SuaNhanVien", "NhanVien", FormMethod.Post))
+{
+    <input type="hidden" name="MA_NV" value="@Model.NhanVien.MA_NV" />
+    <div class="form-group ">
+        <label class="input-sm">Họ và tên:</label>
+        <input class="form-control input-sm" type="text" maxlength="100" name="HOTEN" value="@Model.NhanVien.HOTEN" required />
+    </div>
+    <div class="form-group ">
+        <label class="input-sm">Username:</label>
+        <input class="form-control input-sm" type="text" maxlength="30" name="USERNAME" value="@Model.NhanVien.USERNAME" required readonly/>
+    </div>
+    <div class="form-group ">
+        <label class="input-sm">Mật khẩu:</label>
+        <input class="form-control input-sm" type="password" maxlength="30" name="PASSWORD" required />
+    </div>
+    <div class="form-group">
+        <label class="input-sm">Nhóm người dùng:</label>
+        <select name="MA_NHOMNGUOIDUNG" class="form-control input-sm">
+            @foreach (var item in Model.ListNhomNguoiDung)
+            {
+                <option value="@item.MA_NHOMNGUOIDUNG">@item.TEN_NHOM</option>
+            }
+        </select>
+    </div>
+    <div class="form-group ">
+        <label class="input-sm">Số điện thoại:</label>
+        <input class="form-control input-sm" type="text" maxlength="20" name="SDT" value="@Model.NhanVien.SDT" />
+    </div>
+    <div class="form-group ">
+        <label class="input-sm">Số điện thoại:</label>
+        <input class="form-control input-sm" type="text" maxlength="255" name="DIACHI" value="@Model.NhanVien.DIACHI"/>
+    </div>
+    <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
+}
+
+<script>
+    $('document').ready(function()
+    {
+        var id = '@Model.NhanVien.MA_NHOMNGUOIDUNG';
+        $('.cboNhom').val(id).prop('selected', true);
+    })
+</script>
+

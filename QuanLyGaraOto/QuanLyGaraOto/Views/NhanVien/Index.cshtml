@@ -54,16 +54,16 @@
                 foreach (var item in Model.ListNhanVien.ToList())
                 {
                     <tr class="clickable-row">
-                        <td id="id" style="display:none">@item.MA_NV</td>
-                        <td> @item.HOTEN</td>
-                        <td> @item.USERNAME</td>
+                        <td id="id" style="display:none">@item.MaNV</td>
+                        <td> @item.HoTen</td>
+                        <td> @item.Username</td>
                         <td> @item.SDT</td>
-                        <td>@item.DIACHI</td>
-                        <td> @Math.Round(item.SOTIENNO.Value)</td>
+                        <td>@item.DiaChi</td>
+                        <td> @item.NhomNguoiDung</td>
 
                         <td>
 
-                            @Html.ActionLink("Sửa", "CapNhat", new { id = @item.MA_KH }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
+                            @Html.ActionLink("Sửa", "CapNhat", new { id = @item.MaNV }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
 
                             <!--<button id="btnDelete" type="button" class="btn btn-danger glyphicon-remove">Delete</button>-->
                             <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
@@ -109,7 +109,7 @@
             $.ajax({
 
 
-                url: '/KhachHang/Xoa/',
+                url: '/NhanVien/Xoa/',
 
                 data: JSON.stringify({id:itemid}),
 

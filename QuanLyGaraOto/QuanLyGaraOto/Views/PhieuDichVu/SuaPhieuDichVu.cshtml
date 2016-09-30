@@ -7,6 +7,7 @@
         slTon = Model.ListPhuTung[0].SOLUONGTON.Value;
     }
     ViewBag.Title = "Cập nhật phiếu dịch vụ";
+
 }
 
 <!DOCTYPE html>
@@ -27,10 +28,17 @@
     }
 </style>
 
-
+@using (Html.BeginForm("SuaPhieuDichVu", "PhieuDichVu", FormMethod.Post, new { @class = "form-horizontal" }))
+{ 
+    <input type="hidden" name="PhieuDichVu.ID_PHIEUDV" value="@Model.PhieuDichVu.ID_PHIEUDV"/>
+    <div class="form-inline">
+        <label>Mã phiếu:</label>
+        <input name="PhieuDichVu.MA_PHIEUDV" value="@Model.PhieuDichVu.MA_PHIEUDV" class="form-control input-sm" />
+        
+    </div>
 <div class="form-inline">
     <label>Ngày lập:</label>
-    <label>@Model.NgayLap</label>
+    <label>@Model.PhieuDichVu.NGAYLAP.Value.Date</label>
 </div>
 <div class="form-inline">
     <label>Người lập:</label>
@@ -42,24 +50,20 @@
 </div>
 <div class="form-group form-inline">
     <label class="input-sm">Thợ phụ trách:</label>
-    <select name="MATHO" class="cboTho form-control input-sm">
+    <select name="PhieuDichVu.MATHO" class="cboTho form-control input-sm">
         @foreach (var item in Model.ListTho)
         {
             <option value="@item.MA_THO">@item.TENTHO</option>
         }
     </select>
     <label>Số điện thoại:</label>
-    <label>1234</label>
+    <label class="lblSDT input-sm ">1234</label>
 </div>
 
 <div class="form-group form-inline">
     <label class="input-sm">Tiền công:</label>
-    <select name="MaTienCong" class="cboTC form-control input-sm" style="width:12%" onchange="cboTCSelectChanged()">
-        @foreach (var item in Model.ListTienCong)
-        {
-            <option value="@item.MA_TIENCONG" title="@item.SOTIEN">@item.MA_TIENCONG</option>
-        }
-    </select>
+    <input class="txtTienCong form-control" type="number" min="1000" max="10000" name="PhieuDichVu.TIENCONG" value="@Model.PhieuDichVu.TIENCONG"/>
+
 </div>
 <div class="panel panel-default" style="width:99%;">
     <div class="panel-heading">Thông tin chi tiết:</div>
@@ -113,7 +117,7 @@
                             <input type="hidden" class="ID" name="ID" value="" />
                         </td>
                         <td style="display:none;">
-                            <input type="hidden" class="maPDV" name="MA_PHIEUDV" value="@Model.MaPhieuDV" />
+                            <input type="hidden" class="maPDV" name="MA_PHIEUDV" value="@Model.PhieuDichVu.ID_PHIEUDV" />
                         </td>
                         <td style="display:none;">
                             <input type="hidden" class="maPT" name="MA_PT" value="" />
@@ -152,7 +156,7 @@
                                 <input type="hidden" class="ID" name="ID" value="@item.ID" />
                             </td>
                             <td style="display:none;">
-                                <input type="hidden" class="maPDV" name="MA_PHIEUDV" value="@Model.MaPhieuDV" />
+                                <input type="hidden" class="maPDV" name="MA_PHIEUDV" value="@item.ID_PHIEUDV" />
                             </td>
                             <td style="display:none;">
                                 <input type="hidden" class="maPT" name="MA_PT" value="" />
@@ -201,11 +205,15 @@
     </div>
 
 </div>
+}
 <script>
     $('document').ready(function () {
         //$(".cboTC").val("2");
         //$(".cboTC option[value='2']").attr("selected", true);
-        $('.cboTho').val('2').prop('selected', true);
+        var id = '@Model.PhieuDichVu.MATHO';
+        var sdt = '@Model.ListTho.Single(t => t.MA_THO == @Model.PhieuDichVu.MATHO).SDT';
+        $('.cboTho').val(id).prop('selected', true);
+        $('.lblSDT').text(sdt);
     })
     $('#chitietphieu-table').on('click', '.clickable-row', function (event) {
         if ($(this).hasClass('active')) {

@@ -1,0 +1,43 @@
+﻿@model List<QuanLyGaraOto.Models.NHOMNGUOIDUNG>
+@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Nhập nhân viên";
+}
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+
+<h3 class="text-center" style="color:green;">THÔNG TIN NHÂN VIÊN</h3>
+@using (Html.BeginForm("NhapNhanVien", "NhanVien", FormMethod.Post))
+{
+    <div class="form-group ">
+        <label class="input-sm">Họ và tên:</label>
+        <input class="form-control input-sm" type="text"  maxlength="100" name="HOTEN" required/>
+    </div>
+    <div class="form-group ">
+        <label class="input-sm">Username:</label>
+        <input class="form-control input-sm" type="text"  maxlength="30" name="USERNAME" required />
+    </div>
+    <div class="form-group ">
+        <label class="input-sm">Mật khẩu:</label>
+        <input class="form-control input-sm" type="password" maxlength="30" name="PASSWORD" required />
+    </div>
+    <div class="form-group">
+        <label class="input-sm">Nhóm người dùng:</label>
+        <select name="MA_NHOMNGUOIDUNG" class="cboNhom form-control input-sm">
+            @foreach(var item in Model)
+            {
+                <option value="@item.MA_NHOMNGUOIDUNG">@item.TEN_NHOM</option>
+            }
+        </select>
+    </div>
+    <div class="form-group ">
+        <label class="input-sm">Số điện thoại:</label>
+        <input class="form-control input-sm" type="text"  maxlength="20" name="SDT"/>
+    </div>
+    <div class="form-group ">
+        <label class="input-sm">Số điện thoại:</label>
+        <input class="form-control input-sm" type="text" maxlength="255" name="DIACHI" />
+    </div>
+    <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
+}

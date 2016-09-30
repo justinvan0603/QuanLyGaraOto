@@ -4,9 +4,16 @@
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
     //List<TIENCONG> listtc = ViewBag.ListTienCong;
     int slTon = 0;
+    decimal dongia = 0;
+    string sdt = "";
+    if(Model.ListTho.Count >0)
+    {
+        sdt = Model.ListTho[0].SDT;
+    }
     if(Model.ListPhuTung.Count >0)
     { 
         slTon = Model.ListPhuTung[0].SOLUONGTON.Value;
+        dongia = Math.Round(Model.ListPhuTung[0].DONGIAXUAT.Value);
     }
     //string txt = "faasdf";
     //string val = "fadsd";
@@ -29,12 +36,16 @@
 
 @using (@Html.BeginForm("NhapPhieuDichVu", "PhieuDichVu", FormMethod.Post, new { @class = "form-horizontal" }))
 {
-    <input type="hidden" name="MaPhieuDV" value="@Model.MaPhieuDV" />
-    <input type="hidden" name="MaNV" value="@Model.MaNV" />
-    <input type="hidden" name="MaPhieuTiepNhan" value="@Model.MaPhieuTiepNhan" />
+    
+    <input type="hidden" name="PhieuDichVu.MA_NHANVIEN" value="@Model.PhieuDichVu.MA_NHANVIEN" />
+    <input type="hidden" name="PhieuDichVu.MAPHIEU_TIEPNHAN" value="@Model.PhieuDichVu.MAPHIEU_TIEPNHAN" />
+    <div class="form-group form-inline">
+        <label class="input-sm">Mã phiếu:</label>
+        <input type="text" name="PhieuDichVu.MA_PHIEUDV" value="" class="form-control input-sm"/>
+    </div>
     <div class="form-group">
         <label class="input-sm">Ngày lập:</label>
-        <label>@Model.NgayLap</label>
+        <label class="input-sm">@Model.NgayLap.Date</label>
         
     </div>
 
@@ -52,24 +63,19 @@
 
     <div class="form-group form-inline">
         <label class="input-sm">Thợ phụ trách:</label>
-        <select name="MATHO" class="cboTho form-control input-sm">
+        <select name="PhieuDichVu.MATHO" class="cboTho form-control input-sm" onchange="cboThoSelectChanged()">
             @foreach (var item in Model.ListTho)
             {
-                <option value="@item.MA_THO">@item.TENTHO</option>
+                <option value="@item.MA_THO" title="@item.SDT">@item.TENTHO</option>
             }
         </select>
-        <label>Số điện thoại:</label>
-        <label>1234</label>
+        <label class="input-sm">Số điện thoại:</label>
+        <label class="lblSDT input-sm ">@sdt</label>
     </div>
     <div class="form-group form-inline">
-    <label class="input-sm">Tiền công:</label>
-    <select name="MaTienCong" class="cboTC form-control input-sm" style="width:12%" onchange="cboTCSelectChanged()">
-        @foreach (var item in Model.ListTienCong)
-        {
-            <option value="@item.MA_TIENCONG" title="@item.SOTIEN">@item.MA_TIENCONG</option>
-        }
-    </select>
-        </div>
+        <label class="input-sm">Tiền công:</label>
+        <input class="txtTienCong form-control input-sm" type="number" min="1000" max="10000" name="PhieuDichVu.TIENCONG" />
+    </div>
     <div class="panel panel-default" style="width:99%;">
         <div class="panel-heading">Thông tin chi tiết:</div>
         <div class="panel-body">
@@ -79,7 +85,7 @@
                 <select id="cbo" class="cboPT form-control input-sm" style="width:12%" onchange="cboPTSelectChanged()">
                     @foreach (var item in Model.ListPhuTung)
                     {
-                        <option value="@item.MA_PHUTUNG" title="@item.SOLUONGTON">@item.TEN_PHUTUNG</option>
+                        <option value="@item.MA_PHUTUNG" title="@item.SOLUONGTON" itemprop="@item.DONGIAXUAT">@item.TEN_PHUTUNG</option>
                     }
                 </select>
 
@@ -89,7 +95,7 @@
                 <label class="input-sm">Số lượng:</label>
                 <input type="number" maxlength="3" pattern="[0-9]"  class=" txtSoLuong form-control input-sm" style="width:8%" />
                 <label class="input-sm">Đơn giá:</label>
-                <input type="number" maxlength="8"  pattern="[0-9]" class="txtDonGia form-control input-sm" style="width:10%" />
+                <input type="number" maxlength="8"  pattern="[0-9]" class="txtDonGia form-control input-sm" style="width:10%" value="@dongia" readonly/>
                 <label class="input-sm">Bảo hành:</label>
                 <input type="number" maxlength="2"  pattern="[0-9]" class="txtBH form-control input-sm" style="width:6%;" />
                 <label class="input-sm">Thành tiền:</label>
@@ -119,7 +125,7 @@
                     <tbody>
                         <tr class="record-template" style="display:none">
                             <td style="display:none;">
-                                <input type="hidden" class="maPDV" name="ID_PHIEUDV" value="@Model.MaPhieuDV" />
+                                <input type="hidden" class="maPDV" name="ID_PHIEUDV" value="@Model.PhieuDichVu.ID_PHIEUDV" />
                             </td>
                             <td style="display:none;">
                                 <input type="hidden" class="maPT" name="MA_PT" value="" />
@@ -201,7 +207,12 @@
         CapNhapID();
 
     });
+    function cboThoSelectChanged()
+    {
+        var SDT = $('.cboTho').children("option").filter(":selected").attr("title");
+        $('.lblSDT').text(SDT);
 
+    }
     function cboPTSelectChanged()
     {
         @*var option = document.createElement("option");
@@ -210,29 +221,21 @@
         var select = document.getElementById("cbo");
         select.appendChild(option);*@
         var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
+        var dongia = $('.cboPT').children("option").filter(":selected").attr("itemprop");
+        
+       // alert(mapt);
         $('.lblTonKho').text(parseInt(tonkho));
+        $('.txtDonGia').val(parseInt(dongia));
     }
-        function cboTCSelectChanged() {
 
-
-            //var soluong = parseInt($('input.txtSoLuong').val());
-
-            //var dongia = parseInt($('input.txtDonGia').val());
-            //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
-            //var tien = soluong * dongia;
-            //var thanhtien = parseInt(tien) + parseInt(tiencong);
-            //$('.lblThanhTien').text('');
-            //$('.lblThanhTien').text(parseInt(thanhtien));
-            //alert($('.cboMaTienCong').children("option").filter(":selected").attr("title"))
-        }
         $('.txtDonGia').on('input',function(e)
         {
             var soluong = parseInt($('input.txtSoLuong').val());
 
             var dongia = parseInt($('input.txtDonGia').val());
-            var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
+            //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
             var tien = soluong * dongia;
-            var thanhtien = parseInt(tien) + parseInt(tiencong);
+            var thanhtien = parseInt(tien);// + parseInt(tiencong);
             $('.lblThanhTien').text('');
             $('.lblThanhTien').text(parseInt(thanhtien));
         })
@@ -294,7 +297,7 @@
 
                 
             var id_cuoi = $("#chitietphieu-table").find("tr:last-child").attr("data-id");
-            alert(id_cuoi);
+            //alert(id_cuoi);
             i = parseInt(id_cuoi) + 1;
             //alert(i);
             var tdnoidung = $(".record-template").html();
@@ -302,7 +305,7 @@
             var trnoidung = "<tr class=\"record-template\" data-id=\"" + i + "\">" + tdnoidung + "</tr>";
             $("#chitietphieu-table").append(trnoidung);
 
-            var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
+            //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
 
             //var matiencong = $('.cboTC').children("option").filter(":selected").attr("value");
 
@@ -333,7 +336,8 @@
             //var $txttiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTienCong');
             //$txttiencong.attr("value", tiencong);
 
-            var thanhtien = parseInt(soluong * dongia) + parseInt(tiencong);
+            var thanhtien = parseInt(soluong * dongia);
+            alert(thanhtien);
             var $txtthanhtien = $("#chitietphieu-table").find("tr:last-child").find('td input.txtThanhTien');
             $txtthanhtien.attr("value", thanhtien);
             var baohanh = $('.txtBH').val();

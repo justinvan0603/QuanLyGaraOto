@@ -32,7 +32,7 @@ namespace QuanLyGaraOto.Controllers
                                       TenTho = tho.TENTHO,
                                       TongTien = pdv.TONGTIEN,
                                       SoTienConLai = pdv.SOTIEN_CONLAI,
-                                      TinhTrang = pdv.TINHTRANG
+                                      //TinhTrang = pdv.TINHTRANG
                                   }).ToList();
            
             List<DSPhieuDVTableData> listPhieuDV = new List<DSPhieuDVTableData>();
@@ -46,7 +46,7 @@ namespace QuanLyGaraOto.Controllers
                 data.TenTho = item.TenTho;
                 data.TongTien = item.TongTien.Value;
                 data.SoTienConLai = item.SoTienConLai.Value;
-                data.TinhTrang = item.TinhTrang;
+                //data.TinhTrang = item.TinhTrang;
                 listPhieuDV.Add(data);
             }
             if (searchString != null)
@@ -92,20 +92,29 @@ namespace QuanLyGaraOto.Controllers
         {
             GARADBEntities context = new GARADBEntities();
             PhieuDVViewModel vmPhieuDV = new PhieuDVViewModel();
-
+            vmPhieuDV.PhieuDichVu = new PHIEU_DICHVU();
             vmPhieuDV.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuDV.ListTho = new List<THO>();
             vmPhieuDV.ListTho = context.THOes.ToList();
             vmPhieuDV.ListTienCong = context.TIENCONGs.ToList();
-            vmPhieuDV.MaPhieuDV = 1;
-            vmPhieuDV.MaPhieuTiepNhan = 1;
-            vmPhieuDV.MaNV = 1;
+            
+
             return View(vmPhieuDV);
         }
         [HttpPost]
         public ActionResult NhapPhieuDichVu(PhieuDVViewModel viewmodel, IEnumerable<CHITIET_PHIEUDV> listChiTiet)
         {
-
+            GARADBEntities context = new GARADBEntities();
+            viewmodel.PhieuDichVu.NGAYLAP = DateTime.Now.Date;
+            context.PHIEU_DICHVU.Add(viewmodel.PhieuDichVu);
+            context.SaveChanges();
+            List<CHITIET_PHIEUDV> listCT = listChiTiet.ToList();
+            foreach(var item in listChiTiet)
+            {
+                item.ID_PHIEUDV = viewmodel.PhieuDichVu.ID_PHIEUDV;
+                context.CHITIET_PHIEUDV.Add(item);
+            }
+            context.SaveChanges();
             return NhapPhieuDichVu();
         }
         [HttpGet]
@@ -113,21 +122,24 @@ namespace QuanLyGaraOto.Controllers
         {
             GARADBEntities context = new GARADBEntities();
             PhieuDVViewModel vmPhieuDV = new PhieuDVViewModel();
+            vmPhieuDV.PhieuDichVu = context.PHIEU_DICHVU.Single(p => p.ID_PHIEUDV == 1);
+            
             vmPhieuDV.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuDV.ListTho = new List<THO>();
             vmPhieuDV.ListTho = context.THOes.ToList();
             vmPhieuDV.ListChiTietPhieu = new List<CHITIET_PHIEUDV>();
-            vmPhieuDV.ListTienCong = context.TIENCONGs.ToList();
-            vmPhieuDV.MaPhieuDV = 1;
-            vmPhieuDV.MaPhieuTiepNhan = 1;
-            vmPhieuDV.MaNV = 1;
+
+            //vmPhieuDV.MaPhieuDV = "PDV001";
+            //vmPhieuDV.MaPhieuTiepNhan = 3;
+            //vmPhieuDV.MaNV = 1;
+            //vmPhieuDV.ID_PhieuDV = 5;
             return View(vmPhieuDV);
         }
-        //[HttpPost]
-        //public ActionResult SuaPhieuDichVu(PhieuDVViewModel viewModel, List<CHITIET_PHIEUDV> listChiTiet)
-        //{
-
-        //}
+        [HttpPost]
+        public ActionResult SuaPhieuDichVu(PhieuDVViewModel viewModel, List<CHITIET_PHIEUDV> listChiTiet)
+        {
+            return View();
+        }
         [HttpPost]
         public JsonResult XoaChiTiet(int id)
         {
