@@ -137,7 +137,9 @@
     <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Controllers\PhieuBanLeController.cs" />
     <Compile Include="Controllers\PhieuDichVuController.cs" />
+    <Compile Include="Controllers\PhuTungController.cs" />
     <Compile Include="Controllers\ThamSoController.cs" />
+    <Compile Include="Controllers\ThoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -322,6 +324,10 @@
     <Content Include="Views\PhieuBanLe\Index.cshtml" />
     <Content Include="Views\PhieuBanLe\NhapPhieuBanLe.cshtml" />
     <Content Include="Views\PhieuBanLe\SuaPhieuBanLe.cshtml" />
+    <Content Include="Views\Tho\ThemMoi.cshtml" />
+    <Content Include="Views\Tho\CapNhat.cshtml" />
+    <Content Include="Views\PhuTung\ThemMoi.cshtml" />
+    <Content Include="Views\PhuTung\CapNhat.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
