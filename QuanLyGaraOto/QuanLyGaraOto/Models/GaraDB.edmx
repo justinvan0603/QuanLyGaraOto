@@ -22,6 +22,7 @@
           <Property Name="SOLUONG" Type="int" />
           <Property Name="DONGIA" Type="money" />
           <Property Name="THANHTIEN" Type="money" />
+          <Property Name="THOIHAN_BAOHANH" Type="int" />
         </EntityType>
         <EntityType Name="CHITIET_PHIEUBH">
           <Key>
@@ -812,7 +813,6 @@
             <End Role="XE" EntitySet="XEs" />
           </AssociationSet>
           <EntitySet Name="CHITIET_PHIEUDV" EntityType="GARADBModel.CHITIET_PHIEUDV" />
-          <EntitySet Name="CHITIET_PHIEUBANLE" EntityType="GARADBModel.CHITIET_PHIEUBANLE" />
           <EntitySet Name="PHIEU_TIEPNHAN" EntityType="GARADBModel.PHIEU_TIEPNHAN" />
           <AssociationSet Name="FK_PHIEUTIEPNHAN_KHACHHANG" Association="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG">
             <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
@@ -823,10 +823,6 @@
             <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
           </AssociationSet>
           <EntitySet Name="PHUTUNGs" EntityType="GARADBModel.PHUTUNG" />
-          <AssociationSet Name="FK_CTBANLE_PHUTUNG" Association="GARADBModel.FK_CTBANLE_PHUTUNG">
-            <End Role="PHUTUNG" EntitySet="PHUTUNGs" />
-            <End Role="CHITIET_PHIEUBANLE" EntitySet="CHITIET_PHIEUBANLE" />
-          </AssociationSet>
           <AssociationSet Name="FK_CHITIET_PHIEUBH_PHUTUNG" Association="GARADBModel.FK_CHITIET_PHIEUBH_PHUTUNG">
             <End Role="PHUTUNG" EntitySet="PHUTUNGs" />
             <End Role="CHITIET_PHIEUBH" EntitySet="CHITIET_PHIEUBH" />
@@ -892,10 +888,6 @@
           <EntitySet Name="PHIEU_CHI" EntityType="GARADBModel.PHIEU_CHI" />
           <EntitySet Name="PHIEU_DATHANG" EntityType="GARADBModel.PHIEU_DATHANG" />
           <EntitySet Name="PHIEU_MUAXE" EntityType="GARADBModel.PHIEU_MUAXE" />
-          <AssociationSet Name="FK_CTBANLE_PHIEUBANLE" Association="GARADBModel.FK_CTBANLE_PHIEUBANLE">
-            <End Role="PHIEU_BANLE" EntitySet="PHIEU_BANLE" />
-            <End Role="CHITIET_PHIEUBANLE" EntitySet="CHITIET_PHIEUBANLE" />
-          </AssociationSet>
           <AssociationSet Name="FK_PHIEUCHI_NHANVIEN" Association="GARADBModel.FK_PHIEUCHI_NHANVIEN">
             <End Role="NHANVIEN" EntitySet="NHANVIENs" />
             <End Role="PHIEU_CHI" EntitySet="PHIEU_CHI" />
@@ -916,6 +908,15 @@
           <AssociationSet Name="FK_CTPDH_PHUTUNG" Association="GARADBModel.FK_CTPDH_PHUTUNG">
             <End Role="PHUTUNG" EntitySet="PHUTUNGs" />
             <End Role="CHITIET_PHIEUDATHANG" EntitySet="CHITIET_PHIEUDATHANG" />
+          </AssociationSet>
+          <EntitySet Name="CHITIET_PHIEUBANLE" EntityType="GARADBModel.CHITIET_PHIEUBANLE" />
+          <AssociationSet Name="FK_CTBANLE_PHIEUBANLE" Association="GARADBModel.FK_CTBANLE_PHIEUBANLE">
+            <End Role="PHIEU_BANLE" EntitySet="PHIEU_BANLE" />
+            <End Role="CHITIET_PHIEUBANLE" EntitySet="CHITIET_PHIEUBANLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTBANLE_PHUTUNG" Association="GARADBModel.FK_CTBANLE_PHUTUNG">
+            <End Role="PHUTUNG" EntitySet="PHUTUNGs" />
+            <End Role="CHITIET_PHIEUBANLE" EntitySet="CHITIET_PHIEUBANLE" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="CHITIET_PHIEUBH">
@@ -1050,19 +1051,6 @@
           <NavigationProperty Name="PHUTUNG" Relationship="GARADBModel.FK_CHITIET_PHIEUDV_PHUTUNG" FromRole="CHITIET_PHIEUDV" ToRole="PHUTUNG" />
           <NavigationProperty Name="PHIEU_DICHVU" Relationship="GARADBModel.FK_CHITIET_PHIEUDV_PDV" FromRole="CHITIET_PHIEUDV" ToRole="PHIEU_DICHVU" />
         </EntityType>
-        <EntityType Name="CHITIET_PHIEUBANLE">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_PHIEUBANLE" Type="Int32" />
-          <Property Name="MAPT" Type="Int32" />
-          <Property Name="SOLUONG" Type="Int32" />
-          <Property Name="DONGIA" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="THANHTIEN" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="PHUTUNG" Relationship="GARADBModel.FK_CTBANLE_PHUTUNG" FromRole="CHITIET_PHIEUBANLE" ToRole="PHUTUNG" />
-          <NavigationProperty Name="PHIEU_BANLE" Relationship="GARADBModel.FK_CTBANLE_PHIEUBANLE" FromRole="CHITIET_PHIEUBANLE" ToRole="PHIEU_BANLE" />
-        </EntityType>
         <EntityType Name="PHIEU_TIEPNHAN">
           <Key>
             <PropertyRef Name="MA_PHIEUTIEPNHAN" />
@@ -1111,25 +1099,13 @@
           <Property Name="MA_HIEUXE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="SOLUONGTON" Type="Int32" />
           <Property Name="DONGIAXUAT" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="CHITIET_PHIEUBANLE" Relationship="GARADBModel.FK_CTBANLE_PHUTUNG" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUBANLE" />
           <NavigationProperty Name="CHITIET_PHIEUBH" Relationship="GARADBModel.FK_CHITIET_PHIEUBH_PHUTUNG" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUBH" />
           <NavigationProperty Name="CHITIET_PHIEUDV" Relationship="GARADBModel.FK_CHITIET_PHIEUDV_PHUTUNG" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUDV" />
           <NavigationProperty Name="CHITIET_PHIEUNH" Relationship="GARADBModel.FK_CHITIET_PHIEUNH_PHUTUNG" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUNH" />
           <NavigationProperty Name="HIEUXE" Relationship="GARADBModel.FK_PHUTUNG_HIEUXE" FromRole="PHUTUNG" ToRole="HIEUXE" />
           <NavigationProperty Name="CHITIET_PHIEUDATHANG" Relationship="GARADBModel.FK_CTPDH_PHUTUNG" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUDATHANG" />
+          <NavigationProperty Name="CHITIET_PHIEUBANLE" Relationship="GARADBModel.FK_CTBANLE_PHUTUNG" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUBANLE" />
         </EntityType>
-        <Association Name="FK_CTBANLE_PHUTUNG">
-          <End Type="GARADBModel.PHUTUNG" Role="PHUTUNG" Multiplicity="0..1" />
-          <End Type="GARADBModel.CHITIET_PHIEUBANLE" Role="CHITIET_PHIEUBANLE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PHUTUNG">
-              <PropertyRef Name="MA_PHUTUNG" />
-            </Principal>
-            <Dependent Role="CHITIET_PHIEUBANLE">
-              <PropertyRef Name="MAPT" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CHITIET_PHIEUBH_PHUTUNG">
           <End Type="GARADBModel.PHUTUNG" Role="PHUTUNG" Multiplicity="1" />
           <End Type="GARADBModel.CHITIET_PHIEUBH" Role="CHITIET_PHIEUBH" Multiplicity="*" />
@@ -1426,18 +1402,6 @@
           <Property Name="BS_XE" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
           <Property Name="TRIGIA" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
-        <Association Name="FK_CTBANLE_PHIEUBANLE">
-          <End Type="GARADBModel.PHIEU_BANLE" Role="PHIEU_BANLE" Multiplicity="0..1" />
-          <End Type="GARADBModel.CHITIET_PHIEUBANLE" Role="CHITIET_PHIEUBANLE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PHIEU_BANLE">
-              <PropertyRef Name="ID_PHIEUBANLE" />
-            </Principal>
-            <Dependent Role="CHITIET_PHIEUBANLE">
-              <PropertyRef Name="ID_PHIEUBANLE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PHIEUCHI_NHANVIEN">
           <End Type="GARADBModel.NHANVIEN" Role="NHANVIEN" Multiplicity="0..1" />
           <End Type="GARADBModel.PHIEU_CHI" Role="PHIEU_CHI" Multiplicity="*" />
@@ -1506,6 +1470,44 @@
             </Principal>
             <Dependent Role="CHITIET_PHIEUDATHANG">
               <PropertyRef Name="MA_PHUTUNG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CHITIET_PHIEUBANLE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PHIEUBANLE" Type="Int32" />
+          <Property Name="MAPT" Type="Int32" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <Property Name="DONGIA" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="THANHTIEN" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="THOIHAN_BAOHANH" Type="Int32" />
+          <NavigationProperty Name="PHIEU_BANLE" Relationship="GARADBModel.FK_CTBANLE_PHIEUBANLE" FromRole="CHITIET_PHIEUBANLE" ToRole="PHIEU_BANLE" />
+          <NavigationProperty Name="PHUTUNG" Relationship="GARADBModel.FK_CTBANLE_PHUTUNG" FromRole="CHITIET_PHIEUBANLE" ToRole="PHUTUNG" />
+        </EntityType>
+        <Association Name="FK_CTBANLE_PHIEUBANLE">
+          <End Type="GARADBModel.PHIEU_BANLE" Role="PHIEU_BANLE" Multiplicity="0..1" />
+          <End Type="GARADBModel.CHITIET_PHIEUBANLE" Role="CHITIET_PHIEUBANLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_BANLE">
+              <PropertyRef Name="ID_PHIEUBANLE" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUBANLE">
+              <PropertyRef Name="ID_PHIEUBANLE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CTBANLE_PHUTUNG">
+          <End Type="GARADBModel.PHUTUNG" Role="PHUTUNG" Multiplicity="0..1" />
+          <End Type="GARADBModel.CHITIET_PHIEUBANLE" Role="CHITIET_PHIEUBANLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHUTUNG">
+              <PropertyRef Name="MA_PHUTUNG" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUBANLE">
+              <PropertyRef Name="MAPT" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1651,18 +1653,6 @@
                 <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
                 <ScalarProperty Name="MA_PT" ColumnName="MA_PT" />
                 <ScalarProperty Name="ID_PHIEUDV" ColumnName="ID_PHIEUDV" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CHITIET_PHIEUBANLE">
-            <EntityTypeMapping TypeName="GARADBModel.CHITIET_PHIEUBANLE">
-              <MappingFragment StoreEntitySet="CHITIET_PHIEUBANLE">
-                <ScalarProperty Name="THANHTIEN" ColumnName="THANHTIEN" />
-                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
-                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
-                <ScalarProperty Name="MAPT" ColumnName="MAPT" />
-                <ScalarProperty Name="ID_PHIEUBANLE" ColumnName="ID_PHIEUBANLE" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1817,6 +1807,19 @@
                 <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
                 <ScalarProperty Name="MA_PHUTUNG" ColumnName="MA_PHUTUNG" />
                 <ScalarProperty Name="Id_PhieuDatHang" ColumnName="Id_PhieuDatHang" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHITIET_PHIEUBANLE">
+            <EntityTypeMapping TypeName="GARADBModel.CHITIET_PHIEUBANLE">
+              <MappingFragment StoreEntitySet="CHITIET_PHIEUBANLE">
+                <ScalarProperty Name="THOIHAN_BAOHANH" ColumnName="THOIHAN_BAOHANH" />
+                <ScalarProperty Name="THANHTIEN" ColumnName="THANHTIEN" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="MAPT" ColumnName="MAPT" />
+                <ScalarProperty Name="ID_PHIEUBANLE" ColumnName="ID_PHIEUBANLE" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -105,6 +105,7 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult NhapPhieuDichVu(PhieuDVViewModel viewmodel, IEnumerable<CHITIET_PHIEUDV> listChiTiet)
         {
             GARADBEntities context = new GARADBEntities();
+            viewmodel.PhieuDichVu.MA_NHANVIEN = context.NHANVIENs.Single(nv => nv.USERNAME.Equals(Session["Username"])).MA_NV;
             viewmodel.PhieuDichVu.NGAYLAP = DateTime.Now.Date;
             context.PHIEU_DICHVU.Add(viewmodel.PhieuDichVu);
             context.SaveChanges();
@@ -138,17 +139,57 @@ namespace QuanLyGaraOto.Controllers
         [HttpPost]
         public ActionResult SuaPhieuDichVu(PhieuDVViewModel viewModel, List<CHITIET_PHIEUDV> listChiTiet)
         {
+            GARADBEntities context = new GARADBEntities();
+            var target = context.PHIEU_DICHVU.Single(pdv => pdv.ID_PHIEUDV == viewModel.PhieuDichVu.ID_PHIEUDV);
+            target.MATHO = viewModel.PhieuDichVu.MATHO;
+            target.TIENCONG = viewModel.PhieuDichVu.TIENCONG;
             return View();
+        }
+        [HttpPost]
+        public JsonResult Xoa(int id)
+        {
+            try
+            {
+                GARADBEntities context = new GARADBEntities();
+                var target = context.PHIEU_DICHVU.Single(pdv => pdv.ID_PHIEUDV == id);
+                if(context.PHIEU_THUTIEN.Any(pt => pt.ID_PHIEUDV == target.ID_PHIEUDV))
+                {
+                    return Json(new { value = "-1", message = "Không thể xóa phiếu đã lập phiếu thu!" }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { value = "1", message = "Xóa thành công!" }, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception)
+            {
+                return Json(new { value = "-1", message = "Không thể xóa phiếu!" }, JsonRequestBehavior.AllowGet);
+            }
         }
         [HttpPost]
         public JsonResult XoaChiTiet(int id)
         {
-            int result = 1;
-            return Json(result, JsonRequestBehavior.AllowGet);
+            try
+            {
+                GARADBEntities context = new GARADBEntities();
+                var target = context.CHITIET_PHIEUDV.Single(ct => ct.ID == id);
+                if(context.PHIEU_THUTIEN.Any(pt => pt.ID_PHIEUDV == target.ID_PHIEUDV))
+                {
+                    return Json(new { value = "-1", message = "Không thể xóa do đã lập phiếu thu tiền!" }, JsonRequestBehavior.AllowGet);
+                }
+                context.CHITIET_PHIEUDV.Remove(target);
+                context.SaveChanges();
+                return Json(new { value = "1", message = "Xóa thành công!" }, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception)
+            {
+                return Json(new { value = "-1", message = "Không thể xóa chi tiết phiếu!" }, JsonRequestBehavior.AllowGet);
+            }
+
         }
         [HttpPost]
         public JsonResult ThemChiTiet(CHITIET_PHIEUDV chitiet)
         {
+            GARADBEntities context = new GARADBEntities();
+            context.CHITIET_PHIEUDV.Add(chitiet);
+            context.SaveChanges();
             return Json(new { issucess = "1", newid = "1", message = "OK" }, JsonRequestBehavior.AllowGet);
         }
     }

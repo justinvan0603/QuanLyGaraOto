@@ -20,8 +20,9 @@ namespace QuanLyGaraOto.Models
         public Nullable<int> SOLUONG { get; set; }
         public Nullable<decimal> DONGIA { get; set; }
         public Nullable<decimal> THANHTIEN { get; set; }
+        public Nullable<int> THOIHAN_BAOHANH { get; set; }
     
-        public virtual PHUTUNG PHUTUNG { get; set; }
         public virtual PHIEU_BANLE PHIEU_BANLE { get; set; }
+        public virtual PHUTUNG PHUTUNG { get; set; }
     }
 }

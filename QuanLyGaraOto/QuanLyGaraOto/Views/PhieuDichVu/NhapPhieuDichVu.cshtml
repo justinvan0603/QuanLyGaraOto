@@ -17,7 +17,7 @@
     }
     //string txt = "faasdf";
     //string val = "fadsd";
-    int val = 2;
+    //int val = 2;
 }
 <!DOCTYPE html>
 <style>
@@ -33,7 +33,7 @@
         margin-bottom: 5px;
     }
 </style>
-
+<h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU DỊCH VỤ</h3>
 @using (@Html.BeginForm("NhapPhieuDichVu", "PhieuDichVu", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     
@@ -74,7 +74,8 @@
     </div>
     <div class="form-group form-inline">
         <label class="input-sm">Tiền công:</label>
-        <input class="txtTienCong form-control input-sm" type="number" min="1000" max="10000" name="PhieuDichVu.TIENCONG" />
+        @Html.TextBoxFor(model => model.PhieuDichVu.TIENCONG, new { @class= "form-control"});
+        @*<input class="txtTienCong form-control input-sm" type="number" min="1000" max="10000" name="PhieuDichVu.TIENCONG" required />*@
     </div>
     <div class="panel panel-default" style="width:99%;">
         <div class="panel-heading">Thông tin chi tiết:</div>
@@ -181,14 +182,14 @@
     });
     $("form").submit(function (e)
     {
-        var rowCount = $("#chitietphieu-table tr").length;
-        var numberofContentRow = parseInt(rowCount - 2);
-        //alert(numberofContentRow);
-        if (numberofContentRow == 0)
-        {
-            alert("Vui lòng nhập dữ liệu vào bảng chi tiết!");
-            e.preventDefault();
-        }
+        //var rowCount = $("#chitietphieu-table tr").length;
+        //var numberofContentRow = parseInt(rowCount - 2);
+        ////alert(numberofContentRow);
+        //if (numberofContentRow == 0)
+        //{
+        //    alert("Vui lòng nhập dữ liệu vào bảng chi tiết!");
+        //    e.preventDefault();
+        //}
         //alert("method call");
         //e.preventDefault();
         //alert("stop submit");
@@ -234,8 +235,9 @@
 
             var dongia = parseInt($('input.txtDonGia').val());
             //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
-            var tien = soluong * dongia;
-            var thanhtien = parseInt(tien);// + parseInt(tiencong);
+            var tien = parseInt(soluong * dongia);
+            var thanhtien = parseInt(tien);
+ 
             $('.lblThanhTien').text('');
             $('.lblThanhTien').text(parseInt(thanhtien));
         })
@@ -247,7 +249,7 @@
             var dongia = parseInt($('input.txtDonGia').val());
             var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
             var tien = soluong * dongia;
-            var thanhtien = parseInt(tien) + parseInt(tiencong);
+            var thanhtien = parseInt(tien);
             $('.lblThanhTien').text('');
             $('.lblThanhTien').text(parseInt(thanhtien));
             //alert('text changed');
@@ -351,7 +353,7 @@
             $(".record-template").each(function () {
 
                 var id = $(this).attr("data-id");
-                var nameDV = "[" + id + "].MA_PHIEUDV";
+                var nameDV = "[" + id + "].ID_PHIEUDV";
                 var nameMaPhuTung = "[" + id + "].MA_PT";
                 //var nameMaTienCong = "[" + id + "].MA_TIENCONG";
 
@@ -380,7 +382,7 @@
             $(".record-template").each(function () {
                 var id = i;
                 $(this).attr("data-id", i);
-                var nameDV = "[" + id + "].MA_PHIEUDV";
+                var nameDV = "[" + id + "].ID_PHIEUDV";
                 var nameMaPhuTung = "[" + id + "].MA_PT";
                 //var nameMaTienCong = "[" + id + "].MA_TIENCONG";
 

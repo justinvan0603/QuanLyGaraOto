@@ -9,23 +9,24 @@
 </head>
 
 <h3 class="text-center" style="color:green;">THÔNG TIN KHÁCH HÀNG</h3>
-@using (@Html.BeginForm("ThemMoi", "KhachHang", FormMethod.Post))
+@using (@Html.BeginForm("CapNhat", "KhachHang", FormMethod.Post))
 {
+    @Html.HiddenFor(m => m.MA_KH, Model)
     <div class="form-group">
         <label>Họ tên:</label>
-        @Html.TextBoxFor(Model => Model.TEN_KH, new { @class = "form-control" })
+        @Html.TextBoxFor(m=> m.TEN_KH, new { @class = "form-control" })
     </div>
     <div class="form-group">
         <label>Số CMND:</label>
-        @Html.TextBoxFor(Model => Model.CMND, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.CMND, new { @class = "form-control" })
     </div>
     <div class="form-group">
         <label>Số điện thoại:</label>
-        @Html.TextBoxFor(Model => Model.SDT, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.SDT, new { @class = "form-control" })
     </div>
     <div class="form-group">
         <label>Địa chỉ:</label>
-        @Html.TextBoxFor(Model => Model.DIACHI, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.DIACHI, new { @class = "form-control" })
     </div>
     <div class="form-group">
         <button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-plus"></span> Lưu</button>

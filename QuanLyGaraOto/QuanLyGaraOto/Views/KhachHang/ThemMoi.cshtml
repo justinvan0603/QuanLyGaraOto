@@ -3,6 +3,11 @@
     ViewBag.Title = "Thêm Khách Hàng";
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
 }
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/bootstrap")
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
 @Html.Raw(TempData["msg"])
 <head>
     <title>@ViewBag.Title</title>
@@ -11,21 +16,25 @@
 @using(@Html.BeginForm("ThemMoi","KhachHang",FormMethod.Post))
 {
     <div class="form-group">
-        <label >Họ tên:</label>
-        
-        @Html.TextBoxFor(Model => Model.TEN_KH, new { @class="form-control"})
+        <label class="input-sm" >Họ tên:</label>
+        @*<input type="text" maxlength="100" name="TEN_KH" class="form-control input-sm"/>*@
+        @Html.TextBoxFor(m => m.TEN_KH, new { @class="form-control"})
     </div>
     <div class="form-group">
-        <label>Số CMND:</label>
-        @Html.TextBoxFor(Model => Model.CMND, new { @class = "form-control" })
+        <label class="input-sm">Số CMND:</label>
+       @* <input type="number" maxlength="20" name="CMND" class="form-control input-sm" />*@
+      @Html.TextBoxFor(m => m.CMND, new { @class = "form-control" })
     </div>
     <div class="form-group">
-        <label>Số điện thoại:</label>
-        @Html.TextBoxFor(Model => Model.SDT, new { @class = "form-control" })
+        <label class="input-sm">Số điện thoại:</label>
+        @*<input type="number" maxlength="20" name="SDT" class="form-control input-sm" />*@
+        @Html.TextBoxFor(m => m.SDT, new { @class = "form-control" })
+
     </div>
     <div class="form-group">
-        <label>Địa chỉ:</label>
-        @Html.TextBoxFor(Model => Model.DIACHI, new { @class = "form-control" })
+        <label class="input-sm">Địa chỉ:</label>
+        @*<input type="text" maxlength="255" name="DIACHI" class="form-control input-sm" />*@
+        @Html.TextBoxFor(m => m.DIACHI, new { @class = "form-control" })
     </div>
     <div class="form-group">
         <button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-plus"></span> Lưu</button>

@@ -87,10 +87,10 @@ namespace QuanLyGaraOto.Controllers
             return RedirectToAction("ThemMoi");
         }
         [HttpGet]
-        public ActionResult CapNhat(int id)
+        public ActionResult CapNhat(int? id)
         {
             GARADBEntities context = new Models.GARADBEntities();
-            KHACHHANG client = context.KHACHHANGs.Single(c => c.MA_KH == id);
+            KHACHHANG client = context.KHACHHANGs.Single(c => c.MA_KH == 3);
             return View(client);
         }
         [HttpPost]
@@ -103,6 +103,7 @@ namespace QuanLyGaraOto.Controllers
             target.CMND = client.CMND;
             target.DIACHI = client.DIACHI;
             context.SaveChanges();
+            TempData["msg"] = "<script>alert('Đã cập nhật thành công');</script>";
             return View();
         }
         [ValidateInput(false)]

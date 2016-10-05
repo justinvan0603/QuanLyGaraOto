@@ -27,7 +27,7 @@
         margin-bottom: 5px;
     }
 </style>
-
+<h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU DỊCH VỤ</h3>
 @using (Html.BeginForm("SuaPhieuDichVu", "PhieuDichVu", FormMethod.Post, new { @class = "form-horizontal" }))
 { 
     <input type="hidden" name="PhieuDichVu.ID_PHIEUDV" value="@Model.PhieuDichVu.ID_PHIEUDV"/>
@@ -117,7 +117,7 @@
                             <input type="hidden" class="ID" name="ID" value="" />
                         </td>
                         <td style="display:none;">
-                            <input type="hidden" class="maPDV" name="MA_PHIEUDV" value="@Model.PhieuDichVu.ID_PHIEUDV" />
+                            <input type="hidden" class="maPDV" name="ID_PHIEUDV" value="@Model.PhieuDichVu.ID_PHIEUDV" />
                         </td>
                         <td style="display:none;">
                             <input type="hidden" class="maPT" name="MA_PT" value="" />
@@ -156,37 +156,29 @@
                                 <input type="hidden" class="ID" name="ID" value="@item.ID" />
                             </td>
                             <td style="display:none;">
-                                <input type="hidden" class="maPDV" name="MA_PHIEUDV" value="@item.ID_PHIEUDV" />
+                                <input type="hidden" class="maPDV" name="ID_PHIEUDV" value="@item.ID_PHIEUDV" />
                             </td>
                             <td style="display:none;">
-                                <input type="hidden" class="maPT" name="MA_PT" value="" />
+                                <input type="hidden" class="maPT" name="MA_PT" value="@item.MA_PT" />
                             </td>
                             <td>
                                 <input class="txtTenPT form-control input-sm" type="text" value="" readonly />
 
                             </td>
-                            @*<td style="display:none;">
-                                <input type="hidden" class="maTC" name="MA_TIENCONG" value="" />
-                            </td>*@
+
                             <td>
-                                <input type="text" class="txtTenTC form-control input-sm" value="" readonly />
+                                <input type="text" class="txtSoluong form-control input-sm" name="SOLUONG" value="@item.SOLUONG" readonly />
 
                             </td>
                             <td>
-                                <input type="text" class="txtSoluong form-control input-sm" name="SOLUONG" value="" readonly />
+                                <input type="text" class="txtDonGia form-control input-sm" name="DONGIA" value="@item.DONGIA" readonly />
+                            </td>
 
+                            <td>
+                                <input type="text" class=" txtThanhTien form-control input-sm" name="THANHTIEN" value="@item.THANHTIEN" readonly />
                             </td>
                             <td>
-                                <input type="text" class="txtDonGia form-control input-sm" name="DONGIA" value="" readonly />
-                            </td>
-                            @*<td>
-                                <input type="text" class="txtTienCong form-control input-sm" name="TIENCONG" value="" disabled />
-                            </td>*@
-                            <td>
-                                <input type="text" class=" txtThanhTien form-control input-sm" name="THANHTIEN" value="" readonly />
-                            </td>
-                            <td>
-                                <input type="text" class="txtBaoHanh form-control input-sm" name="THOIHAN_BAOHANH" value="" readonly />
+                                <input type="text" class="txtBaoHanh form-control input-sm" name="THOIHAN_BAOHANH" value="@item.THOIHAN_BAOHANH" readonly />
                             </td>
                             <td>
                                 <input type="button" value="Xóa" class="btnDelete btn btn-danger"  />
@@ -259,14 +251,14 @@
             }
 
         }).done(function () {
-            if (isSuccess == "1") {
-                row.remove();
-                alert("Thêm Thành Công");
-                // window.location.replace("index");
-            }
-            else {
-                alert("Error. Please, check the data");
-            }
+            //if (isSuccess == "1") {
+            //    row.remove();
+            //    alert("Thêm Thành Công");
+            //    // window.location.replace("index");
+            //}
+            //else {
+            //    alert("Error. Please, check the data");
+            //}
         });
 
     });
@@ -292,9 +284,9 @@
         var soluong = parseInt($('input.txtSoLuong').val());
 
         var dongia = parseInt($('input.txtDonGia').val());
-        var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
+        //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
         var tien = soluong * dongia;
-        var thanhtien = parseInt(tien) + parseInt(tiencong);
+        var thanhtien = parseInt(tien);
         $('.lblThanhTien').text('');
         $('.lblThanhTien').text(parseInt(thanhtien));
     })
@@ -303,9 +295,9 @@
         var soluong = parseInt($('input.txtSoLuong').val());
 
         var dongia = parseInt($('input.txtDonGia').val());
-        var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
+        //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
         var tien = soluong * dongia;
-        var thanhtien = parseInt(tien) + parseInt(tiencong);
+        var thanhtien = parseInt(tien);
         $('.lblThanhTien').text('');
         $('.lblThanhTien').text(parseInt(thanhtien));
         //alert('text changed');
@@ -442,7 +434,7 @@
         $(".record-template").each(function () {
 
             var id = $(this).attr("data-id");
-            var nameDV = "[" + id + "].MA_PHIEUDV";
+            var nameDV = "[" + id + "].ID_PHIEUDV";
             var nameMaPhuTung = "[" + id + "].MA_PT";
             var nameMaTienCong = "[" + id + "].MA_TIENCONG";
 
@@ -471,7 +463,7 @@
         $(".record-template").each(function () {
             var id = i;
             $(this).attr("data-id", i);
-            var nameDV = "[" + id + "].MA_PHIEUDV";
+            var nameDV = "[" + id + "].ID_PHIEUDV";
             var nameMaPhuTung = "[" + id + "].MA_PT";
             //var nameMaTienCong = "[" + id + "].MA_TIENCONG";
 
