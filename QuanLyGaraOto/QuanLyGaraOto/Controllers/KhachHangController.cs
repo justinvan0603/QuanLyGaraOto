@@ -74,10 +74,18 @@ namespace QuanLyGaraOto.Controllers
         {
             try
             {
-                GARADBEntities context = new Models.GARADBEntities();
-                context.KHACHHANGs.Add(client);
-                context.SaveChanges();
-                TempData["msg"] = "<script>alert('Đã thêm thành công');</script>";
+                if (ModelState.IsValid)
+                {
+                    GARADBEntities context = new Models.GARADBEntities();
+                    context.KHACHHANGs.Add(client);
+                    context.SaveChanges();
+                    TempData["msg"] = "<script>alert('Đã thêm thành công');</script>";
+                }
+                else
+                {
+                    //client.TEN_KH=ModelState["TEN_KH"].Value.AttemptedValue;
+                    return View(client);
+                }
             }
             catch(Exception)
             {

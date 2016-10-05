@@ -182,6 +182,7 @@
     <Compile Include="Models\KHACHHANG.cs">
       <DependentUpon>GaraDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\NHACUNGCAP.cs">
       <DependentUpon>GaraDB.tt</DependentUpon>
     </Compile>
@@ -194,6 +195,7 @@
     <Compile Include="Models\NHOMNHACUNGCAP.cs">
       <DependentUpon>GaraDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PartialClasses.cs" />
     <Compile Include="Models\PHIEU_BANLE.cs">
       <DependentUpon>GaraDB.tt</DependentUpon>
     </Compile>
