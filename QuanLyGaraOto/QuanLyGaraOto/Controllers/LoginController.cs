@@ -13,6 +13,7 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult LoginForm()
         {
             Session["Username"] = null;
+            Session["staff_name"] = null; // save name of the staff
             //ViewBag.ErrorMessage = "Sai ten dang nhap hoac mat khau!";
             return View();
         }
@@ -30,6 +31,7 @@ namespace QuanLyGaraOto.Controllers
                     if(nv.PASSWORD.Equals(MD5Encryptor.MD5Hash(user.PASSWORD)))
                     {
                         Session["Username"] = nv.USERNAME;
+                        Session["staff_name"] = nv.HOTEN;
                         return RedirectToAction("Index", "Home");
                     }
                     else

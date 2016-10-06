@@ -1,8 +1,8 @@
 ﻿@using PagedList.Mvc;
-@model QuanLyGaraOto.ViewModel.NhanVienViewModel
+@model QuanLyGaraOto.ViewModel.PhieuBanXeViewModel
 @{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
-    ViewBag.Title = "Danh sách nhân viên";
+    ViewBag.Title = "Danh sách phiếu bán xe";
 }
 <head>
     <title>@ViewBag.Title</title>
@@ -15,74 +15,71 @@
     }
 </style>
 
-@using (@Html.BeginForm("Index", "NhanVien", FormMethod.Get, new { @class = "form-inline" }))
+@using (@Html.BeginForm("Index", "PhieuBanXe", FormMethod.Get, new { @class = "form-inline" }))
 {
     <div class="form-inline">
         <div class="form-group">
             <label for="searchOption">Tìm theo:</label>
-            @Html.DropDownList("searchOption", Model.listSearchOption, new { @class = "form-control" })
+            @Html.DropDownList("searchOption", Model.listSearchOptions, new { @class = "form-control" })
             @* @Html.DropDownListFor(m => m.selectedValue, Model.listSearchOption, new { @class = "form-control" })*@
-
         </div>
         <div class="form-group">
             <label for="searchOption">Giá trị:</label>
-            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Ví dụ : 1/1/2016" })
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
         </div>
     </div>
 }
-@Html.ActionLink("Thêm", "ThemMoi", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
+@Html.ActionLink("Thêm mới", "ThemMoi", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
 
 <div class="table-responsive" style="padding-top:10px;">
-    <table id="verhical_sales_bill_table" class="table table-bordered table table-hover ">
-        <thead style="color:red;">
+    <table id="khachhang-table" class="table table-bordered table table-hover" style="text-align : center">
+        <thead style="color:red; text-align : center;">
             <tr>
                 <th style="display:none">Id</th>
-                <th>Họ tên</th>
-                <th>Username</th>
-                <th>Điện thoại</th>
-                <th>Địa chỉ</th>
-                <th>Nhóm người dùng</th>
-                <th>Thao tác</th>
+                <th>Mã phiếu</th>
+                <th>Ngày lập</th>
+                <th>Mã nhân viên</th>
+                <th>Biến số xe</th>
+                <th>Trị giá</th>
+                <th>Số tiền còn lại</th>
+                <th>Hạn chót thanh toán</th>
+                <th>Tùy chọn</th>
             </tr>
         </thead>
         <tbody>
             @{
                 //List<ASPExample.Models.Product> listProduct = (List<ASPExample.Models.Product>)Model.listProduct;
-                foreach (var item in Model.ListNhanVien.ToList())
+                foreach (var item in Model.listOfPHIEUBANXEs.ToList())
                 {
                     <tr class="clickable-row">
-                        <td id="id" style="display:none">@item.MaNV</td>
-                        <td> @item.HoTen</td>
-                        <td> @item.Username</td>
-                        <td> @item.SDT</td>
-                        <td> @item.DiaChi</td>
-                        <td> @item.NhomNguoiDung</td>
-
+                        <td id="id" style="display:none">@item.id</td> <!-- id cua phieu ban se duoc fill nhung se khong hien thi tren view cua client-->
+                        <td> @item.maPhieuBan</td>
+                        <td> @item.ngayLapPhieu.Value.Date</td> <!-- chi quan tam den ngay, khong quan tam chi tiet den gio-->
+                        <td> @item.maNhanVien</td>
+                        <td> @item.bienSoXe</td>
+                        <td> @item.giaTri</td>
+                        <td> @item.soTienConLai</td>
+                        <td> @item.hanChotThanhToan.Value.Date</td><!-- chi quan tam den ngay, khong quan tam chi tiet den gio-->
                         <td>
-
-                            @Html.ActionLink("Sửa", "CapNhat", new { id = @item.MaNV }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
-
+                            @Html.ActionLink("Sửa", "CapNhat", new { id = @item.id }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
                             <!--<button id="btnDelete" type="button" class="btn btn-danger glyphicon-remove">Delete</button>-->
-                            <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+                            <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
 
                         </td>
                     </tr>
-
                 }
             }
         </tbody>
     </table>
-    Page @(Model.ListNhanVien.PageCount < Model.ListNhanVien.PageNumber ? 0 : Model.ListNhanVien.PageNumber) of @Model.ListNhanVien.PageCount
-
-    @Html.PagedListPager(Model.ListNhanVien, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
+    Page @(Model.listOfPHIEUBANXEs.PageCount < Model.listOfPHIEUBANXEs.PageNumber ? 0 : Model.listOfPHIEUBANXEs.PageNumber) of @Model.listOfPHIEUBANXEs.PageCount
+    @Html.PagedListPager(Model.listOfPHIEUBANXEs, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
-
     $('#khachhang-table').on('click', '.clickable-row', function (event) {
         if ($(this).hasClass('active')) {
             $(this).removeClass('active');
@@ -91,24 +88,19 @@
         }
     });
 
-    $(document).ready(function ()
-    {
-        $("#button_delete").on("click", function (e)
-        {
+    $(document).ready(function () {
+        $(".btnDelete").on("click", function (e) {
             e.preventDefault();
             var $item = $(this).closest("tr").find("#id").text();
             var itemid = $item.valueOf();
-
-
             var isSucess = -1;
             var message = "";
             var row = $(this).closest("tr");
 
             $.ajax({
-
                 url: '/NhanVien/Xoa/',
 
-                data: JSON.stringify({id:itemid}),
+                data: JSON.stringify({ id: itemid }),
 
                 type: 'POST',
 
