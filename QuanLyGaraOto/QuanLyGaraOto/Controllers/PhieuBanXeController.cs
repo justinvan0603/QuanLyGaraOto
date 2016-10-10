@@ -12,7 +12,8 @@ namespace QuanLyGaraOto.Controllers
     public class PhieuBanXeController : Controller
     {
 
-        private GARADBEntities service = new GARADBEntities(); // entity service to manipulate data
+        private GARADBEntities service = new GARADBEntities(); // entity service object to manipulate data
+
         /// <summary>
         /// Tra ve danh sach tat ca cac phieu ban xe trong database
         /// </summary>
@@ -38,6 +39,15 @@ namespace QuanLyGaraOto.Controllers
                 temp.soTienConLai = item.SOTIENCONLAI;
                 temp.giaTri = item.TRIGIA;
                 temp.hanChotThanhToan = item.HANCHOTTHANHTOAN;
+                temp.hanBaoHanh = item.HANBAOHANH;
+                if (this.service.PHIEU_THUTIEN.Where(e => e.ID_PHIEUBANXE == temp.id).ToList().Count > 0)
+                {
+                    temp.isPaid = true;
+                }
+                else
+                {
+                    temp.isPaid = false;
+                }
                 PHIEUBANXEsDataTableModels.Add(temp);
             }
             // loc ket qua search cua user
@@ -106,6 +116,11 @@ namespace QuanLyGaraOto.Controllers
             return View(phieuBanXeViewModel);
         }
 
+        /// <summary>
+        /// Save a new verhical new sale recepit into database. 
+        /// </summary>
+        /// <param name="phieuBanXeMoi"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult NhapPhieuBanXe(PHIEU_BANXE phieuBanXeMoi)
         {
@@ -115,7 +130,72 @@ namespace QuanLyGaraOto.Controllers
             // insert into database
             this.service.PHIEU_BANXE.Add(phieuBanXeMoi);
             this.service.SaveChanges();
-            return Redirect("Index"); // after the opertation completes, redirect to the list screen
+            // tien hanh lap phieu thu
+
+            return RedirectToAction("Index"); // after the opertation completes, redirect to the list screen
+        }
+
+
+        /// <summary>
+        /// Delete a verhical sale of bill from database. 
+        /// </summary>
+        /// <param name="billId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Xoa(int billId)
+        {
+            try
+            {
+                PHIEU_BANXE phieuBanXe = this.service.PHIEU_BANXE.Single(e => e.ID_PHIEUBANXE == billId);
+                this.service.PHIEU_BANXE.Remove(phieuBanXe);
+                // after removing the verhincal sale of bill => remove the correspoding receipt that is related to it
+                PHIEU_THUTIEN correspondingReceiptInformation = this.service.PHIEU_THUTIEN.Single(e => e.ID_PHIEUBANXE == billId);
+                this.service.PHIEU_THUTIEN.Remove(correspondingReceiptInformation);
+                this.service.SaveChanges();
+                // tra ve 
+                return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+
+                return Json(new { value = "-1", message = "SYSTEM ERROR !" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
+        /// Prepare View from updating a existing verhical sale of bill
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult SuaPhieuBanXe(int? id)
+        {
+            //int billId = Int32.Parse(Request.Params["billId"]);
+            PHIEU_BANXE bill = this.service.PHIEU_BANXE.Single(e => e.ID_PHIEUBANXE == id); // find bill via id
+            PhieuBanXeViewModel model = new PhieuBanXeViewModel();
+            model.selectedPHIEUBANXE = bill; // information of the desired sale of bill
+            model.listOfKhachHang = this.service.KHACHHANGs.ToList(); // list of all customers
+            return View(model);
+        }
+
+        /// <summary>
+        /// Update information of existing verhical sale of bill
+        /// </summary>
+        /// <param name="modifiedBillInformation"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult SuaPhieuBanXe(PHIEU_BANXE modifiedBillInformation)
+        {
+            PHIEU_BANXE updatingBillInfor = this.service.PHIEU_BANXE.Single(e => e.ID_PHIEUBANXE == modifiedBillInformation.ID_PHIEUBANXE); // get the bill from database
+            // start to update information (note : only update the non-readonly attribute from view)
+            updatingBillInfor.HANBAOHANH = modifiedBillInformation.HANBAOHANH;
+            updatingBillInfor.HANCHOTTHANHTOAN = modifiedBillInformation.HANCHOTTHANHTOAN;
+            updatingBillInfor.MAKH = modifiedBillInformation.MAKH;
+            updatingBillInfor.SOTIENCONLAI = modifiedBillInformation.SOTIENCONLAI;
+
+            this.service.Entry(updatingBillInfor).State = System.Data.Entity.EntityState.Modified; // 
+            this.service.SaveChanges(); // synchronize database
+            return RedirectToAction("Index");
         }
     }
 }

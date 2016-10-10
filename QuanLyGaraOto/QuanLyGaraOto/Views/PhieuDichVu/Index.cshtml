@@ -48,10 +48,10 @@
                 <th>Thợ phụ trách</th>
                 <th>@Html.ActionLink("Tổng tiền", "Index", new { sortOrder = ViewBag.TotalSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })<span class="glyphicon glyphicon-arrow-down"></span></th>
                 <th>@Html.ActionLink("Còn lại", "Index", new { sortOrder = ViewBag.RemainSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })<span class="glyphicon glyphicon-arrow-down"></span></th>
-          
+
                 <th>Thao tác</th>
-                
-           
+
+
             </tr>
         </thead>
         <tbody>
@@ -108,10 +108,8 @@
 
 
 
-    $(document).ready(function ()
-    {
-        $(".btnDelete").on("click", function (e)
-        {
+    $(document).ready(function () {
+        $(".btnDelete").on("click", function (e) {
             e.preventDefault();
             var $item = $(this).closest("tr").find("#id").text();
             var itemid = $item.valueOf();
@@ -126,7 +124,7 @@
 
                 url: '/PhieuDichVu/Xoa/',
 
-                data: JSON.stringify({id:itemid}),
+                data: JSON.stringify({ id: itemid }),
 
                 type: 'POST',
 

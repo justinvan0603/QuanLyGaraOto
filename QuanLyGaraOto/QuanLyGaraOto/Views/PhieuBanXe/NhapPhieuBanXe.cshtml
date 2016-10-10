@@ -44,7 +44,7 @@
     </div>
     <div class="form-group ">
         <label class="input-sm">Trị giá (VNĐ):</label>
-        <input class="form-control input-sm" type="number" required maxlength="20" name="TRIGIA" />
+        <input class="form-control input-sm" type="number" id="textbox_trigia" required maxlength="20" name="TRIGIA" />
     </div>
     <div class="form-group ">
         <label class="input-sm">Số tiền còn lại :</label>
@@ -82,9 +82,9 @@
                 e.preventDefault();
             }
 
-            // check validation of money
-            var remainder = $("#textbox_sotienconlai").val();
-            var total = $("#textbox_sotienconlai").val();
+            // check validation of paying
+            var remainder = new Number($("#textbox_sotienconlai").val());
+            var total = new Number($("#textbox_trigia").val());
             if (remainder >= total) {
                 alert("Số tiền còn lại phải nhỏ hơn số tổng trị giá phiếu !");
                 e.preventDefault();

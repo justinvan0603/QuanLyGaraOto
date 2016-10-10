@@ -16,7 +16,7 @@ namespace QuanLyGaraOto.ViewModel
         /// <summary>
         /// List of all PHIEU_BANXEs from database
         /// </summary>
-        public PHIEU_BANXE selectedPHIEUBANXE { get; set; }
+        public PHIEU_BANXE selectedPHIEUBANXE { get; set; } // hold the current bill the user choose 
 
         public List<SelectListItem> listSearchOptions = new List<SelectListItem>() { new SelectListItem(){Text = "", Value="0"},
                                                                                     new SelectListItem(){Text = "Mã phiếu", Value="1"},

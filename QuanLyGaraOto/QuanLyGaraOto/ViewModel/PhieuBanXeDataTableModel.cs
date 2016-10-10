@@ -17,5 +17,9 @@ namespace QuanLyGaraOto.ViewModel
         public DateTime? hanChotThanhToan { get; set; } // format : @"MM\/dd\/yyyy HH:mm"
         public decimal? soTienConLai { get; set; }
 
+
+        public int? hanBaoHanh { get; set; }
+
+        public bool isPaid { get; set; }  // indicate that wheater this bill is paid completely , if so the delete button should not be shown, also the button create receipt !
     }
 }

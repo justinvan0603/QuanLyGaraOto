@@ -103,7 +103,7 @@ namespace QuanLyGaraOto.Controllers
             }
             catch(Exception)
             {
-                return Json(new { value = "-1", message = "Không thể xóa do đã có tham chiếu!" }, JsonRequestBehavior.AllowGet);
+                return Json(new { value = "-1", message = "Không thể xóa phiếu" }, JsonRequestBehavior.AllowGet);
             }
         }
         [HttpGet]

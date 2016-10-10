@@ -289,6 +289,10 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery-ui.theme.css" />
+    <Content Include="Scripts\jquery-ui.theme.min.css" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -335,6 +339,7 @@
     <Content Include="Views\PhuTung\CapNhat.cshtml" />
     <Content Include="Views\PhieuBanXe\Index.cshtml" />
     <Content Include="Views\PhieuBanXe\NhapPhieuBanXe.cshtml" />
+    <Content Include="Views\PhieuBanXe\SuaPhieuBanXe.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
