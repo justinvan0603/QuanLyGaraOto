@@ -1,0 +1,120 @@
+﻿@model QuanLyGaraOto.ViewModel.ThoViewModel
+@using PagedList.Mvc;
+@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Danh sách thợ";
+}
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+
+<style>
+    .table th {
+        width: auto !important;
+    }
+</style>
+<body>
+<h3 class="text-center" style="color: green;">Danh sách thợ</h3>
+
+    @using (@Html.BeginForm("Index", "Tho", FormMethod.Get, new { @class = "form-inline" }))
+    {
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="searchOption">Tìm theo:</label>
+                @Html.DropDownList("searchOption", Model.listSearchOption, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="searchString">Giá trị:</label>
+                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+            </div>
+        </div>
+    }
+
+    @Html.ActionLink("Thêm", "ThemMoi", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
+    <div class="table-responsive" style="padding-top:10px;">
+        <table id="tho-table" class="table table-bordered table table-hover ">
+            <thead style="color:red;">
+                <tr>
+                    <th style="display:none">Id</th>
+                    <th>@Html.ActionLink("Họ tên", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
+                    <th>Số điện thoại</th>
+                    <th>Địa chỉ</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model.ListTho.ToList())
+                    {
+                        <tr class="clickable-row">
+                            <td id="id" style="display:none">@item.MA_THO</td>
+                            <td> @item.TENTHO</td>
+                            <td> @item.SDT</td>
+                            <td>@item.DIACHI</td>
+                            <td>
+                                @Html.ActionLink("Sửa", "CapNhat", new { id = @item.MA_THO }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
+                                <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        Trang @(Model.ListTho.PageCount < Model.ListTho.PageNumber ? 0 : Model.ListTho.PageNumber) của @Model.ListTho.PageCount
+
+        @Html.PagedListPager(Model.ListTho, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+    $('#tho-table').on('click', '.clickable-row', function (event) {
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+        } else {
+            $(this).addClass('active').siblings().removeClass('active');
+        }
+    });
+
+    $(document).ready(function ()
+    {
+        $(".btnDelete").on("click", function (e)
+        {
+            e.preventDefault();
+            var $item = $(this).closest("tr").find("#id").text();
+            var itemid = $item.valueOf();
+            var isSucess = -1;
+            var message = "";
+            var row = $(this).closest("tr");
+
+            $.ajax({
+                url: '/Tho/Xoa/',
+                data: JSON.stringify({id:itemid}),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    isSuccess = result.value;
+                    message = result.message;
+                },
+                error: function (result) {
+                    isSuccess = result.value;
+                    message = result.message;
+                }
+            }).done(function () {
+                if (isSuccess == "1") {
+                    row.remove();
+                    alert(message);
+                }
+                else {
+                    alert(message);
+                }
+            });
+        });
+    });
+    </script>
+
+</body>
+
+
