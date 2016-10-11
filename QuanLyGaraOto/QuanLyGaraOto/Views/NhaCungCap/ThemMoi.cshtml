@@ -1,0 +1,40 @@
+﻿@model List<QuanLyGaraOto.Models.NHOMNHACUNGCAP>
+@{
+    ViewBag.Title = "Thêm thông tin nhà cung cấp";
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+}
+@Html.Raw(TempData["msg"])
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <h3 class="text-center" style="color: green;">Thêm thông tin nhà cung cấp</h3>
+    @using (Html.BeginForm("ThemMoi", "NhaCungCap", FormMethod.Post))
+    {
+        <div class="form-group ">
+            <label class="input-sm">Tên nhà cung cấp:</label>
+            <input class="form-control input-sm" type="text" maxlength="100" name="TenNCC" required/>
+        </div>
+        <div class="form-group ">
+            <label class="input-sm">Địa chỉ:</label>
+            <input class="form-control input-sm" type="text" maxlength="250" name="DiaChi" required/>
+        </div>
+        <div class="form-group ">
+            <label class="input-sm">Số điện thoại:</label>
+            <input class="form-control input-sm" type="number" maxlength="11" name="SDT" required/>
+        </div>
+        <div class="form-group">
+            <label class="input-sm">Nhóm nhà cung cấp:</label>
+            <select name="NhomNCC" class="form-control input-sm">
+                @foreach (var item in Model)
+                {
+                    <option value="@item.TenNhom">@item.TenNhom</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span> Lưu</button>
+        </div>
+    }
+</body>
+

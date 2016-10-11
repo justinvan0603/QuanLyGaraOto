@@ -33,7 +33,7 @@
 <script>
     $('document').ready(function()
     {
-        var id = '@Model.PhuTung.MA_HIEUXE';
+        var id = '@Html.Raw(@Model.PhuTung.MA_HIEUXE)';
         $('.cboMaHieuXe').val(id).prop('selected', true);
     })
 </script>

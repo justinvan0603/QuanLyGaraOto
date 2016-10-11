@@ -1,8 +1,8 @@
-﻿@model QuanLyGaraOto.ViewModel.PhuTungViewModel
+﻿@model QuanLyGaraOto.ViewModel.NhaCungCapViewModel
 @using PagedList.Mvc;
 @{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
-    ViewBag.Title = "Danh sách phụ tùng";
+    ViewBag.Title = "Danh sách nhà cung cấp";
 }
 <head>
     <title>@ViewBag.Title</title>
@@ -14,9 +14,9 @@
     }
 </style>
 <body>
-    <h3 class="text-center" style="color: green;">Danh sách phụ tùng</h3>
+    <h3 class="text-center" style="color: green;">Danh sách nhà cung cấp</h3>
 
-    @using (@Html.BeginForm("Index", "PhuTung", FormMethod.Get, new { @class = "form-inline" }))
+    @using (@Html.BeginForm("Index", "NhaCungCap", FormMethod.Get, new { @class = "form-inline" }))
     {
         <div class="form-inline">
             <div class="form-group">
@@ -35,29 +35,29 @@
 
     @Html.ActionLink("Thêm", "ThemMoi", null, new { @class = "btn btn-primary glyphicon glyphicon-plus" })
     <div class="table-responsive" style="padding-top:10px;">
-        <table id="pt-table" class="table table-bordered table table-hover ">
+        <table id="ncc-table" class="table table-bordered table table-hover ">
             <thead style="color:red;">
                 <tr>
                     <th style="display:none">Id</th>
-                    <th>@Html.ActionLink("Tên phụ tùng", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
-                    <th>Hiệu xe</th>
-                    <th>Số lượng tồn</th>
-                    <th>Đơn giá xuất</th>
+                    <th>@Html.ActionLink("Tên nhà cung cấp", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
+                    <th>Địa chỉ</th>
+                    <th>Số điện thoại</th>
+                    <th>@Html.ActionLink("Nhóm nhà cung cấp", "Index", new { sortOrder = ViewBag.TypeSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
             <tbody>
                 @{
-                    foreach (var item in Model.ListPhuTung.ToList())
+                    foreach (var item in Model.ListNhaCungCap.ToList())
                     {
                         <tr class="clickable-row">
-                            <td id="id" style="display:none">@item.MA_PHUTUNG</td>
-                            <td> @item.TEN_PHUTUNG</td>
-                            <td> @item.MA_HIEUXE</td>
-                            <td> @item.SOLUONGTON</td>
-                            <td> @item.DONGIAXUAT</td>
+                            <td id="id" style="display:none">@item.MaNCC</td>
+                            <td> @item.TenNCC</td>
+                            <td> @item.DiaChi</td>
+                            <td> @item.SDT</td>
+                            <td> @item.NhomNCC</td>
                             <td>
-                                @Html.ActionLink("Sửa", "CapNhat", new { id = @item.MA_PHUTUNG }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
+                                @Html.ActionLink("Sửa", "CapNhat", new { id = @item.MaNCC }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
                                 <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
                             </td>
                         </tr>
@@ -65,14 +65,14 @@
                 }
             </tbody>
         </table>
-        Trang @(Model.ListPhuTung.PageCount < Model.ListPhuTung.PageNumber ? 0 : Model.ListPhuTung.PageNumber) của @Model.ListPhuTung.PageCount
+        Trang @(Model.ListNhaCungCap.PageCount < Model.ListNhaCungCap.PageNumber ? 0 : Model.ListNhaCungCap.PageNumber) của @Model.ListNhaCungCap.PageCount
 
-        @Html.PagedListPager(Model.ListPhuTung, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
+        @Html.PagedListPager(Model.ListNhaCungCap, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
     </div>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script>
-    $('#pt-table').on('click', '.clickable-row', function (event) {
+    $('#ncc-table').on('click', '.clickable-row', function (event) {
         if ($(this).hasClass('active')) {
             $(this).removeClass('active');
         } else {
@@ -92,7 +92,7 @@
             var row = $(this).closest("tr");
 
             $.ajax({
-                url: '/PhuTung/Xoa/',
+                url: '/NhaCungCap/Xoa/',
                 data: JSON.stringify({id:itemid}),
                 type: 'POST',
                 contentType: 'application/json; charset=utf-8',

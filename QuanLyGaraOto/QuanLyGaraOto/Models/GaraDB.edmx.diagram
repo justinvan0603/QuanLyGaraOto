@@ -15,9 +15,6 @@
         <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUNH" Width="2.25" PointX="14.375" PointY="13.5" />
         <EntityTypeShape EntityType="GARADBModel.NHANVIEN" Width="1.5" PointX="5.25" PointY="7.875" />
         <AssociationConnector Association="GARADBModel.FK_NHANVIEN_NHOMNGUOIDUNG" />
-        <EntityTypeShape EntityType="GARADBModel.NHACUNGCAP" Width="1.5" PointX="13" PointY="1" />
-        <EntityTypeShape EntityType="GARADBModel.NHOMNHACUNGCAP" Width="1.5" PointX="10.75" PointY="1.375" />
-        <AssociationConnector Association="GARADBModel.FK_NCC_NNCC" />
         <EntityTypeShape EntityType="GARADBModel.XE" Width="1.5" PointX="4.5" PointY="16.5" />
         <AssociationConnector Association="GARADBModel.FK_XE_HIEUXE" />
         <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUDV" Width="1.5" PointX="16" PointY="8.25" />
@@ -57,6 +54,8 @@
         <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUBANLE" Width="1.5" PointX="9.75" PointY="17.125" />
         <AssociationConnector Association="GARADBModel.FK_CTBANLE_PHIEUBANLE" />
         <AssociationConnector Association="GARADBModel.FK_CTBANLE_PHUTUNG" />
+        <EntityTypeShape EntityType="GARADBModel.NHACUNGCAP" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="GARADBModel.NHOMNHACUNGCAP" Width="1.5" PointX="4.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,9 +18,6 @@ namespace QuanLyGaraOto.Models
         public string TenNCC { get; set; }
         public string DiaChi { get; set; }
         public string SDT { get; set; }
-        public string TaiKhoanNH { get; set; }
-        public Nullable<int> MaNhomNCC { get; set; }
-    
-        public virtual NHOMNHACUNGCAP NHOMNHACUNGCAP { get; set; }
+        public string NhomNCC { get; set; }
     }
 }

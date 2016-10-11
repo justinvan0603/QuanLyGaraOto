@@ -92,8 +92,7 @@
           <Property Name="TenNCC" Type="nvarchar" MaxLength="255" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
           <Property Name="SDT" Type="nvarchar" MaxLength="20" />
-          <Property Name="TaiKhoanNH" Type="nvarchar" MaxLength="50" />
-          <Property Name="MaNhomNCC" Type="int" />
+          <Property Name="NhomNCC" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="NHANVIEN">
           <Key>
@@ -117,10 +116,9 @@
         </EntityType>
         <EntityType Name="NHOMNHACUNGCAP">
           <Key>
-            <PropertyRef Name="MaNhomNCC" />
+            <PropertyRef Name="TenNhom" />
           </Key>
-          <Property Name="MaNhomNCC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TenNhom" Type="nvarchar" MaxLength="100" />
+          <Property Name="TenNhom" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="PHIEU_BANLE">
           <Key>
@@ -406,18 +404,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_NCC_NNCC">
-          <End Role="NHOMNHACUNGCAP" Type="Self.NHOMNHACUNGCAP" Multiplicity="0..1" />
-          <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NHOMNHACUNGCAP">
-              <PropertyRef Name="MaNhomNCC" />
-            </Principal>
-            <Dependent Role="NHACUNGCAP">
-              <PropertyRef Name="MaNhomNCC" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_NHANVIEN_NHOMNGUOIDUNG">
           <End Role="NHOMNGUOIDUNG" Type="Self.NHOMNGUOIDUNG" Multiplicity="0..1" />
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="*" />
@@ -574,18 +560,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PHUTUNG_HIEUXE">
-          <End Role="HIEUXE" Type="Self.HIEUXE" Multiplicity="0..1" />
-          <End Role="PHUTUNG" Type="Self.PHUTUNG" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HIEUXE">
-              <PropertyRef Name="MA_HIEUXE" />
-            </Principal>
-            <Dependent Role="PHUTUNG">
-              <PropertyRef Name="MA_HIEUXE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_XE_HIEUXE">
           <End Role="HIEUXE" Type="Self.HIEUXE" Multiplicity="0..1" />
           <End Role="XE" Type="Self.XE" Multiplicity="*" />
@@ -665,10 +639,6 @@
             <End Role="PHUTUNG" EntitySet="PHUTUNG" />
             <End Role="CHITIET_PHIEUDATHANG" EntitySet="CHITIET_PHIEUDATHANG" />
           </AssociationSet>
-          <AssociationSet Name="FK_NCC_NNCC" Association="Self.FK_NCC_NNCC">
-            <End Role="NHOMNHACUNGCAP" EntitySet="NHOMNHACUNGCAP" />
-            <End Role="NHACUNGCAP" EntitySet="NHACUNGCAP" />
-          </AssociationSet>
           <AssociationSet Name="FK_NHANVIEN_NHOMNGUOIDUNG" Association="Self.FK_NHANVIEN_NHOMNGUOIDUNG">
             <End Role="NHOMNGUOIDUNG" EntitySet="NHOMNGUOIDUNG" />
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
@@ -720,10 +690,6 @@
           <AssociationSet Name="FK_PHIEUTIEPNHAN_XE" Association="Self.FK_PHIEUTIEPNHAN_XE">
             <End Role="XE" EntitySet="XE" />
             <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PHUTUNG_HIEUXE" Association="Self.FK_PHUTUNG_HIEUXE">
-            <End Role="HIEUXE" EntitySet="HIEUXE" />
-            <End Role="PHUTUNG" EntitySet="PHUTUNG" />
           </AssociationSet>
           <AssociationSet Name="FK_XE_HIEUXE" Association="Self.FK_XE_HIEUXE">
             <End Role="HIEUXE" EntitySet="HIEUXE" />
@@ -800,12 +766,6 @@
           <AssociationSet Name="FK_NHANVIEN_NHOMNGUOIDUNG" Association="GARADBModel.FK_NHANVIEN_NHOMNGUOIDUNG">
             <End Role="NHOMNGUOIDUNG" EntitySet="NHOMNGUOIDUNGs" />
             <End Role="NHANVIEN" EntitySet="NHANVIENs" />
-          </AssociationSet>
-          <EntitySet Name="NHACUNGCAPs" EntityType="GARADBModel.NHACUNGCAP" />
-          <EntitySet Name="NHOMNHACUNGCAPs" EntityType="GARADBModel.NHOMNHACUNGCAP" />
-          <AssociationSet Name="FK_NCC_NNCC" Association="GARADBModel.FK_NCC_NNCC">
-            <End Role="NHOMNHACUNGCAP" EntitySet="NHOMNHACUNGCAPs" />
-            <End Role="NHACUNGCAP" EntitySet="NHACUNGCAPs" />
           </AssociationSet>
           <EntitySet Name="XEs" EntityType="GARADBModel.XE" />
           <AssociationSet Name="FK_XE_HIEUXE" Association="GARADBModel.FK_XE_HIEUXE">
@@ -918,6 +878,8 @@
             <End Role="PHUTUNG" EntitySet="PHUTUNGs" />
             <End Role="CHITIET_PHIEUBANLE" EntitySet="CHITIET_PHIEUBANLE" />
           </AssociationSet>
+          <EntitySet Name="NHACUNGCAPs" EntityType="GARADBModel.NHACUNGCAP" />
+          <EntitySet Name="NHOMNHACUNGCAPs" EntityType="GARADBModel.NHOMNHACUNGCAP" />
           </EntityContainer>
         <EntityType Name="CHITIET_PHIEUBH">
           <Key>
@@ -972,38 +934,6 @@
             </Principal>
             <Dependent Role="NHANVIEN">
               <PropertyRef Name="MA_NHOMNGUOIDUNG" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="NHACUNGCAP">
-          <Key>
-            <PropertyRef Name="MaNCC" />
-          </Key>
-          <Property Name="MaNCC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenNCC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TaiKhoanNH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MaNhomNCC" Type="Int32" />
-          <NavigationProperty Name="NHOMNHACUNGCAP" Relationship="GARADBModel.FK_NCC_NNCC" FromRole="NHACUNGCAP" ToRole="NHOMNHACUNGCAP" />
-        </EntityType>
-        <EntityType Name="NHOMNHACUNGCAP">
-          <Key>
-            <PropertyRef Name="MaNhomNCC" />
-          </Key>
-          <Property Name="MaNhomNCC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenNhom" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="NHACUNGCAPs" Relationship="GARADBModel.FK_NCC_NNCC" FromRole="NHOMNHACUNGCAP" ToRole="NHACUNGCAP" />
-        </EntityType>
-        <Association Name="FK_NCC_NNCC">
-          <End Type="GARADBModel.NHOMNHACUNGCAP" Role="NHOMNHACUNGCAP" Multiplicity="0..1" />
-          <End Type="GARADBModel.NHACUNGCAP" Role="NHACUNGCAP" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NHOMNHACUNGCAP">
-              <PropertyRef Name="MaNhomNCC" />
-            </Principal>
-            <Dependent Role="NHACUNGCAP">
-              <PropertyRef Name="MaNhomNCC" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1511,6 +1441,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="NHACUNGCAP">
+          <Key>
+            <PropertyRef Name="MaNCC" />
+          </Key>
+          <Property Name="MaNCC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenNCC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NhomNCC" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="NHOMNHACUNGCAP">
+          <Key>
+            <PropertyRef Name="TenNhom" />
+          </Key>
+          <Property Name="TenNhom" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1605,26 +1551,6 @@
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
                 <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
                 <ScalarProperty Name="MA_NV" ColumnName="MA_NV" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NHACUNGCAPs">
-            <EntityTypeMapping TypeName="GARADBModel.NHACUNGCAP">
-              <MappingFragment StoreEntitySet="NHACUNGCAP">
-                <ScalarProperty Name="MaNhomNCC" ColumnName="MaNhomNCC" />
-                <ScalarProperty Name="TaiKhoanNH" ColumnName="TaiKhoanNH" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="TenNCC" ColumnName="TenNCC" />
-                <ScalarProperty Name="MaNCC" ColumnName="MaNCC" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NHOMNHACUNGCAPs">
-            <EntityTypeMapping TypeName="GARADBModel.NHOMNHACUNGCAP">
-              <MappingFragment StoreEntitySet="NHOMNHACUNGCAP">
-                <ScalarProperty Name="TenNhom" ColumnName="TenNhom" />
-                <ScalarProperty Name="MaNhomNCC" ColumnName="MaNhomNCC" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1821,6 +1747,24 @@
                 <ScalarProperty Name="MAPT" ColumnName="MAPT" />
                 <ScalarProperty Name="ID_PHIEUBANLE" ColumnName="ID_PHIEUBANLE" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NHACUNGCAPs">
+            <EntityTypeMapping TypeName="GARADBModel.NHACUNGCAP">
+              <MappingFragment StoreEntitySet="NHACUNGCAP">
+                <ScalarProperty Name="NhomNCC" ColumnName="NhomNCC" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="TenNCC" ColumnName="TenNCC" />
+                <ScalarProperty Name="MaNCC" ColumnName="MaNCC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NHOMNHACUNGCAPs">
+            <EntityTypeMapping TypeName="GARADBModel.NHOMNHACUNGCAP">
+              <MappingFragment StoreEntitySet="NHOMNHACUNGCAP">
+                <ScalarProperty Name="TenNhom" ColumnName="TenNhom" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

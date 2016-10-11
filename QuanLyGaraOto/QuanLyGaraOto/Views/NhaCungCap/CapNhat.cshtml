@@ -1,0 +1,49 @@
+﻿@model QuanLyGaraOto.ViewModel.SuaNhaCungCapViewModel
+@{
+    ViewBag.Title = "Cập nhật thông tin nhà cung cấp";
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+}
+@Html.Raw(TempData["msg"])
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <h3 class="text-center" style="color: green;">Cập nhật thông tin nhà cung cấp</h3>
+    @using (Html.BeginForm("CapNhat", "NhaCungCap", FormMethod.Post))
+    {
+        <input type="hidden" name="MaNCC" value="@Model.NhaCungCap.MaNCC"/>
+        <div class="form-group ">
+            <label class="input-sm">Tên nhà cung cấp:</label>
+            <input class="form-control input-sm" type="text" maxlength="100" name="TenNCC" value="@Model.NhaCungCap.TenNCC" required/>
+        </div>
+        <div class="form-group ">
+            <label class="input-sm">Địa chỉ:</label>
+            <input class="form-control input-sm" type="text" maxlength="250" name="DiaChi" value="@Model.NhaCungCap.DiaChi" required/>
+        </div>
+        <div class="form-group ">
+            <label class="input-sm">Số điện thoại:</label>
+            <input class="form-control input-sm" type="number" maxlength="11" name="SDT" value="@Model.NhaCungCap.SDT" required/>
+        </div>
+        <div class="form-group">
+            <label class="input-sm">Nhóm nhà cung cấp:</label>
+            <select name="NhomNCC" class="cboNhomNCC form-control input-sm">
+                @foreach (var item in Model.ListNhomNhaCungCap)
+                {
+                    <option value="@item.TenNhom">@item.TenNhom</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span> Lưu</button>
+        </div>
+    }
+</body>
+<script>
+    $('document').ready(function()
+    {
+        var id = '@Html.Raw(@Model.NhaCungCap.NhomNCC)';
+        $('.cboNhomNCC').val(id).prop('selected', true);
+        alert(id);
+    })
+</script>
+

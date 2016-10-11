@@ -14,16 +14,6 @@ namespace QuanLyGaraOto.Models
     
     public partial class NHOMNHACUNGCAP
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NHOMNHACUNGCAP()
-        {
-            this.NHACUNGCAPs = new HashSet<NHACUNGCAP>();
-        }
-    
-        public int MaNhomNCC { get; set; }
         public string TenNhom { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NHACUNGCAP> NHACUNGCAPs { get; set; }
     }
 }
