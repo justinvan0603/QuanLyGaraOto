@@ -138,6 +138,7 @@
     <Compile Include="Controllers\PhieuBanLeController.cs" />
     <Compile Include="Controllers\PhieuBanXeController.cs" />
     <Compile Include="Controllers\PhieuDichVuController.cs" />
+    <Compile Include="Controllers\PhieuMuaXeController.cs" />
     <Compile Include="Controllers\PhuTungController.cs" />
     <Compile Include="Controllers\ThamSoController.cs" />
     <Compile Include="Controllers\ThoController.cs" />
@@ -248,9 +249,11 @@
     <Compile Include="ViewModel\NhanVienViewModel.cs" />
     <Compile Include="ViewModel\PhieuBanLeTableData.cs" />
     <Compile Include="ViewModel\PhieuBanLeViewModel.cs" />
-    <Compile Include="ViewModel\PhieuBanXeDataTableModel.cs" />
+    <Compile Include="ViewModel\PhieuBanXeListViewModel.cs" />
     <Compile Include="ViewModel\PhieuBanXeViewModel.cs" />
     <Compile Include="ViewModel\PhieuDVViewModel.cs" />
+    <Compile Include="ViewModel\PhieuMuaXeListViewModel.cs" />
+    <Compile Include="ViewModel\PhieuMuaXeViewModel.cs" />
     <Compile Include="ViewModel\SuaNhanVienViewModel.cs" />
     <Compile Include="ViewModel\ThamSoViewModel.cs" />
   </ItemGroup>
@@ -340,6 +343,7 @@
     <Content Include="Views\PhieuBanXe\Index.cshtml" />
     <Content Include="Views\PhieuBanXe\NhapPhieuBanXe.cshtml" />
     <Content Include="Views\PhieuBanXe\SuaPhieuBanXe.cshtml" />
+    <Content Include="Views\PhieuMuaXe\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

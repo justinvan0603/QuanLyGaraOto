@@ -1,8 +1,8 @@
 ﻿@using PagedList.Mvc;
-@model QuanLyGaraOto.ViewModel.PhieuBanXeViewModel
+@model QuanLyGaraOto.ViewModel.PhieuMuaXeViewModel
 @{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
-    ViewBag.Title = "Danh sách phiếu bán xe";
+    ViewBag.Title = "Danh sách phiếu mua xe";
 }
 <head>
     <title>@ViewBag.Title</title>
@@ -15,17 +15,17 @@
     }
 </style>
 
-@using (@Html.BeginForm("Index", "PhieuBanXe", FormMethod.Get, new { @class = "form-inline" }))
+@using (@Html.BeginForm("Index", "PhieuMuaXe", FormMethod.Get, new { @class = "form-inline" }))
 {
     <div class="form-inline">
         <div class="form-group">
             <label for="searchOption">Tìm theo:</label>
-            @Html.DropDownList("searchOption", Model.listSearchOptions, new { @class = "form-control" })
+            @Html.DropDownList("searchOption", Model.filterOptions, new { @class = "form-control" })
             @* @Html.DropDownListFor(m => m.selectedValue, Model.listSearchOption, new { @class = "form-control" })*@
         </div>
         <div class="form-group">
             <label for="searchOption">Giá trị:</label>
-            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Ví dụ : 1/1/2016" })
+            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Ví dụ : 08/25/2016" })
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
@@ -41,37 +41,32 @@
                 <th style="display:none">Id</th>
                 <th>Mã phiếu</th>
                 <th>Ngày lập</th>
-                <th>Mã nhân viên</th>
-                <th>Biến số xe</th>
+                <th>Nhân viên lập</th>
+                <th>Khách hàng</th>
+                <th>Biển số xe</th>
                 <th>Trị giá</th>
-                <th>Số tiền còn lại</th>
-                <th>Hạn chót thanh toán</th>
-                <th>Hạn bảo hành (Tháng) : </th>
                 <th>Tùy chọn</th>
             </tr>
         </thead>
         <tbody>
             @{
                 //List<ASPExample.Models.Product> listProduct = (List<ASPExample.Models.Product>)Model.listProduct;
-                foreach (var item in Model.listOfPHIEUBANXEs.ToList())
+                foreach (var item in Model.danhSachPhieuMuaXe.ToList())
                 {
                     <tr class="clickable-row">
                         <td id="id" style="display:none">@item.id</td> <!-- id cua phieu ban se duoc fill nhung se khong hien thi tren view cua client-->
-                        <td> @item.maPhieuBan</td>
+                        <td> @item.maPhieuMua</td>
                         <td> @String.Format("{0:dd/MM/yyyy}", item.ngayLapPhieu.Value.Date)</td> <!-- chi quan tam den ngay, khong quan tam chi tiet den gio-->
-                        <td> @item.maNhanVien</td>
-                        <td> @item.bienSoXe</td>
-                        <td> @String.Format("{0:#,###,###,###}",item.giaTri)</td>
-                        <td> @item.soTienConLai</td>
-                        <td> @String.Format("{0:dd/MM/yyyy}", item.hanChotThanhToan.Value.Date)</td><!-- chi quan tam den ngay, khong quan tam chi tiet den gio-->
-                        <td> @item.hanBaoHanh</td><!-- chi quan tam den ngay, khong quan tam chi tiet den gio-->
+                        <td> @item.nhanVien</td>
+                        <td> @item.khachHang</td>
+                        <td> @String.Format("{0:#,###,###,###}",item.triGia)</td>
                         <td>
                             @Html.ActionLink("Sửa", "SuaPhieuBanXe", new { id = @item.id }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
                             @if (!item.isPaid) // only show delete button and create receipt voucher if the bill is not paid
                             {
                                 <a class="btnCreateReceiptVoucher btn btn-primary glyphicon glyphicon-notes" href="@Url.Action("NhapPhieuThu","PhieuThu",new {id = @item.id})">Lập phiếu thu</a>
                                 <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
-                                
+
                             }
                         </td>
                     </tr>
@@ -79,8 +74,8 @@
             }
         </tbody>
     </table>
-    Page @(Model.listOfPHIEUBANXEs.PageCount < Model.listOfPHIEUBANXEs.PageNumber ? 0 : Model.listOfPHIEUBANXEs.PageNumber) of @Model.listOfPHIEUBANXEs.PageCount
-    @Html.PagedListPager(Model.listOfPHIEUBANXEs, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
+    Page @(Model.danhSachPhieuMuaXe.PageCount < Model.danhSachPhieuMuaXe.PageNumber ? 0 : Model.danhSachPhieuMuaXe.PageNumber) of @Model.danhSachPhieuMuaXe.PageCount
+    @Html.PagedListPager(Model.danhSachPhieuMuaXe, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
