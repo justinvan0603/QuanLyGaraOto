@@ -59,7 +59,8 @@
                         <td> @String.Format("{0:dd/MM/yyyy}", item.ngayLapPhieu.Value.Date)</td> <!-- chi quan tam den ngay, khong quan tam chi tiet den gio-->
                         <td> @item.nhanVien</td>
                         <td> @item.khachHang</td>
-                        <td> @String.Format("{0:#,###,###,###}",item.triGia)</td>
+                        <td>@item.bienSoXe</td>
+                        <td> @String.Format("{0:#,###,###,###}", item.triGia)</td>
                         <td>
                             @Html.ActionLink("Sửa", "SuaPhieuBanXe", new { id = @item.id }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
                             @if (!item.isPaid) // only show delete button and create receipt voucher if the bill is not paid

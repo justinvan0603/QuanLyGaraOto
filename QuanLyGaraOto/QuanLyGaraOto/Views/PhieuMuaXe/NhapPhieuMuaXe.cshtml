@@ -1,0 +1,114 @@
+﻿@using PagedList.Mvc;
+@model QuanLyGaraOto.ViewModel.PhieuMuaXeViewModel
+@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Phiếu mua xe mới";
+}
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+
+<h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU XE MỚI</h3>
+
+@using (Html.BeginForm("NhapPhieuMuaXe", "PhieuMuaXe", FormMethod.Post, new { @id = "#new_sale_bill_form" }))
+{
+    <div class="form-group">
+        <label class="input-sm" style="color : red;">Mã phiếu :</label>
+        <input class="form-control input-sm" type="text" maxlength="100" value="@Environment.TickCount" name="maPhieuMuaXe" required />
+    </div>
+    <div class="form-group ">
+        <label class="input-sm"> Ngày lập :</label>
+        <input class="form-control input-sm" readonly="readonly" type="date" value="@DateTime.Now" id="datebox_ngaylapphieu" maxlength="30" name="ngayLapPhieu" required />
+    </div>
+    <div class="form-group ">
+        <label class="input-sm">Mã Nhân viên lập :</label>
+        <input class="form-control input-sm" type="text" value="@Session["staff_name"]" readonly="readonly" maxlength="30" name="maNhanVien" required /> <!--auto fill information of the staff-->
+    </div>
+    <div class="form-group">
+        <label class="input-sm">Khách hàng :</label>
+        <select name="maKhachHang" class="cboNhom form-control input-sm">
+            <option value="@null" style="color: blue; font-weight : bold;">Khách vãng lai</option> <!--trường hợp là khách vãng lai-->
+            @foreach (var item in Model.danhSachKhachHang)
+            {
+                <option value="@item.MA_KH">@item.TEN_KH</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="input-sm">Hiệu xe :</label>
+        <select name="hieuXe" class="cboNhom form-control input-sm">
+            <option value="Hãng khác" style="color: blue; font-weight : bold;">Hãng khác</option> <!--trường hợp là khách vãng lai-->
+            @foreach (var item in Model.danhSachHieuXe)
+            {
+                <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="input-sm">Biển số xe :</label>
+        <input class="form-control input-sm" type="text" placeholder="Biển số xe" maxlength="30" name="bienSoXe" required />
+    </div>
+    <div class="form-group">
+        <label class="input-sm">Số khung :</label>
+        <input class="form-control input-sm" type="text" placeholder="Số khung xe" maxlength="30" name="soKhung" required />
+    </div>
+    <div class="form-group">
+        <label class="input-sm">Số máy :</label>
+        <input class="form-control input-sm" type="text" placeholder="Số máy" maxlength="30" name="soMay" required />
+    </div>
+    <div class="form-group">
+        <label for="tinhTrang" class="input-sm">Tình trạng xe :</label>
+        <textarea class="form-control" rows="5" id="tinhTrang" name="tinhTrang"></textarea>
+    </div>
+    <div class="form-group">
+        <label class="input-sm">Đời xe :</label>
+        <input class="form-control input-sm" type="text" placeholder="Đời xe" maxlength="30" name="doiXe" required />
+    </div>
+    <div class="form-group ">
+        <label class="input-sm">Trị giá (VNĐ):</label>
+        <input class="form-control input-sm" type="number" id="textbox_trigia" required maxlength="20" name="tongGiaTri" />
+    </div>
+    <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
+
+    @*<script>
+
+            ///
+            // Ultility method for comparing date validation
+            //
+            var isAfterStartDate = function (startDateStr, endDateStr) {
+                var inDate = new Date(startDateStr),
+                    eDate = new Date(endDateStr);
+                if (eDate >= inDate) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            };
+            //
+            // Check data validation before submitting form
+            $("form").submit(function (e) {
+                // Firstly, check final payment date and creation date
+                var creationTime = $("#datebox_ngaylapphieu").val();
+                var finalPaymentTime = $("#datebox_hanchotthanhtoan").val();
+                if (isAfterStartDate(creationTime, finalPaymentTime) == false) {
+                    alert("Hạn chót thanh toán phải lớn hơn hoặc cùng với ngày lập phiếu !");
+                    e.preventDefault();
+                }
+
+                // check validation of paying
+                var remainder = new Number($("#textbox_sotienconlai").val());
+                var total = new Number($("#textbox_trigia").val());
+                if (remainder >= total) {
+                    alert("Số tiền còn lại phải nhỏ hơn số tổng trị giá phiếu !");
+                    e.preventDefault();
+                }
+            });
+            // update creation date in text box
+            document.getElementById("datebox_ngaylapphieu").valueAsDate = new Date();
+
+        </script>*@
+}
+

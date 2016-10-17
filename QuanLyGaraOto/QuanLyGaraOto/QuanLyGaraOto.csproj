@@ -256,6 +256,7 @@
     <Compile Include="ViewModel\PhieuDVViewModel.cs" />
     <Compile Include="ViewModel\PhieuMuaXeListViewModel.cs" />
     <Compile Include="ViewModel\PhieuMuaXeViewModel.cs" />
+    <Compile Include="ViewModel\PhieuNhapMuaXeModel.cs" />
     <Compile Include="ViewModel\PhuTungViewModel.cs" />
     <Compile Include="ViewModel\SuaNhaCungCapViewModel.cs" />
     <Compile Include="ViewModel\SuaNhanVienViewModel.cs" />
@@ -275,6 +276,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\404.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\GaraDB.edmx">
@@ -355,6 +357,8 @@
     <Content Include="Views\NhaCungCap\Index.cshtml" />
     <Content Include="Views\NhaCungCap\ThemMoi.cshtml" />
     <Content Include="Views\NhaCungCap\CapNhat.cshtml" />
+    <Content Include="Views\PhieuMuaXe\NhapPhieuMuaXe.cshtml" />
+    <Content Include="Views\PhieuMuaXe\DuplicatedVerhicleExceptionView.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
