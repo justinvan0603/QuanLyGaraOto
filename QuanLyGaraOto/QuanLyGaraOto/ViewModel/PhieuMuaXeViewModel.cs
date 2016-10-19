@@ -17,7 +17,7 @@ namespace QuanLyGaraOto.ViewModel
         /// <summary>
         /// Phieu mua duoc chon hien tai, dung de fill cac truong view trong man hinh them moi hoac sua doi
         /// </summary>
-        public PHIEU_MUAXE phieuMuaxe { get; set; }
+        public PhieuNhapMuaXeModel selectedBill { get; set; }
 
         public List<HIEUXE> danhSachHieuXe { get; set; }
 

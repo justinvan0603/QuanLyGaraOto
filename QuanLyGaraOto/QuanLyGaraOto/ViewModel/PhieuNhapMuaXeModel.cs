@@ -10,6 +10,7 @@ namespace QuanLyGaraOto.ViewModel
     /// </summary>
     public class PhieuNhapMuaXeModel
     {
+        public int? id { get; set; }
         public string maPhieuMuaXe { get; set; }
         public DateTime? ngayLapPhieu { get; set; }
         public decimal? tongGiaTri { get; set; }
@@ -21,7 +22,8 @@ namespace QuanLyGaraOto.ViewModel
         public string soMay { get; set; }
         public string soKhung { get; set; }
         public string doiXe { get; set; }
-        public int soKm { get; set; }
-        
+        public int? soKm { get; set; }
+        public bool isPaid { get; set; }
+
     }
 }

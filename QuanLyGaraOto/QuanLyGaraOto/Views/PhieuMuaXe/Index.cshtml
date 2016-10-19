@@ -32,7 +32,7 @@
         </div>
     </div>
 }
-@Html.ActionLink("Thêm mới", "NhapPhieuBanXe", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
+@Html.ActionLink("Thêm mới", "NhapPhieuMuaXe", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
 
 <div class="table-responsive" style="padding-top:10px;">
     <table id="phieubanxe_table" class="table table-bordered table table-hover" style="text-align : center">
@@ -62,7 +62,7 @@
                         <td>@item.bienSoXe</td>
                         <td> @String.Format("{0:#,###,###,###}", item.triGia)</td>
                         <td>
-                            @Html.ActionLink("Sửa", "SuaPhieuBanXe", new { id = @item.id }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
+                            @Html.ActionLink("Sửa", "SuaPhieuMuaXe", new { id = @item.id }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
                             @if (!item.isPaid) // only show delete button and create receipt voucher if the bill is not paid
                             {
                                 <a class="btnCreateReceiptVoucher btn btn-primary glyphicon glyphicon-notes" href="@Url.Action("NhapPhieuThu","PhieuThu",new {id = @item.id})">Lập phiếu thu</a>
@@ -103,7 +103,7 @@
             var row = $(this).closest("tr");
 
             $.ajax({
-                url: '/PhieuBanXe/Xoa/',
+                url: '/PhieuMuaXe/Xoa/',
 
                 data: JSON.stringify({ billId: itemid }), // parameter
 

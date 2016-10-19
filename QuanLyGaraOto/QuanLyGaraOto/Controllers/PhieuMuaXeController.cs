@@ -135,7 +135,8 @@ namespace QuanLyGaraOto.Controllers
             PHIEU_MUAXE phieuMuaXeMoi = new PHIEU_MUAXE();
             phieuMuaXeMoi.MAPHIEUMUA = arg.maPhieuMuaXe;
             phieuMuaXeMoi.NGAYLAP = arg.ngayLapPhieu;
-            phieuMuaXeMoi.MAKH = arg.maNhanVien;
+            phieuMuaXeMoi.BS_XE = arg.bienSoXe;
+            phieuMuaXeMoi.MAKH = arg.maKhachHang;
             phieuMuaXeMoi.MaNV = 1; // this.service.NHANVIENs.Single(e => e.USERNAME.Equals(Session["Username"])).MA_NV;
             phieuMuaXeMoi.TRIGIA = arg.tongGiaTri;
 
@@ -150,9 +151,145 @@ namespace QuanLyGaraOto.Controllers
 
 
 
+        /// <summary>
+        /// Load thong thong tin phieu mua can sua doi len view client
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult SuaPhieuMuaXe(int? id)
+        {
+            // lay thong tin phieu mua xe tu database
+            PHIEU_MUAXE phieuMuaXe = this.service.PHIEU_MUAXE.Where(e => e.ID_PHIEUMUAXE == id).FirstOrDefault();
+            if (phieuMuaXe == null)
+            {
+                return View("ResourceNotFoundView");
+            }
+            XE xe = this.service.XEs.Where(e => e.BS_XE == phieuMuaXe.BS_XE).FirstOrDefault();
+            if (xe == null)
+            {
+                // ngam xoa phieu vi du lieu xe khong ton tai 
+                this.service.PHIEU_MUAXE.Remove(phieuMuaXe);
+                this.service.SaveChanges();
+                return View("ResourceNotFoundView");
+            }
+            PhieuNhapMuaXeModel selectededBill = new PhieuNhapMuaXeModel();
+            selectededBill.id = phieuMuaXe.ID_PHIEUMUAXE;
+            selectededBill.maPhieuMuaXe = phieuMuaXe.MAPHIEUMUA;
+            selectededBill.bienSoXe = phieuMuaXe.BS_XE;
+            selectededBill.doiXe = xe.DOI_XE;
+            selectededBill.hieuXe = xe.HIEU_XE;
+            selectededBill.maKhachHang = phieuMuaXe.MAKH;
+            selectededBill.maNhanVien = phieuMuaXe.MaNV;
+            selectededBill.ngayLapPhieu = phieuMuaXe.NGAYLAP;
+            selectededBill.soKhung = xe.SO_KHUNG;
+            selectededBill.soKm = xe.SO_KM;
+            selectededBill.soMay = xe.SO_MAY;
+            selectededBill.tinhTrang = xe.TINH_TRANG;
+            selectededBill.tongGiaTri = phieuMuaXe.TRIGIA;
+
+            PhieuMuaXeViewModel viewModel = new PhieuMuaXeViewModel();
+            viewModel.selectedBill = selectededBill;
+            viewModel.danhSachKhachHang = this.service.KHACHHANGs.ToList();
+            viewModel.danhSachHieuXe = this.service.HIEUXEs.ToList();
+
+            return View(viewModel);
+        }
+
+        /// <summary>
+        /// Thuc hien cap nhat thong tin phieu mua xe khi nguoi dung click nut sua
+        /// </summary>
+        /// <param name="modifiedInfor"> Thong tin da duoc sua doi</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult SuaPhieuMuaXe(PhieuNhapMuaXeModel modifiedInfor)
+        {
+            PHIEU_MUAXE phieuMuaXe = this.service.PHIEU_MUAXE.Single(e => e.ID_PHIEUMUAXE == modifiedInfor.id);
+            if (phieuMuaXe == null)
+            {
+                return View("ResourceNotFoundView");
+            }
+            XE xe = this.service.XEs.Where(e => e.BS_XE == phieuMuaXe.BS_XE).FirstOrDefault();
+            if (xe == null)
+            {
+                // ngam xoa phieu vi du lieu xe khong ton tai 
+                this.service.PHIEU_MUAXE.Remove(phieuMuaXe);
+                this.service.SaveChanges();
+                return View("ResourceNotFoundView");
+            }
+            // start to update
+            phieuMuaXe.MAKH = modifiedInfor.maKhachHang;
+            phieuMuaXe.MaNV = modifiedInfor.maNhanVien;
+            phieuMuaXe.MAPHIEUMUA = modifiedInfor.maPhieuMuaXe;
+            phieuMuaXe.NGAYLAP = modifiedInfor.ngayLapPhieu;
+            phieuMuaXe.TRIGIA = modifiedInfor.tongGiaTri;
+
+            // xe
+            xe.DOI_XE = modifiedInfor.doiXe;
+            xe.HIEU_XE = modifiedInfor.hieuXe;
+            xe.HINHTHUC = true;
+            xe.MA_KH = modifiedInfor.maKhachHang;
+            xe.NGAY_TIEPNHAN = modifiedInfor.ngayLapPhieu;
+            xe.SO_KHUNG = modifiedInfor.soKhung;
+            xe.SO_KM = modifiedInfor.soKm;
+            xe.SO_MAY = modifiedInfor.soMay;
+            xe.TINH_TRANG = modifiedInfor.tinhTrang;
+
+            this.service.Entry(xe).State = System.Data.Entity.EntityState.Modified; // cap nhat thong tin xe
+            this.service.Entry(phieuMuaXe).State = System.Data.Entity.EntityState.Modified; // cap nhat thong tin phieu
+            this.service.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
 
+
+        /// <summary>
+        /// Xoa thong tin mot phieu mua xe 
+        /// </summary>
+        /// <param name="billId"> Id phieu mua xe can xoa</param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Xoa(int? billId)
+        {
+            try
+            {
+                PHIEU_MUAXE phieuMuaXe = this.service.PHIEU_MUAXE.Single(e => e.ID_PHIEUMUAXE == billId);
+                // lay thong tin xe tu thong tin phieu mua xe
+                XE xe = this.service.XEs.Single(e => e.BS_XE == phieuMuaXe.BS_XE);
+                /**
+                 * Xoa thong tin xe truoc, sau do tien hanh xoa thong tin phieu mua xe
+                 * */
+                this.service.XEs.Remove(xe);
+                this.service.PHIEU_MUAXE.Remove(phieuMuaXe);
+                // after removing the verhincal sale of bill => remove the correspoding receipt that is related to it
+                this.service.SaveChanges();
+                // tra ve 
+                return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+
+                return Json(new { value = "-1", message = "SYSTEM ERROR !" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        /// <summary>
+        /// Error screen for duplication data 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public ActionResult DuplicatedVerhicleExceptionView()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 404 Resource not found screen
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult ResourceNotFoundView()
         {
             return View();
         }

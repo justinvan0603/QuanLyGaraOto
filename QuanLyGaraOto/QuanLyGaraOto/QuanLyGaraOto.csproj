@@ -359,6 +359,8 @@
     <Content Include="Views\NhaCungCap\CapNhat.cshtml" />
     <Content Include="Views\PhieuMuaXe\NhapPhieuMuaXe.cshtml" />
     <Content Include="Views\PhieuMuaXe\DuplicatedVerhicleExceptionView.cshtml" />
+    <Content Include="Views\PhieuMuaXe\ResourceNotFoundView.cshtml" />
+    <Content Include="Views\PhieuMuaXe\SuaPhieuMuaXe.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
