@@ -1,0 +1,138 @@
+﻿@using PagedList.Mvc;
+@model QuanLyGaraOto.ViewModel.PhieuTiepNhanViewModel
+
+@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Danh sách phiếu tiếp nhận";
+}
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+
+
+<style>
+    .table th {
+        width: auto !important;
+    }
+</style>
+
+@using (@Html.BeginForm("Index", "PhieuTiepNhan", FormMethod.Get, new { @class = "form-inline" }))
+{
+    <div class="form-inline">
+        <div class="form-group">
+            <label for="searchOption">Tìm theo:</label>
+            @Html.DropDownList("searchOption", Model.filterOptions, new { @class = "form-control" })
+            @* @Html.DropDownListFor(m => m.selectedValue, Model.listSearchOption, new { @class = "form-control" })*@
+        </div>
+        <div class="form-group">
+            <label for="searchOption">Giá trị:</label>
+            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Ví dụ : 08/25/2016" })
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+        </div>
+    </div>
+}
+@Html.ActionLink("Thêm mới", "ThemPhieuTiepNhan", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
+
+<div class="table-responsive" style="padding-top:10px;">
+    <table id="phieutiepnhan_table" class="table table-bordered table table-hover" style="text-align : center">
+        <thead style="color:red; text-align : center;">
+            <tr>
+                <th>Mã phiếu</th>
+                <th>Ngày lập</th>
+                <th>Khách hàng</th>
+                <th>Biển số xe</th>
+                <th>Tình trạng</th>
+                <th>Ngày hẹn trả</th>
+                <th>Số chờ</th>
+                <th>Tùy chọn</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                //List<ASPExample.Models.Product> listProduct = (List<ASPExample.Models.Product>)Model.listProduct;
+                foreach (var item in Model.danhSachPhieuTiepNhan.ToList())
+                {
+                    <tr class="clickable-row">
+                        <!--  <td id="id" style="display:none"</td>  id cua phieu ban se duoc fill nhung se khong hien thi tren view cua client-->
+                        <td id="maPhieuTiepNhan"> @item.maPhieuTiepNhan</td>
+                        <td> @String.Format("{0:dd/MM/yyyy}", item.ngayLap.Value.Date)</td> <!-- chi quan tam den ngay, khong quan tam chi tiet den gio-->
+                        <td> @item.tenKhachHang</td>
+                        <td>
+                            <a href="/Xe/SuaThongTinXe?bienSoXe=@item.bienSoXe">@item.bienSoXe</a>
+                        </td>
+                        <td>@item.tinhTrang</td>
+                        <td>@String.Format("{0:dd/MM/yyyy}", item.ngayTra.Value.Date)</td>
+                        <td>@item.maSoCho</td>
+                        <td>
+                            @Html.ActionLink("Sửa", "SuaPhieuTiepNhan", new { maPhieu = @item.maPhieuTiepNhan }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
+                            <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    Page @(Model.danhSachPhieuTiepNhan.PageCount < Model.danhSachPhieuTiepNhan.PageNumber ? 0 : Model.danhSachPhieuTiepNhan.PageNumber) of @Model.danhSachPhieuTiepNhan.PageCount
+    @Html.PagedListPager(Model.danhSachPhieuTiepNhan, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $('#phieutiepnhan_table').on('click', '.clickable-row', function (event) {
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+        } else {
+            $(this).addClass('active').siblings().removeClass('active');
+        }
+    });
+
+    ///
+    // Handle when user click delete button
+    //
+    $(document).ready(function () {
+        $("#button_delete").on("click", function (e) {
+
+            e.preventDefault();
+            // tim cot co id = 'maPhieuTiepNhan'
+            var $item = $(this).closest("tr").find("#maPhieuTiepNhan").text();
+            var itemid = $item.valueOf();
+            var isSucess = -1;
+            var message = "";
+            var row = $(this).closest("tr");
+
+            $.ajax({
+                url: '/PhieuTiepNhan/Xoa/',
+
+                data: JSON.stringify({ maPhieu: itemid }), // parameter
+
+                type: 'POST',
+
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (result) {
+                    isSuccess = result.value;
+                    message = result.message;
+
+                },
+                error: function (result) {
+                    isSuccess = result.value;
+                    message = result.message;
+                }
+
+            }).done(function () {
+                if (isSuccess == "1") {
+                    row.remove();
+                    alert(message);
+                    // window.location.replace("index");
+                }
+                else {
+                    alert(message);
+                }
+            });
+        })
+    });
+
+</script>

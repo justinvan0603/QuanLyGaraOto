@@ -1,0 +1,104 @@
+﻿@using PagedList.Mvc;
+@model QuanLyGaraOto.ViewModel.XeViewModel
+@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Thông tin xe mới";
+}
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+
+<h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU XE MỚI</h3>
+
+@using (Html.BeginForm("NhapXe", "Xe", FormMethod.Post, new { @id = "#nhap_xe_form" }))
+{
+    <div class="form-group">
+        <label class="input-sm" style="color : red;">Biển số xe :</label>
+        <input class="form-control input-sm" type="text" maxlength="100" name="BS_XE" required />
+    </div>
+    <div class="form-group ">
+        <label class="input-sm"> Ngày tiếp nhận :</label>
+        <input class="form-control input-sm" readonly="readonly" type="date" value="@DateTime.Now" id="datebox_ngaylapphieu" maxlength="30" name="NGAY_TIEPNHAN" required />
+    </div>
+    <div class="form-group">
+        <label class="input-sm">Hiệu xe :</label>
+        <select name="HIEU_XE" class="cboNhom form-control input-sm">
+            @foreach (var item in Model.danhSachHieuXe)
+            {
+                <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="input-sm">Khách hàng :</label>
+        <select name="MA_KH" class="cboNhom form-control input-sm">
+            <option value="@null" style="color: blue; font-weight : bold;">Khách vãng lai</option> <!--trường hợp là khách vãng lai-->
+            @foreach (var item in Model.danhSachKhachHang)
+            {
+                <option value="@item.MA_KH">@item.TEN_KH</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="input-sm">Số khung :</label>
+        <input class="form-control input-sm" type="text" placeholder="Số khung xe" maxlength="30" name="SO_KHUNG" required />
+    </div>
+    <div class="form-group">
+        <label class="input-sm">Số máy :</label>
+        <input class="form-control input-sm" type="text" placeholder="Số máy" maxlength="30" name="SO_MAY" required />
+    </div>
+    <div class="form-group">
+        <label for="tinhTrang" class="input-sm">Tình trạng xe :</label>
+        <textarea class="form-control" rows="5" id="tinhTrang" name="TINHTRANG"></textarea>
+    </div>
+    <div class="form-group">
+        <label class="input-sm">Đời xe :</label>
+        <input class="form-control input-sm" type="text" placeholder="Đời xe" maxlength="30" name="DOI_XE" required />
+    </div>
+    <div class="form-group">
+        <label class="input-sm">Số Km :</label>
+        <input class="form-control input-sm" type="text" placeholder="Số Km" maxlength="30" name="SO_KM" required />
+    </div>
+
+    <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span>Lưu</button>
+
+    @*<script>
+
+            ///
+            // Ultility method for comparing date validation
+            //
+            var isAfterStartDate = function (startDateStr, endDateStr) {
+                var inDate = new Date(startDateStr),
+                    eDate = new Date(endDateStr);
+                if (eDate >= inDate) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            };
+            //
+            // Check data validation before submitting form
+            $("form").submit(function (e) {
+                // Firstly, check final payment date and creation date
+                var creationTime = $("#datebox_ngaylapphieu").val();
+                var finalPaymentTime = $("#datebox_hanchotthanhtoan").val();
+                if (isAfterStartDate(creationTime, finalPaymentTime) == false) {
+                    alert("Hạn chót thanh toán phải lớn hơn hoặc cùng với ngày lập phiếu !");
+                    e.preventDefault();
+                }
+
+                // check validation of paying
+                var remainder = new Number($("#textbox_sotienconlai").val());
+                var total = new Number($("#textbox_trigia").val());
+                if (remainder >= total) {
+                    alert("Số tiền còn lại phải nhỏ hơn số tổng trị giá phiếu !");
+                    e.preventDefault();
+                }
+            });
+            // update creation date in text box
+            document.getElementById("datebox_ngaylapphieu").valueAsDate = new Date();
+
+        </script>*@
+}
+

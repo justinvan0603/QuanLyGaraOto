@@ -1,0 +1,127 @@
+﻿@model QuanLyGaraOto.ViewModel.XeViewModel
+@using PagedList.Mvc;
+@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Danh sách xe";
+}
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+
+<style>
+    .table th {
+        width: auto !important;
+    }
+</style>
+<body>
+    <h3 class="text-center" style="color: green;">Danh sách xe</h3>
+
+    @using (@Html.BeginForm("Index", "Xe", FormMethod.Get, new { @class = "form-inline" }))
+    {
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="searchOption">Tìm theo:</label>
+                @Html.DropDownList("searchOption", Model.listSearchOption, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="searchString">Giá trị:</label>
+                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+            </div>
+        </div>
+    }
+
+    @Html.ActionLink("Thêm", "NhapXe", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
+    <div class="table-responsive" style="padding-top:10px;">
+        <table id="danhsachxe_table" class="table table-bordered table table-hover ">
+            <thead style="color:red;">
+                <tr>
+                    <th>@Html.ActionLink("Biển số xe", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
+                    <th>Mã khách hàng</th>
+                    <th>Ngày tiếp nhận</th>
+                    <th>Hiệu xe</th>
+                    <th>Tình trạng</th>
+                    <th>Hình thức</th>
+                    <th>Số máy</th>
+                    <th>Số khung</th>
+                    <th>Đời xe</th>
+                    <th>Số Km</th>
+                    <th>Tùy chọn</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model.danhSachXe.ToList())
+                    {
+                        <tr class="clickable-row">
+                            <td id="bien_so_xe"> @item.BS_XE</td>
+                            <td> @(item.MA_KH == null ? "Khách vãn lai" : item.MA_KH.ToString())</td>
+                            <td>@String.Format("{0:dd/MM/yyyy}", item.NGAY_TIEPNHAN.Value.Date.ToString())</td>
+                            <td>@item.HIEU_XE</td>
+                            <td> @item.TINH_TRANG</td>
+                            <td>@(item.HINHTHUC == true ? "Xe bán" : "Sửa chữa")</td>
+                            <td> @item.SO_MAY</td>
+                            <td>@item.SO_KHUNG</td>
+                            <td>@item.DOI_XE</td>
+                            <td>@item.SO_KM</td>
+                            <td>
+                                @Html.ActionLink("Sửa", "SuaThongTinXe", new { bienSoXe = @item.BS_XE }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        Trang @(Model.danhSachXe.PageCount < Model.danhSachXe.PageNumber ? 0 : Model.danhSachXe.PageNumber) của @Model.danhSachXe.PageCount
+
+        @Html.PagedListPager(Model.danhSachXe, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+        $('#danhsachxe_table').on('click', '.clickable-row', function (event) {
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
+            } else {
+                $(this).addClass('active').siblings().removeClass('active');
+            }
+        });
+
+        $(document).ready(function () {
+            $("#button_delete").on("click", function (e) {
+                e.preventDefault();
+                var $item = $(this).closest("tr").find("#bien_so_xe").text();
+                var itemid = $item.valueOf();
+                var isSucess = -1;
+                var message = "";
+                var row = $(this).closest("tr");
+
+                $.ajax({
+                    url: '/Tho/Xoa/',
+                    data: JSON.stringify({ id: itemid }),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        isSuccess = result.value;
+                        message = result.message;
+                    },
+                    error: function (result) {
+                        isSuccess = result.value;
+                        message = result.message;
+                    }
+                }).done(function () {
+                    if (isSuccess == "1") {
+                        row.remove();
+                        alert(message);
+                    }
+                    else {
+                        alert(message);
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
