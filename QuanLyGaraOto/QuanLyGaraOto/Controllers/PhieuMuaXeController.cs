@@ -36,6 +36,10 @@ namespace QuanLyGaraOto.Controllers
                 {
                     temp.khachHang = this.service.KHACHHANGs.Where(e => e.MA_KH == item.MAKH).First().TEN_KH; // ten khach hang
                 }
+                else
+                {
+                    temp.khachHang = "Khách vãn lai";
+                }
                 temp.nhanVien = this.service.NHANVIENs.Where(e => e.MA_NV == item.MaNV).First().HOTEN; // ten nhan vien
                 temp.maPhieuMua = item.MAPHIEUMUA;
                 temp.ngayLapPhieu = item.NGAYLAP;

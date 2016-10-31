@@ -138,6 +138,7 @@
     <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Controllers\PhieuBanLeController.cs" />
     <Compile Include="Controllers\PhieuBanXeController.cs" />
+    <Compile Include="Controllers\PhieuChiController.cs" />
     <Compile Include="Controllers\PhieuDichVuController.cs" />
     <Compile Include="Controllers\PhieuMuaXeController.cs" />
     <Compile Include="Controllers\PhieuTiepNhanController.cs" />
@@ -256,6 +257,7 @@
     <Compile Include="ViewModel\PhieuBanLeViewModel.cs" />
     <Compile Include="ViewModel\PhieuBanXeListViewModel.cs" />
     <Compile Include="ViewModel\PhieuBanXeViewModel.cs" />
+    <Compile Include="ViewModel\PhieuChiViewModel.cs" />
     <Compile Include="ViewModel\PhieuDVViewModel.cs" />
     <Compile Include="ViewModel\PhieuMuaXeListViewModel.cs" />
     <Compile Include="ViewModel\PhieuMuaXeViewModel.cs" />
@@ -367,7 +369,6 @@
     <Content Include="Views\PhieuMuaXe\DuplicatedVehicleExceptionView.cshtml" />
     <Content Include="Views\PhieuMuaXe\ResourceNotFoundView.cshtml" />
     <Content Include="Views\PhieuMuaXe\SuaPhieuMuaXe.cshtml" />
-    <Content Include="Views\PhieuTiepNhan.cshtml" />
     <Content Include="Views\PhieuTiepNhan\Index.cshtml" />
     <Content Include="Views\Xe.cshtml" />
     <Content Include="Views\Xe\Index.cshtml" />
@@ -376,6 +377,12 @@
     <Content Include="Views\Xe\DuplicatedVehicleExceptionView.cshtml" />
     <Content Include="Views\Xe\SuaThongTinXe.cshtml" />
     <Content Include="Views\PhieuTiepNhan\SuaPhieuTiepNhan.cshtml" />
+    <Content Include="Views\PhieuChi\Index.cshtml" />
+    <Content Include="Views\PhieuChi\DuplicatedBillExceptionView.cshtml" />
+    <Content Include="Views\PhieuChi\NhapPhieuChi.cshtml" />
+    <Content Include="Views\PhieuChi\NhapPhieuChiFromPhieuMuaXe.cshtml" />
+    <Content Include="Views\PhieuChi\NhapPhieuChiFromPhieuNhapHang.cshtml" />
+    <Content Include="Views\PhieuChi\SuaPhieuChi.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
