@@ -7,6 +7,7 @@
     decimal dongia = 0;
     int hanbaohanh = 0;
     string sdt = "";
+    string loaipt = "";
     List<PHUTUNG> listPT = Model.ListPhuTung.Where(pt => pt.MA_HIEUXE.Equals(Model.ListHieuXe[0].MA_HIEUXE)).ToList();
     if(listPT.Count >0)
     {
@@ -232,7 +233,28 @@
     });
     function cboLoaiPTSelectChanged()
     {
-        
+        var HieuXe = $('.cboLoaiPT').children("option").filter(":selected").attr("value");
+        $.ajax({
+            url: '/PhieuDichVu/GetPhuTungByHieuXe/',
+            type: 'post',
+            data: {
+                hieuxe: HieuXe
+            }
+        }).done(function (response) {
+            $(".cboPT").empty();
+            $(".cboPT").html(response);
+        });
+        //$("province_dll").change(function () {
+        //    $.ajax({
+        //        url: '/PhieuDichVu/GetPhuTungByHieuXe/',
+        //        type: 'post',
+        //        data: {
+        //            hieuxe: HieuXe
+        //        }
+        //    }).done(function (response) {
+        //        $("cities_dll").html(response);
+        //    });
+        //});
         @*@foreach(var item in Model.ListPhuTung)
         {
             <text>
