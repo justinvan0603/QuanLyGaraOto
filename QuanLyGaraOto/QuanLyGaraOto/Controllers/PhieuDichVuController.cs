@@ -105,7 +105,7 @@ namespace QuanLyGaraOto.Controllers
             }
             else
                 vmPhieuDV.ListHieuXe = context.HIEUXEs.ToList();
-            
+
 
 
             return View(vmPhieuDV);
@@ -200,6 +200,13 @@ namespace QuanLyGaraOto.Controllers
             context.CHITIET_PHIEUDV.Add(chitiet);
             context.SaveChanges();
             return Json(new { issucess = "1", newid = "1", message = "OK" }, JsonRequestBehavior.AllowGet);
+        }
+     [HttpPost]
+        public ActionResult GetPhuTungByHieuXe(string hieuxe)
+        {
+            GARADBEntities context= new GARADBEntities();
+            var ListPhuTung = context.PHUTUNGs.Where(pt => pt.MA_HIEUXE.Equals(hieuxe)).Select(pt => "<option value='" + pt.ID + "' title='" + pt.SOLUONGTON + "' id='" + pt.MA_PHUTUNG + "' itemscope='"+ pt.TG_BAOHANH + "' itemprop='" + pt.DONGIAXUAT + "'>" +pt.TEN_PHUTUNG + "</option>");
+            return Content(String.Join("",ListPhuTung));
         }
     }
 }
