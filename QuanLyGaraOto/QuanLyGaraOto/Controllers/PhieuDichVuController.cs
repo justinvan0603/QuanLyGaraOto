@@ -88,7 +88,7 @@ namespace QuanLyGaraOto.Controllers
             return View(vmDSPhieuDV);
         }
         [HttpGet]
-        public ActionResult NhapPhieuDichVu()
+        public ActionResult NhapPhieuDichVu(int? maphieutiepnhan)
         {
             GARADBEntities context = new GARADBEntities();
             PhieuDVViewModel vmPhieuDV = new PhieuDVViewModel();
@@ -97,7 +97,16 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuDV.ListTho = new List<THO>();
             vmPhieuDV.ListTho = context.THOes.ToList();
             vmPhieuDV.ListTienCong = context.TIENCONGs.ToList();
+            if (maphieutiepnhan != null)
+            {
+                string bienso = context.PHIEU_TIEPNHAN.Single(ptn => ptn.MA_PHIEUTIEPNHAN == maphieutiepnhan.Value).BIENSO_XE;
+                string hieuxe = context.XEs.Single(x => x.BS_XE.Equals(bienso)).HIEU_XE;
+                vmPhieuDV.ListHieuXe = context.HIEUXEs.Where(hx => hx.MA_HIEUXE.Equals(hieuxe) || hx.MA_HIEUXE.Equals("Tất cả")).ToList();
+            }
+            else
+                vmPhieuDV.ListHieuXe = context.HIEUXEs.ToList();
             
+
 
             return View(vmPhieuDV);
         }
@@ -116,10 +125,10 @@ namespace QuanLyGaraOto.Controllers
                 context.CHITIET_PHIEUDV.Add(item);
             }
             context.SaveChanges();
-            return NhapPhieuDichVu();
+            return NhapPhieuDichVu(viewmodel.PhieuDichVu.ID_PHIEUDV);
         }
         [HttpGet]
-        public ActionResult SuaPhieuDichVu()
+        public ActionResult SuaPhieuDichVu(int? MaPhieuDV)
         {
             GARADBEntities context = new GARADBEntities();
             PhieuDVViewModel vmPhieuDV = new PhieuDVViewModel();
@@ -129,7 +138,7 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuDV.ListTho = new List<THO>();
             vmPhieuDV.ListTho = context.THOes.ToList();
             vmPhieuDV.ListChiTietPhieu = new List<CHITIET_PHIEUDV>();
-
+            vmPhieuDV.ListHieuXe = context.HIEUXEs.ToList();
             //vmPhieuDV.MaPhieuDV = "PDV001";
             //vmPhieuDV.MaPhieuTiepNhan = 3;
             //vmPhieuDV.MaNV = 1;
@@ -143,7 +152,7 @@ namespace QuanLyGaraOto.Controllers
             var target = context.PHIEU_DICHVU.Single(pdv => pdv.ID_PHIEUDV == viewModel.PhieuDichVu.ID_PHIEUDV);
             target.MATHO = viewModel.PhieuDichVu.MATHO;
             target.TIENCONG = viewModel.PhieuDichVu.TIENCONG;
-            return View();
+            return View(target.ID_PHIEUDV);
         }
         [HttpPost]
         public JsonResult Xoa(int id)
