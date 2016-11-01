@@ -264,6 +264,7 @@
     <Compile Include="ViewModel\PhieuMuaXeListViewModel.cs" />
     <Compile Include="ViewModel\PhieuMuaXeViewModel.cs" />
     <Compile Include="ViewModel\PhieuNhapMuaXeModel.cs" />
+    <Compile Include="ViewModel\PhieuThuViewModel.cs" />
     <Compile Include="ViewModel\PhieuTiepNhanListViewModel.cs" />
     <Compile Include="ViewModel\PhieuTiepNhanViewModel.cs" />
     <Compile Include="ViewModel\PhuTungViewModel.cs" />
