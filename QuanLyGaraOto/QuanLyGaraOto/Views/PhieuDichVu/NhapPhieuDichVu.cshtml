@@ -5,19 +5,29 @@
     //List<TIENCONG> listtc = ViewBag.ListTienCong;
     int slTon = 0;
     decimal dongia = 0;
+    int hanbaohanh = 0;
     string sdt = "";
+    List<PHUTUNG> listPT = Model.ListPhuTung.Where(pt => pt.MA_HIEUXE.Equals(Model.ListHieuXe[0].MA_HIEUXE)).ToList();
+    if(listPT.Count >0)
+    {
+        slTon = listPT[0].SOLUONGTON.Value;
+        dongia = Math.Round(listPT[0].DONGIAXUAT.Value);
+        hanbaohanh = listPT[0].TG_BAOHANH.Value;
+    }
     if(Model.ListTho.Count >0)
     {
         sdt = Model.ListTho[0].SDT;
     }
-    if(Model.ListPhuTung.Count >0)
-    { 
-        slTon = Model.ListPhuTung[0].SOLUONGTON.Value;
-        dongia = Math.Round(Model.ListPhuTung[0].DONGIAXUAT.Value);
-    }
+    //if(Model.ListPhuTung.Count >0)
+    //{ 
+    //    slTon = Model.ListPhuTung[0].SOLUONGTON.Value;
+    //    dongia = Math.Round(Model.ListPhuTung[0].DONGIAXUAT.Value);
+    //}
+
+    
     //string txt = "faasdf";
     //string val = "fadsd";
-    //int val = 2;
+    ////int val = 2;
 }
 <!DOCTYPE html>
 <style>
@@ -74,7 +84,7 @@
     </div>
     <div class="form-group form-inline">
         <label class="input-sm">Tiền công:</label>
-        @Html.TextBoxFor(model => model.PhieuDichVu.TIENCONG, new { @class= "form-control"});
+        @Html.TextBoxFor(model => model.PhieuDichVu.TIENCONG, new { @class= "form-control"})
         @*<input class="txtTienCong form-control input-sm" type="number" min="1000" max="10000" name="PhieuDichVu.TIENCONG" required />*@
     </div>
     <div class="panel panel-default" style="width:99%;">
@@ -82,11 +92,20 @@
         <div class="panel-body">
             <div class=" form-group form-inline" style="padding-left:5px;">
 
+                <label class="input-sm">Hãng phụ tùng:</label>
+                <select id="cboLoaiPT" class="cboLoaiPT form-control input-sm" style="width:12%" onchange="cboLoaiPTSelectChanged()">
+                    @foreach (var item in Model.ListHieuXe)
+                    {
+                        <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+                    }
+                </select>
+
+
                 <label class="input-sm">Phụ tùng:</label>
                 <select id="cbo" class="cboPT form-control input-sm" style="width:12%" onchange="cboPTSelectChanged()">
-                    @foreach (var item in Model.ListPhuTung)
+                    @foreach (var item in listPT)
                     {
-                        <option value="@item.MA_PHUTUNG" title="@item.SOLUONGTON" itemprop="@item.DONGIAXUAT">@item.TEN_PHUTUNG</option>
+                        <option value="@item.ID" title="@item.SOLUONGTON" id="@item.MA_PHUTUNG"    itemscope="@item.TG_BAOHANH"  itemprop="@item.DONGIAXUAT">@item.TEN_PHUTUNG</option>
                     }
                 </select>
 
@@ -98,7 +117,7 @@
                 <label class="input-sm">Đơn giá:</label>
                 <input type="number" maxlength="8"  pattern="[0-9]" class="txtDonGia form-control input-sm" style="width:10%" value="@dongia" readonly/>
                 <label class="input-sm">Bảo hành:</label>
-                <input type="number" maxlength="2"  pattern="[0-9]" class="txtBH form-control input-sm" style="width:6%;" />
+                <input type="number" maxlength="2"  pattern="[0-9]" class="txtBH form-control input-sm" style="width:4%;" value="@hanbaohanh"  readonly/>
                 <label class="input-sm">Thành tiền:</label>
                 <label class="lblThanhTien input-sm" style="width:10%"></label>
 
@@ -109,15 +128,15 @@
 
             </div>
             <div class="table-responsive" style="padding-top:10px; margin-right:20px;">
-                <table id="chitietphieu-table" class="table table-bordered table table-hover ">
+                <table id="chitietphieu-table" class="table table-bordered table table-hover table-condensed ">
                     @*<thead style="color:red;">*@
                     <tr class="trFirstRow" style="color:red;" data-id="-1">
                         <th style="display:none">Id</th>
                         <th>Phụ tùng</th>
-
+                        <th>Mã phụ tùng</th>
                         <th>Số lượng</th>
                         <th>Đơn giá</th>
-   
+
                         <th>Thành tiền</th>
                         <th>Thời gian bảo hành (tháng)</th>
                         <th>Thao tác</th>
@@ -136,6 +155,9 @@
 
                             </td>
                             <td>
+                                <input class="maTenPT form-control input-sm" type="text" value="" disabled />
+                            </td>
+                            <td>
                                 <input type="text" class="txtSoluong form-control input-sm" name="SOLUONG" value="" readonly @*disabled*@ />
 
                             </td>
@@ -150,7 +172,7 @@
                                 <input type="text" class="txtBaoHanh form-control input-sm" name="THOIHAN_BAOHANH" value="" readonly @*disabled*@ />
                             </td>
                             <td>
-                                <input type="button" value="Xóa" class="btn btn-danger" id="btnDelete" />
+                                <input type="button" value="Xóa" class="btn btn-danger btn-sm" id="btnDelete" />
                             </td>
                         </tr>
 
@@ -182,14 +204,14 @@
     });
     $("form").submit(function (e)
     {
-        //var rowCount = $("#chitietphieu-table tr").length;
-        //var numberofContentRow = parseInt(rowCount - 2);
-        ////alert(numberofContentRow);
-        //if (numberofContentRow == 0)
-        //{
-        //    alert("Vui lòng nhập dữ liệu vào bảng chi tiết!");
-        //    e.preventDefault();
-        //}
+        var rowCount = $("#chitietphieu-table tr").length;
+        var numberofContentRow = parseInt(rowCount - 2);
+        //alert(numberofContentRow);
+        if (numberofContentRow == 0)
+        {
+            alert("Vui lòng nhập dữ liệu vào bảng chi tiết!");
+            e.preventDefault();
+        }
         //alert("method call");
         //e.preventDefault();
         //alert("stop submit");
@@ -208,6 +230,21 @@
         CapNhapID();
 
     });
+    function cboLoaiPTSelectChanged()
+    {
+        
+        @*@foreach(var item in Model.ListPhuTung)
+        {
+            <text>
+              var option = document.createElement("option");
+            option.text = '@txt.ToString()';
+            option.value = '@val.ToString()';
+            var select = document.getElementById("cboLoaiPT");
+            select.appendChild(option);
+            </text>
+        }*@
+
+    }
     function cboThoSelectChanged()
     {
         var SDT = $('.cboTho').children("option").filter(":selected").attr("title");
@@ -216,17 +253,28 @@
     }
     function cboPTSelectChanged()
     {
-        @*var option = document.createElement("option");
-        option.text = '@txt.ToString()';
-        option.value = '@val.ToString()';
-        var select = document.getElementById("cbo");
-        select.appendChild(option);*@
+        @*@foreach(var item in Model.ListPhuTung)
+        {
+            <text>
+              var option = document.createElement("option");
+            option.text = '@txt.ToString()';
+            option.value = '@val.ToString()';
+            var select = document.getElementById("cbo");
+            select.appendChild(option);
+            </text>
+        }*@
+
         var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
         var dongia = $('.cboPT').children("option").filter(":selected").attr("itemprop");
-        
+        var thoihanbaohanh = $('.cboPT').children("option").filter(":selected").attr("itemscope");
+  
+        //var id = $('.cboPT').children("option").filter(":selected").attr("id");
+        //alert(id);
        // alert(mapt);
         $('.lblTonKho').text(parseInt(tonkho));
         $('.txtDonGia').val(parseInt(dongia));
+        $('.txtBH').val(parseInt(thoihanbaohanh));
+        
     }
 
         $('.txtDonGia').on('input',function(e)
@@ -324,6 +372,9 @@
             var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
             $tenphutung.attr("value", tenpt);
             
+            var $txtMaTenPT = $("#chitietphieu-table").find("tr:last-child").find('td input.maTenPT');
+            var maTenPT = $('.cboPT').children("option").filter(":selected").attr("id");
+            $txtMaTenPT.attr("value", maTenPT);
             //var loaitiencong = $('.cboTC').children("option").filter(":selected").attr("value");
             //var $tentiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenTC');
             //$tentiencong.attr("value", loaitiencong);
@@ -339,12 +390,13 @@
             //$txttiencong.attr("value", tiencong);
 
             var thanhtien = parseInt(soluong * dongia);
-            alert(thanhtien);
+            //alert(thanhtien);
             var $txtthanhtien = $("#chitietphieu-table").find("tr:last-child").find('td input.txtThanhTien');
             $txtthanhtien.attr("value", thanhtien);
             var baohanh = $('.txtBH').val();
             var $txtbaohanh = $("#chitietphieu-table").find("tr:last-child").find('td input.txtBaoHanh');
             $txtbaohanh.attr("value", baohanh);
+            
             loadIDLENTHE();
 
         });
