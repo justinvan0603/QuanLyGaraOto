@@ -1,0 +1,123 @@
+﻿@model QuanLyGaraOto.ViewModel.PhieuThuViewModel
+@using PagedList.Mvc;
+@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Danh sách phiếu thu";
+}
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<style>
+    .table th {
+        width: auto !important;
+    }
+</style>
+<body>
+    <h3 class="text-center" style="color: green;">Danh sách phiếu thu</h3>
+@using (@Html.BeginForm("Index", "PhieuThu", FormMethod.Get, new {@class = "form-inline"}))
+{
+    <div class="form-inline">
+        <div class="form-group">
+            <label for="searchOption">Tìm theo:</label>
+            @Html.DropDownList("searchOption", Model.listSearchOption, new {@class = "form-control"})
+        </div>
+        <div class="form-group">
+            <label for="searchOption">Giá trị:</label>
+            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new {@class = "form-control"})
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-info" style="margin-top: 25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+        </div>
+    </div>
+}
+
+<div class="table-responsive" style="padding-top: 10px;">
+    <table id="phieuthu-table" class="table table-bordered table table-hover ">
+        <thead style="color: red;">
+        <tr>
+            <th style="display: none">Id</th>
+            <th>Mã phiếu thu</th>
+            <th>@Html.ActionLink("Ngày lập phiếu", "Index", new {sortOrder = ViewBag.DateSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption})</th>
+            <th>Mã nhân viên</th>
+            <th>Nội dung</th>
+            <th>Số tiền</th>
+            <th>Thao tác</th>
+        </tr>
+        </thead>
+        <tbody>
+        @{
+            foreach (var item in Model.ListPhieuThu.ToList())
+            {
+                <tr class="clickable-row">
+                    <td id="id" style="display: none">@item.ID_PHIEUTHUTIEN</td>
+                    <td> @item.MAPHIEUTHU</td>
+                    <td> @String.Format("{0:dd/MM/yyyy}", item.NGAYLAP)</td>
+                    <td>@item.MA_NV</td>
+                    <td>@item.NOIDUNG_THU</td>
+                    <td>@String.Format("{0:#,###,###,###}", item.SOTIEN)</td>
+                    <td>
+                        @Html.ActionLink("Sửa", "CapNhat", new {id = @item.ID_PHIEUTHUTIEN}, new {@class = "btn btn-warning glyphicon glyphicon-pencil"})
+                        <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+    Trang @(Model.ListPhieuThu.PageCount < Model.ListPhieuThu.PageNumber ? 0 : Model.ListPhieuThu.PageNumber) của @Model.ListPhieuThu.PageCount
+
+    @Html.PagedListPager(Model.ListPhieuThu, page => Url.Action("Index", new {page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption}))
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $('#phieuthu-table')
+        .on('click',
+            '.clickable-row',
+            function(event) {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                } else {
+                    $(this).addClass('active').siblings().removeClass('active');
+                }
+            });
+
+    $(document)
+        .ready(function() {
+            $(".btnDelete")
+                .on("click",
+                    function(e) {
+                        e.preventDefault();
+                        var $item = $(this).closest("tr").find("#id").text();
+                        var itemid = $item.valueOf();
+                        var isSucess = -1;
+                        var message = "";
+                        var row = $(this).closest("tr");
+
+                        $.ajax({
+                                url: '/Tho/Xoa/',
+                                data: JSON.stringify({ id: itemid }),
+                                type: 'POST',
+                                contentType: 'application/json; charset=utf-8',
+                                success: function(result) {
+                                    isSuccess = result.value;
+                                    message = result.message;
+                                },
+                                error: function(result) {
+                                    isSuccess = result.value;
+                                    message = result.message;
+                                }
+                            })
+                            .done(function() {
+                                if (isSuccess == "1") {
+                                    row.remove();
+                                    alert(message);
+                                } else {
+                                    alert(message);
+                                }
+                            });
+                    });
+        });
+</script>
+
+</body>

@@ -1,0 +1,63 @@
+﻿@model QuanLyGaraOto.Models.PHIEU_THUTIEN
+@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Cập nhật phiếu thu";
+}
+@Html.Raw(TempData["msg"])
+<head>
+    <title>@ViewBag.Title</title>
+    <style>
+        .table {
+            border-bottom: 0px !important;
+        }
+
+            .table th, .table td {
+                border: 1px !important;
+            }
+
+        .fixed-table-container {
+            border: 0px !important;
+        }
+    </style>
+</head>
+<body>
+    <h3 class="text-center" style="color: green;">Lập phiếu thu tiền</h3>
+    @using (Html.BeginForm("CapNhat", "PhieuThu", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.ID_PHIEUTHUTIEN, Model)
+        <table class="table borderless">
+            <tr>
+                <th class="col-xs-2"></th>
+                <th class="col-xs-10"></th>
+            </tr>
+            <tbody>
+                <tr>
+                    <td><label>Mã phiếu thu:</label></td>
+                    <td>@Html.TextBoxFor(m => m.MAPHIEUTHU, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td><label>Ngày lập:</label></td>
+                    <td>@Html.TextBoxFor(m => m.NGAYLAP, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                </tr>
+                <tr>
+                    <td><label>Mã nhân viên:</label></td>
+                    <td>@Html.TextBoxFor(m => m.MA_NV, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                </tr>
+                <tr>
+                    <td><label>Nội dung thu:</label></td>
+                    <td>@Html.TextBoxFor(m => m.NOIDUNG_THU, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                </tr>
+                <tr>
+                    <td><label>Số tiền thu:</label></td>
+                    <td>@Html.TextBoxFor(m => m.SOTIEN, new { @class = "form-control", @type = "number" })</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="form-group">
+            <button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-plus input-sm"></span> Lưu</button>
+        </div>
+    }
+</body>
+
+
