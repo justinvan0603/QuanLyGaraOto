@@ -38,11 +38,13 @@
         <table id="pt-table" class="table table-bordered table table-hover ">
             <thead style="color:red;">
                 <tr>
-                    <th style="display:none">Id</th>
+                    <th style="display: none">Id</th>
+                    <th>@Html.ActionLink("Mã phụ tùng", "Index", new { sortOrder = ViewBag.IDCodeSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
                     <th>@Html.ActionLink("Tên phụ tùng", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
                     <th>Hiệu xe</th>
                     <th>Số lượng tồn</th>
                     <th>Đơn giá xuất</th>
+                    <th>Thời gian BH</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
@@ -51,13 +53,15 @@
                     foreach (var item in Model.ListPhuTung.ToList())
                     {
                         <tr class="clickable-row">
-                            <td id="id" style="display:none">@item.MA_PHUTUNG</td>
+                            <td id="id" style="display: none">@item.ID</td>
+                            <td> @item.MA_PHUTUNG</td>
                             <td> @item.TEN_PHUTUNG</td>
                             <td> @item.MA_HIEUXE</td>
                             <td> @item.SOLUONGTON</td>
                             <td> @item.DONGIAXUAT</td>
+                            <td> @item.TG_BAOHANH</td>
                             <td>
-                                @Html.ActionLink("Sửa", "CapNhat", new { id = @item.MA_PHUTUNG }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
+                                @Html.ActionLink("Sửa", "CapNhat", new { id = @item.ID }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
                                 <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
                             </td>
                         </tr>

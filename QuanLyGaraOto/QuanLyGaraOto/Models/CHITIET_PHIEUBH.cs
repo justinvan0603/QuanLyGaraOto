@@ -21,7 +21,6 @@ namespace QuanLyGaraOto.Models
         public Nullable<System.DateTime> NGAYHENTRA { get; set; }
         public Nullable<System.DateTime> NGAYTRA { get; set; }
     
-        public virtual PHUTUNG PHUTUNG { get; set; }
         public virtual PHIEU_BAOHANH PHIEU_BAOHANH { get; set; }
     }
 }

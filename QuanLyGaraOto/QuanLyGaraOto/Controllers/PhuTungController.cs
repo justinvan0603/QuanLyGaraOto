@@ -18,6 +18,7 @@ namespace QuanLyGaraOto.Controllers
             ViewBag.CurrentSearchOption = searchOption;
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParam = (sortOrder == "name_asc" ? "name_desc" : "name_asc");   //Ban đầu là null -> ASC
+            ViewBag.IDCodeSortParam = (sortOrder == "id_asc" ? "id_desc" : "id_asc");
             GARADBEntities context = new GARADBEntities();
             List<PHUTUNG> listPhutungs = context.PHUTUNGs.ToList();
             if (searchString != null)   //Nếu là search, cho hiển thị trang 1. Nếu ko thì hiện lại searchString lần trước (null)
@@ -38,6 +39,7 @@ namespace QuanLyGaraOto.Controllers
                         case 0: { break; }
                         case 1: { listPhutungs = listPhutungs.Where(c => c.TEN_PHUTUNG.Contains(searchString)).ToList(); break; }
                         case 2: { listPhutungs = listPhutungs.Where(c => c.MA_HIEUXE.Contains(searchString)).ToList(); break; }
+                        case 3: { listPhutungs = listPhutungs.Where(c => c.MA_PHUTUNG.Contains(searchString)).ToList(); break; }
                         default: { break; }
                     }
                 }
@@ -47,6 +49,8 @@ namespace QuanLyGaraOto.Controllers
             {
                 case "name_asc": { listPhutungs = listPhutungs.OrderBy(c => c.TEN_PHUTUNG).ToList(); break; }
                 case "name_desc": { listPhutungs = listPhutungs.OrderByDescending(c => c.TEN_PHUTUNG).ToList(); break; }
+                case "id_asc": { listPhutungs = listPhutungs.OrderBy(c => c.MA_PHUTUNG).ToList(); break; }
+                case "id_desc": { listPhutungs = listPhutungs.OrderByDescending(c => c.MA_PHUTUNG).ToList(); break; }
                 default: { break; }
             }
             int pageSize = 5;
@@ -89,7 +93,7 @@ namespace QuanLyGaraOto.Controllers
         {
             GARADBEntities context = new GARADBEntities();
             SuaPhuTungViewModel suaPhuTungViewModel = new SuaPhuTungViewModel();
-            PHUTUNG phutung = context.PHUTUNGs.Single(c => c.MA_PHUTUNG == id);
+            PHUTUNG phutung = context.PHUTUNGs.Single(c => c.ID == id);
             suaPhuTungViewModel.PhuTung = phutung;
             List<HIEUXE> listHieuxes = new List<HIEUXE>();
             listHieuxes = context.HIEUXEs.ToList();
@@ -105,7 +109,8 @@ namespace QuanLyGaraOto.Controllers
             try
             {
                 GARADBEntities context = new GARADBEntities();
-                var target = context.PHUTUNGs.Find(phutung.MA_PHUTUNG);
+                var target = context.PHUTUNGs.Find(phutung.ID);
+                target.MA_PHUTUNG = phutung.MA_PHUTUNG;
                 target.TEN_PHUTUNG = phutung.TEN_PHUTUNG;
                 target.MA_HIEUXE = phutung.MA_HIEUXE;
                 context.SaveChanges();
@@ -116,7 +121,7 @@ namespace QuanLyGaraOto.Controllers
                 TempData["msg"] = "<script>alert('Đã xảy ra lỗi. Vui lòng thử lại!');</script>";
             }
 
-            return CapNhat(phutung.MA_PHUTUNG);
+            return CapNhat(phutung.ID);
         }
 
         [ValidateInput(false)]

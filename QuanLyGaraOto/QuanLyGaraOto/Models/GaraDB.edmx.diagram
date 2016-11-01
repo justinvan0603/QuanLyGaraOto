@@ -11,34 +11,23 @@
         <EntityTypeShape EntityType="GARADBModel.NHOMNGUOIDUNG" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GARADBModel.THO" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="GARADBModel.TIENCONG" Width="1.5" PointX="10.5" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUBH" Width="2.375" PointX="9.75" PointY="5.25" />
-        <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUNH" Width="2.25" PointX="14.375" PointY="13.5" />
         <EntityTypeShape EntityType="GARADBModel.NHANVIEN" Width="1.5" PointX="5.25" PointY="7.875" />
         <AssociationConnector Association="GARADBModel.FK_NHANVIEN_NHOMNGUOIDUNG" />
         <EntityTypeShape EntityType="GARADBModel.XE" Width="1.5" PointX="4.5" PointY="16.5" />
         <AssociationConnector Association="GARADBModel.FK_XE_HIEUXE" />
-        <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUDV" Width="1.5" PointX="16" PointY="8.25" />
         <EntityTypeShape EntityType="GARADBModel.PHIEU_TIEPNHAN" Width="1.5" PointX="10.875" PointY="11.5" />
         <AssociationConnector Association="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG" />
         <AssociationConnector Association="GARADBModel.FK_PHIEUTIEPNHAN_XE" />
-        <EntityTypeShape EntityType="GARADBModel.PHUTUNG" Width="1.5" PointX="4.5" PointY="20.875" />
-        <AssociationConnector Association="GARADBModel.FK_CHITIET_PHIEUBH_PHUTUNG" />
-        <AssociationConnector Association="GARADBModel.FK_CHITIET_PHIEUDV_PHUTUNG" />
-        <AssociationConnector Association="GARADBModel.FK_CHITIET_PHIEUNH_PHUTUNG" />
-        <AssociationConnector Association="GARADBModel.FK_PHUTUNG_HIEUXE" />
         <EntityTypeShape EntityType="GARADBModel.PHIEU_THUTIEN" Width="1.5" PointX="18.375" PointY="8.5" />
         <AssociationConnector Association="GARADBModel.FK_PHIEUTHUTIEN_NHANVIEN" />
         <EntityTypeShape EntityType="GARADBModel.PHIEU_NHAPHANG" Width="1.5" PointX="12.125" PointY="15.5" />
-        <AssociationConnector Association="GARADBModel.FK_CHITIET_PHIEUNH_PHIEU_NHAPHANG" />
         <AssociationConnector Association="GARADBModel.FK_PHIEU_NHAPHANG_NHANVIEN" />
         <EntityTypeShape EntityType="GARADBModel.PHIEU_DICHVU" Width="1.5" PointX="13.125" PointY="8.5" />
-        <AssociationConnector Association="GARADBModel.FK_CHITIET_PHIEUDV_PDV" />
         <AssociationConnector Association="GARADBModel.FK_PHIEU_DICHVU_NHANVIEN" />
         <AssociationConnector Association="GARADBModel.FK_PHIEU_DICHVU_PHIEUTIEPNHAN" />
         <AssociationConnector Association="GARADBModel.FK_PHIEUDV_THO" />
         <AssociationConnector Association="GARADBModel.FK_PHIEUTHUTIEN_PHIEU_DICHVU" />
         <EntityTypeShape EntityType="GARADBModel.PHIEU_BAOHANH" Width="1.5" PointX="7.5" PointY="5.5" />
-        <AssociationConnector Association="GARADBModel.FK_CHITIET_PHIEUBH_PHIEU_BAOHANH" />
         <AssociationConnector Association="GARADBModel.FK_PHIEU_BAOHANH_NHANVIEN" />
         <EntityTypeShape EntityType="GARADBModel.PHIEU_BANLE" Width="1.5" PointX="7.5" PointY="12.875" />
         <EntityTypeShape EntityType="GARADBModel.PHIEU_BANXE" Width="1.5" PointX="6.75" PointY="16.75" />
@@ -48,14 +37,20 @@
         <AssociationConnector Association="GARADBModel.FK_PHIEUCHI_NHANVIEN" />
         <AssociationConnector Association="GARADBModel.FK_PHIEUBANXE_XE" />
         <AssociationConnector Association="GARADBModel.FK_PHIEUCHI_PHIEU_NHAPHANG" />
-        <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUDATHANG" Width="1.5" PointX="13.625" PointY="5.25" />
-        <AssociationConnector Association="GARADBModel.FK_CTPDH_PHIEUDATHANG" />
-        <AssociationConnector Association="GARADBModel.FK_CTPDH_PHUTUNG" />
-        <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUBANLE" Width="1.5" PointX="9.75" PointY="17.125" />
-        <AssociationConnector Association="GARADBModel.FK_CTBANLE_PHIEUBANLE" />
-        <AssociationConnector Association="GARADBModel.FK_CTBANLE_PHUTUNG" />
         <EntityTypeShape EntityType="GARADBModel.NHACUNGCAP" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="GARADBModel.NHOMNHACUNGCAP" Width="1.5" PointX="4.375" PointY="5.75" />
+        <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUBANLE" Width="1.5" PointX="9.75" PointY="20" />
+        <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUBH" Width="1.5" PointX="9.75" PointY="5.375" />
+        <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUDATHANG" Width="1.5" PointX="9.625" PointY="16.875" />
+        <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUDV" Width="1.5" PointX="15.375" PointY="9.125" />
+        <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUNH" Width="1.5" PointX="14.375" PointY="15.625" />
+        <AssociationConnector Association="GARADBModel.FK_CTBANLE_PHIEUBANLE" />
+        <AssociationConnector Association="GARADBModel.FK_CHITIET_PHIEUBH_PHIEU_BAOHANH" />
+        <AssociationConnector Association="GARADBModel.FK_CTPDH_PHIEUDATHANG" />
+        <AssociationConnector Association="GARADBModel.FK_CHITIET_PHIEUDV_PDV" />
+        <AssociationConnector Association="GARADBModel.FK_CHITIET_PHIEUNH_PHIEU_NHAPHANG" />
+        <AssociationConnector Association="GARADBModel.FK_PHIEUTIEPNHAN_NHANVIEN" />
+        <EntityTypeShape EntityType="GARADBModel.PHUTUNG" Width="1.5" PointX="11.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,14 +18,11 @@ namespace QuanLyGaraOto.Models
         public HIEUXE()
         {
             this.XEs = new HashSet<XE>();
-            this.PHUTUNGs = new HashSet<PHUTUNG>();
         }
     
         public string MA_HIEUXE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<XE> XEs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PHUTUNG> PHUTUNGs { get; set; }
     }
 }
