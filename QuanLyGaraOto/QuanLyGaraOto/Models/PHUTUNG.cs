@@ -20,6 +20,6 @@ namespace QuanLyGaraOto.Models
         public string MA_HIEUXE { get; set; }
         public Nullable<int> SOLUONGTON { get; set; }
         public Nullable<decimal> DONGIAXUAT { get; set; }
-        public string TG_BAOHANH { get; set; }
+        public Nullable<int> TG_BAOHANH { get; set; }
     }
 }
