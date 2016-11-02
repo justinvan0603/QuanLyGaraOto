@@ -76,6 +76,7 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuDH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
             vmPhieuDH.ListHieuXe = context.HIEUXEs.ToList();
             vmPhieuDH.PhieuDatHang.MaNV = 1;
+            vmPhieuDH.PhieuDatHang.NgayGiao = DateTime.Now.Date.AddDays(3);
             vmPhieuDH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == 1).HOTEN;
             return View(vmPhieuDH);
         }
@@ -103,15 +104,15 @@ namespace QuanLyGaraOto.Controllers
             {
                 TempData["msg"] = "<script>alert('Đã xảy ra lỗi. Vui lòng thử lại!');</script>";
             }
-            return View("ThemMoi");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public ActionResult CapNhat(int maPhieuDh = 1)
+        public ActionResult CapNhat(int id = 1)
         {
             GARADBEntities context = new GARADBEntities();
             PhieuDatHangViewModel vmPhieuDV = new PhieuDatHangViewModel();
-            vmPhieuDV.PhieuDatHang = context.PHIEU_DATHANG.Single(p => p.Id_PhieuDatHang == maPhieuDh);
+            vmPhieuDV.PhieuDatHang = context.PHIEU_DATHANG.Single(p => p.Id_PhieuDatHang == id);
 
             vmPhieuDV.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuDV.ListNhaCungCap = context.NHACUNGCAPs.ToList();
