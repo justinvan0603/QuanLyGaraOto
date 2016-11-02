@@ -130,8 +130,9 @@
             </div>
             <div class="table-responsive" style="padding-top:10px; margin-right:20px;">
                 <table id="chitietphieu-table" class="table table-bordered table table-hover table-condensed ">
-                    @*<thead style="color:red;">*@
+                    <thead style="color:red;">
                     <tr class="trFirstRow" style="color:red;" data-id="-1">
+                        <th style="display:none">IdPDV</th>
                         <th style="display:none">Id</th>
                         <th>Phụ tùng</th>
                         <th>Mã phụ tùng</th>
@@ -142,8 +143,8 @@
                         <th>Thời gian bảo hành (tháng)</th>
                         <th>Thao tác</th>
                     </tr>
-                    @*  </thead>*@
-                    
+                     </thead>
+                    @*<tbody>*@
                         <tr class="record-template" style="display:none">
                             <td style="display:none;">
                                 <input type="hidden" class="maPDV" name="ID_PHIEUDV" value="@Model.PhieuDichVu.ID_PHIEUDV" />
@@ -152,11 +153,11 @@
                                 <input type="hidden" class="maPT" name="MA_PT" value="" />
                             </td>
                             <td>
-                                <input class="txtTenPT form-control input-sm" type="text" value="" disabled />
+                                <input class="txtTenPT form-control input-sm" type="text" value="" readonly />
 
                             </td>
                             <td>
-                                <input class="maTenPT form-control input-sm" type="text" value="" disabled />
+                                <input class="maTenPT form-control input-sm" type="text" value="" readonly />
                             </td>
                             <td>
                                 <input type="text" class="txtSoluong form-control input-sm" name="SOLUONG" value="" readonly @*disabled*@ />
@@ -177,8 +178,8 @@
                             </td>
                         </tr>
 
+                    @*</tbody>*@
                     
-
                 </table>
 
             </div>
@@ -284,24 +285,11 @@
     }
     function cboPTSelectChanged()
     {
-        @*@foreach(var item in Model.ListPhuTung)
-        {
-            <text>
-              var option = document.createElement("option");
-            option.text = '@txt.ToString()';
-            option.value = '@val.ToString()';
-            var select = document.getElementById("cbo");
-            select.appendChild(option);
-            </text>
-        }*@
-      
+
         var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
         var dongia = $('.cboPT').children("option").filter(":selected").attr("itemprop");
         var thoihanbaohanh = $('.cboPT').children("option").filter(":selected").attr("itemscope");
-  
-        //var id = $('.cboPT').children("option").filter(":selected").attr("id");
-        //alert(id);
-       // alert(mapt);
+
         $('.lblTonKho').text(parseInt(tonkho));
         $('.txtDonGia').val(parseInt(dongia));
         $('.txtBH').val(parseInt(thoihanbaohanh));
@@ -313,7 +301,7 @@
             var soluong = parseInt($('input.txtSoLuong').val());
 
             var dongia = parseInt($('input.txtDonGia').val());
-            //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
+    
             var tien = parseInt(soluong * dongia);
             var thanhtien = parseInt(tien);
  
@@ -376,9 +364,10 @@
 
            
 
-                
-            var id_cuoi = $("#chitietphieu-table").find("tr:last-child").attr("data-id");
-            //alert(id_cuoi);
+            var id_cuoi = $("#chitietphieu-table tr").length - 3;
+            //var id_cuoi = $("#chitietphieu-table").find("tr:last-child").attr("data-id");
+            
+            alert(id_cuoi);
             i = parseInt(id_cuoi) + 1;
             //alert(i);
             var tdnoidung = $(".record-template").html();
@@ -387,12 +376,7 @@
 
             $("#chitietphieu-table").append(trnoidung);
 
-            //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
 
-            //var matiencong = $('.cboTC').children("option").filter(":selected").attr("value");
-
-            //var $matiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.maTC')
-            //$matiencong.attr("value", matiencong);
 
             var maphutung = $('.cboPT').children("option").filter(":selected").attr("value");
             var $maphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.maPT');
@@ -407,8 +391,7 @@
             var $txtMaTenPT = $("#chitietphieu-table").find("tr:last-child").find('td input.maTenPT');
             var maTenPT = $('.cboPT').children("option").filter(":selected").attr("id");
             $txtMaTenPT.attr("value", maTenPT);
-            var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
-            $tenphutung.attr("value", tenpt);
+
 
             var $txtsoluong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtSoluong');
           
@@ -439,6 +422,9 @@
             $(".record-template").each(function () {
 
                 var id = $(this).attr("data-id");
+                //alert(id);
+                //alert($(this).find(".txtTenPT").attr("value"));
+
                 var nameDV = "[" + id + "].ID_PHIEUDV";
                 var nameMaPhuTung = "[" + id + "].MA_PT";
                 //var nameMaTienCong = "[" + id + "].MA_TIENCONG";
@@ -453,7 +439,7 @@
                 $(this).find(".maPT").attr("name", nameMaPhuTung);
                 //$(this).find(".maTC").attr("name", nameMaTienCong);
                 $(this).find(".txtSoluong").attr("name", nameSoLuong);
-                $(this).find(".txtdonGia").attr("name", nameDonGia);
+                $(this).find(".txtDonGia").attr("name", nameDonGia);
                 //$(this).find(".txtTienCong").attr("name", nameTienCong);
                 $(this).find(".txtThanhTien").attr("name", nameThanhTien);
                 $(this).find(".txtBaoHanh").attr("name", nameThoiHanBaoHanh);
@@ -484,7 +470,7 @@
                 $(this).find(".maPT").attr("name", nameMaPhuTung);
                 //$(this).find(".maTC").attr("name", nameMaTienCong);
                 $(this).find(".txtSoluong").attr("name", nameSoLuong);
-                $(this).find(".txtdonGia").attr("name", nameDonGia);
+                $(this).find(".txtDonGia").attr("name", nameDonGia);
                 //$(this).find(".txtTienCong").attr("name", nameTienCong);
                 $(this).find(".txtThanhTien").attr("name", nameThanhTien);
                 $(this).find(".txtBaoHanh").attr("name", nameThoiHanBaoHanh);
