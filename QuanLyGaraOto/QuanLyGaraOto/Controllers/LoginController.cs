@@ -17,6 +17,24 @@ namespace QuanLyGaraOto.Controllers
             //ViewBag.ErrorMessage = "Sai ten dang nhap hoac mat khau!";
             return View();
         }
+        private void SetUserPermission(int permission)
+        {
+            
+            switch(permission)
+            {
+                case 1: { break; }
+                case 2: {
+                    
+                    Session["Menu_SuaChua"] = "none";
+                    Session["Menu_TiepNhan"] = "none";
+                    Session["Menu_NhapHang"] = "none";
+                    Session["Menu_ThietLap"] = "none";
+                        break; }
+                case 3: {
+                    Session["Menu_ThietLap"] = "none";
+                    break; }
+            }
+        }
         [HttpPost]
         public ActionResult LoginForm(NHANVIEN user)
         {
@@ -30,6 +48,9 @@ namespace QuanLyGaraOto.Controllers
                 {
                     if(nv.PASSWORD.Equals(MD5Encryptor.MD5Hash(user.PASSWORD)))
                     {
+                        int permissionLevel = context.NHOMNGUOIDUNGs.Single(gr => gr.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value).CAPDO.Value;
+                        //string groupUser = context.NHOMNGUOIDUNGs.Single(gr => gr.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value).TEN_NHOM;
+                        SetUserPermission(permissionLevel);
                         Session["Username"] = nv.USERNAME;
                         Session["staff_name"] = nv.HOTEN;
                         return RedirectToAction("Index", "Home");

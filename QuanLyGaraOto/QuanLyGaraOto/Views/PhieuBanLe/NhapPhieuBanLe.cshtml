@@ -1,19 +1,37 @@
 ﻿@model QuanLyGaraOto.ViewModel.PhieuBanLeViewModel
+@using QuanLyGaraOto.Models;
 @{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
     ViewBag.Title = "Nhập phiếu bán lẻ";
     int slTon = 0;
     decimal dongia = 0;
     string sdt = "";
+    List<PHUTUNG> listPTByHieuXe;
+    try
+    { 
+        listPTByHieuXe = Model.ListPhuTung.Where(pt => pt.MA_HIEUXE == Model.ListHieuXe[0].MA_HIEUXE).ToList();
+    }
+    catch(Exception)
+    {
+        listPTByHieuXe = new List<PHUTUNG>();
+    }
+    
     if (Model.ListKhachHang.Count > 0)
     {
         sdt = Model.ListKhachHang[0].SDT;
     }
-    if (Model.ListPhuTung.Count > 0)
+    if(listPTByHieuXe.Count >0)
     {
-        slTon = Model.ListPhuTung[0].SOLUONGTON.Value;
-        dongia = Math.Round(Model.ListPhuTung[0].DONGIAXUAT.Value);
+        slTon = listPTByHieuXe[0].SOLUONGTON.Value;
+        dongia = Math.Round(listPTByHieuXe[0].DONGIAXUAT.Value);
     }
+    
+    //if (Model.ListPhuTung.Count > 0)
+    //{
+
+    //    slTon = Model.ListPhuTung[0].SOLUONGTON.Value;
+    //    dongia = Math.Round(Model.ListPhuTung[0].DONGIAXUAT.Value);
+    //}
 }
 <head>
     <title>@ViewBag.Title</title>
@@ -63,14 +81,27 @@
         <div class="panel-heading">Thông tin chi tiết:</div>
         <div class="panel-body">
             <div class=" form-group form-inline" style="padding-left:5px;">
+                <label class="input-sm">Hiệu xe:</label>
+                <select id="cboHieuXe" class="cboHX form-control input-sm" style="width:12%" onchange="cboHXSelectChanged()">
+                    @foreach (var item in Model.ListHieuXe)
+                    {
+                        <option value="@item.MA_HIEUXE" title="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+                    }
+                </select>
 
                 <label class="input-sm">Phụ tùng:</label>
                 <select id="cbo" class="cboPT form-control input-sm" style="width:12%" onchange="cboPTSelectChanged()">
+                    @foreach (var item in listPTByHieuXe)
+                    {
+                        <option value="@item.ID" title="@item.SOLUONGTON" id="@item.MA_PHUTUNG" itemscope="@item.TG_BAOHANH" itemprop="@item.DONGIAXUAT">@item.TEN_PHUTUNG</option>
+                    }
+                </select>
+                @*<select id="cbo" class="cboPT form-control input-sm" style="width:12%" onchange="cboPTSelectChanged()">
                     @foreach (var item in Model.ListPhuTung)
                     {
                         <option value="@item.MA_PHUTUNG" title="@item.SOLUONGTON" itemprop="@item.DONGIAXUAT">@item.TEN_PHUTUNG</option>
                     }
-                </select>
+                </select>*@
 
 
                 <label class="input-sm">Lượng tồn:</label>
@@ -96,7 +127,7 @@
                     <tr class="trFirstRow" style="color:red;" data-id="-1">
                         <th style="display:none">Id</th>
                         <th>Phụ tùng</th>
-
+                        <th>Mã phụ tùng</th>
                         <th>Số lượng</th>
                         <th>Đơn giá</th>
 
@@ -114,7 +145,11 @@
                                 <input type="hidden" class="maPT" name="MAPT" value="" />
                             </td>
                             <td>
-                                <input class="txtTenPT form-control input-sm" type="text" value="" disabled />
+                                <input class="txtTenPT form-control input-sm" type="text" value="" readonly />
+
+                            </td>
+                            <td>
+                                <input class="maTenPT form-control input-sm" type="text" value="" readonly />
 
                             </td>
                             <td>
@@ -189,6 +224,20 @@
         CapNhapID();
 
     });
+    function cboHXSelectChanged()
+    {
+        var HieuXe = $('.cboHieuXe').children("option").filter(":selected").attr("value");
+        $.ajax({
+            url: '/PhieuDichVu/GetPhuTungByHieuXe/',
+            type: 'post',
+            data: {
+                hieuxe: HieuXe
+            }
+        }).done(function (response) {
+            $(".cboPT").empty();
+            $(".cboPT").html(response);
+        });
+    }
     function cboKhachHangSelectChanged() {
         var SDT = $('.cboKhachHang').children("option").filter(":selected").attr("title");
         $('.lblSDT').text(SDT);
@@ -300,6 +349,10 @@
 
         var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
         $tenphutung.attr("value", tenpt);
+
+        var $txtMaTenPT = $("#chitietphieu-table").find("tr:last-child").find('td input.maTenPT');
+        var maTenPT = $('.cboPT').children("option").filter(":selected").attr("id");
+        $txtMaTenPT.attr("value", maTenPT);
 
         //var loaitiencong = $('.cboTC').children("option").filter(":selected").attr("value");
         //var $tentiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenTC');

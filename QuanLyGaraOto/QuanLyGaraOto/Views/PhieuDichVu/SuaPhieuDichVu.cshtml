@@ -291,7 +291,17 @@
     });
     function cboLoaiPTSelectChanged()
     {
-        
+        var HieuXe = $('.cboLoaiPT').children("option").filter(":selected").attr("value");
+        $.ajax({
+            url: '/PhieuDichVu/GetPhuTungByHieuXe/',
+            type: 'post',
+            data: {
+                hieuxe: HieuXe
+            }
+        }).done(function (response) {
+            $(".cboPT").empty();
+            $(".cboPT").html(response);
+        });
     @*@foreach(var item in Model.ListPhuTung)
         {
             <text>

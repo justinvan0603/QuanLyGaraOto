@@ -180,6 +180,8 @@
           <Property Name="NgayDat" Type="date" />
           <Property Name="NgayGiao" Type="date" />
           <Property Name="MaNV" Type="int" />
+          <Property Name="TongTien" Type="money" />
+          <Property Name="MaNCC" Type="int" />
         </EntityType>
         <EntityType Name="PHIEU_DICHVU">
           <Key>
@@ -793,12 +795,12 @@
             <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
           </AssociationSet>
           <EntitySet Name="CHITIET_PHIEUDATHANG" EntityType="GARADBModel.CHITIET_PHIEUDATHANG" />
+          <EntitySet Name="PHUTUNGs" EntityType="GARADBModel.PHUTUNG" />
           <EntitySet Name="PHIEU_DATHANG" EntityType="GARADBModel.PHIEU_DATHANG" />
           <AssociationSet Name="FK_CTPDH_PHIEUDATHANG" Association="GARADBModel.FK_CTPDH_PHIEUDATHANG">
             <End Role="PHIEU_DATHANG" EntitySet="PHIEU_DATHANG" />
             <End Role="CHITIET_PHIEUDATHANG" EntitySet="CHITIET_PHIEUDATHANG" />
           </AssociationSet>
-          <EntitySet Name="PHUTUNGs" EntityType="GARADBModel.PHUTUNG" />
           </EntityContainer>
         <EntityType Name="NHANVIEN">
           <Key>
@@ -1276,6 +1278,18 @@
           <Property Name="DONGIA" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="PHIEU_DATHANG" Relationship="GARADBModel.FK_CTPDH_PHIEUDATHANG" FromRole="CHITIET_PHIEUDATHANG" ToRole="PHIEU_DATHANG" />
         </EntityType>
+        <EntityType Name="PHUTUNG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MA_PHUTUNG" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TEN_PHUTUNG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MA_HIEUXE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SOLUONGTON" Type="Int32" />
+          <Property Name="DONGIAXUAT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TG_BAOHANH" Type="Int32" />
+        </EntityType>
         <EntityType Name="PHIEU_DATHANG">
           <Key>
             <PropertyRef Name="Id_PhieuDatHang" />
@@ -1285,6 +1299,8 @@
           <Property Name="NgayDat" Type="DateTime" Precision="0" />
           <Property Name="NgayGiao" Type="DateTime" Precision="0" />
           <Property Name="MaNV" Type="Int32" />
+          <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MaNCC" Type="Int32" />
           <NavigationProperty Name="CHITIET_PHIEUDATHANG" Relationship="GARADBModel.FK_CTPDH_PHIEUDATHANG" FromRole="PHIEU_DATHANG" ToRole="CHITIET_PHIEUDATHANG" />
         </EntityType>
         <Association Name="FK_CTPDH_PHIEUDATHANG">
@@ -1299,18 +1315,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="PHUTUNG">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MA_PHUTUNG" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="TEN_PHUTUNG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="MA_HIEUXE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="SOLUONGTON" Type="Int32" />
-          <Property Name="DONGIAXUAT" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="TG_BAOHANH" Type="Int32" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1602,17 +1606,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PHIEU_DATHANG">
-            <EntityTypeMapping TypeName="GARADBModel.PHIEU_DATHANG">
-              <MappingFragment StoreEntitySet="PHIEU_DATHANG">
-                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
-                <ScalarProperty Name="NgayGiao" ColumnName="NgayGiao" />
-                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
-                <ScalarProperty Name="MaPhieuDat" ColumnName="MaPhieuDat" />
-                <ScalarProperty Name="Id_PhieuDatHang" ColumnName="Id_PhieuDatHang" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PHUTUNGs">
             <EntityTypeMapping TypeName="GARADBModel.PHUTUNG">
               <MappingFragment StoreEntitySet="PHUTUNG">
@@ -1623,6 +1616,19 @@
                 <ScalarProperty Name="TEN_PHUTUNG" ColumnName="TEN_PHUTUNG" />
                 <ScalarProperty Name="MA_PHUTUNG" ColumnName="MA_PHUTUNG" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHIEU_DATHANG">
+            <EntityTypeMapping TypeName="GARADBModel.PHIEU_DATHANG">
+              <MappingFragment StoreEntitySet="PHIEU_DATHANG">
+                <ScalarProperty Name="MaNCC" ColumnName="MaNCC" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="NgayGiao" ColumnName="NgayGiao" />
+                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+                <ScalarProperty Name="MaPhieuDat" ColumnName="MaPhieuDat" />
+                <ScalarProperty Name="Id_PhieuDatHang" ColumnName="Id_PhieuDatHang" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

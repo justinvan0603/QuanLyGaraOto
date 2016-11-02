@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Báo cáo công nợ khách hàng";
+}
+
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<h3 class="text-center" style="color:green;">BÁO CÁO CÔNG NỢ KHÁCH HÀNG</h3>
+@*<button class="btn btn-primary">Show</button>*@
+<iframe id="iframeReportViewer" src="~/Reports/BaoCaoCongNo.aspx"  frameborder="0" scrolling="yes" >
+@*@section scripts
+    {
+    <script>
+        $('document').ready(function ()
+        {
+            ReportValidationCheck();
+        })
+    </script>
+    <script>
+        function ReportValidationCheck()
+        {
+            url = "~/Reports/BaoCaoCongNo.aspx";
+            var myframe = document.getElementById('iframeReportViewer');
+            if(myframe !== null)
+            {
+                if(myframe.src)
+                {
+                    myframe.src = url;
+                }
+                else if (myframe.contentWindow !== null && myframe.contentWindow.location  !== null ){
+                    myframe.contentWindow.localStorage = url;
+                }
+                else
+                {
+                    myframe.setAttribute('src', url);
+                }
+            }
+            return false;
+
+        }
+    </script>
+    }*@
+</iframe>

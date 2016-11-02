@@ -48,6 +48,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
       <Private>True</Private>
@@ -130,6 +131,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\MD5Encryptor.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaoCaoCongNoController.cs" />
+    <Compile Include="Controllers\BaoCaoThuChiController.cs" />
+    <Compile Include="Controllers\BaoCaoTonKhoController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
@@ -146,6 +150,11 @@
     <Compile Include="Controllers\PhuTungController.cs" />
     <Compile Include="Controllers\ThamSoController.cs" />
     <Compile Include="Controllers\ThoController.cs" />
+    <Compile Include="GARADBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GARADBDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\XeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -246,6 +255,28 @@
       <DependentUpon>GaraDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\BaoCaoCongNo.aspx.cs">
+      <DependentUpon>BaoCaoCongNo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\BaoCaoCongNo.aspx.designer.cs">
+      <DependentUpon>BaoCaoCongNo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\BaoCaoThuChi.aspx.cs">
+      <DependentUpon>BaoCaoThuChi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\BaoCaoThuChi.aspx.designer.cs">
+      <DependentUpon>BaoCaoThuChi.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\BaoCaoTonKho.aspx.cs">
+      <DependentUpon>BaoCaoTonKho.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\BaoCaoTonKho.aspx.designer.cs">
+      <DependentUpon>BaoCaoTonKho.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\BaoCaoThuChiViewModel.cs" />
     <Compile Include="ViewModel\DSPhieuBanLeViewModel.cs" />
     <Compile Include="ViewModel\DSPhieuDVTableData.cs" />
     <Compile Include="ViewModel\DSPhieuDVViewModel.cs" />
@@ -282,11 +313,29 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\plugin\DatePicker\datepicker.css" />
+    <Content Include="Content\css\plugin\DatePicker\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\css\plugin\DatePicker\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\css\plugin\DatePicker\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\css\plugin\DatePicker\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\css\plugin\DatePicker\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\css\plugin\DatePicker\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\css\plugin\DatePicker\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\css\plugin\DatePicker\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\css\plugin\DatePicker\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\css\plugin\DatePicker\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\css\plugin\DatePicker\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\css\plugin\DatePicker\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\css\plugin\DatePicker\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\plugin\DatePicker\jquery-ui.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Reports\BaoCaoCongNo.aspx" />
+    <Content Include="Reports\BaoCaoThuChi.aspx" />
+    <Content Include="Reports\BaoCaoTonKho.aspx" />
     <Content Include="Scripts\404.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -307,14 +356,21 @@
       <DependentUpon>GaraDB.edmx</DependentUpon>
       <LastGenOutput>GaraDB.cs</LastGenOutput>
     </Content>
+    <Content Include="GARADBDataSet.xsc">
+      <DependentUpon>GARADBDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="GARADBDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GARADBDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="GARADBDataSet.xss">
+      <DependentUpon>GARADBDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-ui.js" />
-    <Content Include="Scripts\jquery-ui.min.js" />
-    <Content Include="Scripts\jquery-ui.theme.css" />
-    <Content Include="Scripts\jquery-ui.theme.min.css" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -359,6 +415,9 @@
     <Content Include="Views\Tho\CapNhat.cshtml" />
     <Content Include="Views\PhuTung\ThemMoi.cshtml" />
     <Content Include="Views\PhuTung\CapNhat.cshtml" />
+    <Content Include="Views\BaoCaoCongNo\Index.cshtml" />
+    <Content Include="Views\BaoCaoTonKho\Index.cshtml" />
+    <Content Include="Views\BaoCaoThuChi\Index.cshtml" />
     <Content Include="Views\PhieuBanXe\Index.cshtml" />
     <Content Include="Views\PhieuBanXe\NhapPhieuBanXe.cshtml" />
     <Content Include="Views\PhieuBanXe\SuaPhieuBanXe.cshtml" />
@@ -389,7 +448,11 @@
     <Content Include="Views\PhieuChi\NhapPhieuChiFromPhieuNhapHang.cshtml" />
     <Content Include="Views\PhieuChi\SuaPhieuChi.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\BaoCaoCongNo.rdlc" />
+    <EmbeddedResource Include="Reports\BaoCaoThuChi.rdlc" />
+    <EmbeddedResource Include="Reports\BaoCaoTonKho.rdlc" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -400,6 +463,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

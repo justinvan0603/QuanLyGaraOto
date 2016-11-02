@@ -113,6 +113,7 @@ namespace QuanLyGaraOto.Controllers
             GARADBEntities context = new GARADBEntities();
             vmPhieuBanLe.ListKhachHang = context.KHACHHANGs.ToList();
             vmPhieuBanLe.ListPhuTung = context.PHUTUNGs.ToList();
+            vmPhieuBanLe.ListHieuXe = context.HIEUXEs.ToList();
             vmPhieuBanLe.PhieuBanLe = new PHIEU_BANLE();
             vmPhieuBanLe.TenNV = "";
             //vmPhieuBanLe.TenNV = context.NHANVIENs.Single(s => s.USERNAME.Equals(Session["Username"])).HOTEN;
@@ -124,7 +125,7 @@ namespace QuanLyGaraOto.Controllers
             GARADBEntities context = new GARADBEntities();
             phieubanle.NgayLap = DateTime.Now.Date;
             phieubanle.MaNV = context.NHANVIENs.Single(nv => nv.USERNAME.Equals(Session["Username"])).MA_NV;
-
+            phieubanle.TongTien = listchitiet.Sum(ct => ct.THANHTIEN);
            // phieubanle.HanChotThanhToan =
             context.PHIEU_BANLE.Add(phieubanle);
             foreach(var item in listchitiet)
@@ -144,6 +145,7 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuBanLe.TenKH = "";
             vmPhieuBanLe.TenNV = "";
             vmPhieuBanLe.ListPhuTung = context.PHUTUNGs.ToList();
+            vmPhieuBanLe.ListHieuXe = context.HIEUXEs.ToList();
             vmPhieuBanLe.PhieuBanLe = new PHIEU_BANLE();
             return View(vmPhieuBanLe);
         }
@@ -172,6 +174,13 @@ namespace QuanLyGaraOto.Controllers
             {
                 return Json(new { value = "-1", message = "Đã có lỗi xảy ra không thể xóa!" });
             }
+        }
+        [HttpPost]
+        public ActionResult GetPhuTungByHieuXe(string hieuxe)
+        {
+            GARADBEntities context = new GARADBEntities();
+            var ListPhuTung = context.PHUTUNGs.Where(pt => pt.MA_HIEUXE.Equals(hieuxe)).Select(pt => "<option value='" + pt.ID + "' title='" + pt.SOLUONGTON + "' id='" + pt.MA_PHUTUNG + "' itemscope='" + pt.TG_BAOHANH + "' itemprop='" + pt.DONGIAXUAT + "'>" + pt.TEN_PHUTUNG + "</option>");
+            return Content(String.Join("", ListPhuTung));
         }
     }
 }

@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "BÁO CÁO THU CHI";
+}
+<head>
+    <title>@ViewBag.Title</title>
+
+</head>
+<h3 class="text-center" style="color:green;">@ViewBag.Title</h3>
+@using(@Html.BeginForm("XemBaoCao","BaoCaoThuChi",FormMethod.Post))
+{
+    <div class="form-group form-inline">
+        <label class="input-sm">Từ ngày:</label>
+        <input name="TuNgay" type="text" id="datepicker1" class="date form-control input-sm tungay" max="@DateTime.Now.Date">
+
+    </div>
+    <div class="form-group form-inline">
+        <label class="input-sm">Đến ngày:</label>
+        <input name="DenNgay" type="text" id="datepicker2" class="date form-control input-sm denngay" max="@DateTime.Now.Date">
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-plus"></span> Xem</button>
+    </div>
+}
+<link href="~/Content/css/plugin/DatePicker/datepicker.css" rel="stylesheet" />
+<script src="~/Content/plugin/DatePicker/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $(".date").datepicker({ dateFormat: 'dd/mm/yy' });
+
+    });
+
+    $("form").submit(function (e) {
+        var fromdate = $(".tungay").val();
+        var todate = $(".denngay").val();
+        if(new Date(fromdate).getTime() > new Date(todate).getTime())
+        {
+            e.preventDefault();
+            alert("Ngày bắt đầu không được quá ngày kết thúc!");
+        }
+    })
+</script>

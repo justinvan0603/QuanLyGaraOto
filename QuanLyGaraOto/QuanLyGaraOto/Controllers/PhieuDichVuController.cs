@@ -116,6 +116,7 @@ namespace QuanLyGaraOto.Controllers
             GARADBEntities context = new GARADBEntities();
             viewmodel.PhieuDichVu.MA_NHANVIEN = context.NHANVIENs.Single(nv => nv.USERNAME.Equals(Session["Username"])).MA_NV;
             viewmodel.PhieuDichVu.NGAYLAP = DateTime.Now.Date;
+            viewmodel.PhieuDichVu.TONGTIEN = listChiTiet.Sum(ct => ct.THANHTIEN);
             context.PHIEU_DICHVU.Add(viewmodel.PhieuDichVu);
             context.SaveChanges();
             List<CHITIET_PHIEUDV> listCT = listChiTiet.ToList();

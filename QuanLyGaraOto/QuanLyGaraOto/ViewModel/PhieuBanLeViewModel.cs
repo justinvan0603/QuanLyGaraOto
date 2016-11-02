@@ -10,6 +10,7 @@ namespace QuanLyGaraOto.ViewModel
         public PHIEU_BANLE PhieuBanLe { get; set; }
         public List<KHACHHANG> ListKhachHang { get; set; }
         public List<PHUTUNG> ListPhuTung { get; set; }
+        public List<HIEUXE> ListHieuXe { get; set; }
         public string TenNV { get; set; }
         public string TenKH { get; set; }
         public List<CHITIET_PHIEUBANLE> ListChiTietPhieu { get; set; }
