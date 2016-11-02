@@ -20,7 +20,12 @@ namespace QuanLyGaraOto.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParam = (sortOrder == "date_asc" ? "date_desc" : "date_asc");   //Ban đầu là null -> ASC
             GARADBEntities context = new GARADBEntities();
-            List<PHIEU_THUTIEN> listPTT = context.PHIEU_THUTIEN.ToList();
+            List<PhieuThuViewModel> listPTT = new List<PhieuThuViewModel>(); 
+            foreach (var item in context.PHIEU_THUTIEN.ToList())
+            {
+                String tennv = context.NHANVIENs.Single(nv => nv.MA_NV == item.MA_NV).HOTEN;
+                listPTT.Add(new PhieuThuViewModel(item, tennv));
+            }
             if (searchString != null)   //Nếu là search, cho hiển thị trang 1. Nếu ko thì hiện lại searchString lần trước (null)
             {
                 page = 1;
@@ -37,8 +42,9 @@ namespace QuanLyGaraOto.Controllers
                     switch (searchOption)
                     {
                         case 0: { break; }
-                        case 1: { listPTT = listPTT.Where(c => c.MAPHIEUTHU.Contains(searchString)).ToList(); break; }
-                        case 2: { listPTT = listPTT.Where(c => c.NOIDUNG_THU.Contains(searchString)).ToList(); break; }
+                        case 1: { listPTT = listPTT.Where(c => c.PhieuThu.MAPHIEUTHU.Contains(searchString)).ToList(); break; }
+                        case 2: { listPTT = listPTT.Where(c => c.PhieuThu.NOIDUNG_THU.Contains(searchString)).ToList(); break; }
+                        case 3: { listPTT = listPTT.Where(c => c.TenNV.Contains(searchString)).ToList(); break; }
                         default: { break; }
                     }
                 }
@@ -46,13 +52,13 @@ namespace QuanLyGaraOto.Controllers
             }
             switch (sortOrder)
             {
-                case "date_asc": { listPTT = listPTT.OrderBy(c => c.NGAYLAP).ToList(); break; }
-                case "date_desc": { listPTT = listPTT.OrderByDescending(c => c.NGAYLAP).ToList(); break; }
+                case "date_asc": { listPTT = listPTT.OrderBy(c => c.PhieuThu.NGAYLAP).ToList(); break; }
+                case "date_desc": { listPTT = listPTT.OrderByDescending(c => c.PhieuThu.NGAYLAP).ToList(); break; }
                 default: { break; }
             }
             int pageSize = 5;
             int pageNumber = (page ?? 1); //nếu page có giá trị thì = page, ko thì = 1
-            PhieuThuViewModel pttViewModel = new PhieuThuViewModel();
+            DSPhieuThuViewModel pttViewModel = new DSPhieuThuViewModel();
             pttViewModel.ListPhieuThu = listPTT.ToPagedList(pageNumber, pageSize);
             return View(pttViewModel);
         }
@@ -64,7 +70,7 @@ namespace QuanLyGaraOto.Controllers
             lapPhieuThuViewModel = new LapPhieuThuViewModel();
             lapPhieuThuViewModel.PhieuThuTien.NGAYLAP = DateTime.Now;
             lapPhieuThuViewModel.PhieuThuTien.MA_NV = 1;
-            lapPhieuThuViewModel.TenNV = "Temp";
+            lapPhieuThuViewModel.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == 1).HOTEN;
             if (type.Equals("pbl"))
             {
                 PHIEU_BANLE phieuBanle = context.PHIEU_BANLE.Single(c => c.ID_PHIEUBANLE == idphieu);
@@ -113,15 +119,20 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult CapNhat(int id)
         {
             GARADBEntities context = new GARADBEntities();
+            
             PHIEU_THUTIEN ptt = context.PHIEU_THUTIEN.Single(c => c.ID_PHIEUTHUTIEN == id);
-            return View(ptt);
+            String tennv = context.NHANVIENs.Single(nv => nv.MA_NV == ptt.MA_NV).HOTEN;
+            PhieuThuViewModel phieuThuViewModel = new PhieuThuViewModel(ptt,tennv);
+            return View(phieuThuViewModel);
         }
 
         [HttpPost]
-        public ActionResult CapNhat(PHIEU_THUTIEN ptt)
+        public ActionResult CapNhat(PhieuThuViewModel pttVM)
         {
             try
             {
+                PHIEU_THUTIEN ptt = new PHIEU_THUTIEN();
+                ptt = pttVM.PhieuThu;
                 GARADBEntities context = new GARADBEntities();
                 var target = context.PHIEU_THUTIEN.Find(ptt.ID_PHIEUTHUTIEN);
                 target.MAPHIEUTHU = ptt.MAPHIEUTHU;

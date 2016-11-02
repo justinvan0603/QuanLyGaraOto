@@ -143,6 +143,7 @@
     <Compile Include="Controllers\PhieuBanLeController.cs" />
     <Compile Include="Controllers\PhieuBanXeController.cs" />
     <Compile Include="Controllers\PhieuChiController.cs" />
+    <Compile Include="Controllers\PhieuDatHangController.cs" />
     <Compile Include="Controllers\PhieuDichVuController.cs" />
     <Compile Include="Controllers\PhieuMuaXeController.cs" />
     <Compile Include="Controllers\PhieuThuController.cs" />
@@ -291,10 +292,13 @@
     <Compile Include="ViewModel\PhieuBanXeListViewModel.cs" />
     <Compile Include="ViewModel\PhieuBanXeViewModel.cs" />
     <Compile Include="ViewModel\PhieuChiViewModel.cs" />
+    <Compile Include="ViewModel\DSPhieuDatHangModel.cs" />
+    <Compile Include="ViewModel\PhieuDatHangViewModel.cs" />
     <Compile Include="ViewModel\PhieuDVViewModel.cs" />
     <Compile Include="ViewModel\PhieuMuaXeListViewModel.cs" />
     <Compile Include="ViewModel\PhieuMuaXeViewModel.cs" />
     <Compile Include="ViewModel\PhieuNhapMuaXeModel.cs" />
+    <Compile Include="ViewModel\DSPhieuThuViewModel.cs" />
     <Compile Include="ViewModel\PhieuThuViewModel.cs" />
     <Compile Include="ViewModel\PhieuTiepNhanListViewModel.cs" />
     <Compile Include="ViewModel\PhieuTiepNhanViewModel.cs" />
@@ -447,6 +451,10 @@
     <Content Include="Views\PhieuChi\NhapPhieuChiFromPhieuMuaXe.cshtml" />
     <Content Include="Views\PhieuChi\NhapPhieuChiFromPhieuNhapHang.cshtml" />
     <Content Include="Views\PhieuChi\SuaPhieuChi.cshtml" />
+    <Content Include="Views\PhieuThu\CapNhat.cshtml" />
+    <Content Include="Views\PhieuDatHang\Index.cshtml" />
+    <Content Include="Views\PhieuDatHang\ThemMoi.cshtml" />
+    <Content Include="Views\PhieuDatHang\CapNhat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\BaoCaoCongNo.rdlc" />

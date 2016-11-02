@@ -66,9 +66,6 @@ namespace QuanLyGaraOto.Controllers
             GARADBEntities garadbEntities = new GARADBEntities();
             List<HIEUXE> listHieuxes = new List<HIEUXE>();
             listHieuxes = garadbEntities.HIEUXEs.ToList();
-            HIEUXE hieuxe = new HIEUXE();
-            hieuxe.MA_HIEUXE = "Tất cả";
-            listHieuxes.Add(hieuxe);
             return View(listHieuxes);
         }
 
@@ -97,9 +94,6 @@ namespace QuanLyGaraOto.Controllers
             suaPhuTungViewModel.PhuTung = phutung;
             List<HIEUXE> listHieuxes = new List<HIEUXE>();
             listHieuxes = context.HIEUXEs.ToList();
-            HIEUXE hieuxe = new HIEUXE();
-            hieuxe.MA_HIEUXE = "Tất cả";
-            listHieuxes.Add(hieuxe);
             suaPhuTungViewModel.ListHieuXe = listHieuxes;
             return View(suaPhuTungViewModel);
         }

@@ -114,7 +114,7 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult NhapPhieuDichVu(PhieuDVViewModel viewmodel, IEnumerable<CHITIET_PHIEUDV> listChiTiet)
         {
             GARADBEntities context = new GARADBEntities();
-            viewmodel.PhieuDichVu.MA_NHANVIEN = context.NHANVIENs.Single(nv => nv.USERNAME.Equals(Session["Username"])).MA_NV;
+            //viewmodel.PhieuDichVu.MA_NHANVIEN = context.NHANVIENs.Single(nv => nv.USERNAME.Equals(Session["Username"])).MA_NV;
             viewmodel.PhieuDichVu.NGAYLAP = DateTime.Now.Date;
             viewmodel.PhieuDichVu.TONGTIEN = listChiTiet.Sum(ct => ct.THANHTIEN);
             context.PHIEU_DICHVU.Add(viewmodel.PhieuDichVu);
@@ -153,7 +153,7 @@ namespace QuanLyGaraOto.Controllers
             var target = context.PHIEU_DICHVU.Single(pdv => pdv.ID_PHIEUDV == viewModel.PhieuDichVu.ID_PHIEUDV);
             target.MATHO = viewModel.PhieuDichVu.MATHO;
             target.TIENCONG = viewModel.PhieuDichVu.TIENCONG;
-            return View(target.ID_PHIEUDV);
+            return View();
         }
         [HttpPost]
         public JsonResult Xoa(int id)

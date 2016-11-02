@@ -44,6 +44,7 @@
           <Property Name="MA_PHUTUNG" Type="int" />
           <Property Name="SOLUONG" Type="int" />
           <Property Name="DONGIA" Type="money" />
+          <Property Name="THANHTIEN" Type="money" />
         </EntityType>
         <EntityType Name="CHITIET_PHIEUDV">
           <Key>
@@ -794,9 +795,9 @@
             <End Role="NHANVIEN" EntitySet="NHANVIENs" />
             <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
           </AssociationSet>
-          <EntitySet Name="CHITIET_PHIEUDATHANG" EntityType="GARADBModel.CHITIET_PHIEUDATHANG" />
           <EntitySet Name="PHUTUNGs" EntityType="GARADBModel.PHUTUNG" />
           <EntitySet Name="PHIEU_DATHANG" EntityType="GARADBModel.PHIEU_DATHANG" />
+          <EntitySet Name="CHITIET_PHIEUDATHANG" EntityType="GARADBModel.CHITIET_PHIEUDATHANG" />
           <AssociationSet Name="FK_CTPDH_PHIEUDATHANG" Association="GARADBModel.FK_CTPDH_PHIEUDATHANG">
             <End Role="PHIEU_DATHANG" EntitySet="PHIEU_DATHANG" />
             <End Role="CHITIET_PHIEUDATHANG" EntitySet="CHITIET_PHIEUDATHANG" />
@@ -1267,17 +1268,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="CHITIET_PHIEUDATHANG">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Id_PhieuDatHang" Type="Int32" />
-          <Property Name="MA_PHUTUNG" Type="Int32" />
-          <Property Name="SOLUONG" Type="Int32" />
-          <Property Name="DONGIA" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="PHIEU_DATHANG" Relationship="GARADBModel.FK_CTPDH_PHIEUDATHANG" FromRole="CHITIET_PHIEUDATHANG" ToRole="PHIEU_DATHANG" />
-        </EntityType>
         <EntityType Name="PHUTUNG">
           <Key>
             <PropertyRef Name="ID" />
@@ -1302,6 +1292,18 @@
           <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="MaNCC" Type="Int32" />
           <NavigationProperty Name="CHITIET_PHIEUDATHANG" Relationship="GARADBModel.FK_CTPDH_PHIEUDATHANG" FromRole="PHIEU_DATHANG" ToRole="CHITIET_PHIEUDATHANG" />
+        </EntityType>
+        <EntityType Name="CHITIET_PHIEUDATHANG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_PhieuDatHang" Type="Int32" />
+          <Property Name="MA_PHUTUNG" Type="Int32" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <Property Name="DONGIA" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="THANHTIEN" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="PHIEU_DATHANG" Relationship="GARADBModel.FK_CTPDH_PHIEUDATHANG" FromRole="CHITIET_PHIEUDATHANG" ToRole="PHIEU_DATHANG" />
         </EntityType>
         <Association Name="FK_CTPDH_PHIEUDATHANG">
           <End Type="GARADBModel.PHIEU_DATHANG" Role="PHIEU_DATHANG" Multiplicity="0..1" />
@@ -1595,17 +1597,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CHITIET_PHIEUDATHANG">
-            <EntityTypeMapping TypeName="GARADBModel.CHITIET_PHIEUDATHANG">
-              <MappingFragment StoreEntitySet="CHITIET_PHIEUDATHANG">
-                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
-                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
-                <ScalarProperty Name="MA_PHUTUNG" ColumnName="MA_PHUTUNG" />
-                <ScalarProperty Name="Id_PhieuDatHang" ColumnName="Id_PhieuDatHang" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PHUTUNGs">
             <EntityTypeMapping TypeName="GARADBModel.PHUTUNG">
               <MappingFragment StoreEntitySet="PHUTUNG">
@@ -1629,6 +1620,18 @@
                 <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
                 <ScalarProperty Name="MaPhieuDat" ColumnName="MaPhieuDat" />
                 <ScalarProperty Name="Id_PhieuDatHang" ColumnName="Id_PhieuDatHang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHITIET_PHIEUDATHANG">
+            <EntityTypeMapping TypeName="GARADBModel.CHITIET_PHIEUDATHANG">
+              <MappingFragment StoreEntitySet="CHITIET_PHIEUDATHANG">
+                <ScalarProperty Name="THANHTIEN" ColumnName="THANHTIEN" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="MA_PHUTUNG" ColumnName="MA_PHUTUNG" />
+                <ScalarProperty Name="Id_PhieuDatHang" ColumnName="Id_PhieuDatHang" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
