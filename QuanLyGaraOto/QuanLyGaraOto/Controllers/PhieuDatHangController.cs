@@ -108,7 +108,7 @@ namespace QuanLyGaraOto.Controllers
         }
 
         [HttpGet]
-        public ActionResult CapNhat(int id = 1)
+        public ActionResult CapNhat(int id = 27)
         {
             GARADBEntities context = new GARADBEntities();
             PhieuDatHangViewModel vmPhieuDV = new PhieuDatHangViewModel();
@@ -116,16 +116,12 @@ namespace QuanLyGaraOto.Controllers
 
             vmPhieuDV.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuDV.ListNhaCungCap = context.NHACUNGCAPs.ToList();
-            vmPhieuDV.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuDV.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
             vmPhieuDV.ListHieuXe = context.HIEUXEs.ToList();
-            vmPhieuDV.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == 1).HOTEN;
+            vmPhieuDV.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == vmPhieuDV.PhieuDatHang.MaNV).HOTEN;
             vmPhieuDV.ListChiTietPhieuDH = new List<CHITIET_PHIEUDATHANG>();
-            vmPhieuDV.ListHieuXe = context.HIEUXEs.ToList();
-            //vmPhieuDV.MaPhieuDV = "PDV001";
-            //vmPhieuDV.MaPhieuTiepNhan = 3;
-            //vmPhieuDV.MaNV = 1;
-            //vmPhieuDV.ID_PhieuDV = 5;
+            vmPhieuDV.ListChiTietPhieuDH = context.CHITIET_PHIEUDATHANG.Where(ct => ct.Id_PhieuDatHang == id).ToList();
+
             return View(vmPhieuDV);
         }
         [HttpPost]

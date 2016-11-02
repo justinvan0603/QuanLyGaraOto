@@ -9,7 +9,8 @@
     string sdt = "";
     string loaipt = "";
     List<PHUTUNG> listPT = Model.ListPhuTung.Where(pt => pt.MA_HIEUXE.Equals(Model.ListHieuXe[0].MA_HIEUXE)).ToList();
-    List<NHACUNGCAP> listCC = Model.ListNhaCungCap.Where(pt => pt.NhomNCC.Equals(Model.ListNhomNCC[0].TenNhom)).ToList();
+    List<NHACUNGCAP> listCC = Model.ListNhaCungCap.Where(pt => pt.MaNCC.Equals(Model.PhieuDatHang.MaNCC)).ToList();
+    string tennhom = listCC[0].NhomNCC;
     if (listPT.Count > 0)
     {
         slTon = listPT[0].SOLUONGTON.Value;
@@ -47,8 +48,8 @@
         border: 0px !important;
     }
 </style>
-<h3 class="text-center" style="color:green;">Lập phiếu đặt hàng</h3>
-@using (@Html.BeginForm("ThemMoi", "PhieuDatHang", FormMethod.Post, new { @class = "form-horizontal" }))
+<h3 class="text-center" style="color:green;">Cập nhật phiếu đặt hàng</h3>
+@using (@Html.BeginForm("CapNhat", "PhieuDatHang", FormMethod.Post, new { @class = "form-horizontal" }))
 {
 
     <input type="hidden" name="MaNV" value="@Model.PhieuDatHang.MaNV" />
@@ -60,7 +61,7 @@
         <tbody>
             <tr>
                 <td><label class="input-sm">Mã phiếu đặt:</label></td>
-                <td><input class="form-control input-sm" type="text" name="MaPhieuDat" placeholder="PDH00X" /></td>
+                <td><input class="form-control input-sm" type="text" value="@Model.PhieuDatHang.MaPhieuDat" name="MaPhieuDat" placeholder="PDH00X" /></td>
             </tr>
             <tr>
                 <td><label class="input-sm">Người lập:</label></td>
@@ -68,7 +69,7 @@
             </tr>
             <tr>
                 <td><label class="input-sm">Ngày lập:</label></td>
-                <td><input class="form-control input-sm" type="text" value="@DateTime.Now.Date" readonly="readonly" /></td>
+                <td><input class="form-control input-sm" type="text" value="@Model.PhieuDatHang.NgayDat" readonly="readonly" /></td>
             </tr>
             <tr>
                 <td><label class="input-sm">Ngày hẹn giao:</label></td>
@@ -494,5 +495,14 @@
             $(".cboNCC").html(response);
         });
     }
+
+
+
+    $('document').ready(function()
+    {
+        var id = '@Html.Raw(@tennhom)';
+        $('.cboNNCC').val(id).prop('selected', true);
+    })
+
 </script>
 
