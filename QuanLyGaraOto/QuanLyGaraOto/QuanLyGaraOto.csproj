@@ -146,6 +146,7 @@
     <Compile Include="Controllers\PhieuDatHangController.cs" />
     <Compile Include="Controllers\PhieuDichVuController.cs" />
     <Compile Include="Controllers\PhieuMuaXeController.cs" />
+    <Compile Include="Controllers\PhieuNhapHangController.cs" />
     <Compile Include="Controllers\PhieuThuController.cs" />
     <Compile Include="Controllers\PhieuTiepNhanController.cs" />
     <Compile Include="Controllers\PhuTungController.cs" />
@@ -455,6 +456,7 @@
     <Content Include="Views\PhieuDatHang\Index.cshtml" />
     <Content Include="Views\PhieuDatHang\ThemMoi.cshtml" />
     <Content Include="Views\PhieuDatHang\CapNhat.cshtml" />
+    <Content Include="Views\PhieuNhapHang\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\BaoCaoCongNo.rdlc" />
