@@ -106,7 +106,7 @@
                 <select id="cbo" class="cboPT form-control input-sm" style="width:12%" onchange="cboPTSelectChanged()">
                     @foreach (var item in listPT)
                     {
-                        <option value="@item.ID" title="@item.SOLUONGTON" id="@item.MA_PHUTUNG"    itemscope="@item.TG_BAOHANH"  itemprop="@item.DONGIAXUAT">@item.TEN_PHUTUNG</option>
+                        <option value="@item.ID" title="@item.SOLUONGTON" id="@item.MA_PHUTUNG"  label="@item.TEN_PHUTUNG"   itemscope="@item.TG_BAOHANH"  itemprop="@item.DONGIAXUAT">@item.TEN_PHUTUNG</option>
                     }
                 </select>
 
@@ -143,7 +143,7 @@
                         <th>Thao tác</th>
                     </tr>
                     @*  </thead>*@
-                    <tbody>
+                    
                         <tr class="record-template" style="display:none">
                             <td style="display:none;">
                                 <input type="hidden" class="maPDV" name="ID_PHIEUDV" value="@Model.PhieuDichVu.ID_PHIEUDV" />
@@ -163,7 +163,7 @@
 
                             </td>
                             <td>
-                                <input type="text" class="txtDonGia form-control input-sm" name="DONGIA" value="" readonly @*disabled*@ />
+                                <input type="text" class="txtdonGia form-control input-sm" name="DONGIA" value="" readonly @*disabled*@ />
                             </td>
 
                             <td>
@@ -177,7 +177,7 @@
                             </td>
                         </tr>
 
-                    </tbody>
+                    
 
                 </table>
 
@@ -226,7 +226,9 @@
         var conlai = parseInt($('select.cboPT option[value="' + phutung + '"]').attr("title"));
         var tongso = parseInt(conlai) + parseInt(soluong);
         $('select.cboPT option[value="' + phutung + '"]').attr("title",tongso)
-
+        var rowCount = $("#chitietphieu-table tr").length;
+        alert(rowCount);
+       // $(this).closest("tr");
         row.remove();
         CapNhapID();
 
@@ -241,8 +243,15 @@
                 hieuxe: HieuXe
             }
         }).done(function (response) {
+            document.getElementById("cbo").options.length = 0;
             $(".cboPT").empty();
             $(".cboPT").html(response);
+            var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
+            var dongia = $('.cboPT').children("option").filter(":selected").attr("itemprop");
+            var thoihanbaohanh = $('.cboPT').children("option").filter(":selected").attr("itemscope");
+            $('.lblTonKho').text(parseInt(tonkho));
+            $('.txtDonGia').val(parseInt(dongia));
+            $('.txtBH').val(parseInt(thoihanbaohanh));
         });
         //$("province_dll").change(function () {
         //    $.ajax({
@@ -285,7 +294,7 @@
             select.appendChild(option);
             </text>
         }*@
-
+      
         var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
         var dongia = $('.cboPT').children("option").filter(":selected").attr("itemprop");
         var thoihanbaohanh = $('.cboPT').children("option").filter(":selected").attr("itemscope");
@@ -317,7 +326,7 @@
             var soluong = parseInt($('input.txtSoLuong').val());
      
             var dongia = parseInt($('input.txtDonGia').val());
-            var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
+            //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
             var tien = soluong * dongia;
             var thanhtien = parseInt(tien);
             $('.lblThanhTien').text('');
@@ -375,6 +384,7 @@
             var tdnoidung = $(".record-template").html();
 
             var trnoidung = "<tr class=\"record-template\" data-id=\"" + i + "\">" + tdnoidung + "</tr>";
+
             $("#chitietphieu-table").append(trnoidung);
 
             //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
@@ -390,22 +400,21 @@
             $maphutung.attr("value", maphutung);
             
             var tenpt = $('.cboPT').children("option").filter(":selected").text();
-            
+         
             var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
             $tenphutung.attr("value", tenpt);
-            
+    
             var $txtMaTenPT = $("#chitietphieu-table").find("tr:last-child").find('td input.maTenPT');
             var maTenPT = $('.cboPT').children("option").filter(":selected").attr("id");
             $txtMaTenPT.attr("value", maTenPT);
-            //var loaitiencong = $('.cboTC').children("option").filter(":selected").attr("value");
-            //var $tentiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenTC');
-            //$tentiencong.attr("value", loaitiencong);
+            var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
+            $tenphutung.attr("value", tenpt);
 
             var $txtsoluong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtSoluong');
           
             $txtsoluong.attr("value", soluong);
 
-            var $txtdongia = $("#chitietphieu-table").find("tr:last-child").find('td input.txtDonGia');
+            var $txtdongia = $("#chitietphieu-table").find("tr:last-child").find('td input.txtdonGia');
             $txtdongia.attr("value", dongia);
         
             //var $txttiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTienCong');
@@ -418,7 +427,10 @@
             var baohanh = $('.txtBH').val();
             var $txtbaohanh = $("#chitietphieu-table").find("tr:last-child").find('td input.txtBaoHanh');
             $txtbaohanh.attr("value", baohanh);
-            
+  
+            var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
+            $tenphutung.attr("value", tenpt);
+
             loadIDLENTHE();
 
         });
@@ -441,7 +453,7 @@
                 $(this).find(".maPT").attr("name", nameMaPhuTung);
                 //$(this).find(".maTC").attr("name", nameMaTienCong);
                 $(this).find(".txtSoluong").attr("name", nameSoLuong);
-                $(this).find(".txtDonGia").attr("name", nameDonGia);
+                $(this).find(".txtdonGia").attr("name", nameDonGia);
                 //$(this).find(".txtTienCong").attr("name", nameTienCong);
                 $(this).find(".txtThanhTien").attr("name", nameThanhTien);
                 $(this).find(".txtBaoHanh").attr("name", nameThoiHanBaoHanh);
@@ -451,9 +463,11 @@
 
         function CapNhapID() {
             var id_cuoi = $("#chitietphieu-table").find(".trFirstRow").attr("data-id");
-            i = parseInt(id_cuoi) + 1;
-
+            //alert(id_cuoi);
+            i = parseInt(id_cuoi);
+           // alert(i);
             $(".record-template").each(function () {
+                
                 var id = i;
                 $(this).attr("data-id", i);
                 var nameDV = "[" + id + "].ID_PHIEUDV";
@@ -474,7 +488,7 @@
                 //$(this).find(".txtTienCong").attr("name", nameTienCong);
                 $(this).find(".txtThanhTien").attr("name", nameThanhTien);
                 $(this).find(".txtBaoHanh").attr("name", nameThoiHanBaoHanh);
-
+               // alert(i);
                 i++;
             })
         }
