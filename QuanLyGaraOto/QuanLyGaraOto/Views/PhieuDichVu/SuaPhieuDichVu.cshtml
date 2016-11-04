@@ -178,7 +178,7 @@
                     {
                         string TenPT = Model.ListPhuTung.Single(pt => pt.ID == item.MA_PT).TEN_PHUTUNG;
                         string MaTenPT = Model.ListPhuTung.Single(pt => pt.ID == item.MA_PT).MA_PHUTUNG;
-                        <tr class="record-template" style="display:none">
+                        <tr class="record-template" >
                             <td style="display:none">
                                 <input type="hidden" class="ID" name="ID" value="@item.ID" />
                             </td>
@@ -226,6 +226,33 @@
 </div>
 }
 <script>
+    $("form").submit(function (e) {
+        var rowCount = $("#chitietphieu-table tr").length;
+        var numberofContentRow = parseInt(rowCount - 2);
+        //alert(numberofContentRow);
+        if (numberofContentRow == 0) {
+            alert("Vui lòng nhập dữ liệu vào bảng chi tiết!");
+            e.preventDefault();
+        }
+        if ($(".txtTienCong").val().length <= 0) {
+            alert("Vui lòng nhập giá trị tiền công!");
+            e.preventDefault();
+        }
+        else {
+            var tc = parseInt($(".txtTienCong").val());
+            if (tc <= 1000) {
+                alert("Giá trị tiền công tối thiểu là 1000!");
+                e.preventDefault();
+            }
+        }
+        if ($(".txtMaPhieu").val().length <= 0) {
+            alert("Vui lòng nhập mã số phiếu dịch vụ!");
+            e.preventDefault();
+        }
+        //alert("method call");
+        //e.preventDefault();
+        //alert("stop submit");
+    })
     $('document').ready(function () {
         //$(".cboTC").val("2");
         //$(".cboTC option[value='2']").attr("selected", true);
@@ -243,6 +270,12 @@
     });
 
     $("body").delegate(".btnDelete", "click", function () {
+        var rowcount = $("#chitietphieu-table tr").length-2;
+        if (rowcount == 1)
+        {
+            alert("Không thể xóa thêm chi tiết phiếu! Phải có ít nhất một chi tiết phiếu!");
+            return;
+        }
         var row = $(this).closest("tr");
         var soluong = row.find("input.txtSoluong").attr("value");
         var phutung = row.find("input.maPT").attr("value");

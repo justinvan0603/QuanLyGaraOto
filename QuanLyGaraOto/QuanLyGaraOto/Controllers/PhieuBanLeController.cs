@@ -93,13 +93,22 @@ namespace QuanLyGaraOto.Controllers
             {
                 GARADBEntities context = new GARADBEntities();
                 var target = context.PHIEU_BANLE.Single(pbl => pbl.ID_PHIEUBANLE == id);
-                if(context.PHIEU_THUTIEN.Any(pt => pt.ID_PHIEUBANLE == target.ID_PHIEUBANLE))
+                if (context.PHIEU_THUTIEN.Any(pt => pt.ID_PHIEUBANLE == target.ID_PHIEUBANLE))
                 {
                     return Json(new { value = "-1", message = "Không thể xóa do đã lập phiếu thu!" }, JsonRequestBehavior.AllowGet);
                 }
-                context.PHIEU_BANLE.Remove(target);
-                context.SaveChanges();
-                return Json(new { value = "1", message = "Xóa thành công!" }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    List<CHITIET_PHIEUBANLE> listCT = context.CHITIET_PHIEUBANLE.Where(ct => ct.ID_PHIEUBANLE == id).ToList();
+                    foreach(var item in listCT)
+                    {
+                        context.CHITIET_PHIEUBANLE.Remove(item);
+                        context.SaveChanges();
+                    }
+                    context.PHIEU_BANLE.Remove(target);
+                    context.SaveChanges();
+                    return Json(new { value = "1", message = "Xóa thành công!" }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch(Exception)
             {
@@ -115,6 +124,9 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuBanLe.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuBanLe.ListHieuXe = context.HIEUXEs.ToList();
             vmPhieuBanLe.PhieuBanLe = new PHIEU_BANLE();
+            vmPhieuBanLe.PhieuBanLe.NgayLap = DateTime.Now.Date;
+            DateTime t = DateTime.Now;
+            //t.AddDays(30)
             vmPhieuBanLe.TenNV = "";
             //vmPhieuBanLe.TenNV = context.NHANVIENs.Single(s => s.USERNAME.Equals(Session["Username"])).HOTEN;
             return View(vmPhieuBanLe);
@@ -124,17 +136,23 @@ namespace QuanLyGaraOto.Controllers
         {
             GARADBEntities context = new GARADBEntities();
             phieubanle.NgayLap = DateTime.Now.Date;
-            phieubanle.MaNV = context.NHANVIENs.Single(nv => nv.USERNAME.Equals(Session["Username"])).MA_NV;
-            phieubanle.TongTien = listchitiet.Sum(ct => ct.THANHTIEN);
+            phieubanle.TongTien = 0;
+            phieubanle.SoTienConLai = 0;
+            //phieubanle.MaNV = context.NHANVIENs.Single(nv => nv.USERNAME.Equals(Session["Username"])).MA_NV;
+            //phieubanle.TongTien = listchitiet.Sum(ct => ct.THANHTIEN);
            // phieubanle.HanChotThanhToan =
             context.PHIEU_BANLE.Add(phieubanle);
+            context.SaveChanges();
             foreach(var item in listchitiet)
             {
+                
                 item.ID_PHIEUBANLE = phieubanle.ID_PHIEUBANLE;
                 context.CHITIET_PHIEUBANLE.Add(item);
+                context.SaveChanges();
             }
-            context.SaveChanges();
-            return View();
+            
+            TempData["msg"] = "<script>alert('Đã thêm thành công!');</script>";
+            return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
         }
         [HttpGet]
         public ActionResult SuaPhieuBanLe()
@@ -152,7 +170,8 @@ namespace QuanLyGaraOto.Controllers
         [HttpPost]
         public ActionResult SuaPhieuBanLe(PhieuBanLeViewModel vmPhieuBanLe)
         {
-            return RedirectToAction("Index");
+            TempData["msg"] = "<script>alert('Đã sửa thành công!');</script>";
+            return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
         }
         [HttpPost]
         public JsonResult XoaChiTiet(int id)

@@ -1,11 +1,31 @@
 ﻿@model QuanLyGaraOto.ViewModel.PhieuBanLeViewModel
+@using QuanLyGaraOto.Models;
+
+
 @{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
     ViewBag.Title = "Cập nhật phiếu bán lẻ";
     int slTon = 0;
-    if (Model.ListPhuTung.Count > 0)
+    decimal dongia = 0;
+    string sdt = "";
+    List<PHUTUNG> listPTByHieuXe;
+    try
     {
-        slTon = Model.ListPhuTung[0].SOLUONGTON.Value;
+        listPTByHieuXe = Model.ListPhuTung.Where(pt => pt.MA_HIEUXE == Model.ListHieuXe[0].MA_HIEUXE).ToList();
+    }
+    catch (Exception)
+    {
+        listPTByHieuXe = new List<PHUTUNG>();
+    }
+
+    if (Model.ListKhachHang.Count > 0)
+    {
+        sdt = Model.ListKhachHang[0].SDT;
+    }
+    if (listPTByHieuXe.Count > 0)
+    {
+        slTon = listPTByHieuXe[0].SOLUONGTON.Value;
+        dongia = Math.Round(listPTByHieuXe[0].DONGIAXUAT.Value);
     }
 }
 <head>
@@ -66,9 +86,10 @@
                         <option value="@item.MA_HIEUXE" title="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
                     }
                 </select>
+
                 <label class="input-sm">Phụ tùng:</label>
-                <select class="cboPT form-control input-sm" style="width:12%" onchange="cboPTSelectChanged()">
-                    @foreach (var item in Model.ListPhuTung)
+                <select id="cbo" class="cboPT form-control input-sm" style="width:12%" onchange="cboPTSelectChanged()">
+                    @foreach (var item in listPTByHieuXe)
                     {
                         <option value="@item.ID" title="@item.SOLUONGTON" id="@item.MA_PHUTUNG" itemscope="@item.TG_BAOHANH" itemprop="@item.DONGIAXUAT">@item.TEN_PHUTUNG</option>
                     }
@@ -152,7 +173,7 @@
                         @foreach (var item in Model.ListChiTietPhieu)
                         {
                             
-                            <tr class="record-template" style="display:none">
+                            <tr class="record-template" >
                                 <td style="display:none">
                                     <input type="hidden" class="ID" name="ID" value="@item.ID" />
                                 </td>
@@ -200,6 +221,14 @@
     </div>
 }
 <script>
+    $("form").submit(function (e) {
+
+        if ($(".txtMaPhieu").val().length <= 0) {
+            alert("Vui lòng nhập mã số phiếu bán lẻ!");
+            e.preventDefault();
+        }
+
+    })
     $('document').ready(function () {
         @*//$(".cboTC").val("2");
         //$(".cboTC option[value='2']").attr("selected", true);
@@ -230,6 +259,11 @@
     }
 
     $("body").delegate(".btnDelete", "click", function () {
+        var rowcount = $("#chitietphieu-table tr").length - 2;
+        if (rowcount == 1) {
+            alert("Không thể xóa thêm chi tiết phiếu! Phải có ít nhất một chi tiết phiếu!");
+            return;
+        }
         var row = $(this).closest("tr");
         var soluong = row.find("input.txtSoluong").attr("value");
         var phutung = row.find("input.maPT").attr("value");
@@ -358,11 +392,15 @@
         }
 
 
+        var id_cuoi = $("#chitietphieu-table tr").length - 3;
+        //var id_cuoi = $("#chitietphieu-table").find("tr:last-child").attr("data-id");
 
-
-        var id_cuoi = $("#chitietphieu-table").find("tr:last-child").attr("data-id");
-
+        //alert(id_cuoi);
         i = parseInt(id_cuoi) + 1;
+
+        //var id_cuoi = $("#chitietphieu-table").find("tr:last-child").attr("data-id");
+
+        //i = parseInt(id_cuoi) + 1;
         //alert(i);
         var tdnoidung = $(".record-template").html();
 

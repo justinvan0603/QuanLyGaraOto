@@ -52,7 +52,7 @@
     <input type="hidden" name="PhieuDichVu.MAPHIEU_TIEPNHAN" value="@Model.PhieuDichVu.MAPHIEU_TIEPNHAN" />
     <div class="form-group form-inline">
         <label class="input-sm">Mã phiếu:</label>
-        <input type="text" name="PhieuDichVu.MA_PHIEUDV" value="" class="form-control input-sm"/>
+        <input type="text" name="PhieuDichVu.MA_PHIEUDV" value="" class="txtMaPhieu form-control input-sm"/>
     </div>
     <div class="form-group">
         <label class="input-sm">Ngày lập:</label>
@@ -85,7 +85,7 @@
     </div>
     <div class="form-group form-inline">
         <label class="input-sm">Tiền công:</label>
-        @Html.TextBoxFor(model => model.PhieuDichVu.TIENCONG, new { @class= "form-control"})
+        @Html.TextBoxFor(model => model.PhieuDichVu.TIENCONG, new { @class= "txtTienCong form-control"})
         @*<input class="txtTienCong form-control input-sm" type="number" min="1000" max="10000" name="PhieuDichVu.TIENCONG" required />*@
     </div>
     <div class="panel panel-default" style="width:99%;">
@@ -147,6 +147,7 @@
                     @*<tbody>*@
                         <tr class="record-template" style="display:none">
                             <td style="display:none;">
+                                
                                 <input type="hidden" class="maPDV" name="ID_PHIEUDV" value="@Model.PhieuDichVu.ID_PHIEUDV" />
                             </td>
                             <td style="display:none;">
@@ -212,6 +213,25 @@
         if (numberofContentRow == 0)
         {
             alert("Vui lòng nhập dữ liệu vào bảng chi tiết!");
+            e.preventDefault();
+        }
+        if($(".txtTienCong").val().length <=0)
+        {
+            alert("Vui lòng nhập giá trị tiền công!");
+            e.preventDefault();
+        }
+        else
+        {
+            var tc = parseInt($(".txtTienCong").val());
+            if(tc <= 1000)
+            {
+                alert("Giá trị tiền công tối thiểu là 1000!");
+                e.preventDefault();
+            }
+        }
+        if($(".txtMaPhieu").val().length <=0)
+        {
+            alert("Vui lòng nhập mã số phiếu dịch vụ!");
             e.preventDefault();
         }
         //alert("method call");
@@ -367,7 +387,7 @@
             var id_cuoi = $("#chitietphieu-table tr").length - 3;
             //var id_cuoi = $("#chitietphieu-table").find("tr:last-child").attr("data-id");
             
-            alert(id_cuoi);
+            //alert(id_cuoi);
             i = parseInt(id_cuoi) + 1;
             //alert(i);
             var tdnoidung = $(".record-template").html();
