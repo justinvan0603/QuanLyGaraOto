@@ -25,7 +25,6 @@ namespace QuanLyGaraOto.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<BANGTHAMSO> BANGTHAMSOes { get; set; }
         public virtual DbSet<HIEUXE> HIEUXEs { get; set; }
         public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
         public virtual DbSet<NHOMNGUOIDUNG> NHOMNGUOIDUNGs { get; set; }
@@ -51,5 +50,6 @@ namespace QuanLyGaraOto.Models
         public virtual DbSet<PHUTUNG> PHUTUNGs { get; set; }
         public virtual DbSet<PHIEU_DATHANG> PHIEU_DATHANG { get; set; }
         public virtual DbSet<CHITIET_PHIEUDATHANG> CHITIET_PHIEUDATHANG { get; set; }
+        public virtual DbSet<BANGTHAMSO> BANGTHAMSOes { get; set; }
     }
 }

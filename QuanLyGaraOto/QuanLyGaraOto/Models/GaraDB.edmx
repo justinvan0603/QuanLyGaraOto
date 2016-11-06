@@ -9,8 +9,8 @@
           <Key>
             <PropertyRef Name="TENTHAMSO" />
           </Key>
-          <Property Name="TENTHAMSO" Type="char" MaxLength="50" Nullable="false" />
-          <Property Name="GIATRI" Type="char" MaxLength="255" />
+          <Property Name="TENTHAMSO" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="GIATRI" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CHITIET_PHIEUBANLE">
           <Key>
@@ -643,13 +643,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GARADBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="BANGTHAMSO">
-          <Key>
-            <PropertyRef Name="TENTHAMSO" />
-          </Key>
-          <Property Name="TENTHAMSO" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="GIATRI" Type="String" MaxLength="255" FixedLength="true" Unicode="false" />
-        </EntityType>
         <EntityType Name="HIEUXE">
           <Key>
             <PropertyRef Name="MA_HIEUXE" />
@@ -696,7 +689,6 @@
           <Property Name="SOTIEN" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
         </EntityType>
         <EntityContainer Name="GARADBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="BANGTHAMSOes" EntityType="Self.BANGTHAMSO" />
           <EntitySet Name="HIEUXEs" EntityType="Self.HIEUXE" />
           <EntitySet Name="KHACHHANGs" EntityType="Self.KHACHHANG" />
           <EntitySet Name="NHOMNGUOIDUNGs" EntityType="Self.NHOMNGUOIDUNG" />
@@ -802,6 +794,7 @@
             <End Role="PHIEU_DATHANG" EntitySet="PHIEU_DATHANG" />
             <End Role="CHITIET_PHIEUDATHANG" EntitySet="CHITIET_PHIEUDATHANG" />
           </AssociationSet>
+          <EntitySet Name="BANGTHAMSOes" EntityType="GARADBModel.BANGTHAMSO" />
           </EntityContainer>
         <EntityType Name="NHANVIEN">
           <Key>
@@ -1317,20 +1310,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BANGTHAMSO">
+          <Key>
+            <PropertyRef Name="TENTHAMSO" />
+          </Key>
+          <Property Name="TENTHAMSO" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="GIATRI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="GARADBModelStoreContainer" CdmEntityContainer="GARADBEntities">
-          <EntitySetMapping Name="BANGTHAMSOes">
-            <EntityTypeMapping TypeName="GARADBModel.BANGTHAMSO">
-              <MappingFragment StoreEntitySet="BANGTHAMSO">
-                <ScalarProperty Name="TENTHAMSO" ColumnName="TENTHAMSO" />
-                <ScalarProperty Name="GIATRI" ColumnName="GIATRI" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="HIEUXEs">
             <EntityTypeMapping TypeName="GARADBModel.HIEUXE">
               <MappingFragment StoreEntitySet="HIEUXE">
@@ -1632,6 +1624,14 @@
                 <ScalarProperty Name="MA_PHUTUNG" ColumnName="MA_PHUTUNG" />
                 <ScalarProperty Name="Id_PhieuDatHang" ColumnName="Id_PhieuDatHang" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BANGTHAMSOes">
+            <EntityTypeMapping TypeName="GARADBModel.BANGTHAMSO">
+              <MappingFragment StoreEntitySet="BANGTHAMSO">
+                <ScalarProperty Name="GIATRI" ColumnName="GIATRI" />
+                <ScalarProperty Name="TENTHAMSO" ColumnName="TENTHAMSO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

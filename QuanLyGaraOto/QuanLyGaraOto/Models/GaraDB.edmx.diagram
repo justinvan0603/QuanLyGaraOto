@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d3dd59ee259d4f5fa699345b755210c5" Name="Diagram1" ZoomLevel="67">
-        <EntityTypeShape EntityType="GARADBModel.BANGTHAMSO" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="GARADBModel.HIEUXE" Width="1.5" PointX="2.25" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="GARADBModel.KHACHHANG" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="GARADBModel.NHOMNGUOIDUNG" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
@@ -51,6 +50,7 @@
         <EntityTypeShape EntityType="GARADBModel.PHIEU_DATHANG" Width="1.5" PointX="12.375" PointY="4.625" />
         <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUDATHANG" Width="1.5" PointX="14.625" PointY="4.75" />
         <AssociationConnector Association="GARADBModel.FK_CTPDH_PHIEUDATHANG" />
+        <EntityTypeShape EntityType="GARADBModel.BANGTHAMSO" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
