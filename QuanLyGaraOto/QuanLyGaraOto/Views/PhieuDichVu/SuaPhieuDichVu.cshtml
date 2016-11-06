@@ -50,8 +50,12 @@
     </div>
 <div class="form-inline">
     <label>Ngày lập:</label>
-    <label>@Model.PhieuDichVu.NGAYLAP.Value.Date</label>
+    <label>@Model.PhieuDichVu.NGAYLAP.Value.Date.ToShortDateString()</label>
 </div>
+    <div class="form-inline">
+        <label>Hạn thanh toán:</label>
+        <label>@Model.PhieuDichVu.HANCHOTTHANHTOAN.Value.Date.ToShortDateString()</label>
+    </div>
 <div class="form-inline">
     <label>Người lập:</label>
     <label>@Model.TenNV</label>

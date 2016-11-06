@@ -125,6 +125,8 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuBanLe.ListHieuXe = context.HIEUXEs.ToList();
             vmPhieuBanLe.PhieuBanLe = new PHIEU_BANLE();
             vmPhieuBanLe.PhieuBanLe.NgayLap = DateTime.Now.Date;
+            BANGTHAMSO a = context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO.Equals("HanChotPhieuBanLe"));
+            vmPhieuBanLe.PhieuBanLe.HanChotThanhToan = DateTime.Now.Date.AddDays(int.Parse(a.GIATRI)).Date;
             DateTime t = DateTime.Now;
             //t.AddDays(30)
             vmPhieuBanLe.TenNV = "";
@@ -138,6 +140,8 @@ namespace QuanLyGaraOto.Controllers
             phieubanle.NgayLap = DateTime.Now.Date;
             phieubanle.TongTien = 0;
             phieubanle.SoTienConLai = 0;
+            BANGTHAMSO a = context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO.Equals("HanChotPhieuBanLe"));
+            phieubanle.HanChotThanhToan = DateTime.Now.Date.AddDays(int.Parse(a.GIATRI)).Date;
             //phieubanle.MaNV = context.NHANVIENs.Single(nv => nv.USERNAME.Equals(Session["Username"])).MA_NV;
             //phieubanle.TongTien = listchitiet.Sum(ct => ct.THANHTIEN);
            // phieubanle.HanChotThanhToan =
@@ -155,16 +159,20 @@ namespace QuanLyGaraOto.Controllers
             return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
         }
         [HttpGet]
-        public ActionResult SuaPhieuBanLe()
+        public ActionResult SuaPhieuBanLe(int? id)
         {
             GARADBEntities context = new GARADBEntities();
             PhieuBanLeViewModel vmPhieuBanLe = new PhieuBanLeViewModel();
-            vmPhieuBanLe.ListChiTietPhieu = new List<CHITIET_PHIEUBANLE>();
-            vmPhieuBanLe.TenKH = "";
-            vmPhieuBanLe.TenNV = "";
+            //vmPhieuBanLe.PhieuBanLe = new PHIEU_BANLE();
+            vmPhieuBanLe.PhieuBanLe = context.PHIEU_BANLE.Single(pbl => pbl.ID_PHIEUBANLE == id.Value);
+            //vmPhieuBanLe.ListChiTietPhieu = new List<CHITIET_PHIEUBANLE>();
+            vmPhieuBanLe.ListChiTietPhieu = context.CHITIET_PHIEUBANLE.Where(ct => ct.ID_PHIEUBANLE == id.Value).ToList();
+            //vmPhieuBanLe.ListChiTietPhieu = new List<CHITIET_PHIEUBANLE>();
+            //vmPhieuBanLe.TenKH = "";
+            //vmPhieuBanLe.TenNV = "";
             vmPhieuBanLe.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuBanLe.ListHieuXe = context.HIEUXEs.ToList();
-            vmPhieuBanLe.PhieuBanLe = new PHIEU_BANLE();
+            //vmPhieuBanLe.PhieuBanLe = new PHIEU_BANLE();
             return View(vmPhieuBanLe);
         }
         [HttpPost]

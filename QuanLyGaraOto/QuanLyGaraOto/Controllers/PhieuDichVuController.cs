@@ -97,6 +97,9 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuDV.ListTho = new List<THO>();
             vmPhieuDV.ListTho = context.THOes.ToList();
             vmPhieuDV.ListTienCong = context.TIENCONGs.ToList();
+            BANGTHAMSO a = context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO.Equals("HanChotPhieuDichVu"));
+            vmPhieuDV.PhieuDichVu.NGAYLAP = DateTime.Now.Date;
+            vmPhieuDV.PhieuDichVu.HANCHOTTHANHTOAN = DateTime.Now.Date.AddDays(int.Parse(a.GIATRI)).Date;
             if (maphieutiepnhan != null)
             {
                 string bienso = context.PHIEU_TIEPNHAN.Single(ptn => ptn.MA_PHIEUTIEPNHAN == maphieutiepnhan.Value).BIENSO_XE;
@@ -126,6 +129,9 @@ namespace QuanLyGaraOto.Controllers
             GARADBEntities context = new GARADBEntities();
             //viewmodel.PhieuDichVu.MA_NHANVIEN = context.NHANVIENs.Single(nv => nv.USERNAME.Equals(Session["Username"])).MA_NV;
             viewmodel.PhieuDichVu.NGAYLAP = DateTime.Now.Date;
+            BANGTHAMSO a = context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO.Equals("HanChotPhieuDichVu"));
+
+            viewmodel.PhieuDichVu.HANCHOTTHANHTOAN = DateTime.Now.Date.AddDays(int.Parse(a.GIATRI)).Date;
             viewmodel.PhieuDichVu.SOTIEN_CONLAI = viewmodel.PhieuDichVu.TIENCONG;
             viewmodel.PhieuDichVu.TONGTIEN = viewmodel.PhieuDichVu.TIENCONG;
             //viewmodel.PhieuDichVu.TONGTIEN = listCT.Sum(ct => ct.THANHTIEN);
@@ -154,12 +160,13 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuDV.ListChiTietPhieu = new List<CHITIET_PHIEUDV>();
             vmPhieuDV.ListChiTietPhieu = context.CHITIET_PHIEUDV.Where(ct => ct.ID_PHIEUDV == id.Value).ToList();
             vmPhieuDV.ListHieuXe = context.HIEUXEs.ToList();
+            return View(vmPhieuDV);
             //vmPhieuDV.MaPhieuDV = "PDV001";
             //vmPhieuDV.MaPhieuTiepNhan = 3;
             //vmPhieuDV.MaNV = 1;
             //vmPhieuDV.ID_PhieuDV = 5;
-            TempData["msg"] = "<script>alert('Đã sửa thành công!');</script>";
-            return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            //TempData["msg"] = "<script>alert('Đã sửa thành công!');</script>";
+            //return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
         }
         [HttpPost]
         public ActionResult SuaPhieuDichVu(PhieuDVViewModel viewModel, List<CHITIET_PHIEUDV> listChiTiet)

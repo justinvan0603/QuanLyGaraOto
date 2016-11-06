@@ -18,10 +18,10 @@
         listPTByHieuXe = new List<PHUTUNG>();
     }
 
-    if (Model.ListKhachHang.Count > 0)
-    {
-        sdt = Model.ListKhachHang[0].SDT;
-    }
+    //if (Model.ListKhachHang.Count > 0)
+    //{
+    //    sdt = Model.ListKhachHang[0].SDT;
+    //}
     if (listPTByHieuXe.Count > 0)
     {
         slTon = listPTByHieuXe[0].SOLUONGTON.Value;
@@ -47,9 +47,11 @@
     }
 </style>
 <h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU DỊCH VỤ</h3>
-@using (Html.BeginForm("SuaPhieuDichVu", "PhieuDichVu", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("SuaPhieuBanLe", "PhieuBanLe", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <input type="hidden" name="PhieuBanLe.ID_PHIEUBANLE" value="@Model.PhieuBanLe.ID_PHIEUBANLE" />
+    <input type="hidden" name="PhieuBanLe.MaKH" value="@Model.PhieuBanLe.MaKH" />
+    <input type="hidden" name="PhieuBanLe.MaNV" value="@Model.PhieuBanLe.MaNV" />
     <div class="form-inline">
         <label>Mã phiếu:</label>
         <input name="PhieuBanLe.MaPhieuBan" value="@Model.PhieuBanLe.MaPhieuBan" class="form-control input-sm" />
@@ -57,11 +59,11 @@
     </div>
     <div class="form-inline">
         <label>Ngày lập:</label>
-        <label>@Model.PhieuBanLe.NgayLap.Value.Date</label>
+        <label>@Model.PhieuBanLe.NgayLap.Value.Date.ToShortDateString()</label>
     </div>
     <div class="form-inline">
         <label>Hạn chót thanh toán:</label>
-        <label>@Model.PhieuBanLe.HanChotThanhToan.Value.Date</label>
+        <label>@Model.PhieuBanLe.HanChotThanhToan.Value.Date.ToShortDateString()</label>
     </div>
     <div class="form-inline">
         <label>Người lập:</label>
