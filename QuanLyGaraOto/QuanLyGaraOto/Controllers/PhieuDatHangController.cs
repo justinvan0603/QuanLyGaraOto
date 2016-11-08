@@ -88,8 +88,7 @@ namespace QuanLyGaraOto.Controllers
             {
                 GARADBEntities context = new GARADBEntities();
                 pdh.NgayDat = DateTime.Now.Date;
-                pdh.TongTien = listChiTiet.Sum(ct => ct.THANHTIEN);
-                context.PHIEU_DATHANG.Add(pdh);
+                context.PHIEU_DATHANG.Add(pdh);               
                 context.SaveChanges();
                 List<CHITIET_PHIEUDATHANG> listCT = listChiTiet.ToList();
                 foreach (var item in listChiTiet)
@@ -108,7 +107,7 @@ namespace QuanLyGaraOto.Controllers
         }
 
         [HttpGet]
-        public ActionResult CapNhat(int id = 27)
+        public ActionResult CapNhat(int id = 50)
         {
             GARADBEntities context = new GARADBEntities();
             PhieuDatHangViewModel vmPhieuDV = new PhieuDatHangViewModel();
@@ -125,13 +124,15 @@ namespace QuanLyGaraOto.Controllers
             return View(vmPhieuDV);
         }
         [HttpPost]
-        public ActionResult CapNhat(PhieuDVViewModel viewModel, List<CHITIET_PHIEUDV> listChiTiet)
+        public ActionResult CapNhat(PHIEU_DATHANG phieudh)
         {
             GARADBEntities context = new GARADBEntities();
-            var target = context.PHIEU_DICHVU.Single(pdv => pdv.ID_PHIEUDV == viewModel.PhieuDichVu.ID_PHIEUDV);
-            target.MATHO = viewModel.PhieuDichVu.MATHO;
-            target.TIENCONG = viewModel.PhieuDichVu.TIENCONG;
-            return View();
+            var target = context.PHIEU_DATHANG.Single(pdh => pdh.Id_PhieuDatHang == phieudh.Id_PhieuDatHang);
+            target.MaPhieuDat = phieudh.MaPhieuDat;
+            target.NgayGiao = phieudh.NgayGiao;
+            target.MaNCC = phieudh.MaNCC;
+            context.SaveChanges();
+            return RedirectToAction("Index");
         }
         
 
@@ -175,10 +176,6 @@ namespace QuanLyGaraOto.Controllers
             {
                 GARADBEntities context = new GARADBEntities();
                 var target = context.CHITIET_PHIEUDATHANG.Single(ct => ct.ID == id);
-                /*if (context.PHIEU_THUTIEN.Any(pt => pt.ID_PHIEUDV == target.ID_PHIEUDV))
-                {
-                    return Json(new { value = "-1", message = "Không thể xóa do đã lập phiếu thu tiền!" }, JsonRequestBehavior.AllowGet);
-                }*/
                 context.CHITIET_PHIEUDATHANG.Remove(target);
                 context.SaveChanges();
                 return Json(new { value = "1", message = "Xóa thành công!" }, JsonRequestBehavior.AllowGet);
@@ -195,7 +192,7 @@ namespace QuanLyGaraOto.Controllers
             GARADBEntities context = new GARADBEntities();
             context.CHITIET_PHIEUDATHANG.Add(chitiet);
             context.SaveChanges();
-            return Json(new { issucess = "1", newid = "1", message = "OK" }, JsonRequestBehavior.AllowGet);
+            return Json(new { issucess = "1", newid = "1", message = "Thêm chi tiết phiếu thành công!" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

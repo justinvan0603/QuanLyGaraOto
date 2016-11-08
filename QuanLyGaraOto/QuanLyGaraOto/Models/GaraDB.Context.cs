@@ -30,7 +30,6 @@ namespace QuanLyGaraOto.Models
         public virtual DbSet<NHOMNGUOIDUNG> NHOMNGUOIDUNGs { get; set; }
         public virtual DbSet<THO> THOes { get; set; }
         public virtual DbSet<TIENCONG> TIENCONGs { get; set; }
-        public virtual DbSet<NHANVIEN> NHANVIENs { get; set; }
         public virtual DbSet<XE> XEs { get; set; }
         public virtual DbSet<PHIEU_TIEPNHAN> PHIEU_TIEPNHAN { get; set; }
         public virtual DbSet<PHIEU_THUTIEN> PHIEU_THUTIEN { get; set; }
@@ -47,9 +46,10 @@ namespace QuanLyGaraOto.Models
         public virtual DbSet<CHITIET_PHIEUBH> CHITIET_PHIEUBH { get; set; }
         public virtual DbSet<CHITIET_PHIEUDV> CHITIET_PHIEUDV { get; set; }
         public virtual DbSet<CHITIET_PHIEUNH> CHITIET_PHIEUNH { get; set; }
-        public virtual DbSet<PHUTUNG> PHUTUNGs { get; set; }
-        public virtual DbSet<PHIEU_DATHANG> PHIEU_DATHANG { get; set; }
-        public virtual DbSet<CHITIET_PHIEUDATHANG> CHITIET_PHIEUDATHANG { get; set; }
         public virtual DbSet<BANGTHAMSO> BANGTHAMSOes { get; set; }
+        public virtual DbSet<PHIEU_DATHANG> PHIEU_DATHANG { get; set; }
+        public virtual DbSet<NHANVIEN> NHANVIENs { get; set; }
+        public virtual DbSet<PHUTUNG> PHUTUNGs { get; set; }
+        public virtual DbSet<CHITIET_PHIEUDATHANG> CHITIET_PHIEUDATHANG { get; set; }
     }
 }

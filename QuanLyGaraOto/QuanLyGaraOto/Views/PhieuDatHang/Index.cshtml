@@ -56,7 +56,7 @@
                             <td>@String.Format("{0:dd/MM/yyyy}", item.PhieuDatHang.NgayDat)</td>
                             <td>@String.Format("{0:dd/MM/yyyy}", item.PhieuDatHang.NgayGiao)</td>
                             <td>@item.TenNCC</td>
-                            <td>@item.PhieuDatHang.TongTien</td>
+                            <td>@String.Format("{0:#,###,###,###}", item.PhieuDatHang.TongTien)</td>
                             <td>
                                 @Html.ActionLink("Sửa", "CapNhat", new { id = @item.PhieuDatHang.Id_PhieuDatHang }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
                                 <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>

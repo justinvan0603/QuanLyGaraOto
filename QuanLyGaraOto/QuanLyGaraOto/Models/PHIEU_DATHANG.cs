@@ -24,9 +24,9 @@ namespace QuanLyGaraOto.Models
         public string MaPhieuDat { get; set; }
         public Nullable<System.DateTime> NgayDat { get; set; }
         public Nullable<System.DateTime> NgayGiao { get; set; }
-        public Nullable<int> MaNV { get; set; }
-        public Nullable<decimal> TongTien { get; set; }
-        public Nullable<int> MaNCC { get; set; }
+        public int MaNV { get; set; }
+        public decimal TongTien { get; set; }
+        public int MaNCC { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_PHIEUDATHANG> CHITIET_PHIEUDATHANG { get; set; }
