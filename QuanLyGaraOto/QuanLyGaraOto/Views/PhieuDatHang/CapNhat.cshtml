@@ -61,7 +61,7 @@
         <tbody>
             <tr>
                 <td><label class="input-sm">Mã phiếu đặt:</label></td>
-                <td><input class="form-control input-sm" type="text" value="@Model.PhieuDatHang.MaPhieuDat" name="MaPhieuDat" placeholder="PDH00X" /></td>
+                <td><input class="txtMaPhieu form-control input-sm" type="text" value="@Model.PhieuDatHang.MaPhieuDat" name="MaPhieuDat" placeholder="PDH00X" /></td>
                 <td></td>
                 <td></td>
             </tr>
@@ -254,9 +254,10 @@
             alert("Vui lòng nhập dữ liệu vào bảng chi tiết!");
             e.preventDefault();
         }
-        //alert("method call");
-        //e.preventDefault();
-        //alert("stop submit");
+        if ($(".txtMaPhieu").val().length <= 0) {
+            alert("Vui lòng nhập mã số phiếu dịch vụ!");
+            e.preventDefault();
+        }
     })
     $("body").delegate("#btnDelete", "click", function () {
         var rowcount = $("#chitietphieu-table tr").length - 2;
@@ -539,7 +540,7 @@
             $(this).find(".maPT").attr("name", nameMaPhuTung);
             //$(this).find(".maTC").attr("name", nameMaTienCong);
             $(this).find(".txtSoluong").attr("name", nameSoLuong);
-            $(this).find(".txtDonGia").attr("name", nameDonGia);
+            $(this).find(".txtdonGia").attr("name", nameDonGia);
             //$(this).find(".txtTienCong").attr("name", nameTienCong);
             $(this).find(".txtThanhTien").attr("name", nameThanhTien);
             // alert(i);

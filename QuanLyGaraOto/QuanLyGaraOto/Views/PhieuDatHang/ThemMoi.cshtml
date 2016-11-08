@@ -55,7 +55,7 @@
         <tbody>
             <tr>
                 <td><label class="input-sm">Mã phiếu đặt:</label></td>
-                <td><input class="form-control input-sm" type="text" name="MaPhieuDat" placeholder="PDH00X"/></td>
+                <td><input class="txtMaPhieu form-control input-sm" type="text" name="MaPhieuDat" placeholder="PDH00X" /></td>
                 <td></td>
                 <td></td>
             </tr>
@@ -209,9 +209,10 @@
             alert("Vui lòng nhập dữ liệu vào bảng chi tiết!");
             e.preventDefault();
         }
-        //alert("method call");
-        //e.preventDefault();
-        //alert("stop submit");
+        if ($(".txtMaPhieu").val().length <= 0) {
+            alert("Vui lòng nhập mã số phiếu dịch vụ!");
+            e.preventDefault();
+        }
     })
     $("body").delegate("#btnDelete", "click", function () {
         var row = $(this).closest("tr");
@@ -225,8 +226,8 @@
 
         var conlai = parseInt($('select.cboPT option[value="' + phutung + '"]').attr("title"));
         var tongso = parseInt(conlai) + parseInt(soluong);
-        //$('select.cboPT option[value="' + phutung + '"]').attr("title", tongso)
-        //var rowCount = $("#chitietphieu-table tr").length;
+        $('select.cboPT option[value="' + phutung + '"]').attr("title", tongso)
+        var rowCount = $("#chitietphieu-table tr").length;
         //alert(rowCount);
         // $(this).closest("tr");
         row.remove();
@@ -238,7 +239,7 @@
     function cboLoaiPTSelectChanged() {
         var HieuXe = $('.cboLoaiPT').children("option").filter(":selected").attr("value");
         $.ajax({
-            url: '/PhieuDichVu/GetPhuTungByHieuXe/',
+            url: '/PhieuDatHang/GetPhuTungByHieuXe/',
             type: 'post',
             data: {
                 hieuxe: HieuXe
@@ -433,7 +434,7 @@
             $(this).find(".maPT").attr("name", nameMaPhuTung);
             //$(this).find(".maTC").attr("name", nameMaTienCong);
             $(this).find(".txtSoluong").attr("name", nameSoLuong);
-            $(this).find(".txtDonGia").attr("name", nameDonGia);
+            $(this).find(".txtdonGia").attr("name", nameDonGia);
             //$(this).find(".txtTienCong").attr("name", nameTienCong);
             $(this).find(".txtThanhTien").attr("name", nameThanhTien);
             // alert(i);
