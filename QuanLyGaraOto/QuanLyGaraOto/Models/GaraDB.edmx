@@ -259,7 +259,6 @@
           <Property Name="SOLUONGTON" Type="int" />
           <Property Name="DONGIAXUAT" Type="money" />
           <Property Name="TG_BAOHANH" Type="int" />
-          <Property Name="TINHTRANG" Type="bit" />
         </EntityType>
         <EntityType Name="THO">
           <Key>
@@ -790,12 +789,12 @@
             <End Role="NHANVIEN" EntitySet="NHANVIENs" />
             <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
           </AssociationSet>
-          <EntitySet Name="PHUTUNGs" EntityType="GARADBModel.PHUTUNG" />
           <EntitySet Name="CHITIET_PHIEUDATHANG" EntityType="GARADBModel.CHITIET_PHIEUDATHANG" />
           <AssociationSet Name="FK_CTPDH_PHIEUDATHANG" Association="GARADBModel.FK_CTPDH_PHIEUDATHANG">
             <End Role="PHIEU_DATHANG" EntitySet="PHIEU_DATHANG" />
             <End Role="CHITIET_PHIEUDATHANG" EntitySet="CHITIET_PHIEUDATHANG" />
           </AssociationSet>
+          <EntitySet Name="PHUTUNGs" EntityType="GARADBModel.PHUTUNG" />
           </EntityContainer>
         <EntityType Name="XE">
           <Key>
@@ -1282,19 +1281,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="PHUTUNG">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MA_PHUTUNG" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="TEN_PHUTUNG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="MA_HIEUXE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="SOLUONGTON" Type="Int32" />
-          <Property Name="DONGIAXUAT" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="TG_BAOHANH" Type="Int32" />
-          <Property Name="TINHTRANG" Type="Boolean" />
-        </EntityType>
         <EntityType Name="CHITIET_PHIEUDATHANG">
           <Key>
             <PropertyRef Name="ID" />
@@ -1319,6 +1305,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PHUTUNG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MA_PHUTUNG" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TEN_PHUTUNG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MA_HIEUXE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SOLUONGTON" Type="Int32" />
+          <Property Name="DONGIAXUAT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TG_BAOHANH" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1612,20 +1610,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PHUTUNGs">
-            <EntityTypeMapping TypeName="GARADBModel.PHUTUNG">
-              <MappingFragment StoreEntitySet="PHUTUNG">
-                <ScalarProperty Name="TINHTRANG" ColumnName="TINHTRANG" />
-                <ScalarProperty Name="TG_BAOHANH" ColumnName="TG_BAOHANH" />
-                <ScalarProperty Name="DONGIAXUAT" ColumnName="DONGIAXUAT" />
-                <ScalarProperty Name="SOLUONGTON" ColumnName="SOLUONGTON" />
-                <ScalarProperty Name="MA_HIEUXE" ColumnName="MA_HIEUXE" />
-                <ScalarProperty Name="TEN_PHUTUNG" ColumnName="TEN_PHUTUNG" />
-                <ScalarProperty Name="MA_PHUTUNG" ColumnName="MA_PHUTUNG" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CHITIET_PHIEUDATHANG">
             <EntityTypeMapping TypeName="GARADBModel.CHITIET_PHIEUDATHANG">
               <MappingFragment StoreEntitySet="CHITIET_PHIEUDATHANG">
@@ -1634,6 +1618,19 @@
                 <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
                 <ScalarProperty Name="MA_PHUTUNG" ColumnName="MA_PHUTUNG" />
                 <ScalarProperty Name="Id_PhieuDatHang" ColumnName="Id_PhieuDatHang" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHUTUNGs">
+            <EntityTypeMapping TypeName="GARADBModel.PHUTUNG">
+              <MappingFragment StoreEntitySet="PHUTUNG">
+                <ScalarProperty Name="TG_BAOHANH" ColumnName="TG_BAOHANH" />
+                <ScalarProperty Name="DONGIAXUAT" ColumnName="DONGIAXUAT" />
+                <ScalarProperty Name="SOLUONGTON" ColumnName="SOLUONGTON" />
+                <ScalarProperty Name="MA_HIEUXE" ColumnName="MA_HIEUXE" />
+                <ScalarProperty Name="TEN_PHUTUNG" ColumnName="TEN_PHUTUNG" />
+                <ScalarProperty Name="MA_PHUTUNG" ColumnName="MA_PHUTUNG" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

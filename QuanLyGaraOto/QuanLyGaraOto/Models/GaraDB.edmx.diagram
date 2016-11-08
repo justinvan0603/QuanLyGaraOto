@@ -48,9 +48,9 @@
         <AssociationConnector Association="GARADBModel.FK_PHIEUCHI_NHANVIEN" />
         <AssociationConnector Association="GARADBModel.FK_PHIEUTHUTIEN_NHANVIEN" />
         <AssociationConnector Association="GARADBModel.FK_PHIEUTIEPNHAN_NHANVIEN" />
-        <EntityTypeShape EntityType="GARADBModel.PHUTUNG" Width="1.5" PointX="11.375" PointY="0.75" />
         <EntityTypeShape EntityType="GARADBModel.CHITIET_PHIEUDATHANG" Width="1.5" PointX="14.625" PointY="5.125" />
         <AssociationConnector Association="GARADBModel.FK_CTPDH_PHIEUDATHANG" />
+        <EntityTypeShape EntityType="GARADBModel.PHUTUNG" Width="1.5" PointX="11.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

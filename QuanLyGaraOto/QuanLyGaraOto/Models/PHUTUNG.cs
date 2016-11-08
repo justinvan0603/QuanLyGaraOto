@@ -21,6 +21,5 @@ namespace QuanLyGaraOto.Models
         public Nullable<int> SOLUONGTON { get; set; }
         public Nullable<decimal> DONGIAXUAT { get; set; }
         public Nullable<int> TG_BAOHANH { get; set; }
-        public Nullable<bool> TINHTRANG { get; set; }
     }
 }

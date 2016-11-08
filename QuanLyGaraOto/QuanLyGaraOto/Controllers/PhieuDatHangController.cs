@@ -93,8 +93,11 @@ namespace QuanLyGaraOto.Controllers
                 List<CHITIET_PHIEUDATHANG> listCT = listChiTiet.ToList();
                 foreach (var item in listChiTiet)
                 {
-                    item.Id_PhieuDatHang = pdh.Id_PhieuDatHang;
-                    context.CHITIET_PHIEUDATHANG.Add(item);
+                    if (item != null)
+                    {
+                        item.Id_PhieuDatHang = pdh.Id_PhieuDatHang;
+                        context.CHITIET_PHIEUDATHANG.Add(item);
+                    }                   
                 }
                 context.SaveChanges();
                 TempData["msg"] = "<script>alert('Đã thêm thành công');</script>";

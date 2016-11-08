@@ -49,7 +49,7 @@ namespace QuanLyGaraOto.Models
         public virtual DbSet<BANGTHAMSO> BANGTHAMSOes { get; set; }
         public virtual DbSet<PHIEU_DATHANG> PHIEU_DATHANG { get; set; }
         public virtual DbSet<NHANVIEN> NHANVIENs { get; set; }
-        public virtual DbSet<PHUTUNG> PHUTUNGs { get; set; }
         public virtual DbSet<CHITIET_PHIEUDATHANG> CHITIET_PHIEUDATHANG { get; set; }
+        public virtual DbSet<PHUTUNG> PHUTUNGs { get; set; }
     }
 }
