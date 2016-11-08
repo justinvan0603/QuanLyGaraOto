@@ -5,7 +5,6 @@
     ViewBag.Title = "Lập phiếu đặt hàng";
     int slTon = 0;
     decimal dongia = 0;
-    int hanbaohanh = 0;
     string sdt = "";
     string loaipt = "";
     List<PHUTUNG> listPT = Model.ListPhuTung.Where(pt => pt.MA_HIEUXE.Equals(Model.ListHieuXe[0].MA_HIEUXE)).ToList();
@@ -14,7 +13,6 @@
     {
         slTon = listPT[0].SOLUONGTON.Value;
         dongia = Math.Round(listPT[0].DONGIAXUAT.Value);
-        hanbaohanh = listPT[0].TG_BAOHANH.Value;
     }
 }
 @Html.Raw(TempData["msg"])
@@ -124,8 +122,6 @@
                 <input type="number" maxlength="3" pattern="[0-9]" class=" txtSoLuong form-control input-sm" style="width:4%" />
                 <label class="input-sm">Đơn giá:</label>
                 <input type="number" maxlength="8" pattern="[0-9]" class="txtDonGia form-control input-sm" style="width:7%" value="@dongia" readonly />
-                <label class="input-sm">Bảo hành:</label>
-                <input type="number" maxlength="2" pattern="[0-9]" class="txtBH form-control input-sm" style="width:4%;" value="@hanbaohanh" readonly />
                 <label class="input-sm">Thành tiền:</label>
                 <label class="lblThanhTien input-sm" style="width:10%">0</label>
 
@@ -147,17 +143,16 @@
                             <th>Đơn giá</th>
 
                             <th>Thành tiền</th>
-                            <th>Thời gian bảo hành (tháng)</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
                     @*<tbody>*@
                     <tr class="record-template" style="display:none">
                         <td style="display:none;">
-                            <input type="hidden" class="maPDV" name="ID_PHIEUDV" value="@Model.PhieuDatHang.Id_PhieuDatHang" />
+                            <input type="hidden" class="maPDH" name="Id_PhieuDatHang" value="@Model.PhieuDatHang.Id_PhieuDatHang" />
                         </td>
                         <td style="display:none;">
-                            <input type="hidden" class="maPT" name="MA_PT" value="" />
+                            <input type="hidden" class="maPT" name="MA_PHUTUNG" value="" />
                         </td>
                         <td>
                             <input class="txtTenPT form-control input-sm" type="text" value="" readonly />
@@ -176,9 +171,6 @@
 
                         <td>
                             <input type="text" class=" txtThanhTien form-control input-sm" name="THANHTIEN" value="" readonly @*disable*@ d />
-                        </td>
-                        <td>
-                            <input type="text" class="txtBaoHanh form-control input-sm" name="THOIHAN_BAOHANH" value="" readonly @*disabled*@ />
                         </td>
                         <td>
                             <input type="button" value="Xóa" class="btn btn-danger btn-sm" id="btnDelete" />
@@ -253,10 +245,8 @@
             $(".cboPT").html(response);
             var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
             var dongia = $('.cboPT').children("option").filter(":selected").attr("itemprop");
-            var thoihanbaohanh = $('.cboPT').children("option").filter(":selected").attr("itemscope");
             $('.lblTonKho').text(parseInt(tonkho));
             $('.txtDonGia').val(parseInt(dongia));
-            $('.txtBH').val(parseInt(thoihanbaohanh));
         });
         //$("province_dll").change(function () {
         //    $.ajax({
@@ -290,11 +280,9 @@
 
         var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
         var dongia = $('.cboPT').children("option").filter(":selected").attr("itemprop");
-        var thoihanbaohanh = $('.cboPT').children("option").filter(":selected").attr("itemscope");
 
         $('.lblTonKho').text(parseInt(tonkho));
         $('.txtDonGia').val(parseInt(dongia));
-        $('.txtBH').val(parseInt(thoihanbaohanh));
 
     }
 
@@ -326,7 +314,6 @@
         var soluong = parseInt($('input.txtSoLuong').val());
 
         var dongia = parseInt($('input.txtDonGia').val());
-        var baohanh = parseInt($('input.txtBH').val());
 
         if (isNaN(dongia) == true) {
             alert("Đơn giá không được để trống!")
@@ -336,33 +323,14 @@
             alert("Số lượng không được để trống!")
             return;
         }
-        if (isNaN(baohanh) == true) {
-            alert("Hạn bảo hành không được để trống!")
-            return;
-        }
         if (dongia <= 0) {
             alert("Nhập sai đơn giá!")
-            return;
-        }
-        if (baohanh <= 0) {
-            alert("Nhập sai hạn bảo hành!")
             return;
         }
         if (soluong <= 0) {
             alert("Nhập sai số lượng!")
             return;
         }
-        else {
-            /*if (soluong > tonkho) {
-                alert("Số lượng cần vượt quá lượng tồn trong kho!")
-                return;
-            }
-            var conlai = tonkho - soluong;
-            $('.cboPT').children("option").filter(":selected").attr("title", conlai)
-            //$('.lblTonKho').text(conlai);*/
-        }
-
-
 
         var id_cuoi = $("#chitietphieu-table tr").length - 3;
         //var id_cuoi = $("#chitietphieu-table").find("tr:last-child").attr("data-id");
@@ -400,16 +368,9 @@
         var $txtdongia = $("#chitietphieu-table").find("tr:last-child").find('td input.txtdonGia');
         $txtdongia.attr("value", dongia);
 
-        //var $txttiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTienCong');
-        //$txttiencong.attr("value", tiencong);
-
         var thanhtien = parseInt(soluong * dongia);
-        //alert(thanhtien);
         var $txtthanhtien = $("#chitietphieu-table").find("tr:last-child").find('td input.txtThanhTien');
         $txtthanhtien.attr("value", thanhtien);
-        var baohanh = $('.txtBH').val();
-        var $txtbaohanh = $("#chitietphieu-table").find("tr:last-child").find('td input.txtBaoHanh');
-        $txtbaohanh.attr("value", baohanh);
 
         var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
         $tenphutung.attr("value", tenpt);
@@ -425,24 +386,20 @@
             //alert(id);
             //alert($(this).find(".txtTenPT").attr("value"));
 
-            var nameDV = "[" + id + "].ID_PHIEUDV";
-            var nameMaPhuTung = "[" + id + "].MA_PT";
-            //var nameMaTienCong = "[" + id + "].MA_TIENCONG";
+            var nameDV = "[" + id + "].Id_PhieuDatHang";
+            var nameMaPhuTung = "[" + id + "].MA_PHUTUNG";
 
             var nameSoLuong = "[" + id + "].SOLUONG";
             var nameDonGia = "[" + id + "].DONGIA";
-            //var nameTienCong = "[" + id + "].TIENCONG";
             var nameThanhTien = "[" + id + "].THANHTIEN";
-            var nameThoiHanBaoHanh = "[" + id + "].THOIHAN_BAOHANH"
 
-            $(this).find(".maPDV").attr("name", nameDV);
+            $(this).find(".maPDH").attr("name", nameDV);
             $(this).find(".maPT").attr("name", nameMaPhuTung);
             //$(this).find(".maTC").attr("name", nameMaTienCong);
             $(this).find(".txtSoluong").attr("name", nameSoLuong);
-            $(this).find(".txtDonGia").attr("name", nameDonGia);
+            $(this).find(".txtdonGia").attr("name", nameDonGia);
             //$(this).find(".txtTienCong").attr("name", nameTienCong);
             $(this).find(".txtThanhTien").attr("name", nameThanhTien);
-            $(this).find(".txtBaoHanh").attr("name", nameThoiHanBaoHanh);
 
         })
     };
@@ -456,24 +413,20 @@
 
             var id = i;
             $(this).attr("data-id", i);
-            var nameDV = "[" + id + "].ID_PHIEUDV";
-            var nameMaPhuTung = "[" + id + "].MA_PT";
-            //var nameMaTienCong = "[" + id + "].MA_TIENCONG";
+            var nameDV = "[" + id + "].Id_PhieuDatHang";
+            var nameMaPhuTung = "[" + id + "].MA_PHUTUNG";
 
             var nameSoLuong = "[" + id + "].SOLUONG";
             var nameDonGia = "[" + id + "].DONGIA";
-            var nameTienCong = "[" + id + "].TIENCONG";
             var nameThanhTien = "[" + id + "].THANHTIEN";
-            var nameThoiHanBaoHanh = "[" + id + "].THOIHAN_BAOHANH"
 
-            $(this).find(".maPDV").attr("name", nameDV);
+            $(this).find(".maPDH").attr("name", nameDV);
             $(this).find(".maPT").attr("name", nameMaPhuTung);
             //$(this).find(".maTC").attr("name", nameMaTienCong);
             $(this).find(".txtSoluong").attr("name", nameSoLuong);
             $(this).find(".txtDonGia").attr("name", nameDonGia);
             //$(this).find(".txtTienCong").attr("name", nameTienCong);
             $(this).find(".txtThanhTien").attr("name", nameThanhTien);
-            $(this).find(".txtBaoHanh").attr("name", nameThoiHanBaoHanh);
             // alert(i);
             i++;
         })
