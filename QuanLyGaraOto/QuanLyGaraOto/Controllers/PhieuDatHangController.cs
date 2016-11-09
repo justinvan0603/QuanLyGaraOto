@@ -76,7 +76,8 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuDH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
             vmPhieuDH.ListHieuXe = context.HIEUXEs.ToList();
             vmPhieuDH.PhieuDatHang.MaNV = 1;
-            vmPhieuDH.PhieuDatHang.NgayGiao = DateTime.Now.Date.AddDays(3);
+            int tggh = Int32.Parse(context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO == "ThoiGianGiaoHang").GIATRI);
+            vmPhieuDH.PhieuDatHang.NgayGiao = DateTime.Now.Date.AddDays(tggh);
             vmPhieuDH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == 1).HOTEN;
             return View(vmPhieuDH);
         }
@@ -113,18 +114,18 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult CapNhat(int id = 50)
         {
             GARADBEntities context = new GARADBEntities();
-            PhieuDatHangViewModel vmPhieuDV = new PhieuDatHangViewModel();
-            vmPhieuDV.PhieuDatHang = context.PHIEU_DATHANG.Single(p => p.Id_PhieuDatHang == id);
+            PhieuDatHangViewModel vmPhieuDH = new PhieuDatHangViewModel();
+            vmPhieuDH.PhieuDatHang = context.PHIEU_DATHANG.Single(p => p.Id_PhieuDatHang == id);
 
-            vmPhieuDV.ListPhuTung = context.PHUTUNGs.ToList();
-            vmPhieuDV.ListNhaCungCap = context.NHACUNGCAPs.ToList();
-            vmPhieuDV.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
-            vmPhieuDV.ListHieuXe = context.HIEUXEs.ToList();
-            vmPhieuDV.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == vmPhieuDV.PhieuDatHang.MaNV).HOTEN;
-            vmPhieuDV.ListChiTietPhieuDH = new List<CHITIET_PHIEUDATHANG>();
-            vmPhieuDV.ListChiTietPhieuDH = context.CHITIET_PHIEUDATHANG.Where(ct => ct.Id_PhieuDatHang == id).ToList();
+            vmPhieuDH.ListPhuTung = context.PHUTUNGs.ToList();
+            vmPhieuDH.ListNhaCungCap = context.NHACUNGCAPs.ToList();
+            vmPhieuDH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
+            vmPhieuDH.ListHieuXe = context.HIEUXEs.ToList();
+            vmPhieuDH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == vmPhieuDH.PhieuDatHang.MaNV).HOTEN;
+            vmPhieuDH.ListChiTietPhieuDH = new List<CHITIET_PHIEUDATHANG>();
+            vmPhieuDH.ListChiTietPhieuDH = context.CHITIET_PHIEUDATHANG.Where(ct => ct.Id_PhieuDatHang == id).ToList();
 
-            return View(vmPhieuDV);
+            return View(vmPhieuDH);
         }
         [HttpPost]
         public ActionResult CapNhat(PHIEU_DATHANG phieudh)

@@ -1,5 +1,88 @@
-﻿@{
+﻿@model QuanLyGaraOto.ViewModel.DSPhieuNhapHangViewModel
+@using PagedList.Mvc;
+@{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Danh sách phiếu đặt hàng";
 }
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<style>
+    .table th {
+        width: auto !important;
+    }
+</style>
+@Html.Raw(TempData["msg"])
+<body>
+    <h3 class="text-center" style="color: green;">Danh sách phiếu đặt hàng</h3>
+    @using (@Html.BeginForm("Index", "PhieuNhapHang", FormMethod.Get, new { @class = "form-inline" }))
+    {
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="searchOption">Tìm theo:</label>
+                @Html.DropDownList("searchOption", Model.listSearchOption, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="searchOption">Giá trị:</label>
+                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-info" style="margin-top: 25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+            </div>
+        </div>
+    }
 
+    <div class="table-responsive" style="padding-top: 10px;">
+        <table id="phieudh-table" class="table table-bordered table table-hover ">
+            <thead style="color: red;">
+                <tr>
+                    <th style="display: none">Id</th>
+                    <th>Mã phiếu nhập</th>
+                    <th>Tên nhân viên</th>
+                    <th>Mã phiếu đặt</th>
+                    <th>@Html.ActionLink("Ngày nhập", "Index", new { sortOrder = ViewBag.DateNhapOrderSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>                    
+                    <th>Nhà cung cấp</th>
+                    <th>Tổng tiền</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model.ListPhieuNhapHang.ToList())
+                    {
+                        <tr class="clickable-row">
+                            <td id="id" style="display: none">@item.PhieuNhapHang.ID_PHIEUNHAPHANG</td>
+                            <td> @item.PhieuNhapHang.MA_PHIEUNHAPHANG</td>
+                            <td>@item.TenNV</td>
+                            <td> @item.MaPhieuDatHang</td>
+                            <td>@String.Format("{0:dd/MM/yyyy}", item.PhieuNhapHang.NGAYLAP)</td>
+                            <td>@item.TenNCC</td>
+                            <td>@String.Format("{0:#,###,###,###}", item.PhieuNhapHang.TONGTIEN)</td>
+                            <td>
+                                @Html.ActionLink("Xem", "ThemMoi", new { id = @item.PhieuNhapHang.ID_PHIEUNHAPHANG }, new { @class = "btn btn-warning glyphicon glyphicon-eye-open" })
+                           </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        Trang @(Model.ListPhieuNhapHang.PageCount < Model.ListPhieuNhapHang.PageNumber ? 0 : Model.ListPhieuNhapHang.PageNumber) của @Model.ListPhieuNhapHang.PageCount
 
+        @Html.PagedListPager(Model.ListPhieuNhapHang, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+    $('#phieudh-table')
+        .on('click',
+            '.clickable-row',
+            function(event) {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                } else {
+                    $(this).addClass('active').siblings().removeClass('active');
+                }
+            });
+    </script>
+
+</body>

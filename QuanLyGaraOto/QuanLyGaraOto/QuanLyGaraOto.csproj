@@ -282,6 +282,7 @@
     <Compile Include="ViewModel\DSPhieuBanLeViewModel.cs" />
     <Compile Include="ViewModel\DSPhieuDVTableData.cs" />
     <Compile Include="ViewModel\DSPhieuDVViewModel.cs" />
+    <Compile Include="ViewModel\DSPhieuNhapHangViewModel.cs" />
     <Compile Include="ViewModel\KhachHangViewModel.cs" />
     <Compile Include="ViewModel\LapPhieuThuViewModel.cs" />
     <Compile Include="ViewModel\NhaCungCapViewModel.cs" />
@@ -298,6 +299,7 @@
     <Compile Include="ViewModel\PhieuDVViewModel.cs" />
     <Compile Include="ViewModel\PhieuMuaXeListViewModel.cs" />
     <Compile Include="ViewModel\PhieuMuaXeViewModel.cs" />
+    <Compile Include="ViewModel\PhieuNhapHangViewModel.cs" />
     <Compile Include="ViewModel\PhieuNhapMuaXeModel.cs" />
     <Compile Include="ViewModel\DSPhieuThuViewModel.cs" />
     <Compile Include="ViewModel\PhieuThuViewModel.cs" />
@@ -439,7 +441,6 @@
     <Content Include="Views\PhieuMuaXe\ResourceNotFoundView.cshtml" />
     <Content Include="Views\PhieuMuaXe\SuaPhieuMuaXe.cshtml" />
     <Content Include="Views\PhieuTiepNhan\Index.cshtml" />
-    <Content Include="Views\Xe.cshtml" />
     <Content Include="Views\Xe\Index.cshtml" />
     <Content Include="Views\Xe\ResourceNotFoundView.cshtml" />
     <Content Include="Views\Xe\NhapXe.cshtml" />
@@ -457,6 +458,7 @@
     <Content Include="Views\PhieuDatHang\ThemMoi.cshtml" />
     <Content Include="Views\PhieuDatHang\CapNhat.cshtml" />
     <Content Include="Views\PhieuNhapHang\Index.cshtml" />
+    <Content Include="Views\PhieuNhapHang\ThemMoi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\BaoCaoCongNo.rdlc" />

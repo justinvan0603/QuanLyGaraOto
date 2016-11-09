@@ -59,7 +59,8 @@
                             <td>@item.TenNCC</td>
                             <td>@String.Format("{0:#,###,###,###}", item.PhieuDatHang.TongTien)</td>
                             <td>
-                                @Html.ActionLink("Sửa", "CapNhat", new { id = @item.PhieuDatHang.Id_PhieuDatHang }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
+                                <a class="btnCreateReceiptVoucher btn btn-primary glyphicon glyphicon-notes" href="@Url.Action("ThemMoi", "PhieuNhapHang", new { idphieuDH = @item.PhieuDatHang.Id_PhieuDatHang})">Lập phiếu nhập hàng</a>
+                                @Html.ActionLink("Sửa", "CapNhat", new {id = @item.PhieuDatHang.Id_PhieuDatHang}, new {@class = "btn btn-warning glyphicon glyphicon-pencil"})
                                 <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
                             </td>
                         </tr>
