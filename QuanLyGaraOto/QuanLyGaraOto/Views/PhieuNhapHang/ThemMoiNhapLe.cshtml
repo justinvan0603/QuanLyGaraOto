@@ -1,0 +1,444 @@
+﻿@using QuanLyGaraOto.Models;
+@model QuanLyGaraOto.ViewModel.PhieuNhapHangViewModel
+@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Lập phiếu nhập hàng";
+    int slTon = 0;
+    decimal dongia = 0;
+    List<PHUTUNG> listPT = Model.ListPhuTung.Where(pt => pt.MA_HIEUXE.Equals(Model.ListHieuXe[0].MA_HIEUXE)).ToList();
+    List<NHACUNGCAP> listCC = Model.ListNhaCungCap.Where(pt => pt.NhomNCC.Equals(Model.ListNhomNCC[0].TenNhom)).ToList();
+    if (listPT.Count > 0)
+    {
+        slTon = listPT[0].SOLUONGTON.Value;
+        dongia = Math.Round(listPT[0].DONGIAXUAT.Value);
+    }
+}
+@Html.Raw(TempData["msg"])
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<!DOCTYPE html>
+<style>
+    .table th {
+        width: auto !important;
+    }
+
+    .table {
+        font-size: small;
+    }
+
+    .form-group {
+        margin-bottom: 5px;
+    }
+
+    .table-info {
+        border-bottom: 0px !important;
+    }
+
+        .table-info th, .table td {
+            border: 1px !important;
+        }
+
+    .fixed-table-container {
+        border: 0px !important;
+    }
+</style>
+<h3 class="text-center" style="color:green;">Lập phiếu nhập hàng</h3>
+@using (@Html.BeginForm("ThemMoi", "PhieuNhapHang", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+
+    <input type="hidden" name="Ma_NV" value="@Model.PhieuNhapHang.MA_NV" />
+    <table class="table-info borderless">
+        <tr>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
+        </tr>
+        <tbody>
+
+            <tr>
+                <td><label class="input-sm">Mã phiếu nhập:</label></td>
+                <td><input class="txtMaPhieu form-control input-sm" type="text" name="MA_PHIEUNHAPHANG" placeholder="PNH00X" /></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Người lập:</label></td>
+                <td><input class="form-control input-sm" type="text" value="@Model.TenNV" readonly="readonly" /></td>
+                <td><label class="input-sm">Mã phiếu đặt :</label></td>
+                <td><input class="txtMaPhieuDH form-control input-sm" type="text" value="@Model.MaPhieuDatHang" name="MaPhieuDatHang" readonly="readonly" /></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Ngày lập:</label></td>
+                <td><input class="form-control input-sm" type="text" value="@String.Format("{0:dd/MM/yyyy}", DateTime.Now.Date)" readonly="readonly" /></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Nhóm nhà cung cấp:</label></td>
+                <td>
+                    <select class="cboNNCC form-control input-sm" name="MaNNCC" onchange="cboNNCCSelectChanged()" >
+                        @foreach (var item in Model.ListNhomNCC)
+                        {
+                            <option value="@item.TenNhom" title="@item.TenNhom">@item.TenNhom</option>
+                        }
+                    </select>
+                <td><label class="input-sm">Nhà cung cấp:</label></td>
+                <td>
+                    <select class="cboNCC form-control input-sm" name="MaNCC">
+                        @foreach (var item in listCC)
+                        {
+                            <option value="@item.MaNCC" title="@item.NhomNCC">@item.TenNCC</option>
+                        }
+                    </select>
+                </td>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="panel panel-default" style="width: 99%;">
+        <div class="panel-heading">Thông tin chi tiết:</div>
+        <div class="panel-body">
+            <div class=" form-group form-inline" style="padding-left: 5px;">
+
+                <label class="input-sm">Hiệu xe:</label>
+                <select id="cboLoaiPT" class="cboLoaiPT form-control input-sm" style="width: 8%" onchange="cboLoaiPTSelectChanged()">
+                    @foreach (var item in Model.ListHieuXe)
+                    {
+                        <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+                    }
+                </select>
+
+
+                <label class="input-sm">Phụ tùng:</label>
+                <select id="cbo" class="cboPT form-control input-sm" style="width: 8%" onchange="cboPTSelectChanged()">
+                    @foreach (var item in listPT)
+                    {
+                        <option value="@item.ID" title="@item.SOLUONGTON" id="@item.MA_PHUTUNG" label="@item.TEN_PHUTUNG" itemscope="@item.TG_BAOHANH" itemprop="@item.DONGIAXUAT">@item.TEN_PHUTUNG</option>
+                    }
+                </select>
+
+
+                <label class="input-sm">Lượng tồn:</label>
+                <label class="lblTonKho input-sm" style="width: 2%">@slTon</label>
+                <label class="input-sm">Số lượng:</label>
+                <input type="number" maxlength="3" pattern="[0-9]" class=" txtSoLuong form-control input-sm" style="width: 4%" />
+                <label class="input-sm">Đơn giá:</label>
+                <input type="number" maxlength="8" pattern="[0-9]" class="txtDonGia form-control input-sm" style="width: 7%" value="@dongia" />
+                <label class="input-sm">Thành tiền:</label>
+                <label class="lblThanhTien input-sm" style="width: 10%">0</label>
+                <input type="button" value="Thêm chi tiết" class="btn btn-success" id="btnAdd" />
+            </div>
+
+            <div class="table-responsive" style="padding-top: 10px; margin-right: 20px;">
+                <table id="chitietphieu-table" class="table table-bordered table table-hover table-condensed ">
+                    <thead style="color: red;">
+                        <tr class="trFirstRow" style="color: red;" data-id="-1">
+                            <th style="display: none">IdPDV</th>
+                            <th style="display: none">Id</th>
+                            <th>Phụ tùng</th>
+                            <th>Mã phụ tùng</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Thành tiền</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    @*<tbody>*@
+                    <tr class="record-template" style="display: none">
+                        <td style="display: none;">
+                            <input type="hidden" class="maPDH" name="ID_PHIEUNHAPHANG" value="" />
+                        </td>
+                        <td style="display: none;">
+                            <input type="hidden" class="maPT" name="MA_PHUTUNG" value="" />
+                        </td>
+                        <td>
+                            <input class="txtTenPT form-control input-sm" type="text" value="" readonly />
+
+                        </td>
+                        <td>
+                            <input class="maTenPT form-control input-sm" type="text" value="" readonly />
+                        </td>
+                        <td>
+                            <input type="text" class="txtSoluong form-control input-sm" name="SOLUONG" value="" readonly @*disabled*@ />
+
+                        </td>
+                        <td>
+                            <input type="text" class="txtdonGia form-control input-sm" name="DONGIA" value="" readonly @*disabled*@ />
+                        </td>
+
+                        <td>
+                            <input type="text" class=" txtThanhTien form-control input-sm" name="THANHTIEN" value="" readonly @*disable*@ d />
+                        </td>
+                        <td>
+                            <input type="button" value="Xóa" class="btn btn-danger btn-sm" id="btnDelete" />
+                        </td>
+                    </tr>
+
+                    @*</tbody>*@
+
+                </table>
+
+            </div>
+            <div>
+                <label class="input-sm">Tổng tiền:</label>
+                <label class="lblTongTien input-sm">0</label>
+            </div>
+            <div class="form-group" style="padding-left: 10px;">
+                <button class="btn btn-primary" type="submit">Lưu</button>
+            </div>
+        </div>
+
+    </div>
+}
+<script>
+    @*$('document').ready(function () {
+        //$(".cboTC").val("2");
+        //$(".cboTC option[value='2']").attr("selected", true);
+        $('.cboTho').val('@val').prop('selected', true);
+    })*@
+    $('#chitietphieu-table').on('click', '.clickable-row', function (event) {
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+        } else {
+            $(this).addClass('active').siblings().removeClass('active');
+        }
+    });
+    $("form").submit(function (e) {
+        var rowCount = $("#chitietphieu-table tr").length;
+        var numberofContentRow = parseInt(rowCount - 2);
+        //alert(numberofContentRow);
+        if (numberofContentRow == 0) {
+            alert("Vui lòng nhập dữ liệu vào bảng chi tiết!");
+            e.preventDefault();
+        }
+        if ($(".txtMaPhieu").val().length <= 0) {
+            alert("Vui lòng nhập mã số phiếu nhập hàng!");
+            e.preventDefault();
+        }
+        
+    })
+    $("body").delegate("#btnDelete", "click", function () {
+        var row = $(this).closest("tr");
+        var soluong = row.find("input.txtSoluong").attr("value");
+        var phutung = row.find("input.maPT").attr("value");
+        var thanhtien = row.find("input.txtThanhTien").attr("value");
+
+        var tongtien = parseInt($('.lblTongTien').text());
+
+        $('.lblTongTien').text(parseInt(tongtien - thanhtien));
+
+        var conlai = parseInt($('select.cboPT option[value="' + phutung + '"]').attr("title"));
+        var tongso = parseInt(conlai) + parseInt(soluong);
+        $('select.cboPT option[value="' + phutung + '"]').attr("title", tongso)
+        var rowCount = $("#chitietphieu-table tr").length;
+        //alert(rowCount);
+        // $(this).closest("tr");
+        row.remove();
+        CapNhapID();
+
+
+
+    });
+    function cboLoaiPTSelectChanged() {
+        var HieuXe = $('.cboLoaiPT').children("option").filter(":selected").attr("value");
+        $.ajax({
+            url: '/PhieuNhapHang/GetPhuTungByHieuXe/',
+            type: 'post',
+            data: {
+                hieuxe: HieuXe
+            }
+        }).done(function (response) {
+            document.getElementById("cbo").options.length = 0;
+            $(".cboPT").empty();
+            $(".cboPT").html(response);
+            var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
+            var dongia = $('.cboPT').children("option").filter(":selected").attr("itemprop");
+            $('.lblTonKho').text(parseInt(tonkho));
+            $('.txtDonGia').val(parseInt(dongia));
+        });
+    }
+
+    function cboPTSelectChanged() {
+
+        var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
+        var dongia = $('.cboPT').children("option").filter(":selected").attr("itemprop");
+
+        $('.lblTonKho').text(parseInt(tonkho));
+        $('.txtDonGia').val(parseInt(dongia));
+        var soluong = parseInt($('input.txtSoLuong').val());
+
+        var tien = parseInt(soluong * dongia);
+        var thanhtien = parseInt(tien);
+
+        $('.lblThanhTien').text('');
+        $('.lblThanhTien').text(parseInt(thanhtien));
+    }
+
+    $('.txtDonGia').on('input', function (e) {
+        var soluong = parseInt($('input.txtSoLuong').val());
+
+        var dongia = parseInt($('input.txtDonGia').val());
+
+        var tien = parseInt(soluong * dongia);
+        var thanhtien = parseInt(tien);
+
+        $('.lblThanhTien').text('');
+        $('.lblThanhTien').text(parseInt(thanhtien));
+    })
+
+    $('.txtSoLuong').on('input', function (e) {
+        var soluong = parseInt($('input.txtSoLuong').val());
+
+        var dongia = parseInt($('input.txtDonGia').val());
+        //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
+        var tien = soluong * dongia;
+        var thanhtien = parseInt(tien);
+        $('.lblThanhTien').text('');
+        $('.lblThanhTien').text(parseInt(thanhtien));
+        //alert('text changed');
+    })
+    $("#btnAdd").click(function () {
+        var tonkho = parseInt($('.cboPT').children("option").filter(":selected").attr("title"));
+        var soluong = parseInt($('input.txtSoLuong').val());
+
+        var dongia = parseInt($('input.txtDonGia').val());
+        var tongtien = parseInt($('.lblTongTien').text());
+
+        if (isNaN(dongia) == true) {
+            alert("Đơn giá không được để trống!")
+            return;
+        }
+        if (isNaN(soluong) == true) {
+            alert("Số lượng không được để trống!")
+            return;
+        }
+        if (dongia <= 0) {
+            alert("Nhập sai đơn giá!")
+            return;
+        }
+        if (soluong <= 0) {
+            alert("Nhập sai số lượng!")
+            return;
+        }
+
+        var id_cuoi = $("#chitietphieu-table tr").length - 3;
+        //var id_cuoi = $("#chitietphieu-table").find("tr:last-child").attr("data-id");
+
+        //alert(id_cuoi);
+        i = parseInt(id_cuoi) + 1;
+        //alert(i);
+        var tdnoidung = $(".record-template").html();
+
+        var trnoidung = "<tr class=\"record-template\" data-id=\"" + i + "\">" + tdnoidung + "</tr>";
+
+        $("#chitietphieu-table").append(trnoidung);
+
+
+
+        var maphutung = $('.cboPT').children("option").filter(":selected").attr("value");
+        var $maphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.maPT');
+
+        $maphutung.attr("value", maphutung);
+
+        var tenpt = $('.cboPT').children("option").filter(":selected").text();
+
+        var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
+        $tenphutung.attr("value", tenpt);
+
+        var $txtMaTenPT = $("#chitietphieu-table").find("tr:last-child").find('td input.maTenPT');
+        var maTenPT = $('.cboPT').children("option").filter(":selected").attr("id");
+        $txtMaTenPT.attr("value", maTenPT);
+
+
+        var $txtsoluong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtSoluong');
+
+        $txtsoluong.attr("value", soluong);
+
+        var $txtdongia = $("#chitietphieu-table").find("tr:last-child").find('td input.txtdonGia');
+        $txtdongia.attr("value", dongia);
+
+        var thanhtien = parseInt(soluong * dongia);
+        var $txtthanhtien = $("#chitietphieu-table").find("tr:last-child").find('td input.txtThanhTien');
+        $txtthanhtien.attr("value", thanhtien);
+
+        $('.lblTongTien').text(parseInt(tongtien + thanhtien));
+
+        var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
+        $tenphutung.attr("value", tenpt);
+
+        loadIDLENTHE();
+
+    });
+
+    function loadIDLENTHE() {
+        $(".record-template").each(function () {
+
+            var id = $(this).attr("data-id");
+            //alert(id);
+            //alert($(this).find(".txtTenPT").attr("value"));
+
+            var nameDV = "[" + id + "].ID_PHIEUNHAPHANG";
+            var nameMaPhuTung = "[" + id + "].MA_PHUTUNG";
+
+            var nameSoLuong = "[" + id + "].SOLUONG";
+            var nameDonGia = "[" + id + "].DONGIA";
+            var nameThanhTien = "[" + id + "].THANHTIEN";
+
+            $(this).find(".maPDH").attr("name", nameDV);
+            $(this).find(".maPT").attr("name", nameMaPhuTung);
+            //$(this).find(".maTC").attr("name", nameMaTienCong);
+            $(this).find(".txtSoluong").attr("name", nameSoLuong);
+            $(this).find(".txtdonGia").attr("name", nameDonGia);
+            //$(this).find(".txtTienCong").attr("name", nameTienCong);
+            $(this).find(".txtThanhTien").attr("name", nameThanhTien);
+
+        })
+    };
+
+    function CapNhapID() {
+        var id_cuoi = $("#chitietphieu-table").find(".trFirstRow").attr("data-id");
+        //alert(id_cuoi);
+        i = parseInt(id_cuoi);
+        // alert(i);
+        $(".record-template").each(function () {
+
+            var id = i;
+            $(this).attr("data-id", i);
+            var nameDV = "[" + id + "].ID_PHIEUNHAPHANG";
+            var nameMaPhuTung = "[" + id + "].MA_PHUTUNG";
+
+            var nameSoLuong = "[" + id + "].SOLUONG";
+            var nameDonGia = "[" + id + "].DONGIA";
+            var nameThanhTien = "[" + id + "].THANHTIEN";
+
+            $(this).find(".maPDH").attr("name", nameDV);
+            $(this).find(".maPT").attr("name", nameMaPhuTung);
+            //$(this).find(".maTC").attr("name", nameMaTienCong);
+            $(this).find(".txtSoluong").attr("name", nameSoLuong);
+            $(this).find(".txtdonGia").attr("name", nameDonGia);
+            //$(this).find(".txtTienCong").attr("name", nameTienCong);
+            $(this).find(".txtThanhTien").attr("name", nameThanhTien);
+            // alert(i);
+            i++;
+        })
+    }
+    function cboNNCCSelectChanged() {
+        var NNCC = $('.cboNNCC').children("option").filter(":selected").attr("value");
+        $.ajax({
+            url: '/PhieuNhapHang/GetNCCByNhomNCC/',
+            type: 'post',
+            data: {
+                nhomncc: NNCC
+            }
+        }).done(function (response) {
+            $(".cboNCC").empty();
+            $(".cboNCC").html(response);
+        });
+    }
+
+</script>
+
+
+

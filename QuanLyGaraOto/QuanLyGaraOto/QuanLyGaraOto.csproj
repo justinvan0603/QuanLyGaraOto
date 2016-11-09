@@ -459,6 +459,8 @@
     <Content Include="Views\PhieuDatHang\CapNhat.cshtml" />
     <Content Include="Views\PhieuNhapHang\Index.cshtml" />
     <Content Include="Views\PhieuNhapHang\ThemMoi.cshtml" />
+    <Content Include="Views\PhieuNhapHang\CapNhat.cshtml" />
+    <Content Include="Views\PhieuNhapHang\ThemMoiNhapLe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\BaoCaoCongNo.rdlc" />

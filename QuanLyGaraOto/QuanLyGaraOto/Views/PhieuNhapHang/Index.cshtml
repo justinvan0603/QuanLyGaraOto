@@ -2,7 +2,7 @@
 @using PagedList.Mvc;
 @{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
-    ViewBag.Title = "Danh sách phiếu đặt hàng";
+    ViewBag.Title = "Danh sách phiếu nhập hàng";
 }
 <head>
     <title>@ViewBag.Title</title>
@@ -14,7 +14,7 @@
 </style>
 @Html.Raw(TempData["msg"])
 <body>
-    <h3 class="text-center" style="color: green;">Danh sách phiếu đặt hàng</h3>
+    <h3 class="text-center" style="color: green;">Danh sách phiếu nhập hàng</h3>
     @using (@Html.BeginForm("Index", "PhieuNhapHang", FormMethod.Get, new { @class = "form-inline" }))
     {
         <div class="form-inline">
@@ -31,7 +31,7 @@
             </div>
         </div>
     }
-
+    @Html.ActionLink("Thêm", "ThemMoiNhapLe", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
     <div class="table-responsive" style="padding-top: 10px;">
         <table id="phieudh-table" class="table table-bordered table table-hover ">
             <thead style="color: red;">
@@ -59,7 +59,7 @@
                             <td>@item.TenNCC</td>
                             <td>@String.Format("{0:#,###,###,###}", item.PhieuNhapHang.TONGTIEN)</td>
                             <td>
-                                @Html.ActionLink("Xem", "ThemMoi", new { id = @item.PhieuNhapHang.ID_PHIEUNHAPHANG }, new { @class = "btn btn-warning glyphicon glyphicon-eye-open" })
+                                @Html.ActionLink("Sửa", "CapNhat", new { id = @item.PhieuNhapHang.ID_PHIEUNHAPHANG }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
                            </td>
                         </tr>
                     }

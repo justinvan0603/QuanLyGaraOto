@@ -23,7 +23,7 @@ namespace QuanLyGaraOto.Models
     
         public int ID_PHIEUNHAPHANG { get; set; }
         public string MA_PHIEUNHAPHANG { get; set; }
-        public int ID_PHIEUDATHANG { get; set; }
+        public Nullable<int> ID_PHIEUDATHANG { get; set; }
         public Nullable<System.DateTime> NGAYLAP { get; set; }
         public Nullable<int> MA_NV { get; set; }
         public decimal TONGTIEN { get; set; }

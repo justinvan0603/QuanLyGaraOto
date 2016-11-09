@@ -24,8 +24,16 @@ namespace QuanLyGaraOto.Controllers
             {
                 String tennv = context.NHANVIENs.Single(nv => nv.MA_NV == item.MA_NV).HOTEN;
                 String tenncc = context.NHACUNGCAPs.Single(nv => nv.MaNCC == item.MaNCC).TenNCC;
-                String maphieudh =
-                    context.PHIEU_DATHANG.Single(pdh => pdh.Id_PhieuDatHang == item.ID_PHIEUDATHANG).MaPhieuDat;
+                String maphieudh;
+                if (item.ID_PHIEUDATHANG != null)
+                {
+                    maphieudh =
+                        context.PHIEU_DATHANG.Single(pdh => pdh.Id_PhieuDatHang == item.ID_PHIEUDATHANG).MaPhieuDat;
+                }
+                else
+                {
+                    maphieudh = "Không đặt trước";
+                }
                 listPNH.Add(new PhieuNhapHangViewModel(item, maphieudh, tennv, tenncc));
             }
             if (searchString != null)   //Nếu là search, cho hiển thị trang 1. Nếu ko thì hiện lại searchString lần trước (null)
@@ -65,6 +73,7 @@ namespace QuanLyGaraOto.Controllers
             pnhViewModel.ListPhieuNhapHang = listPNH.ToPagedList(pageNumber, pageSize);
             return View(pnhViewModel);
         }
+
         [HttpGet]
         public ActionResult ThemMoi(int idphieuDH = 60)
         {
@@ -74,13 +83,31 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuNH.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuNH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
             vmPhieuNH.ListHieuXe = context.HIEUXEs.ToList();
+            vmPhieuNH.PhieuNhapHang.MA_NV = 1;
+            vmPhieuNH.PhieuNhapHang.NGAYLAP = DateTime.Now.Date;
+            vmPhieuNH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == 1).HOTEN;
             PHIEU_DATHANG pdhPhieuDathang = context.PHIEU_DATHANG.Single(pdh => pdh.Id_PhieuDatHang == idphieuDH);
             vmPhieuNH.PhieuNhapHang.MaNCC = pdhPhieuDathang.MaNCC;
             vmPhieuNH.MaPhieuDatHang = pdhPhieuDathang.MaPhieuDat;
             vmPhieuNH.PhieuNhapHang.ID_PHIEUDATHANG = idphieuDH;
+            return View(vmPhieuNH);
+        }
+
+        [HttpGet]
+        public ActionResult ThemMoiNhapLe()
+        {
+            PhieuNhapHangViewModel vmPhieuNH = new PhieuNhapHangViewModel();
+            GARADBEntities context = new GARADBEntities();
+            vmPhieuNH.ListNhaCungCap = context.NHACUNGCAPs.ToList();
+            vmPhieuNH.ListPhuTung = context.PHUTUNGs.ToList();
+            vmPhieuNH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
+            vmPhieuNH.ListHieuXe = context.HIEUXEs.ToList();
             vmPhieuNH.PhieuNhapHang.MA_NV = 1;
             vmPhieuNH.PhieuNhapHang.NGAYLAP = DateTime.Now.Date;
             vmPhieuNH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == 1).HOTEN;
+            vmPhieuNH.PhieuNhapHang.MaNCC = null;
+            vmPhieuNH.MaPhieuDatHang = "Không đặt trước";
+            vmPhieuNH.PhieuNhapHang.ID_PHIEUDATHANG = null;
             return View(vmPhieuNH);
         }
 
@@ -112,9 +139,9 @@ namespace QuanLyGaraOto.Controllers
             return RedirectToAction("Index");
         }
 
-        /*
+        
         [HttpGet]
-        public ActionResult CapNhat(int id = 50)
+        public ActionResult CapNhat(int id = 2)
         {
             GARADBEntities context = new GARADBEntities();
             PhieuNhapHangViewModel vmPhieuNH = new PhieuNhapHangViewModel();
@@ -125,24 +152,33 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuNH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
             vmPhieuNH.ListHieuXe = context.HIEUXEs.ToList();
             vmPhieuNH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == vmPhieuNH.PhieuNhapHang.MA_NV).HOTEN;
+            if (vmPhieuNH.PhieuNhapHang.ID_PHIEUDATHANG != null)
+            {
+                PHIEU_DATHANG pdhPhieuDathang = context.PHIEU_DATHANG.Single(pdh => pdh.Id_PhieuDatHang == vmPhieuNH.PhieuNhapHang.ID_PHIEUDATHANG);
+                vmPhieuNH.MaPhieuDatHang = pdhPhieuDathang.MaPhieuDat;
+            }
+            else
+            {
+                vmPhieuNH.MaPhieuDatHang = "Không đặt trước";
+            }
+            
             vmPhieuNH.ListChiTietPhieuNH = new List<CHITIET_PHIEUNH>();
             vmPhieuNH.ListChiTietPhieuNH = context.CHITIET_PHIEUNH.Where(ct => ct.ID_PHIEUNHAPHANG == id).ToList();
-
             return View(vmPhieuNH);
         }
+        
         [HttpPost]
         public ActionResult CapNhat(PHIEU_NHAPHANG phieunh)
         {
             GARADBEntities context = new GARADBEntities();
             var target = context.PHIEU_NHAPHANG.Single(pdh => pdh.ID_PHIEUNHAPHANG == phieunh.ID_PHIEUNHAPHANG);
-            target.MA_PHIEUDATHANG = phieunh.MA_PHIEUDATHANG;
             target.MA_PHIEUNHAPHANG = phieunh.MA_PHIEUNHAPHANG;
-            target.MaNCC = phieunh.MaNCC;
             context.SaveChanges();
+            TempData["msg"] = "<script>alert(' " + "Cập nhật thành công" + "!');</script>";
             return RedirectToAction("Index");
         }
-        
 
+        /*
         [ValidateInput(false)]
         [HttpPost]
         public JsonResult Xoa(int id)
@@ -179,6 +215,7 @@ namespace QuanLyGaraOto.Controllers
             }
 
         }
+        */
 
         [HttpPost]
         public JsonResult ThemChiTiet(CHITIET_PHIEUNH chitiet)
@@ -187,8 +224,7 @@ namespace QuanLyGaraOto.Controllers
             context.CHITIET_PHIEUNH.Add(chitiet);
             context.SaveChanges();
             return Json(new { issucess = "1", newid = "1", message = "Thêm chi tiết phiếu thành công!" }, JsonRequestBehavior.AllowGet);
-        }
-        */
+        }       
 
         [HttpPost]
         public ActionResult GetNCCByNhomNCC(string nhomncc)

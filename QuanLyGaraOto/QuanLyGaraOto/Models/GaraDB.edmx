@@ -217,7 +217,7 @@
           </Key>
           <Property Name="ID_PHIEUNHAPHANG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MA_PHIEUNHAPHANG" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="ID_PHIEUDATHANG" Type="int" Nullable="false" />
+          <Property Name="ID_PHIEUDATHANG" Type="int" />
           <Property Name="NGAYLAP" Type="date" />
           <Property Name="MA_NV" Type="int" />
           <Property Name="TONGTIEN" Type="money" Nullable="false" />
@@ -522,7 +522,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PNH_PDH">
-          <End Role="PHIEU_DATHANG" Type="Self.PHIEU_DATHANG" Multiplicity="1" />
+          <End Role="PHIEU_DATHANG" Type="Self.PHIEU_DATHANG" Multiplicity="0..1" />
           <End Role="PHIEU_NHAPHANG" Type="Self.PHIEU_NHAPHANG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PHIEU_DATHANG">
@@ -1297,7 +1297,7 @@
           </Key>
           <Property Name="ID_PHIEUNHAPHANG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MA_PHIEUNHAPHANG" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ID_PHIEUDATHANG" Type="Int32" Nullable="false" />
+          <Property Name="ID_PHIEUDATHANG" Type="Int32" />
           <Property Name="NGAYLAP" Type="DateTime" Precision="0" />
           <Property Name="MA_NV" Type="Int32" />
           <Property Name="TONGTIEN" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
@@ -1344,7 +1344,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PNH_PDH">
-          <End Type="GARADBModel.PHIEU_DATHANG" Role="PHIEU_DATHANG" Multiplicity="1" />
+          <End Type="GARADBModel.PHIEU_DATHANG" Role="PHIEU_DATHANG" Multiplicity="0..1" />
           <End Type="GARADBModel.PHIEU_NHAPHANG" Role="PHIEU_NHAPHANG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PHIEU_DATHANG">
