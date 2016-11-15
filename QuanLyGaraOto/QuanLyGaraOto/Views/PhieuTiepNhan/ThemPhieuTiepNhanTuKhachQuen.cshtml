@@ -1,0 +1,65 @@
+﻿@using PagedList.Mvc;
+@model QuanLyGaraOto.ViewModel.PhieuTiepNhanViewModel
+@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Phiếu tiếp nhận mới";
+}
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+
+<h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU TIẾP NHẬN MỚI</h3>
+@using (Html.BeginForm("ThemPhieuTiepNhanTuKhachQuen", "PhieuTiepNhan", FormMethod.Post, new { id = "#form_themphieutiepnhan" }))
+{
+    <div class="form-group ">
+        <label class="input-sm"> Ngày lập :</label>
+        <input class="form-control input-sm" type="datetime" readonly="readonly" name="ngayLap" value="@DateTime.Now" />
+    </div>
+    <h4> THÔNG TIN KHÁCH HÀNG</h4>
+    <div class="form-group">
+        <label class="input-sm">Khách hàng :</label>
+        <select id="customer_combobox" name="maKhachHang" class="cboNhom form-control input-sm" onchange="onComboboxKhachHangChanged()">
+            @foreach (var customer in Model.danhSachKhachHang)
+            {
+
+                <option value="@customer.MA_KH">@customer.TEN_KH</option>
+            }
+        </select>
+    </div>
+    <h4>THÔNG TIN XE</h4>
+    <div class="form-group">
+        <label class="input-sm">Xe :</label>
+        <select id="selected_vehicle" name="bienSoXe" class="cboNhom form-control input-sm">
+            @foreach (var vehicle in Model.danhsachXe)
+            {
+                <option value="@vehicle.BS_XE">@vehicle.BS_XE</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="tinhTrang" class="input-sm">Tình trạng xe :</label>
+        <textarea class="form-control" rows="5" id="tinhTrang" name="tinhTrang"></textarea>
+    </div>
+    <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span>Lập phiếu tiếp nhận</button>
+}
+<script>
+    // loc danh sach xe theo ma khach hang
+    function onComboboxKhachHangChanged() {
+        var selectedCustomerId = $('#customer_combobox').children("option").filter(":selected").attr("value");
+        $.ajax({
+            url: '/PhieuTiepNhan/getVehiclesByCustomerId/',
+            type: 'post',
+            data: {
+                customerId: selectedCustomerId
+            }
+        }).done(function (response) {
+            $("#selected_vehicle").empty();
+            $("#selected_vehicle").html(response);
+        });
+    }
+</script>
+
+
+
+
+

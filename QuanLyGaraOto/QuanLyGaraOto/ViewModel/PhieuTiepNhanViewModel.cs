@@ -20,6 +20,16 @@ namespace QuanLyGaraOto.ViewModel
         public NhapPhieuTiepNhanModel selectedVoucher;
 
         /// <summary>
+        /// Thong tin phieu tiep nhan moi cua khach hang lan dau tien su dung dich vu GARA
+        /// </summary>
+        public ThemPhieuTiepNhanModel thongTinPhieuMoi { get; set; }
+
+        /// <summary>
+        ///  Chua thong tin phieu tiep nhan moi tu khach quen
+        /// </summary>
+        public ThemPhieuTiepNhanTuKhachQuenModel thongTinPhieuMoiTuKhachQuen { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         public PHIEU_TIEPNHAN selectedPhieuTiepNhan { get; set; }
@@ -44,5 +54,7 @@ namespace QuanLyGaraOto.ViewModel
         /// Danh sach xe trong database
         /// </summary>
         public List<XE> danhsachXe { get; set; }
+
+        public GARADBEntities service { get; set; }
     }
 }

@@ -69,7 +69,8 @@ namespace QuanLyGaraOto.Controllers
                         case 2: // loc theo ngay lap hen tra xe
                             {
                                 listViewModels = listViewModels.Where(c =>
-                                    c.ngayTra.Value.Date.Equals(DateTime.Parse(searchString).Date)).ToList(); break;
+                                    c.ngayTra.Value.Date.Equals(DateTime.Parse(searchString).Date)).ToList();
+                                break;
                             }
 
                         default: { break; }
@@ -85,6 +86,7 @@ namespace QuanLyGaraOto.Controllers
 
             PhieuTiepNhanViewModel viewModel = new PhieuTiepNhanViewModel(); // instantiate view model 
             viewModel.danhSachPhieuTiepNhan = listViewModels.ToPagedList(pageNumber, pageSize);
+            viewModel.service = this.service;
             // viewModel.danhSachHieuXe = this.service.HIEUXEs.ToList();
             // viewModel.danhsachXe = this.service.XEs.ToList();
             //viewModel.danhSachKhachHang = this.service.KHACHHANGs.ToList();
@@ -124,5 +126,161 @@ namespace QuanLyGaraOto.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult ThemPhieuTiepNhan()
+        {
+            PhieuTiepNhanViewModel viewModel = new PhieuTiepNhanViewModel();
+            viewModel.thongTinPhieuMoi = new ThemPhieuTiepNhanModel();
+            viewModel.danhSachHieuXe = this.service.HIEUXEs.ToList();
+            return View(viewModel);
+        }
+
+
+        [HttpPost]
+        public ActionResult ThemPhieuTiepNhan(ThemPhieuTiepNhanModel infor)
+        {
+            // kiem tra du lieu xe da co trong database hay chua
+            if (this.service.XEs.Where(e => e.BS_XE == infor.bienSoXe).Count() > 0)
+            {
+                return View("DuplicatedVehicleExceptionView");
+            }
+
+            if (ModelState.IsValid)
+            {
+
+                // luu thong tin khach hang va xe
+                var khachHang = new KHACHHANG();
+                khachHang.TEN_KH = infor.tenKhachHang;
+                khachHang.SDT = infor.dienThoai;
+                khachHang.DIACHI = infor.diaChi;
+                khachHang.CMND = infor.soCmnd;
+                // luu thong tin khach hang
+                this.service.KHACHHANGs.Add(khachHang);
+                this.service.SaveChanges();
+
+                // thong tin xe
+                var xe = new XE();
+                xe.BS_XE = infor.bienSoXe;
+                xe.HIEU_XE = infor.hieuXe;
+                xe.MA_KH = khachHang.MA_KH;
+                xe.HINHTHUC = infor.hinhThuc;
+                xe.NGAY_TIEPNHAN = infor.ngayTiepNhan;
+                xe.SO_KHUNG = infor.soKhung;
+                xe.SO_KM = infor.soKm;
+                xe.SO_MAY = infor.soMay;
+                xe.TINH_TRANG = infor.tinhTrang;
+
+
+
+                // lap phieu tiep nhan
+                var phieuTiepNhan = new PHIEU_TIEPNHAN();
+                phieuTiepNhan.BIENSO_XE = infor.bienSoXe;
+                phieuTiepNhan.MA_KH = khachHang.MA_KH;
+                phieuTiepNhan.MA_NV = 1; // test
+                phieuTiepNhan.NGAYLAP = infor.ngayTiepNhan;
+                phieuTiepNhan.TINHTRANG = infor.tinhTrang;
+
+
+
+
+                this.service.XEs.Add(xe);
+                this.service.PHIEU_TIEPNHAN.Add(phieuTiepNhan);
+                this.service.SaveChanges();
+
+                // tro ve man hinh danh sach
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                PhieuTiepNhanViewModel viewModel = new PhieuTiepNhanViewModel();
+
+                viewModel.thongTinPhieuMoi = infor;
+                viewModel.danhSachHieuXe = this.service.HIEUXEs.ToList();
+                return View(viewModel);
+            }
+
+        }
+
+        /// <summary>
+        /// Them phieu tiep nhan tu thong tin khach quen
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult ThemPhieuTiepNhanTuKhachQuen()
+        {
+            PhieuTiepNhanViewModel viewModel = new PhieuTiepNhanViewModel();
+            viewModel.thongTinPhieuMoi = new ThemPhieuTiepNhanModel();
+            viewModel.thongTinPhieuMoiTuKhachQuen = new ThemPhieuTiepNhanTuKhachQuenModel();
+            // load danh sach khach hang
+            viewModel.danhSachKhachHang = this.service.KHACHHANGs.ToList();
+            viewModel.danhsachXe = this.service.XEs.ToList();
+            return View(viewModel);
+        }
+
+        /// <summary>
+        /// loc danh sach xe theo ma khach hang va tra ve View
+        /// </summary>
+        /// <param name="customerId">Id cua khach hang ma nguoi dung chon tren View</param>
+        /// <returns>Danh sach ung voi id khach hang</returns>
+        [HttpPost]
+        public ActionResult getVehiclesByCustomerId(int customerId)
+        {
+            var listOfVehicles = this.service.XEs.Where(e => e.MA_KH == customerId && e.HINHTHUC == false).Select(pt => "<option value='"
+                + pt.BS_XE + "' title='" +
+                pt.BS_XE + "' id='" + pt.BS_XE + "' itemscope='" + pt.BS_XE + "' itemprop='" +
+                pt.BS_XE + "'>" + pt.BS_XE + "</option>");
+            return Content(String.Join("", listOfVehicles));
+        }
+
+
+        [HttpPost]
+        public ActionResult ThemPhieuTiepNhanTuKhachQuen(ThemPhieuTiepNhanTuKhachQuenModel infor)
+        {
+
+            // tien hanh phieu phieu tiep nhan
+            PHIEU_TIEPNHAN PhieuTiepNhan = new PHIEU_TIEPNHAN();
+            PhieuTiepNhan.NGAYLAP = infor.ngayLap;
+            PhieuTiepNhan.BIENSO_XE = infor.bienSoXe;
+            PhieuTiepNhan.MA_KH = infor.maKhachHang;
+            PhieuTiepNhan.MA_NV = 1; // Code for testing
+            PhieuTiepNhan.TINHTRANG = infor.tinhTrang;
+            // PhieuTiepNhan.MASOCHO = 
+            this.service.PHIEU_TIEPNHAN.Add(PhieuTiepNhan);
+            this.service.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult DuplicatedVehicleExceptionView()
+        {
+            return View();
+        }
+
+
+        /// <summary>
+        /// Xoa phieu tiep nhan 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Xoa(int id)
+        {
+            try
+            {
+                PHIEU_TIEPNHAN phieuTiepNhan = this.service.PHIEU_TIEPNHAN.Where(e => e.MA_PHIEUTIEPNHAN == id).FirstOrDefault();
+                this.service.PHIEU_TIEPNHAN.Remove(phieuTiepNhan);
+                this.service.SaveChanges();
+                // tra ve 
+                return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+
+                return Json(new { value = "-1", message = "SYSTEM ERROR !" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
     }
+
 }

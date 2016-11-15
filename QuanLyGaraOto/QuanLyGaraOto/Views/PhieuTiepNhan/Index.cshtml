@@ -22,7 +22,6 @@
         <div class="form-group">
             <label for="searchOption">Tìm theo:</label>
             @Html.DropDownList("searchOption", Model.filterOptions, new { @class = "form-control" })
-            @* @Html.DropDownListFor(m => m.selectedValue, Model.listSearchOption, new { @class = "form-control" })*@
         </div>
         <div class="form-group">
             <label for="searchOption">Giá trị:</label>
@@ -33,7 +32,10 @@
         </div>
     </div>
 }
-@Html.ActionLink("Thêm mới", "ThemPhieuTiepNhan", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
+<div class="row">
+    @Html.ActionLink("Thêm mới", "ThemPhieuTiepNhan", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
+    @Html.ActionLink("Từ khách quen", "ThemPhieuTiepNhanTuKhachQuen", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
+</div>
 
 <div class="table-responsive" style="padding-top:10px;">
     <table id="phieutiepnhan_table" class="table table-bordered table table-hover" style="text-align : center">
@@ -63,12 +65,16 @@
                             <a href="/Xe/SuaThongTinXe?bienSoXe=@item.bienSoXe">@item.bienSoXe</a>
                         </td>
                         <td>@item.tinhTrang</td>
-                        <td>@String.Format("{0:dd/MM/yyyy}", item.ngayTra.Value.Date)</td>
+                        <td>@(item.ngayTra != null ? String.Format("{0:dd/MM/yyyy}", item.ngayTra.Value.Date) : string.Empty)</td>
                         <td>@item.maSoCho</td>
-                        <td>
-                            @Html.ActionLink("Sửa", "SuaPhieuTiepNhan", new { maPhieu = @item.maPhieuTiepNhan }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
-                            <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+                        <!-- Chi cho phep xoa khi phieu tiep nhan chua duoc co phieu dich vu-->
 
+                        <td>
+                            @Html.ActionLink("Sửa", "SuaPhieuTiepNhan", new { maPhieu = @item.maPhieuTiepNhan }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
+                            @if (Model.service.PHIEU_DICHVU.Where(e => e.MAPHIEU_TIEPNHAN == item.maPhieuTiepNhan).Count() == 0)
+                            {
+                                <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+                            }
                         </td>
                     </tr>
                 }
@@ -94,8 +100,6 @@
     //
     $(document).ready(function () {
         $("#button_delete").on("click", function (e) {
-
-            e.preventDefault();
             // tim cot co id = 'maPhieuTiepNhan'
             var $item = $(this).closest("tr").find("#maPhieuTiepNhan").text();
             var itemid = $item.valueOf();
@@ -106,7 +110,7 @@
             $.ajax({
                 url: '/PhieuTiepNhan/Xoa/',
 
-                data: JSON.stringify({ maPhieu: itemid }), // parameter
+                data: JSON.stringify({ id: itemid }), // parameter
 
                 type: 'POST',
 
@@ -126,7 +130,6 @@
                 if (isSuccess == "1") {
                     row.remove();
                     alert(message);
-                    // window.location.replace("index");
                 }
                 else {
                     alert(message);

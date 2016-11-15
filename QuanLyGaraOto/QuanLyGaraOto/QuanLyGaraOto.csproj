@@ -310,6 +310,8 @@
     <Compile Include="ViewModel\SuaNhanVienViewModel.cs" />
     <Compile Include="ViewModel\SuaPhuTungViewModel.cs" />
     <Compile Include="ViewModel\ThamSoViewModel.cs" />
+    <Compile Include="ViewModel\ThemPhieuTiepNhanModel.cs" />
+    <Compile Include="ViewModel\ThemPhieuTiepNhanTuKhachQuenModel.cs" />
     <Compile Include="ViewModel\ThoViewModel.cs" />
     <Compile Include="ViewModel\XeViewModel.cs" />
   </ItemGroup>
@@ -461,6 +463,9 @@
     <Content Include="Views\PhieuNhapHang\ThemMoi.cshtml" />
     <Content Include="Views\PhieuNhapHang\CapNhat.cshtml" />
     <Content Include="Views\PhieuNhapHang\ThemMoiNhapLe.cshtml" />
+    <Content Include="Views\PhieuTiepNhan\DuplicatedVehicleExceptionView.cshtml" />
+    <Content Include="Views\PhieuTiepNhan\ThemPhieuTiepNhan.cshtml" />
+    <Content Include="Views\PhieuTiepNhan\ThemPhieuTiepNhanTuKhachQuen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\BaoCaoCongNo.rdlc" />
