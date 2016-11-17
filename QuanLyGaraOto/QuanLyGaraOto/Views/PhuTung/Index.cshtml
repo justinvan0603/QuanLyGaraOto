@@ -14,8 +14,8 @@
     }
 </style>
 <body>
-    <h3 class="text-center" style="color: green;">Danh sách phụ tùng</h3>
-
+<h3 class="text-center" style="color: green;">Danh sách phụ tùng</h3>
+    @Html.Raw(TempData["msg"])
     @using (@Html.BeginForm("Index", "PhuTung", FormMethod.Get, new { @class = "form-inline" }))
     {
         <div class="form-inline">
@@ -28,98 +28,102 @@
                 @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+                <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
             </div>
         </div>
     }
-
-    @Html.ActionLink("Thêm", "ThemMoi", null, new { @class = "btn btn-primary glyphicon glyphicon-plus" })
-    <div class="table-responsive" style="padding-top:10px;">
-        <table id="pt-table" class="table table-bordered table table-hover ">
-            <thead style="color:red;">
-                <tr>
-                    <th style="display: none">Id</th>
-                    <th>@Html.ActionLink("Mã phụ tùng", "Index", new { sortOrder = ViewBag.IDCodeSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
-                    <th>@Html.ActionLink("Tên phụ tùng", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
-                    <th>Hiệu xe</th>
-                    <th>Số lượng tồn</th>
-                    <th>Đơn giá xuất</th>
-                    <th>Thời gian BH (tháng)</th>
-                    <th>Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    foreach (var item in Model.ListPhuTung.ToList())
-                    {
-                        <tr class="clickable-row">
-                            <td id="id" style="display: none">@item.ID</td>
-                            <td> @item.MA_PHUTUNG</td>
-                            <td> @item.TEN_PHUTUNG</td>
-                            <td> @item.MA_HIEUXE</td>
-                            <td> @item.SOLUONGTON</td>
-                            <td> @item.DONGIAXUAT</td>
-                            <td> @item.TG_BAOHANH</td>
-                            <td>
-                                @Html.ActionLink("Sửa", "CapNhat", new { id = @item.ID }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
-                                <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
-                            </td>
-                        </tr>
+    <a href="../PhuTung/ThemMoi" class="btn btn-primary" role="button" style="margin-top: 5px"><span class="glyphicon glyphicon-plus"></span>Thêm mới</a>
+    @*@Html.ActionLink("Thêm", "ThemMoi", null, new { @class = "btn btn-primary glyphicon glyphicon-plus" })*@
+    <div class="table-responsive" style="padding-top: 10px;">
+        <div class="row">
+            <div class="col-sm-11">
+                <table id="pt-table" class="table table-bordered table table-hover ">
+                    <thead style="color: red; background-color: white">
+                    <tr>
+                        <th style="display: none">Id</th>
+                        <th>@Html.ActionLink("Mã phụ tùng", "Index", new {sortOrder = ViewBag.IDCodeSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption})</th>
+                        <th>@Html.ActionLink("Tên phụ tùng", "Index", new {sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption})</th>
+                        <th>Hiệu xe</th>
+                        <th>Số lượng tồn</th>
+                        <th>Đơn giá xuất</th>
+                        <th>Thời gian BH (tháng)</th>
+                        <th>Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @{
+                        foreach (var item in Model.ListPhuTung.ToList())
+                        {
+                            <tr class="clickable-row">
+                                <td id="id" style="display: none">@item.ID</td>
+                                <td> @item.MA_PHUTUNG</td>
+                                <td> @item.TEN_PHUTUNG</td>
+                                <td> @item.MA_HIEUXE</td>
+                                <td> @item.SOLUONGTON</td>
+                                <td> @item.DONGIAXUAT</td>
+                                <td> @item.TG_BAOHANH</td>
+                                <td>
+                                    @Html.ActionLink("Sửa", "CapNhat", new {id = @item.ID}, new {@class = "btn btn-warning glyphicon glyphicon-pencil"})
+                                    <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+                                </td>
+                            </tr>
+                        }
                     }
-                }
-            </tbody>
-        </table>
-        Trang @(Model.ListPhuTung.PageCount < Model.ListPhuTung.PageNumber ? 0 : Model.ListPhuTung.PageNumber) của @Model.ListPhuTung.PageCount
+                    </tbody>
+                </table>
+            </div>
+            </div>
+                Trang @(Model.ListPhuTung.PageCount < Model.ListPhuTung.PageNumber ? 0 : Model.ListPhuTung.PageNumber) của @Model.ListPhuTung.PageCount
 
-        @Html.PagedListPager(Model.ListPhuTung, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
-    </div>
+                @Html.PagedListPager(Model.ListPhuTung, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
+            </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script>
-    $('#pt-table').on('click', '.clickable-row', function (event) {
-        if ($(this).hasClass('active')) {
-            $(this).removeClass('active');
-        } else {
-            $(this).addClass('active').siblings().removeClass('active');
-        }
-    });
+            <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+            <script>
+                $('#pt-table').on('click', '.clickable-row', function (event) {
+                    if ($(this).hasClass('active')) {
+                        $(this).removeClass('active');
+                    } else {
+                        $(this).addClass('active').siblings().removeClass('active');
+                    }
+                });
 
-    $(document).ready(function ()
-    {
-        $(".btnDelete").on("click", function (e)
-        {
-            e.preventDefault();
-            var $item = $(this).closest("tr").find("#id").text();
-            var itemid = $item.valueOf();
-            var isSucess = -1;
-            var message = "";
-            var row = $(this).closest("tr");
+                $(document).ready(function () {
+                    $(".btnDelete").on("click", function (e) {
+                        e.preventDefault();
+                        var $item = $(this).closest("tr").find("#id").text();
+                        var itemid = $item.valueOf();
+                        var isSucess = -1;
+                        var message = "";
+                        var row = $(this).closest("tr");
 
-            $.ajax({
-                url: '/PhuTung/Xoa/',
-                data: JSON.stringify({id:itemid}),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function (result) {
-                    isSuccess = result.value;
-                    message = result.message;
-                },
-                error: function (result) {
-                    isSuccess = result.value;
-                    message = result.message;
-                }
-            }).done(function () {
-                if (isSuccess == "1") {
-                    row.remove();
-                    alert(message);
-                }
-                else {
-                    alert(message);
-                }
-            });
-        });
-    });
-    </script>
+                        $.ajax({
+                            url: '/PhuTung/Xoa/',
+                            data: JSON.stringify({ id: itemid }),
+                            type: 'POST',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (result) {
+                                isSuccess = result.value;
+                                message = result.message;
+                            },
+                            error: function (result) {
+                                isSuccess = result.value;
+                                message = result.message;
+                            }
+                        }).done(function () {
+                            if (isSuccess == "1") {
+                                row.remove();
+                                //alert(message);
+                                location.reload();
+                            }
+                            else {
+                                //alert(message);
+                                location.reload();
+                            }
+                        });
+                    });
+                });
+            </script>
 
 </body>
 

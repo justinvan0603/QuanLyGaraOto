@@ -130,11 +130,11 @@ namespace QuanLyGaraOto.Controllers
                     }                   
                 }
                 context.SaveChanges();
-                TempData["msg"] = "<script>alert('Đã thêm thành công');</script>";
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                TempData["msg"] = "<script>alert(' "+ e.Message + "!');</script>";
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Đã có lỗi xảy ra! Vui lòng thử lại! </div> </div> </div>";
             }
             return RedirectToAction("Index");
         }
@@ -170,11 +170,18 @@ namespace QuanLyGaraOto.Controllers
         [HttpPost]
         public ActionResult CapNhat(PHIEU_NHAPHANG phieunh)
         {
-            GARADBEntities context = new GARADBEntities();
-            var target = context.PHIEU_NHAPHANG.Single(pdh => pdh.ID_PHIEUNHAPHANG == phieunh.ID_PHIEUNHAPHANG);
-            target.MA_PHIEUNHAPHANG = phieunh.MA_PHIEUNHAPHANG;
-            context.SaveChanges();
-            TempData["msg"] = "<script>alert(' " + "Cập nhật thành công" + "!');</script>";
+            try
+            {
+                GARADBEntities context = new GARADBEntities();
+                var target = context.PHIEU_NHAPHANG.Single(pdh => pdh.ID_PHIEUNHAPHANG == phieunh.ID_PHIEUNHAPHANG);
+                target.MA_PHIEUNHAPHANG = phieunh.MA_PHIEUNHAPHANG;
+                context.SaveChanges();
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Cập nhật thành công! </div> </div> </div>";
+            }
+            catch (Exception)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Đã có lỗi xảy ra! Vui lòng thử lại! </div> </div> </div>";
+            }
             return RedirectToAction("Index");
         }
 
@@ -223,6 +230,7 @@ namespace QuanLyGaraOto.Controllers
             GARADBEntities context = new GARADBEntities();
             context.CHITIET_PHIEUNH.Add(chitiet);
             context.SaveChanges();
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm chi tiết phiếu thành công! </div> </div> </div>";
             return Json(new { issucess = "1", newid = "1", message = "Thêm chi tiết phiếu thành công!" }, JsonRequestBehavior.AllowGet);
         }       
 

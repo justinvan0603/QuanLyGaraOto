@@ -36,8 +36,8 @@ namespace QuanLyGaraOto.Models
         public virtual THO THO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEU_THUTIEN> PHIEU_THUTIEN { get; set; }
+        public virtual NHANVIEN NHANVIEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_PHIEUDV> CHITIET_PHIEUDV { get; set; }
-        public virtual NHANVIEN NHANVIEN { get; set; }
     }
 }

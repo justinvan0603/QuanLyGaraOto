@@ -15,7 +15,6 @@
         dongia = Math.Round(listPT[0].DONGIAXUAT.Value);
     }
 }
-@Html.Raw(TempData["msg"])
 <head>
     <title>@ViewBag.Title</title>
 </head>
@@ -45,7 +44,8 @@
         border: 0px !important;
     }
 </style>
-<h3 class="text-center" style="color:green;">Cập nhật phiếu đặt hàng</h3>
+<h3 class="text-center" style="color: green;">Cập nhật phiếu đặt hàng</h3>
+@Html.Raw(TempData["msg"])
 @using (@Html.BeginForm("CapNhat", "PhieuDatHang", FormMethod.Post, new { @class = "form-horizontal" }))
 {
 
@@ -303,10 +303,12 @@
         }).done(function () {
             if (isSuccess == "1") {
                 row.remove();
-                alert(message);
+                //alert(message);
+                location.reload();
             }
             else {
-                alert(message);
+                //alert(message);
+                location.reload();
             }
         });
 
@@ -487,10 +489,12 @@
 
         }).done(function () {
             if (isSuccess == "1") {
-                alert(message);
+                //alert(message);
+                location.reload();
             }
             else {
-                alert(message);
+                //alert(message);
+                location.reload();
             }
         });
     });

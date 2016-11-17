@@ -101,11 +101,11 @@ namespace QuanLyGaraOto.Controllers
                     }                   
                 }
                 context.SaveChanges();
-                TempData["msg"] = "<script>alert('Đã thêm thành công');</script>";
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
             }
             catch (Exception)
             {
-                TempData["msg"] = "<script>alert('Đã xảy ra lỗi. Vui lòng thử lại!');</script>";
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Đã có lỗi xảy ra! Vui lòng thử lại! </div> </div> </div>";
             }
             return RedirectToAction("Index");
         }
@@ -130,12 +130,20 @@ namespace QuanLyGaraOto.Controllers
         [HttpPost]
         public ActionResult CapNhat(PHIEU_DATHANG phieudh)
         {
-            GARADBEntities context = new GARADBEntities();
-            var target = context.PHIEU_DATHANG.Single(pdh => pdh.Id_PhieuDatHang == phieudh.Id_PhieuDatHang);
-            target.MaPhieuDat = phieudh.MaPhieuDat;
-            target.NgayGiao = phieudh.NgayGiao;
-            target.MaNCC = phieudh.MaNCC;
-            context.SaveChanges();
+            try
+            {
+                GARADBEntities context = new GARADBEntities();
+                var target = context.PHIEU_DATHANG.Single(pdh => pdh.Id_PhieuDatHang == phieudh.Id_PhieuDatHang);
+                target.MaPhieuDat = phieudh.MaPhieuDat;
+                target.NgayGiao = phieudh.NgayGiao;
+                target.MaNCC = phieudh.MaNCC;
+                context.SaveChanges();
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Cập nhật thành công! </div> </div> </div>";
+            }
+            catch (Exception)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Đã có lỗi xảy ra! Vui lòng thử lại! </div> </div> </div>";
+            }
             return RedirectToAction("Index");
         }
         
@@ -150,10 +158,12 @@ namespace QuanLyGaraOto.Controllers
                 var target = context.PHIEU_DATHANG.Find(id);
                 context.PHIEU_DATHANG.Remove(target);
                 context.SaveChanges();
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xoá thành công! </div> </div> </div>";
                 return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể xóa do đã có phiếu nhập hàng được thực hiện dựa trên phiếu này! </div> </div> </div>";
                 return Json(new { value = "-1", message = "Không thể xóa do phiếu đặt hàng này!" }, JsonRequestBehavior.AllowGet);
             }
 
@@ -182,10 +192,12 @@ namespace QuanLyGaraOto.Controllers
                 var target = context.CHITIET_PHIEUDATHANG.Single(ct => ct.ID == id);
                 context.CHITIET_PHIEUDATHANG.Remove(target);
                 context.SaveChanges();
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xoá chi tiết phiếu thành công! </div> </div> </div>";
                 return Json(new { value = "1", message = "Xóa thành công!" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Đã có lỗi khi xoá. Vui lòng thử lại. </div> </div> </div>";
                 return Json(new { value = "-1", message = "Không thể xóa chi tiết phiếu!" }, JsonRequestBehavior.AllowGet);
             }
 
@@ -196,6 +208,7 @@ namespace QuanLyGaraOto.Controllers
             GARADBEntities context = new GARADBEntities();
             context.CHITIET_PHIEUDATHANG.Add(chitiet);
             context.SaveChanges();
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm chi tiết phiếu thành công! </div> </div> </div>";
             return Json(new { issucess = "1", newid = "1", message = "Thêm chi tiết phiếu thành công!" }, JsonRequestBehavior.AllowGet);
         }
     }

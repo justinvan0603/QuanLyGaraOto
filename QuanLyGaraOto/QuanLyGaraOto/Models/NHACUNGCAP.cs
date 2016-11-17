@@ -14,10 +14,22 @@ namespace QuanLyGaraOto.Models
     
     public partial class NHACUNGCAP
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public NHACUNGCAP()
+        {
+            this.PHIEU_DATHANG = new HashSet<PHIEU_DATHANG>();
+            this.PHIEU_NHAPHANG = new HashSet<PHIEU_NHAPHANG>();
+        }
+    
         public int MaNCC { get; set; }
         public string TenNCC { get; set; }
         public string DiaChi { get; set; }
         public string SDT { get; set; }
         public string NhomNCC { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PHIEU_DATHANG> PHIEU_DATHANG { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PHIEU_NHAPHANG> PHIEU_NHAPHANG { get; set; }
     }
 }

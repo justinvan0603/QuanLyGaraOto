@@ -12,9 +12,9 @@
         width: auto !important;
     }
 </style>
-@Html.Raw(TempData["msg"])
 <body>
-    <h3 class="text-center" style="color: green;">Danh sách phiếu đặt hàng</h3>
+<h3 class="text-center" style="color: green;">Danh sách phiếu đặt hàng</h3>
+    @Html.Raw(TempData["msg"])
     @using (@Html.BeginForm("Index", "PhieuDatHang", FormMethod.Get, new { @class = "form-inline" }))
     {
         <div class="form-inline">
@@ -27,101 +27,109 @@
                 @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-info" style="margin-top: 25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+                <button type="submit" class="btn btn-info" style="margin-top: 25px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
             </div>
         </div>
     }
-    @Html.ActionLink("Thêm", "ThemMoi", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
+@*@Html.ActionLink("Thêm", "ThemMoi", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })*@
+    <a href="../PhieuDatHang/ThemMoi" class="btn btn-primary" role="button" style="margin-top: 5px"><span class="glyphicon glyphicon-plus"></span>Thêm mới</a>
     <div class="table-responsive" style="padding-top: 10px;">
-        <table id="phieudh-table" class="table table-bordered table table-hover ">
-            <thead style="color: red;">
-                <tr>
-                    <th style="display: none">Id</th>
-                    <th>Mã phiếu đặt</th>
-                    <th>Tên nhân viên</th>
-                    <th>@Html.ActionLink("Ngày đặt", "Index", new { sortOrder = ViewBag.DateDatOrderSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
-                    <th>@Html.ActionLink("Ngày hẹn giao", "Index", new { sortOrder = ViewBag.DateGiaoOrderSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
-                    <th>Nhà cung cấp</th>
-                    <th>Tổng tiền</th>
-                    <th>Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    foreach (var item in Model.ListPhieuDathang.ToList())
-                    {
-                        <tr class="clickable-row">
-                            <td id="id" style="display: none">@item.PhieuDatHang.Id_PhieuDatHang</td>
-                            <td> @item.PhieuDatHang.MaPhieuDat</td>
-                            <td>@item.TenNV</td>
-                            <td>@String.Format("{0:dd/MM/yyyy}", item.PhieuDatHang.NgayDat)</td>
-                            <td>@String.Format("{0:dd/MM/yyyy}", item.PhieuDatHang.NgayGiao)</td>
-                            <td>@item.TenNCC</td>
-                            <td>@String.Format("{0:#,###,###,###}", item.PhieuDatHang.TongTien)</td>
-                            <td>
-                                <a class="btnCreateReceiptVoucher btn btn-primary glyphicon glyphicon-notes" href="@Url.Action("ThemMoi", "PhieuNhapHang", new { idphieuDH = @item.PhieuDatHang.Id_PhieuDatHang})">Lập phiếu nhập hàng</a>
-                                @Html.ActionLink("Sửa", "CapNhat", new {id = @item.PhieuDatHang.Id_PhieuDatHang}, new {@class = "btn btn-warning glyphicon glyphicon-pencil"})
-                                <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
-                            </td>
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="phieudh-table" class="table table-bordered table table-hover ">
+                    <thead style="color: red; background-color: white">
+                        <tr>
+                            <th style="display: none">Id</th>
+                            <th>Mã phiếu đặt</th>
+                            <th>Tên nhân viên</th>
+                            <th>@Html.ActionLink("Ngày đặt", "Index", new { sortOrder = ViewBag.DateDatOrderSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
+                            <th>@Html.ActionLink("Ngày hẹn giao", "Index", new { sortOrder = ViewBag.DateGiaoOrderSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
+                            <th>Nhà cung cấp</th>
+                            <th>Tổng tiền</th>
+                            <th>Thao tác</th>
                         </tr>
-                    }
-                }
-            </tbody>
-        </table>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model.ListPhieuDathang.ToList())
+                            {
+                                <tr class="clickable-row">
+                                    <td id="id" style="display: none">@item.PhieuDatHang.Id_PhieuDatHang</td>
+                                    <td> @item.PhieuDatHang.MaPhieuDat</td>
+                                    <td>@item.TenNV</td>
+                                    <td>@String.Format("{0:dd/MM/yyyy}", item.PhieuDatHang.NgayDat)</td>
+                                    <td>@String.Format("{0:dd/MM/yyyy}", item.PhieuDatHang.NgayGiao)</td>
+                                    <td>@item.TenNCC</td>
+                                    <td>@String.Format("{0:#,###,###,###}", item.PhieuDatHang.TongTien)</td>
+                                    <td>
+                                        @*<a class="btnCreateReceiptVoucher btn btn-primary glyphicon glyphicon-notes" href="@Url.Action("ThemMoi", "PhieuNhapHang", new {idphieuDH = @item.PhieuDatHang.Id_PhieuDatHang})">Lập phiếu nhập hàng</a>*@
+                                        <a href="@Url.Action("ThemMoi", "PhieuNhapHang", new {idphieuDH = @item.PhieuDatHang.Id_PhieuDatHang})" class="btn btn-primary input-sm" role="button" style="margin-top: 5px"><span class="glyphicon glyphicon-plus"></span>Lập phiếu nhấp hàng</a>
+                                        @Html.ActionLink("Sửa", "CapNhat", new { id = @item.PhieuDatHang.Id_PhieuDatHang }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
+                                        <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
         Trang @(Model.ListPhieuDathang.PageCount < Model.ListPhieuDathang.PageNumber ? 0 : Model.ListPhieuDathang.PageNumber) của @Model.ListPhieuDathang.PageCount
 
         @Html.PagedListPager(Model.ListPhieuDathang, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
     </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script>
-    $('#phieudh-table')
-        .on('click',
-            '.clickable-row',
-            function(event) {
-                if ($(this).hasClass('active')) {
-                    $(this).removeClass('active');
-                } else {
-                    $(this).addClass('active').siblings().removeClass('active');
-                }
-            });
+            <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+            <script>
+                $('#phieudh-table')
+                    .on('click',
+                        '.clickable-row',
+                        function (event) {
+                            if ($(this).hasClass('active')) {
+                                $(this).removeClass('active');
+                            } else {
+                                $(this).addClass('active').siblings().removeClass('active');
+                            }
+                        });
 
-    $(document)
-        .ready(function() {
-            $(".btnDelete")
-                .on("click",
-                    function(e) {
-                        e.preventDefault();
-                        var $item = $(this).closest("tr").find("#id").text();
-                        var itemid = $item.valueOf();
-                        var isSucess = -1;
-                        var message = "";
-                        var row = $(this).closest("tr");
+                $(document)
+                    .ready(function () {
+                        $(".btnDelete")
+                            .on("click",
+                                function (e) {
+                                    e.preventDefault();
+                                    var $item = $(this).closest("tr").find("#id").text();
+                                    var itemid = $item.valueOf();
+                                    var isSucess = -1;
+                                    var message = "";
+                                    var row = $(this).closest("tr");
 
-                        $.ajax({
-                                url: '/PhieuDatHang/Xoa/',
-                                data: JSON.stringify({ id: itemid }),
-                                type: 'POST',
-                                contentType: 'application/json; charset=utf-8',
-                                success: function(result) {
-                                    isSuccess = result.value;
-                                    message = result.message;
-                                },
-                                error: function(result) {
-                                    isSuccess = result.value;
-                                    message = result.message;
-                                }
-                            })
-                            .done(function() {
-                                if (isSuccess == "1") {
-                                    row.remove();
-                                    alert(message);
-                                } else {
-                                    alert(message);
-                                }
-                            });
+                                    $.ajax({
+                                        url: '/PhieuDatHang/Xoa/',
+                                        data: JSON.stringify({ id: itemid }),
+                                        type: 'POST',
+                                        contentType: 'application/json; charset=utf-8',
+                                        success: function (result) {
+                                            isSuccess = result.value;
+                                            message = result.message;
+                                        },
+                                        error: function (result) {
+                                            isSuccess = result.value;
+                                            message = result.message;
+                                        }
+                                    })
+                                        .done(function () {
+                                            if (isSuccess == "1") {
+                                                row.remove();
+                                                //alert(message);
+                                                location.reload();
+                                            } else {
+                                                //alert(message);
+                                                location.reload();
+                                            }
+                                        });
+                                });
                     });
-        });
-    </script>
+            </script>
 
 </body>

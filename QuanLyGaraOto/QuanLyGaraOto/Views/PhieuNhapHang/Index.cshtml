@@ -12,9 +12,10 @@
         width: auto !important;
     }
 </style>
-@Html.Raw(TempData["msg"])
+
 <body>
-    <h3 class="text-center" style="color: green;">Danh sách phiếu nhập hàng</h3>
+<h3 class="text-center" style="color: green;">Danh sách phiếu nhập hàng</h3>
+    @Html.Raw(TempData["msg"])
     @using (@Html.BeginForm("Index", "PhieuNhapHang", FormMethod.Get, new { @class = "form-inline" }))
     {
         <div class="form-inline">
@@ -27,62 +28,67 @@
                 @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-info" style="margin-top: 25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+                <button type="submit" class="btn btn-info" style="margin-top: 25px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
             </div>
         </div>
     }
-    @Html.ActionLink("Thêm", "ThemMoiNhapLe", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
+@*@Html.ActionLink("Thêm", "ThemMoiNhapLe", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })*@
+    <a href="../PhieuNhapHang/ThemMoiNhapLe" class="btn btn-primary" role="button" style="margin-top: 5px"><span class="glyphicon glyphicon-plus"></span>Thêm mới</a>
     <div class="table-responsive" style="padding-top: 10px;">
-        <table id="phieudh-table" class="table table-bordered table table-hover ">
-            <thead style="color: red;">
-                <tr>
-                    <th style="display: none">Id</th>
-                    <th>Mã phiếu nhập</th>
-                    <th>Tên nhân viên</th>
-                    <th>Mã phiếu đặt</th>
-                    <th>@Html.ActionLink("Ngày nhập", "Index", new { sortOrder = ViewBag.DateNhapOrderSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>                    
-                    <th>Nhà cung cấp</th>
-                    <th>Tổng tiền</th>
-                    <th>Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    foreach (var item in Model.ListPhieuNhapHang.ToList())
-                    {
-                        <tr class="clickable-row">
-                            <td id="id" style="display: none">@item.PhieuNhapHang.ID_PHIEUNHAPHANG</td>
-                            <td> @item.PhieuNhapHang.MA_PHIEUNHAPHANG</td>
-                            <td>@item.TenNV</td>
-                            <td> @item.MaPhieuDatHang</td>
-                            <td>@String.Format("{0:dd/MM/yyyy}", item.PhieuNhapHang.NGAYLAP)</td>
-                            <td>@item.TenNCC</td>
-                            <td>@String.Format("{0:#,###,###,###}", item.PhieuNhapHang.TONGTIEN)</td>
-                            <td>
-                                @Html.ActionLink("Sửa", "CapNhat", new { id = @item.PhieuNhapHang.ID_PHIEUNHAPHANG }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
-                           </td>
+        <div class="row">
+            <div class="col-sm-11">
+                <table id="phieudh-table" class="table table-bordered table table-hover ">
+                    <thead style="color: red; background-color: white">
+                        <tr>
+                            <th style="display: none">Id</th>
+                            <th>Mã phiếu nhập</th>
+                            <th>Tên nhân viên</th>
+                            <th>Mã phiếu đặt</th>
+                            <th>@Html.ActionLink("Ngày nhập", "Index", new { sortOrder = ViewBag.DateNhapOrderSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
+                            <th>Nhà cung cấp</th>
+                            <th>Tổng tiền</th>
+                            <th>Thao tác</th>
                         </tr>
-                    }
-                }
-            </tbody>
-        </table>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model.ListPhieuNhapHang.ToList())
+                            {
+                                <tr class="clickable-row">
+                                    <td id="id" style="display: none">@item.PhieuNhapHang.ID_PHIEUNHAPHANG</td>
+                                    <td> @item.PhieuNhapHang.MA_PHIEUNHAPHANG</td>
+                                    <td>@item.TenNV</td>
+                                    <td> @item.MaPhieuDatHang</td>
+                                    <td>@String.Format("{0:dd/MM/yyyy}", item.PhieuNhapHang.NGAYLAP)</td>
+                                    <td>@item.TenNCC</td>
+                                    <td>@String.Format("{0:#,###,###,###}", item.PhieuNhapHang.TONGTIEN)</td>
+                                    <td>
+                                        @Html.ActionLink("Sửa", "CapNhat", new { id = @item.PhieuNhapHang.ID_PHIEUNHAPHANG }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
         Trang @(Model.ListPhieuNhapHang.PageCount < Model.ListPhieuNhapHang.PageNumber ? 0 : Model.ListPhieuNhapHang.PageNumber) của @Model.ListPhieuNhapHang.PageCount
 
         @Html.PagedListPager(Model.ListPhieuNhapHang, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
     </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script>
-    $('#phieudh-table')
-        .on('click',
-            '.clickable-row',
-            function(event) {
-                if ($(this).hasClass('active')) {
-                    $(this).removeClass('active');
-                } else {
-                    $(this).addClass('active').siblings().removeClass('active');
-                }
-            });
-    </script>
+            <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+            <script>
+                $('#phieudh-table')
+                    .on('click',
+                        '.clickable-row',
+                        function (event) {
+                            if ($(this).hasClass('active')) {
+                                $(this).removeClass('active');
+                            } else {
+                                $(this).addClass('active').siblings().removeClass('active');
+                            }
+                        });
+            </script>
 
 </body>

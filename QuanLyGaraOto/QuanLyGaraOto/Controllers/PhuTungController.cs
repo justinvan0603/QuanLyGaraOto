@@ -77,13 +77,13 @@ namespace QuanLyGaraOto.Controllers
                 GARADBEntities context = new GARADBEntities();
                 context.PHUTUNGs.Add(phutung);
                 context.SaveChanges();
-                TempData["msg"] = "<script>alert('Đã thêm thành công');</script>";
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
             }
             catch (Exception)
             {
-                TempData["msg"] = "<script>alert('Đã xảy ra lỗi. Vui lòng thử lại!');</script>";
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Đã có lỗi xảy ra! Vui lòng thử lại! </div> </div> </div>";
             }
-            return RedirectToAction("ThemMoi");
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult CapNhat(int id = 5)
@@ -108,14 +108,14 @@ namespace QuanLyGaraOto.Controllers
                 target.TEN_PHUTUNG = phutung.TEN_PHUTUNG;
                 target.MA_HIEUXE = phutung.MA_HIEUXE;
                 context.SaveChanges();
-                TempData["msg"] = "<script>alert('Đã cập nhật thành công');</script>";
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Cập nhật thành công! </div> </div> </div>";
             }
             catch (Exception)
             {
-                TempData["msg"] = "<script>alert('Đã xảy ra lỗi. Vui lòng thử lại!');</script>";
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Đã có lỗi xảy ra! Vui lòng thử lại! </div> </div> </div>";
             }
 
-            return CapNhat(phutung.ID);
+            return RedirectToAction("Index");
         }
 
         [ValidateInput(false)]
@@ -128,10 +128,12 @@ namespace QuanLyGaraOto.Controllers
                 var target = context.PHUTUNGs.Find(id);
                 context.PHUTUNGs.Remove(target);
                 context.SaveChanges();
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xoá thành công! </div> </div> </div>";
                 return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể xóa do loại phụ tùng này đã từng được sử dụng! </div> </div> </div>";
                 return Json(new { value = "-1", message = "Không thể xóa do loại phụ tùng này đã từng được sử dụng!" }, JsonRequestBehavior.AllowGet);
             }
 
