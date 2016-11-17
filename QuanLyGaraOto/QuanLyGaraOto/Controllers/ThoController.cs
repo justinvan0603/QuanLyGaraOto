@@ -65,6 +65,8 @@ namespace QuanLyGaraOto.Controllers
         [HttpPost]
         public ActionResult ThemMoi(THO tho)
         {
+            if (!ModelState.IsValid)
+                return View(tho);
             try
             {
                 GARADBEntities context = new GARADBEntities();

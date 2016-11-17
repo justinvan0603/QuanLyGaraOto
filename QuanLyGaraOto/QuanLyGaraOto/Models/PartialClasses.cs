@@ -15,4 +15,9 @@ namespace QuanLyGaraOto.Models
     {
 
     }
+    [MetadataType(typeof(THOMetadata))]
+    public partial class THO
+    {
+
+    }
 }
