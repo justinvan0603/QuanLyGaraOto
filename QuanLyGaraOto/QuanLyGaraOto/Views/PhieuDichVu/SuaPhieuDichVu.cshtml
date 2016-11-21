@@ -78,7 +78,7 @@
 
 <div class="form-group form-inline">
     <label class="input-sm">Tiền công:</label>
-    <input class="txtTienCong form-control" type="number" min="1000" max="10000" name="PhieuDichVu.TIENCONG" value="@Model.PhieuDichVu.TIENCONG"/>
+    <input class="txtTienCong form-control" type="number" min="1000" max="10000" name="PhieuDichVu.TIENCONG" value="@Math.Round(Model.PhieuDichVu.TIENCONG.Value)"/>
 
 </div>
 <div class="panel panel-default" style="width:99%;">
@@ -165,7 +165,7 @@
 
                         </td>
                         <td>
-                            <input type="text" class="txtDonGia form-control input-sm" name="DONGIA" value="" readonly />
+                            <input type="text" class="txtdonGia form-control input-sm" name="DONGIA" value="" readonly />
                         </td>
 
                         <td>
@@ -202,11 +202,11 @@
 
                             </td>
                             <td>
-                                <input type="text" class="txtDonGia form-control input-sm" name="DONGIA" value="@item.DONGIA" readonly />
+                                <input type="text" class="txtdonGia form-control input-sm" name="DONGIA" value="@Math.Round(item.DONGIA.Value)" readonly />
                             </td>
 
                             <td>
-                                <input type="text" class=" txtThanhTien form-control input-sm" name="THANHTIEN" value="@item.THANHTIEN" readonly />
+                                <input type="text" class=" txtThanhTien form-control input-sm" name="THANHTIEN" value="@Math.Round(item.THANHTIEN.Value)" readonly />
                             </td>
                             <td>
                                 <input type="text" class="txtBaoHanh form-control input-sm" name="THOIHAN_BAOHANH" value="@item.THOIHAN_BAOHANH" readonly />
@@ -307,7 +307,7 @@
             success: function (result) {
                 isSuccess = result.value;
                 message = result.message;
-                alert(message);
+                //alert(message);
             },
             error: function (result) {
                 isSuccess = result.value;
@@ -315,8 +315,9 @@
             }
 
         }).done(function () {
-            //if (isSuccess == "1") {
-            //    row.remove();
+            if (isSuccess == "1") {
+                row.remove();
+            }
             //    alert("Thêm Thành Công");
             //    // window.location.replace("index");
             //}
@@ -492,7 +493,7 @@
         var $txtsoluong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtSoluong');
         $txtsoluong.attr("value", soluong);
 
-        var $txtdongia = $("#chitietphieu-table").find("tr:last-child").find('td input.txtDonGia');
+        var $txtdongia = $("#chitietphieu-table").find("tr:last-child").find('td input.txtdonGia');
         $txtdongia.attr("value", dongia);
 
         //var $txttiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTienCong');
@@ -562,7 +563,7 @@
             $(this).find(".maPT").attr("name", nameMaPhuTung);
             //$(this).find(".maTC").attr("name", nameMaTienCong);
             $(this).find(".txtSoluong").attr("name", nameSoLuong);
-            $(this).find(".txtDonGia").attr("name", nameDonGia);
+            $(this).find(".txtdonGia").attr("name", nameDonGia);
             //$(this).find(".txtTienCong").attr("name", nameTienCong);
             $(this).find(".txtThanhTien").attr("name", nameThanhTien);
             $(this).find(".txtBaoHanh").attr("name", nameThoiHanBaoHanh);
@@ -591,7 +592,7 @@
             $(this).find(".maPT").attr("name", nameMaPhuTung);
             //$(this).find(".maTC").attr("name", nameMaTienCong);
             $(this).find(".txtSoluong").attr("name", nameSoLuong);
-            $(this).find(".txtDonGia").attr("name", nameDonGia);
+            $(this).find(".txtdonGia").attr("name", nameDonGia);
             //$(this).find(".txtTienCong").attr("name", nameTienCong);
             $(this).find(".txtThanhTien").attr("name", nameThanhTien);
             $(this).find(".txtBaoHanh").attr("name", nameThoiHanBaoHanh);

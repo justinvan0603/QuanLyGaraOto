@@ -14,7 +14,7 @@
         width: auto !important;
     }
 </style>
-
+@Html.Raw(TempData["msg"])
 @using (@Html.BeginForm("Index", "NhanVien", FormMethod.Get, new { @class = "form-inline" }))
 {
     <div class="form-inline">
@@ -63,7 +63,7 @@
 
                         <td>
 
-                            @Html.ActionLink("Sửa", "CapNhat", new { id = @item.MaNV }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
+                            @Html.ActionLink("Sửa", "SuaNhanVien", new { id = @item.MaNV }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
 
                             <!--<button id="btnDelete" type="button" class="btn btn-danger glyphicon-remove">Delete</button>-->
                             <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>

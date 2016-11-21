@@ -1,4 +1,4 @@
-﻿@model List<QuanLyGaraOto.Models.NHOMNGUOIDUNG>
+﻿@model QuanLyGaraOto.Models.NHANVIEN
 @{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
     ViewBag.Title = "Nhập nhân viên";
@@ -11,26 +11,32 @@
 <head>
     <title>@ViewBag.Title</title>
 </head>
-
+@Html.Raw(TempData["msg"])
 <h3 class="text-center" style="color:green;">THÔNG TIN NHÂN VIÊN</h3>
 @using (Html.BeginForm("NhapNhanVien", "NhanVien", FormMethod.Post))
 {
     <div class="form-group ">
         <label class="input-sm">Họ và tên:</label>
-        <input class="form-control input-sm" type="text"  maxlength="100" name="HOTEN" required/>
+        @Html.TextBoxFor(m => m.HOTEN, new { @class = "form-control" })
+        @Html.ValidationMessage("HOTEN", new { @style = "color:red;" })
+        @*<input class="form-control input-sm" type="text"  maxlength="100" name="HOTEN" required/>*@
     </div>
     <div class="form-group ">
         <label class="input-sm">Username:</label>
-        <input class="form-control input-sm" type="text"  maxlength="30" name="USERNAME" required />
+        @Html.TextBoxFor(m => m.USERNAME, new { @class = "form-control" })
+        @Html.ValidationMessage("USERNAME", new { @style = "color:red;" })
+        @*<input class="form-control input-sm" type="text"  maxlength="30" name="USERNAME" required />*@
     </div>
     <div class="form-group ">
         <label class="input-sm">Mật khẩu:</label>
-        <input class="form-control input-sm" type="password" maxlength="30" name="PASSWORD" required />
+        @Html.PasswordFor(m => m.PASSWORD, new { @class = "form-control" })
+        @Html.ValidationMessage("PASSWORD", new { @style = "color:red;" })
+        @*<input class="form-control input-sm" type="password" maxlength="30" name="PASSWORD" required />*@
     </div>
     <div class="form-group">
         <label class="input-sm">Nhóm người dùng:</label>
         <select name="MA_NHOMNGUOIDUNG" class="cboNhom form-control input-sm">
-            @foreach(var item in Model)
+            @foreach (var item in ViewBag.ListNhomNguoiDung)
             {
                 <option value="@item.MA_NHOMNGUOIDUNG">@item.TEN_NHOM</option>
             }
@@ -38,11 +44,15 @@
     </div>
     <div class="form-group ">
         <label class="input-sm">Số điện thoại:</label>
-        <input class="form-control input-sm" type="number" maxlength="20" name="SDT" />
+        @Html.TextBoxFor(m => m.SDT, new { @class = "form-control" })
+        @Html.ValidationMessage("SDT", new { @style = "color:red;" })
+        @*<input class="form-control input-sm" type="number" maxlength="20" name="SDT" />*@
     </div>
     <div class="form-group ">
         <label class="input-sm">Địa chỉ:</label>
-        <input class="form-control input-sm" type="text" maxlength="255" name="DIACHI" />
+        @Html.TextBoxFor(m => m.DIACHI, new { @class = "form-control" })
+        @Html.ValidationMessage("DIACHI", new { @style = "color:red;" })
+        @*<input class="form-control input-sm" type="text" maxlength="255" name="DIACHI" />*@
     </div>
     <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
 }

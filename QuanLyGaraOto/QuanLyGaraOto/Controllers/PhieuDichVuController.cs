@@ -144,13 +144,21 @@ namespace QuanLyGaraOto.Controllers
                 context.CHITIET_PHIEUDV.Add(item);
             }
             context.SaveChanges();
-            TempData["msg"] = "<script>alert('Đã thêm thành công!');</script>";
+            //TempData["msg"] = "<script>alert('Đã thêm thành công!');</script>";
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
             return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
         }
         [HttpGet]
         public ActionResult SuaPhieuDichVu(int? id)
         {
+            
             GARADBEntities context = new GARADBEntities();
+            if(context.PHIEU_THUTIEN.Any(pt => pt.ID_PHIEUDV == id.Value))
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể sửa phiếu dịch vụ đã lập phiếu thu tiền! </div> </div> </div>";
+                //TempData["msg"] = "<script>alert('Không thể sửa phiếu dịch vụ đã lập phiếu thu tiền!');</script>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             PhieuDVViewModel vmPhieuDV = new PhieuDVViewModel();
             vmPhieuDV.PhieuDichVu = context.PHIEU_DICHVU.Single(p => p.ID_PHIEUDV == id.Value);
             
@@ -160,6 +168,7 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuDV.ListChiTietPhieu = new List<CHITIET_PHIEUDV>();
             vmPhieuDV.ListChiTietPhieu = context.CHITIET_PHIEUDV.Where(ct => ct.ID_PHIEUDV == id.Value).ToList();
             vmPhieuDV.ListHieuXe = context.HIEUXEs.ToList();
+            
             return View(vmPhieuDV);
             //vmPhieuDV.MaPhieuDV = "PDV001";
             //vmPhieuDV.MaPhieuTiepNhan = 3;
@@ -181,6 +190,7 @@ namespace QuanLyGaraOto.Controllers
             target.SOTIEN_CONLAI += chenhlech;
 
             context.SaveChanges();
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Cập nhật thành công! </div> </div> </div>";
             return RedirectToAction("Index", new { sortOrder = "", currentFilter = "", searchString = "" });
         }
         [HttpPost]
@@ -194,7 +204,9 @@ namespace QuanLyGaraOto.Controllers
 
                 if (context.PHIEU_THUTIEN.Any(pt => pt.ID_PHIEUDV == target.ID_PHIEUDV))
                 {
+                    TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể xóa phiếu đã lập phiếu thu! </div> </div> </div>";
                     return Json(new { value = "-1", message = "Không thể xóa phiếu đã lập phiếu thu!" }, JsonRequestBehavior.AllowGet);
+
                 }
                 else
                 {
@@ -206,33 +218,38 @@ namespace QuanLyGaraOto.Controllers
                         context.SaveChanges();
                     }
                     context.PHIEU_DICHVU.Remove(target);
+                    TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xóa thành công! </div> </div> </div>";
                     return Json(new { value = "1", message = "Xóa thành công!" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch(Exception)
             {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể xóa phiếu! </div> </div> </div>";
                 return Json(new { value = "-1", message = "Không thể xóa phiếu!" }, JsonRequestBehavior.AllowGet);
             }
         }
         [HttpPost]
         public JsonResult XoaChiTiet(int id)
         {
-            try
-            {
+           // try
+          //  {
                 GARADBEntities context = new GARADBEntities();
                 var target = context.CHITIET_PHIEUDV.Single(ct => ct.ID == id);
                 if(context.PHIEU_THUTIEN.Any(pt => pt.ID_PHIEUDV == target.ID_PHIEUDV))
                 {
+                    TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể xóa chi tiết phiếu đã lập phiếu thu! </div> </div> </div>";
                     return Json(new { value = "-1", message = "Không thể xóa do đã lập phiếu thu tiền!" }, JsonRequestBehavior.AllowGet);
                 }
                 context.CHITIET_PHIEUDV.Remove(target);
                 context.SaveChanges();
+                TempData["msg"] = @"<div id=""rowSucess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xóa thành công! </div> </div> </div>";
                 return Json(new { value = "1", message = "Xóa thành công!" }, JsonRequestBehavior.AllowGet);
-            }
-            catch(Exception)
-            {
+          //  }
+          //  catch(Exception)
+           // {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể xóa chi tiết phiếu! Vui lòng thử lại! </div> </div> </div>";
                 return Json(new { value = "-1", message = "Không thể xóa chi tiết phiếu!" }, JsonRequestBehavior.AllowGet);
-            }
+           // }
 
         }
         [HttpPost]
@@ -241,6 +258,7 @@ namespace QuanLyGaraOto.Controllers
             GARADBEntities context = new GARADBEntities();
             context.CHITIET_PHIEUDV.Add(chitiet);
             context.SaveChanges();
+            TempData["msg"] = @"<div id=""rowSucess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm chi tiết thành công! </div> </div> </div>";
             return Json(new { issucess = "1", newid = "1", message = "OK" }, JsonRequestBehavior.AllowGet);
         }
      [HttpPost]

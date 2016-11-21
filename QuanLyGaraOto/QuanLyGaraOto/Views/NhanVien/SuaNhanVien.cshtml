@@ -8,6 +8,7 @@
 @Scripts.Render("~/bundles/bootstrap")
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
+@Html.Raw(TempData["msg"])
 <head>
     <title>@ViewBag.Title</title>
 </head>
@@ -18,15 +19,21 @@
     <input type="hidden" name="MA_NV" value="@Model.NhanVien.MA_NV" />
     <div class="form-group ">
         <label class="input-sm">Họ và tên:</label>
-        <input class="form-control input-sm" type="text" maxlength="100" name="HOTEN" value="@Model.NhanVien.HOTEN" required />
+        @Html.TextBox("HOTEN", Model.NhanVien.HOTEN, new { @class = "form-control" })
+        @*@Html.TextBoxFor(m => m.NhanVien.HOTEN, new { @class = "form-control" })*@
+        @Html.ValidationMessage("HOTEN", new { @style = "color:red;" })
+        @*<input class="form-control input-sm" type="text" maxlength="100" name="HOTEN" value="@Model.NhanVien.HOTEN" required />*@
     </div>
     <div class="form-group ">
         <label class="input-sm">Username:</label>
-        <input class="form-control input-sm" type="text" maxlength="30" name="USERNAME" value="@Model.NhanVien.USERNAME" required readonly/>
+        @Html.TextBox("USERNAME", Model.NhanVien.USERNAME, new { @class = "form-control", @readonly=true })
+        @*<input class="form-control input-sm" type="text" maxlength="30" name="USERNAME" value="@Model.NhanVien.USERNAME" required readonly/>*@
     </div>
     <div class="form-group ">
         <label class="input-sm">Mật khẩu:</label>
-        <input class="form-control input-sm" type="password" maxlength="30" name="PASSWORD" required />
+        @Html.Password("PASSWORD",Model.NhanVien.PASSWORD, new { @class = "form-control" })
+        @Html.ValidationMessage("PASSWORD", new { @style = "color:red;" })
+        @*<input class="form-control input-sm" type="password" maxlength="30" name="PASSWORD" required />*@
     </div>
     <div class="form-group">
         <label class="input-sm">Nhóm người dùng:</label>
@@ -39,11 +46,17 @@
     </div>
     <div class="form-group ">
         <label class="input-sm">Số điện thoại:</label>
-        <input class="form-control input-sm" type="text" maxlength="20" name="SDT" value="@Model.NhanVien.SDT" />
+        @Html.TextBox("SDT", Model.NhanVien.SDT, new { @class = "form-control" })
+        @*@Html.TextBoxFor(m => m.NhanVien.HOTEN, new { @class = "form-control" })*@
+        @Html.ValidationMessage("SDT", new { @style = "color:red;" })
+        @*<input class="form-control input-sm" type="text" maxlength="20" name="SDT" value="@Model.NhanVien.SDT" />*@
     </div>
     <div class="form-group ">
-        <label class="input-sm">Số điện thoại:</label>
-        <input class="form-control input-sm" type="text" maxlength="255" name="DIACHI" value="@Model.NhanVien.DIACHI"/>
+        <label class="input-sm">Địa chỉ:</label>
+        @Html.TextBox("DIACHI", Model.NhanVien.DIACHI, new { @class = "form-control" })
+        @*@Html.TextBoxFor(m => m.NhanVien.HOTEN, new { @class = "form-control" })*@
+        @Html.ValidationMessage("DIACHI", new { @style = "color:red;" })
+        @*<input class="form-control input-sm" type="text" maxlength="255" name="DIACHI" value="@Model.NhanVien.DIACHI"/>*@
     </div>
     <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
 }
@@ -51,7 +64,7 @@
 <script>
     $('document').ready(function()
     {
-        var id = '@Model.NhanVien.MA_NHOMNGUOIDUNG';
+        var id = '@Model.NhanVien.MA_NHOMNGUOIDUNG.Value';
         $('.cboNhom').val(id).prop('selected', true);
     })
 </script>

@@ -95,6 +95,7 @@ namespace QuanLyGaraOto.Controllers
                 var target = context.PHIEU_BANLE.Single(pbl => pbl.ID_PHIEUBANLE == id);
                 if (context.PHIEU_THUTIEN.Any(pt => pt.ID_PHIEUBANLE == target.ID_PHIEUBANLE))
                 {
+                    TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể xóa do đã lập phiếu thu! </div> </div> </div>";
                     return Json(new { value = "-1", message = "Không thể xóa do đã lập phiếu thu!" }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -107,11 +108,13 @@ namespace QuanLyGaraOto.Controllers
                     }
                     context.PHIEU_BANLE.Remove(target);
                     context.SaveChanges();
+                    TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xóa thành công! </div> </div> </div>";
                     return Json(new { value = "1", message = "Xóa thành công!" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch(Exception)
             {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể xóa phiếu! Vui lòng thử lại sau! </div> </div> </div>";
                 return Json(new { value = "-1", message = "Không thể xóa phiếu" }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -154,14 +157,20 @@ namespace QuanLyGaraOto.Controllers
                 context.CHITIET_PHIEUBANLE.Add(item);
                 context.SaveChanges();
             }
-            
-            TempData["msg"] = "<script>alert('Đã thêm thành công!');</script>";
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm phiếu bán lẻ thành công! </div> </div> </div>";
+            //TempData["msg"] = "<script>alert('Đã thêm thành công!');</script>";
             return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
         }
         [HttpGet]
         public ActionResult SuaPhieuBanLe(int? id)
         {
             GARADBEntities context = new GARADBEntities();
+            if(context.PHIEU_THUTIEN.Any(pt => pt.ID_PHIEUBANLE == id.Value))
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể sửa phiếu đã lập phiếu thu! </div> </div> </div>";
+                //TempData["msg"] = "<script>alert('Không thể sửa phiếu đã lập phiếu thu!');</script>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             PhieuBanLeViewModel vmPhieuBanLe = new PhieuBanLeViewModel();
             //vmPhieuBanLe.PhieuBanLe = new PHIEU_BANLE();
             vmPhieuBanLe.PhieuBanLe = context.PHIEU_BANLE.Single(pbl => pbl.ID_PHIEUBANLE == id.Value);
@@ -178,7 +187,8 @@ namespace QuanLyGaraOto.Controllers
         [HttpPost]
         public ActionResult SuaPhieuBanLe(PhieuBanLeViewModel vmPhieuBanLe)
         {
-            TempData["msg"] = "<script>alert('Đã sửa thành công!');</script>";
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Cập nhật thành công! </div> </div> </div>";
+            //TempData["msg"] = "<script>alert('Đã sửa thành công!');</script>";
             return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
         }
         [HttpPost]

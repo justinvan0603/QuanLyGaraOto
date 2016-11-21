@@ -1,5 +1,68 @@
-﻿@{
+﻿@model QuanLyGaraOto.ViewModel.TongQuanViewModel
+@{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Tổng quan";
 }
-
-
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<h3 class="text-center" style="color:green;">TỔNG QUAN</h3>
+<div class="row">
+    <div class="col-md-4" style="margin-left:-10px;">
+        <div class="panel panel-primary">
+            <div class="panel-heading">THÔNG TIN PHỤ TÙNG</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-9"><label class="input-sm">Tổng số phụ tùng:</label></div>
+                    <div class="col-xs-3">
+                        <label class="input-sm">@Model.TongSoPhuTung</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-9"><label class="input-sm">Phụ tùng hết hàng:</label></div>
+                    <div class="col-xs-3">
+                        <label class="input-sm">@Model.SoPTHet</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4" style="margin-left:-10px;">
+        <div class="panel panel-primary">
+            <div class="panel-heading">THÔNG TIN XE</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-9"><label class="input-sm">Số xe bán:</label></div>
+                    <div class="col-xs-3">
+                        <label class="input-sm">@Model.SoXeBan</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-9"><label class="input-sm">Số xe tiếp nhận:</label></div>
+                    <div class="col-xs-3">
+                        <label class="input-sm">@Model.SoXeTiepNhan</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4" style="margin-left:-10px;">
+        <div class="panel panel-primary">
+            <div class="panel-heading">THÔNG TIN KHÁCH HÀNG</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-9"><label class="input-sm">Tổng số khách hàng:</label></div>
+                    <div class="col-xs-3">
+                        <label class="input-sm">@Model.TongSoKH</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-9"><label class="input-sm">Số khách hàng còn nợ:</label></div>
+                    <div class="col-xs-3">
+                        <label class="input-sm">@Model.TongSoKHNo</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

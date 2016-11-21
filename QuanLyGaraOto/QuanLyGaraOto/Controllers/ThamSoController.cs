@@ -44,7 +44,20 @@ namespace QuanLyGaraOto.Controllers
         [HttpPost]
         public ActionResult SuaThamSo(BANGTHAMSO thamso)
         {
-            return View();
+            GARADBEntities context = new GARADBEntities();
+            try
+            {
+                var target = context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO.Equals(thamso.TENTHAMSO));
+                target.GIATRI = thamso.GIATRI;
+                TempData["msg"] = "<script>alert('Đã cập nhật thành công!');</script>";
+                return RedirectToAction("Index", new { currentFilter = String.Empty, searchString = String.Empty });
+            }
+            catch(Exception )
+            {
+                TempData["msg"] = "<script>alert('Không thể cập nhật. Vui lòng thử lại!');</script>";
+                return RedirectToAction("Index", new { currentFilter = String.Empty, searchString = String.Empty });
+            }
+           
         }
     }
 }

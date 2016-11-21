@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using QuanLyGaraOto.Models;
 using PagedList;
 using QuanLyGaraOto.ViewModel;
+using QuanLyGaraOto.App_Start;
 namespace QuanLyGaraOto.Controllers
 {
     public class NhanVienController : Controller
@@ -74,20 +75,75 @@ namespace QuanLyGaraOto.Controllers
             return View();
         }
         [HttpGet]
+        public ActionResult SuaNhanVien(int? id)
+        {
+            GARADBEntities context = new GARADBEntities();
+            SuaNhanVienViewModel vmNhanVien = new SuaNhanVienViewModel();
+            vmNhanVien.NhanVien = context.NHANVIENs.Single(nv => nv.MA_NV == id.Value);
+            vmNhanVien.ListNhomNguoiDung = context.NHOMNGUOIDUNGs.ToList();
+            return View(vmNhanVien);
+
+        }
+        [HttpPost]
+        public ActionResult SuaNhanVien(NHANVIEN nv)
+        {
+            GARADBEntities context = new GARADBEntities();
+            if (ModelState.IsValid)
+            {
+                var target = context.NHANVIENs.Single(st => st.MA_NV == nv.MA_NV);
+                target.HOTEN = nv.HOTEN;
+                target.PASSWORD = MD5Encryptor.MD5Hash(nv.PASSWORD);
+                target.MA_NHOMNGUOIDUNG = nv.MA_NHOMNGUOIDUNG;
+                target.SDT = nv.SDT;
+                target.DIACHI = nv.DIACHI;
+                TempData["msg"] = "<script>alert('Sửa tài khoản thành công!');</script>";
+                return RedirectToAction("Index", new { currentFilter = String.Empty, searchString = String.Empty });
+            }
+            else
+            {
+                SuaNhanVienViewModel vmNhanVien = new SuaNhanVienViewModel();
+                vmNhanVien.NhanVien = nv;
+                vmNhanVien.ListNhomNguoiDung = context.NHOMNGUOIDUNGs.ToList();
+                return View(vmNhanVien);
+            }
+        }
+        [HttpGet]
         public ActionResult NhapNhanVien()
         {
             List<NHOMNGUOIDUNG> ListNhomNguoiDung = new List<NHOMNGUOIDUNG>();
             GARADBEntities context = new GARADBEntities();
             ListNhomNguoiDung = context.NHOMNGUOIDUNGs.ToList();
-            return View(ListNhomNguoiDung);
+            ViewBag.ListNhomNguoiDung = context.NHOMNGUOIDUNGs.ToList();
+            return View();
         }
         [HttpPost]
         public ActionResult NhapNhanVien(NHANVIEN nv)
         {
             GARADBEntities context = new GARADBEntities();
-            context.NHANVIENs.Add(nv);
-            context.SaveChanges();
-            return RedirectToAction("NhapNhanVien");
+            if (ModelState.IsValid)
+            {
+                if (context.NHANVIENs.Any(st => st.USERNAME.Equals(nv.USERNAME)))
+                {
+                    TempData["msg"] = "<script>alert('Username đã tồn tại trong hệ thống!');</script>";
+                    ViewBag.ListNhomNguoiDung = context.NHOMNGUOIDUNGs.ToList();
+                    return View();
+                }
+                else
+                {
+                    string pw = nv.PASSWORD;
+                    nv.PASSWORD = MD5Encryptor.MD5Hash(pw);
+                    context.NHANVIENs.Add(nv);
+                    context.SaveChanges();
+                    TempData["msg"] = "<script>alert('Thêm tài khoản thành công!');</script>";
+                    ViewBag.ListNhomNguoiDung = context.NHOMNGUOIDUNGs.ToList();
+                    return RedirectToAction("NhapNhanVien");
+                }
+            }
+            else
+            {
+                ViewBag.ListNhomNguoiDung = context.NHOMNGUOIDUNGs.ToList();
+                return View();
+            }
         }
         public JsonResult Xoa(int id)
         {
