@@ -111,7 +111,8 @@ namespace QuanLyGaraOto.Controllers
             target.CMND = client.CMND;
             target.DIACHI = client.DIACHI;
             context.SaveChanges();
-            TempData["msg"] = "<script>alert('Đã cập nhật thành công');</script>";
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Đã cập nhật thành công! </div> </div> </div>";
+            //TempData["msg"] = "<script>alert('Đã cập nhật thành công');</script>";
             return View();
         }
         [ValidateInput(false)]
@@ -124,10 +125,12 @@ namespace QuanLyGaraOto.Controllers
                 var target = context.KHACHHANGs.Find(id);
                 context.KHACHHANGs.Remove(target);
                 context.SaveChanges();
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xóa thành công! </div> </div> </div>";
                 return Json(new { value = "1", message = "Xóa thành công" },JsonRequestBehavior.AllowGet);
             }
             catch(Exception)
             {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể xóa khách hàng đã có giao dịch! </div> </div> </div>";
                 return Json(new { value = "-1", message = "Không thể xóa do đã có tham chiếu" }, JsonRequestBehavior.AllowGet);
             }
 

@@ -12,6 +12,7 @@
 <head>
     <title>@ViewBag.Title</title>
 </head>
+@Html.Raw(TempData["msg"])
 <h3 class="text-center" style="color:green;">THÔNG TIN NHÂN VIÊN</h3>
 
 @using (Html.BeginForm("SuaNhanVien", "NhanVien", FormMethod.Post))

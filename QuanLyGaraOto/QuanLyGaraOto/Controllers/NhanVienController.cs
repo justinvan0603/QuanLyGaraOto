@@ -96,7 +96,8 @@ namespace QuanLyGaraOto.Controllers
                 target.MA_NHOMNGUOIDUNG = nv.MA_NHOMNGUOIDUNG;
                 target.SDT = nv.SDT;
                 target.DIACHI = nv.DIACHI;
-                TempData["msg"] = "<script>alert('Sửa tài khoản thành công!');</script>";
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Cập nhật tài khoản thành công! </div> </div> </div>";
+                //TempData["msg"] = "<script>alert('Sửa tài khoản thành công!');</script>";
                 return RedirectToAction("Index", new { currentFilter = String.Empty, searchString = String.Empty });
             }
             else
@@ -124,7 +125,8 @@ namespace QuanLyGaraOto.Controllers
             {
                 if (context.NHANVIENs.Any(st => st.USERNAME.Equals(nv.USERNAME)))
                 {
-                    TempData["msg"] = "<script>alert('Username đã tồn tại trong hệ thống!');</script>";
+                    TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Username đã tồn tại trong hệ thống! </div> </div> </div>";
+                    //TempData["msg"] = "<script>alert('Username đã tồn tại trong hệ thống!');</script>";
                     ViewBag.ListNhomNguoiDung = context.NHOMNGUOIDUNGs.ToList();
                     return View();
                 }
@@ -134,9 +136,10 @@ namespace QuanLyGaraOto.Controllers
                     nv.PASSWORD = MD5Encryptor.MD5Hash(pw);
                     context.NHANVIENs.Add(nv);
                     context.SaveChanges();
-                    TempData["msg"] = "<script>alert('Thêm tài khoản thành công!');</script>";
-                    ViewBag.ListNhomNguoiDung = context.NHOMNGUOIDUNGs.ToList();
-                    return RedirectToAction("NhapNhanVien");
+                    TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm tài khoản thành công! </div> </div> </div>";
+                    //TempData["msg"] = "<script>alert('Thêm tài khoản thành công!');</script>";
+                    //ViewBag.ListNhomNguoiDung = context.NHOMNGUOIDUNGs.ToList();
+                    return RedirectToAction("Index", new { currentFilter = String.Empty, searchString = String.Empty });
                 }
             }
             else
@@ -156,13 +159,18 @@ namespace QuanLyGaraOto.Controllers
                 {
                     context.NHANVIENs.Remove(target);
                     context.SaveChanges();
+                    TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xóa tài khoản thành công! </div> </div> </div>";
                     return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
                 }
                 else
+                {
+                    TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể xóa tài khoản d8ang đăng nhập! </div> </div> </div>";
                     return Json(new { value = "-1", message = "Không thể xóa tài khoản đang đăng nhập!" }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch(Exception)
             {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể xóa tài khoản đã sử dụng! </div> </div> </div>";
                 return Json(new { value = "-1", message = "Không thể xóa do đã có tham chiếu" }, JsonRequestBehavior.AllowGet);
             }
         }

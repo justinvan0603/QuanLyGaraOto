@@ -201,14 +201,17 @@ namespace QuanLyGaraOto.Controllers
                 var target = context.CHITIET_PHIEUBANLE.Single(pbl => pbl.ID == id);
                 if(context.PHIEU_THUTIEN.Any(pt => pt.ID_PHIEUBANLE == target.ID_PHIEUBANLE ))
                 {
+                    TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể xóa phiếu đã lập phiếu thu! </div> </div> </div>";
                     return Json(new { value = "-1", message = "Không thể xóa phiếu đã lập phiếu thu!" });
                 }
                 context.CHITIET_PHIEUBANLE.Remove(target);
                 context.SaveChanges();
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xóa chi tiết phiếu thành công! </div> </div> </div>";
                 return Json(new { value = "1", message = "Xóa chi tiết phiếu thành công!" });
             }
             catch(Exception)
             {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể xóa! Vui lòng thử lại sau! </div> </div> </div>";
                 return Json(new { value = "-1", message = "Đã có lỗi xảy ra không thể xóa!" });
             }
         }
