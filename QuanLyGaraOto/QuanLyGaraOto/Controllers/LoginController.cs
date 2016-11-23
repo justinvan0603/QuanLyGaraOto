@@ -13,6 +13,7 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult LoginForm()
         {
             Session["Username"] = null;
+            Session["UserID"] = null;
             Session["staff_name"] = null; // save name of the staff
             //ViewBag.ErrorMessage = "Sai ten dang nhap hoac mat khau!";
             return View();
@@ -52,6 +53,7 @@ namespace QuanLyGaraOto.Controllers
                         //string groupUser = context.NHOMNGUOIDUNGs.Single(gr => gr.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value).TEN_NHOM;
                         //SetUserPermission(permissionLevel);
                         Session["Username"] = nv.USERNAME;
+                        Session["UserID"] = nv.MA_NV;
                         Session["staff_name"] = nv.HOTEN;
                         return RedirectToAction("Index", "Home");
                     }

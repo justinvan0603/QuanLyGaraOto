@@ -18,10 +18,10 @@ namespace QuanLyGaraOto.Models
         public PHUTUNG()
         {
             this.CHITIET_PHIEUBANLE = new HashSet<CHITIET_PHIEUBANLE>();
-            this.CHITIET_PHIEUBH = new HashSet<CHITIET_PHIEUBH>();
             this.CHITIET_PHIEUDATHANG = new HashSet<CHITIET_PHIEUDATHANG>();
             this.CHITIET_PHIEUDV = new HashSet<CHITIET_PHIEUDV>();
             this.CHITIET_PHIEUNH = new HashSet<CHITIET_PHIEUNH>();
+            this.CHITIET_PHIEUBH = new HashSet<CHITIET_PHIEUBH>();
         }
     
         public int ID { get; set; }
@@ -35,12 +35,12 @@ namespace QuanLyGaraOto.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_PHIEUBANLE> CHITIET_PHIEUBANLE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHITIET_PHIEUBH> CHITIET_PHIEUBH { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_PHIEUDATHANG> CHITIET_PHIEUDATHANG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_PHIEUDV> CHITIET_PHIEUDV { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_PHIEUNH> CHITIET_PHIEUNH { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CHITIET_PHIEUBH> CHITIET_PHIEUBH { get; set; }
     }
 }

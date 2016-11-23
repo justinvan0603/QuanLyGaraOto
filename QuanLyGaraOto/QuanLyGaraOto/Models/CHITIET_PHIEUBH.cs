@@ -15,9 +15,10 @@ namespace QuanLyGaraOto.Models
     public partial class CHITIET_PHIEUBH
     {
         public int Id { get; set; }
-        public int MA_PHIEUDV { get; set; }
+        public Nullable<int> MA_PHIEUDV { get; set; }
         public int MA_PHUTUNG { get; set; }
         public int MA_PHIEUBH { get; set; }
+        public Nullable<int> MAPHIEU_BANLE { get; set; }
         public Nullable<System.DateTime> NGAYHENTRA { get; set; }
         public Nullable<System.DateTime> NGAYTRA { get; set; }
     

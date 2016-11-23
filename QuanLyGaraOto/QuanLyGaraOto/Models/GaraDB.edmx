@@ -29,9 +29,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MA_PHIEUDV" Type="int" Nullable="false" />
+          <Property Name="MA_PHIEUDV" Type="int" />
           <Property Name="MA_PHUTUNG" Type="int" Nullable="false" />
           <Property Name="MA_PHIEUBH" Type="int" Nullable="false" />
+          <Property Name="MAPHIEU_BANLE" Type="int" />
           <Property Name="NGAYHENTRA" Type="date" />
           <Property Name="NGAYTRA" Type="date" />
         </EntityType>
@@ -907,7 +908,6 @@
           </AssociationSet>
           <EntitySet Name="PHUTUNGs" EntityType="GARADBModel.PHUTUNG" />
           <EntitySet Name="CHITIET_PHIEUBANLE" EntityType="GARADBModel.CHITIET_PHIEUBANLE" />
-          <EntitySet Name="CHITIET_PHIEUBH" EntityType="GARADBModel.CHITIET_PHIEUBH" />
           <EntitySet Name="CHITIET_PHIEUDATHANG" EntityType="GARADBModel.CHITIET_PHIEUDATHANG" />
           <EntitySet Name="CHITIET_PHIEUDV" EntityType="GARADBModel.CHITIET_PHIEUDV" />
           <EntitySet Name="CHITIET_PHIEUNH" EntityType="GARADBModel.CHITIET_PHIEUNH" />
@@ -918,14 +918,6 @@
           <AssociationSet Name="FK_CTBANLE_PHIEUBANLE" Association="GARADBModel.FK_CTBANLE_PHIEUBANLE">
             <End Role="PHIEU_BANLE" EntitySet="PHIEU_BANLE" />
             <End Role="CHITIET_PHIEUBANLE" EntitySet="CHITIET_PHIEUBANLE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CHITIET_PHIEUBH_MAPT" Association="GARADBModel.FK_CHITIET_PHIEUBH_MAPT">
-            <End Role="PHUTUNG" EntitySet="PHUTUNGs" />
-            <End Role="CHITIET_PHIEUBH" EntitySet="CHITIET_PHIEUBH" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CHITIET_PHIEUBH_PHIEU_BAOHANH" Association="GARADBModel.FK_CHITIET_PHIEUBH_PHIEU_BAOHANH">
-            <End Role="PHIEU_BAOHANH" EntitySet="PHIEU_BAOHANH" />
-            <End Role="CHITIET_PHIEUBH" EntitySet="CHITIET_PHIEUBH" />
           </AssociationSet>
           <AssociationSet Name="FK_CHITIET_PHIEUDH_MAPT" Association="GARADBModel.FK_CHITIET_PHIEUDH_MAPT">
             <End Role="PHUTUNG" EntitySet="PHUTUNGs" />
@@ -976,6 +968,15 @@
           <AssociationSet Name="FK_PNH_PDH" Association="GARADBModel.FK_PNH_PDH">
             <End Role="PHIEU_DATHANG" EntitySet="PHIEU_DATHANG" />
             <End Role="PHIEU_NHAPHANG" EntitySet="PHIEU_NHAPHANG" />
+          </AssociationSet>
+          <EntitySet Name="CHITIET_PHIEUBH" EntityType="GARADBModel.CHITIET_PHIEUBH" />
+          <AssociationSet Name="FK_CHITIET_PHIEUBH_MAPT" Association="GARADBModel.FK_CHITIET_PHIEUBH_MAPT">
+            <End Role="PHUTUNG" EntitySet="PHUTUNGs" />
+            <End Role="CHITIET_PHIEUBH" EntitySet="CHITIET_PHIEUBH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CHITIET_PHIEUBH_PHIEU_BAOHANH" Association="GARADBModel.FK_CHITIET_PHIEUBH_PHIEU_BAOHANH">
+            <End Role="PHIEU_BAOHANH" EntitySet="PHIEU_BAOHANH" />
+            <End Role="CHITIET_PHIEUBH" EntitySet="CHITIET_PHIEUBH" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="XE">
@@ -1330,10 +1331,10 @@
           <Property Name="DONGIAXUAT" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="TG_BAOHANH" Type="Int32" />
           <NavigationProperty Name="CHITIET_PHIEUBANLE" Relationship="GARADBModel.FK_CHITIET_PHIEUBL_MAPT" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUBANLE" />
-          <NavigationProperty Name="CHITIET_PHIEUBH" Relationship="GARADBModel.FK_CHITIET_PHIEUBH_MAPT" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUBH" />
           <NavigationProperty Name="CHITIET_PHIEUDATHANG" Relationship="GARADBModel.FK_CHITIET_PHIEUDH_MAPT" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUDATHANG" />
           <NavigationProperty Name="CHITIET_PHIEUDV" Relationship="GARADBModel.FK_CHITIET_PHIEUDV_MAPT" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUDV" />
           <NavigationProperty Name="CHITIET_PHIEUNH" Relationship="GARADBModel.FK_CHITIET_PHIEUNH_MAPT" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUNH" />
+          <NavigationProperty Name="CHITIET_PHIEUBH" Relationship="GARADBModel.FK_CHITIET_PHIEUBH_MAPT" FromRole="PHUTUNG" ToRole="CHITIET_PHIEUBH" />
         </EntityType>
         <EntityType Name="CHITIET_PHIEUBANLE">
           <Key>
@@ -1348,19 +1349,6 @@
           <Property Name="THOIHAN_BAOHANH" Type="Int32" />
           <NavigationProperty Name="PHUTUNG" Relationship="GARADBModel.FK_CHITIET_PHIEUBL_MAPT" FromRole="CHITIET_PHIEUBANLE" ToRole="PHUTUNG" />
           <NavigationProperty Name="PHIEU_BANLE" Relationship="GARADBModel.FK_CTBANLE_PHIEUBANLE" FromRole="CHITIET_PHIEUBANLE" ToRole="PHIEU_BANLE" />
-        </EntityType>
-        <EntityType Name="CHITIET_PHIEUBH">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MA_PHIEUDV" Type="Int32" Nullable="false" />
-          <Property Name="MA_PHUTUNG" Type="Int32" Nullable="false" />
-          <Property Name="MA_PHIEUBH" Type="Int32" Nullable="false" />
-          <Property Name="NGAYHENTRA" Type="DateTime" Precision="0" />
-          <Property Name="NGAYTRA" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="PHUTUNG" Relationship="GARADBModel.FK_CHITIET_PHIEUBH_MAPT" FromRole="CHITIET_PHIEUBH" ToRole="PHUTUNG" />
-          <NavigationProperty Name="PHIEU_BAOHANH" Relationship="GARADBModel.FK_CHITIET_PHIEUBH_PHIEU_BAOHANH" FromRole="CHITIET_PHIEUBH" ToRole="PHIEU_BAOHANH" />
         </EntityType>
         <EntityType Name="CHITIET_PHIEUDATHANG">
           <Key>
@@ -1423,30 +1411,6 @@
             </Principal>
             <Dependent Role="CHITIET_PHIEUBANLE">
               <PropertyRef Name="ID_PHIEUBANLE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CHITIET_PHIEUBH_MAPT">
-          <End Type="GARADBModel.PHUTUNG" Role="PHUTUNG" Multiplicity="1" />
-          <End Type="GARADBModel.CHITIET_PHIEUBH" Role="CHITIET_PHIEUBH" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PHUTUNG">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CHITIET_PHIEUBH">
-              <PropertyRef Name="MA_PHUTUNG" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CHITIET_PHIEUBH_PHIEU_BAOHANH">
-          <End Type="GARADBModel.PHIEU_BAOHANH" Role="PHIEU_BAOHANH" Multiplicity="1" />
-          <End Type="GARADBModel.CHITIET_PHIEUBH" Role="CHITIET_PHIEUBH" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PHIEU_BAOHANH">
-              <PropertyRef Name="MA_PHIEUBH" />
-            </Principal>
-            <Dependent Role="CHITIET_PHIEUBH">
-              <PropertyRef Name="MA_PHIEUBH" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1624,6 +1588,44 @@
             </Principal>
             <Dependent Role="PHIEU_NHAPHANG">
               <PropertyRef Name="ID_PHIEUDATHANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CHITIET_PHIEUBH">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MA_PHIEUDV" Type="Int32" />
+          <Property Name="MA_PHUTUNG" Type="Int32" Nullable="false" />
+          <Property Name="MA_PHIEUBH" Type="Int32" Nullable="false" />
+          <Property Name="MAPHIEU_BANLE" Type="Int32" />
+          <Property Name="NGAYHENTRA" Type="DateTime" Precision="0" />
+          <Property Name="NGAYTRA" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="PHUTUNG" Relationship="GARADBModel.FK_CHITIET_PHIEUBH_MAPT" FromRole="CHITIET_PHIEUBH" ToRole="PHUTUNG" />
+          <NavigationProperty Name="PHIEU_BAOHANH" Relationship="GARADBModel.FK_CHITIET_PHIEUBH_PHIEU_BAOHANH" FromRole="CHITIET_PHIEUBH" ToRole="PHIEU_BAOHANH" />
+        </EntityType>
+        <Association Name="FK_CHITIET_PHIEUBH_MAPT">
+          <End Type="GARADBModel.PHUTUNG" Role="PHUTUNG" Multiplicity="1" />
+          <End Type="GARADBModel.CHITIET_PHIEUBH" Role="CHITIET_PHIEUBH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHUTUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUBH">
+              <PropertyRef Name="MA_PHUTUNG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIET_PHIEUBH_PHIEU_BAOHANH">
+          <End Type="GARADBModel.PHIEU_BAOHANH" Role="PHIEU_BAOHANH" Multiplicity="1" />
+          <End Type="GARADBModel.CHITIET_PHIEUBH" Role="CHITIET_PHIEUBH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHIEU_BAOHANH">
+              <PropertyRef Name="MA_PHIEUBH" />
+            </Principal>
+            <Dependent Role="CHITIET_PHIEUBH">
+              <PropertyRef Name="MA_PHIEUBH" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1872,18 +1874,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CHITIET_PHIEUBH">
-            <EntityTypeMapping TypeName="GARADBModel.CHITIET_PHIEUBH">
-              <MappingFragment StoreEntitySet="CHITIET_PHIEUBH">
-                <ScalarProperty Name="NGAYTRA" ColumnName="NGAYTRA" />
-                <ScalarProperty Name="NGAYHENTRA" ColumnName="NGAYHENTRA" />
-                <ScalarProperty Name="MA_PHIEUBH" ColumnName="MA_PHIEUBH" />
-                <ScalarProperty Name="MA_PHUTUNG" ColumnName="MA_PHUTUNG" />
-                <ScalarProperty Name="MA_PHIEUDV" ColumnName="MA_PHIEUDV" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CHITIET_PHIEUDATHANG">
             <EntityTypeMapping TypeName="GARADBModel.CHITIET_PHIEUDATHANG">
               <MappingFragment StoreEntitySet="CHITIET_PHIEUDATHANG">
@@ -1944,6 +1934,19 @@
                 <ScalarProperty Name="ID_PHIEUDATHANG" ColumnName="ID_PHIEUDATHANG" />
                 <ScalarProperty Name="MA_PHIEUNHAPHANG" ColumnName="MA_PHIEUNHAPHANG" />
                 <ScalarProperty Name="ID_PHIEUNHAPHANG" ColumnName="ID_PHIEUNHAPHANG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHITIET_PHIEUBH">
+            <EntityTypeMapping TypeName="GARADBModel.CHITIET_PHIEUBH">
+              <MappingFragment StoreEntitySet="CHITIET_PHIEUBH">
+                <ScalarProperty Name="NGAYTRA" ColumnName="NGAYTRA" />
+                <ScalarProperty Name="NGAYHENTRA" ColumnName="NGAYHENTRA" />
+                <ScalarProperty Name="MAPHIEU_BANLE" ColumnName="MAPHIEU_BANLE" />
+                <ScalarProperty Name="MA_PHIEUBH" ColumnName="MA_PHIEUBH" />
+                <ScalarProperty Name="MA_PHUTUNG" ColumnName="MA_PHUTUNG" />
+                <ScalarProperty Name="MA_PHIEUDV" ColumnName="MA_PHIEUDV" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
