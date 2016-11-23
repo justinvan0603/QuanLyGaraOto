@@ -44,7 +44,7 @@
         border: 0px !important;
     }
 </style>
-<h3 class="text-center" style="color: green;">Cập nhật phiếu đặt hàng</h3>
+<h3 class="text-center" style="color: green;">CẬP NHẬT PHIẾU ĐẶT HÀNG</h3>
 @Html.Raw(TempData["msg"])
 @using (@Html.BeginForm("CapNhat", "PhieuDatHang", FormMethod.Post, new { @class = "form-horizontal" }))
 {
@@ -73,9 +73,9 @@
             </tr>
             <tr>
                 <td><label class="input-sm">Ngày lập:</label></td>
-                <td><input class="form-control input-sm" type="text" value="@String.Format("{0:dd/MM/yyyy}", @Model.PhieuDatHang.NgayDat)" name="NgayDat" readonly="readonly" /></td>
+                <td><input class="form-control input-sm ngaylap" type="text" value="@String.Format("{0:dd/MM/yyyy}", @Model.PhieuDatHang.NgayDat)" name="NgayDat" readonly="readonly" /></td>
                 <td><label class="input-sm">Ngày hẹn giao:</label></td>
-                <td><input class="form-control input-sm" type="text" value="@String.Format("{0:dd/MM/yyyy}", @Model.PhieuDatHang.NgayGiao)" name="NgayGiao" placeholder="27/8/2016" /></td>
+                <td><input class="form-control input-sm date ngayhengiao" id="datepicker1" type="text" value="@String.Format("{0:dd/MM/yyyy}", @Model.PhieuDatHang.NgayGiao)" name="NgayGiao" placeholder="27/8/2016" /></td>
             </tr>
             <tr>
                 <td><label class="input-sm">Nhóm nhà cung cấp:</label></td>
@@ -256,6 +256,10 @@
         }
         if ($(".txtMaPhieu").val().length <= 0) {
             alert("Vui lòng nhập mã số phiếu dịch vụ!");
+            e.preventDefault();
+        }
+        if ($(".ngayhengiao").val() < $(".ngaylap").val()) {
+            alert("Ngày hẹn giao phải lớn hơn ngày lập phiếu!");
             e.preventDefault();
         }
     })
@@ -569,4 +573,20 @@
         $('.cboNNCC').val(id).prop('selected', true);
     })
 </script>
+<link href="~/Content/css/plugin/DatePicker/datepicker.css" rel="stylesheet" />
+<script src="~/Content/plugin/DatePicker/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $(".date").datepicker({ dateFormat: 'dd/mm/yy' });
 
+    });
+
+    $("form").submit(function (e) {
+        var fromdate = $(".ngaydat").val();
+        var todate = $(".ngayhengiao").val();
+        if (new Date(fromdate).getTime() > new Date(todate).getTime()) {
+            e.preventDefault();
+            alert("Ngày bắt đầu không được quá ngày kết thúc!");
+        }
+    })
+</script>

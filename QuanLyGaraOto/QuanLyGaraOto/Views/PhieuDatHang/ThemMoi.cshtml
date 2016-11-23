@@ -40,7 +40,7 @@
             border:0px !important;
         }
 </style>
-<h3 class="text-center" style="color:green;">Lập phiếu đặt hàng</h3>
+<h3 class="text-center" style="color:green;">LẬP PHIẾU ĐẶT HÀNG</h3>
 @using (@Html.BeginForm("ThemMoi", "PhieuDatHang", FormMethod.Post, new { @class = "form-horizontal" }))
 {
 
@@ -215,6 +215,10 @@
             }
             if ($(".txtMaPhieu").val().length <= 0) {
                 alert("Vui lòng nhập mã số phiếu dịch vụ!");
+                e.preventDefault();
+            }
+            if ($(".ngayhengiao").val() < $(".ngaylap").val()) {
+                alert("Ngày hẹn giao phải lớn hơn ngày lập phiếu!");
                 e.preventDefault();
             }
         })

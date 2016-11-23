@@ -13,7 +13,7 @@
     }
 </style>
 <body>
-<h3 class="text-center" style="color: green;">Danh sách phiếu đặt hàng</h3>
+<h3 class="text-center" style="color: green;">DANH SÁCH PHIẾU ĐẶT HÀNG</h3>
     @Html.Raw(TempData["msg"])
     @using (@Html.BeginForm("Index", "PhieuDatHang", FormMethod.Get, new { @class = "form-inline" }))
     {
@@ -63,7 +63,7 @@
                                     <td>@String.Format("{0:#,###,###,###}", item.PhieuDatHang.TongTien)</td>
                                     <td>
                                         @*<a class="btnCreateReceiptVoucher btn btn-primary glyphicon glyphicon-notes" href="@Url.Action("ThemMoi", "PhieuNhapHang", new {idphieuDH = @item.PhieuDatHang.Id_PhieuDatHang})">Lập phiếu nhập hàng</a>*@
-                                        <a href="@Url.Action("ThemMoi", "PhieuNhapHang", new {idphieuDH = @item.PhieuDatHang.Id_PhieuDatHang})" class="btn btn-primary input-sm" role="button" style="margin-top: 5px"><span class="glyphicon glyphicon-plus"></span>Lập phiếu nhấp hàng</a>
+                                        <a href="@Url.Action("ThemMoi", "PhieuNhapHang", new {idphieuDH = @item.PhieuDatHang.Id_PhieuDatHang})" class="btn btn-primary input-sm" role="button" style="margin-top: 5px"><span class="glyphicon glyphicon-plus"></span>Lập phiếu nhập hàng</a>
                                         @Html.ActionLink("Sửa", "CapNhat", new { id = @item.PhieuDatHang.Id_PhieuDatHang }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
                                         <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
                                     </td>
