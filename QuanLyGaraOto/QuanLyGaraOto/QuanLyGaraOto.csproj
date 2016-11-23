@@ -142,6 +142,7 @@
     <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Controllers\PhieuBanLeController.cs" />
     <Compile Include="Controllers\PhieuBanXeController.cs" />
+    <Compile Include="Controllers\PhieuBaoHanhController.cs" />
     <Compile Include="Controllers\PhieuChiController.cs" />
     <Compile Include="Controllers\PhieuDatHangController.cs" />
     <Compile Include="Controllers\PhieuDichVuController.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="ViewModel\PhieuBanLeViewModel.cs" />
     <Compile Include="ViewModel\PhieuBanXeListViewModel.cs" />
     <Compile Include="ViewModel\PhieuBanXeViewModel.cs" />
+    <Compile Include="ViewModel\PhieuBaoHanhViewModel.cs" />
     <Compile Include="ViewModel\PhieuChiViewModel.cs" />
     <Compile Include="ViewModel\DSPhieuDatHangModel.cs" />
     <Compile Include="ViewModel\PhieuDatHangViewModel.cs" />
@@ -308,12 +310,12 @@
     <Compile Include="ViewModel\PhuTungViewModel.cs" />
     <Compile Include="ViewModel\SuaNhaCungCapViewModel.cs" />
     <Compile Include="ViewModel\SuaNhanVienViewModel.cs" />
+    <Compile Include="ViewModel\SuaPhieuBaoHanhViewModel.cs" />
     <Compile Include="ViewModel\SuaPhuTungViewModel.cs" />
     <Compile Include="ViewModel\ThamSoViewModel.cs" />
     <Compile Include="ViewModel\ThemPhieuTiepNhanModel.cs" />
     <Compile Include="ViewModel\ThemPhieuTiepNhanTuKhachQuenModel.cs" />
     <Compile Include="ViewModel\ThoViewModel.cs" />
-    <Compile Include="ViewModel\TongQuanViewModel.cs" />
     <Compile Include="ViewModel\XeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -467,6 +469,10 @@
     <Content Include="Views\PhieuTiepNhan\DuplicatedVehicleExceptionView.cshtml" />
     <Content Include="Views\PhieuTiepNhan\ThemPhieuTiepNhan.cshtml" />
     <Content Include="Views\PhieuTiepNhan\ThemPhieuTiepNhanTuKhachQuen.cshtml" />
+    <Content Include="Views\PhieuBaoHanh\Index.cshtml" />
+    <Content Include="Views\PhieuBaoHanh\ThemPhieuBaoHanhFromPhieuDichVu.cshtml" />
+    <Content Include="Views\PhieuBaoHanh\DuplicatedBillExceptionView.cshtml" />
+    <Content Include="Views\PhieuBaoHanh\SuaPhieuBaoHanh.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\BaoCaoCongNo.rdlc" />

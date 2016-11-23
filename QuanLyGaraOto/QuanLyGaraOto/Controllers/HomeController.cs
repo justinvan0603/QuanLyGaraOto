@@ -19,7 +19,7 @@ namespace QuanLyGaraOto.Controllers
             vmTongQuan.TongSoKHNo = context.KHACHHANGs.Count(kh => kh.SOTIENNO > 0);
             vmTongQuan.SoXeTiepNhan = context.XEs.Count(x => x.HINHTHUC.Value == true);
             vmTongQuan.SoXeBan = context.XEs.Count(x => x.HINHTHUC.Value == false);
-            return View(vmTongQuan);
+            return View();
         }
 
         

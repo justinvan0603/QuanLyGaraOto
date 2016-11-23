@@ -15,9 +15,10 @@ namespace QuanLyGaraOto.ViewModel
     public class PhieuChiViewModel
     {
 
-        // danh sach phieu chi trong database
+        // danh sach phieu ban hang trong database
         public IPagedList<PHIEU_CHI> danhSachPhieuChi { get; set; }
 
+      
         // phieu chi hien tai ma nguoi dung chon
         public PHIEU_CHI selectedItem { get; set; }
 

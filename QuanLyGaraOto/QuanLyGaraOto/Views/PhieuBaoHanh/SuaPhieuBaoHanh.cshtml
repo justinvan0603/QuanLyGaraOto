@@ -1,0 +1,507 @@
+﻿@using QuanLyGaraOto.Models;
+@model QuanLyGaraOto.ViewModel.PhieuBaoHanhViewModel
+@{
+    Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    ViewBag.Title = "Cập nhật thông tin phiếu bảo hành";
+
+}
+
+<!DOCTYPE html>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<style>
+    .table th {
+        width: auto !important;
+    }
+
+    .table {
+        font-size: small;
+    }
+
+    .form-group {
+        margin-bottom: 5px;
+    }
+</style>
+<h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU DỊCH VỤ</h3>
+@using (Html.BeginForm("SuaPhieuBaoHanh", "PhieuBaoHanh", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="form-inline">
+        <label>Ngày lập:</label>
+        <label>@Model.selectedItem.NGAYLAP</label>
+    </div>
+     <div class="form-inline">
+        <label>Mã phiếu:</label>
+        <label>@Model.selectedItem.MA_PHIEUBH</label>
+    </div>
+    <div class="form-inline">
+        <label>Người lập:</label>
+        <label>@Model.selectedItem.NHANVIEN.HOTEN</label>
+    </div>
+      <div class="form-inline">
+        <label>Người lập:</label>
+       <textarea name="tinhTrang">@Model.selectedItem.TINHTRANG</textarea>
+    </div>
+
+    <div class="panel panel-default" style="width:99%;">
+        <div class="panel-heading">Thông tin chi tiết:</div>
+        <div class="panel-body">
+           
+            <div class="table-responsive" style="padding-top:10px; margin-right:20px;">
+                <table id="chitietphieu-table" class="table table-bordered table table-hover table-condensed ">
+                    @*<thead style="color:red;">*@
+                    <tr class="trFirstRow" style="color:red;" data-id="-1">
+                        <th style="display:none">Id</th>
+                        <th>Phụ tùng</th>
+                        <th>Mã phụ tùng</th>
+                        <th>Ngày hẹn trả</th>
+                        <th>Ngảy trả</th>
+                        <th>Cập nhật</th>
+                    </tr>
+                    @*  </thead>*@
+                    <tbody>
+                        <tr class="record-template" style="display:none">
+                            <td style="display:none">
+                                <input type="hidden" class="ID" name="ID" value="" />
+                            </td>
+                            <td style="display:none;">
+                                <input type="hidden" class="maPDV" name="ID_PHIEUDV" value="" />
+                            </td>
+                            <td style="display:none;">
+                                <input type="hidden" class="maPT" name="MA_PT" value="" />
+                            </td>
+                            <td>
+                                <input class="txtTenPT form-control input-sm" type="text" value="" readonly />
+
+                            </td>
+
+                            <td>
+                                <input type="text" class="txtMaTenPT form-control input-sm" value="" readonly />
+
+                            </td>
+                            <td>
+                                <input type="text" class="txtSoluong form-control input-sm" name="SOLUONG" value="" readonly />
+
+                            </td>
+                            <td>
+                                <input type="text" class="txtdonGia form-control input-sm" name="DONGIA" value="" readonly />
+                            </td>
+
+                            <td>
+                                <input type="text" class=" txtThanhTien form-control input-sm" name="THANHTIEN" value="" readonly />
+                            </td>
+                            <td>
+                                <input type="text" class="txtBaoHanh form-control input-sm" name="THOIHAN_BAOHANH" value="" readonly />
+                            </td>
+                            <td>
+                                <input type="button" value="Xóa" class="btnDelete btn btn-danger" />
+                            </td>
+                        </tr>
+                        @foreach (var item in Model.danhSachChiTietBaoHanh)
+                        {
+                           // string TenPT = Model.danhSachPhuTung.Single(pt => pt.ID == item.MA_PHUTUNG).TEN_PHUTUNG;
+                            <tr class="record-template">
+                                <td style="display:none">
+                                    <input type="hidden" class="ID" name="ID" value="@item.MA_PHUTUNG" />
+                                </td>
+                                <td style="display:none;">
+                                    <input type="hidden" class="maPDV" name="ID_PHIEUDV" value="@(item.MA_PHIEUDV != null ? item.MA_PHIEUDV.ToString() : "")" />
+                                </td>
+                                <td style="display:none;">
+                                    <input class="maPT" name="MA_PT" value="@item.MA_PHUTUNG" />
+                                </td>
+                                <td>
+                                    <input class="txtTenPT form-control input-sm" type="text" value="@item.PHUTUNG.TEN_PHUTUNG" readonly />
+
+                                </td>
+                                <td><input class="txtMaTenPT form-control input-sm" type="text" value="@item.MA_PHUTUNG" readonly /></td>
+                                <td>
+                                    <input type="date" class="txtSoluong form-control input-sm" name="ngayHenTra" value="@item.NGAYHENTRA.Value.ToString("yyyy-MM-dd")"  />
+
+                                </td>
+                                <td>
+                                    <input type="date" class="txtdonGia form-control input-sm" name="ngayTra" value="@item.NGAYTRA.Value.ToString("yyyy-MM-dd")"  />
+                                </td>
+                                <td>
+                                    <input id="delete_button" type="button" value="Lưu" class="btnDelete btn btn-danger btn-sm" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+            <div class="form-group" style="padding-left:10px;">
+
+                <button class="btn btn-primary" type="submit">Lưu</button>
+            </div>
+        </div>
+
+    </div>
+}
+<script>
+    $("form").submit(function (e) {
+        var rowCount = $("#chitietphieu-table tr").length;
+        var numberofContentRow = parseInt(rowCount - 2);
+        //alert(numberofContentRow);
+        if (numberofContentRow == 0) {
+            alert("Vui lòng nhập dữ liệu vào bảng chi tiết!");
+            e.preventDefault();
+        }
+        if ($(".txtTienCong").val().length <= 0) {
+            alert("Vui lòng nhập giá trị tiền công!");
+            e.preventDefault();
+        }
+        else {
+            var tc = parseInt($(".txtTienCong").val());
+            if (tc <= 1000) {
+                alert("Giá trị tiền công tối thiểu là 1000!");
+                e.preventDefault();
+            }
+        }
+        if ($(".txtMaPhieu").val().length <= 0) {
+            alert("Vui lòng nhập mã số phiếu dịch vụ!");
+            e.preventDefault();
+        }
+        //alert("method call");
+        //e.preventDefault();
+        //alert("stop submit");
+    })
+    
+    $('#chitietphieu-table').on('click', '.clickable-row', function (event) {
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+        } else {
+            $(this).addClass('active').siblings().removeClass('active');
+        }
+    });
+
+    $("body").delegate(".btnDelete", "click", function () {
+        var rowcount = $("#chitietphieu-table tr").length-2;
+        if (rowcount == 1)
+        {
+            alert("Không thể xóa thêm chi tiết phiếu! Phải có ít nhất một chi tiết phiếu!");
+            return;
+        }
+        var row = $(this).closest("tr");
+        var soluong = row.find("input.txtSoluong").attr("value");
+        var phutung = row.find("input.maPT").attr("value");
+
+        var recordid = row.find("input.ID").attr("value");
+
+        var conlai = parseInt($('select.cboPT option[value="' + phutung + '"]').attr("title"));
+        var tongso = parseInt(conlai) + parseInt(soluong);
+        $('select.cboPT option[value="' + phutung + '"]').attr("title", tongso)
+
+        //row.remove();
+        //CapNhapID();
+
+        $.ajax({
+
+
+            url: '/PhieuDichVu/XoaChiTiet/',
+            data: JSON.stringify({ id: recordid }),
+            //data: JSON.stringify({ id: itemid, product: myitem, list: list, item: myitem }),
+
+            type: 'POST',
+
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (result) {
+                isSuccess = result.value;
+                message = result.message;
+                //alert(message);
+            },
+            error: function (result) {
+                isSuccess = result.value;
+                message = result.message;
+            }
+
+        }).done(function () {
+            if (isSuccess == "1") {
+                row.remove();
+            }
+            //    alert("Thêm Thành Công");
+            //    // window.location.replace("index");
+            //}
+            //else {
+            //    alert("Error. Please, check the data");
+            //}
+        });
+
+    });
+    function cboLoaiPTSelectChanged()
+    {
+        var HieuXe = $('.cboLoaiPT').children("option").filter(":selected").attr("value");
+        $.ajax({
+            url: '/PhieuDichVu/GetPhuTungByHieuXe/',
+            type: 'post',
+            data: {
+                hieuxe: HieuXe
+            }
+        }).done(function (response) {
+            $(".cboPT").empty();
+            $(".cboPT").html(response);
+        });
+    @*@foreach(var item in Model.ListPhuTung)
+        {
+            <text>
+              var option = document.createElement("option");
+            option.text = '@txt.ToString()';
+            option.value = '@val.ToString()';
+            var select = document.getElementById("cboLoaiPT");
+            select.appendChild(option);
+            </text>
+        }*@
+
+        }
+
+    function cboPTSelectChanged()
+    {
+        @*@foreach(var item in Model.ListPhuTung)
+        {
+            <text>
+              var option = document.createElement("option");
+            option.text = '@txt.ToString()';
+            option.value = '@val.ToString()';
+            var select = document.getElementById("cbo");
+            select.appendChild(option);
+            </text>
+        }*@
+
+        var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
+        var dongia = $('.cboPT').children("option").filter(":selected").attr("itemprop");
+        var thoihanbaohanh = $('.cboPT').children("option").filter(":selected").attr("itemscope");
+
+        //var id = $('.cboPT').children("option").filter(":selected").attr("id");
+        //alert(id);
+        // alert(mapt);
+        $('.lblTonKho').text(parseInt(tonkho));
+        $('.txtDonGia').val(parseInt(dongia));
+        $('.txtBH').val(parseInt(thoihanbaohanh));
+
+    }
+    function cboTCSelectChanged() {
+
+
+        var soluong = parseInt($('input.txtSoLuong').val());
+
+        var dongia = parseInt($('input.txtDonGia').val());
+        var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
+        var tien = soluong * dongia;
+        var thanhtien = parseInt(tien) + parseInt(tiencong);
+        $('.lblThanhTien').text('');
+        $('.lblThanhTien').text(parseInt(thanhtien));
+        //alert($('.cboMaTienCong').children("option").filter(":selected").attr("title"))
+    }
+    $('.txtDonGia').on('input', function (e) {
+        var soluong = parseInt($('input.txtSoLuong').val());
+
+        var dongia = parseInt($('input.txtDonGia').val());
+        //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
+        var tien = soluong * dongia;
+        var thanhtien = parseInt(tien);
+        $('.lblThanhTien').text('');
+        $('.lblThanhTien').text(parseInt(thanhtien));
+    })
+
+    $('.txtSoLuong').on('input', function (e) {
+        var soluong = parseInt($('input.txtSoLuong').val());
+
+        var dongia = parseInt($('input.txtDonGia').val());
+        //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
+        var tien = soluong * dongia;
+        var thanhtien = parseInt(tien);
+        $('.lblThanhTien').text('');
+        $('.lblThanhTien').text(parseInt(thanhtien));
+        //alert('text changed');
+    })
+    $("#btnAdd").click(function () {
+        var tonkho = parseInt($('.cboPT').children("option").filter(":selected").attr("title"));
+        var soluong = parseInt($('input.txtSoLuong').val());
+
+        var dongia = parseInt($('input.txtDonGia').val());
+        var baohanh = parseInt($('input.txtBH').val());
+        if (isNaN(dongia) == true)
+        {
+            alert("Đơn giá không được để trống!")
+            return;
+        }
+        if (isNaN(soluong) == true) {
+            alert("Số lượng không được để trống!")
+            return;
+        }
+        if (isNaN(baohanh) == true) {
+            alert("Hạn bảo hành không được để trống!")
+            return;
+        }
+        if (dongia <= 0) {
+            alert("Nhập sai đơn giá!")
+            return;
+        }
+        if (baohanh <= 0) {
+            alert("Nhập sai hạn bảo hành!")
+            return;
+        }
+        if (soluong <= 0) {
+            alert("Nhập sai số lượng!")
+            return;
+        }
+        else {
+            if (soluong > tonkho) {
+                alert("Số lượng cần vượt quá lượng tồn trong kho!")
+                return;
+            }
+            var conlai = tonkho - soluong;
+            $('.cboPT').children("option").filter(":selected").attr("title", conlai)
+            $('.lblTonKho').text(conlai);
+        }
+
+
+
+
+        var id_cuoi = $("#chitietphieu-table").find("tr:last-child").attr("data-id");
+
+        i = parseInt(id_cuoi) + 1;
+        //alert(i);
+        var tdnoidung = $(".record-template").html();
+
+        var trnoidung = "<tr class=\"record-template\" data-id=\"" + i + "\">" + tdnoidung + "</tr>";
+        $("#chitietphieu-table").append(trnoidung);
+
+        var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
+
+        //var matiencong = $('.cboTC').children("option").filter(":selected").attr("value");
+
+        //var $matiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.maTC')
+        //$matiencong.attr("value", matiencong);
+
+        var maphutung = $('.cboPT').children("option").filter(":selected").attr("value");
+        var $maphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.maPT');
+        $maphutung.attr("value", maphutung);
+
+        var tenpt = $('.cboPT').children("option").filter(":selected").text();
+
+        var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
+        $tenphutung.attr("value", tenpt);
+
+        var $txtMaTenPT = $("#chitietphieu-table").find("tr:last-child").find('td input.maTenPT');
+        var maTenPT = $('.cboPT').children("option").filter(":selected").attr("id");
+        $txtMaTenPT.attr("value", maTenPT);
+
+        var loaitiencong = $('.cboTC').children("option").filter(":selected").attr("value");
+        var $tentiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenTC');
+        $tentiencong.attr("value", loaitiencong);
+
+        var $txtsoluong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtSoluong');
+        $txtsoluong.attr("value", soluong);
+
+        var $txtdongia = $("#chitietphieu-table").find("tr:last-child").find('td input.txtdonGia');
+        $txtdongia.attr("value", dongia);
+
+        //var $txttiencong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTienCong');
+        //$txttiencong.attr("value", tiencong);
+
+        var thanhtien = parseInt(soluong * dongia) + parseInt(tiencong);
+        var $txtthanhtien = $("#chitietphieu-table").find("tr:last-child").find('td input.txtThanhTien');
+        $txtthanhtien.attr("value", thanhtien);
+        var baohanh = $('.txtBH').val();
+        var $txtbaohanh = $("#chitietphieu-table").find("tr:last-child").find('td input.txtBaoHanh');
+        $txtbaohanh.attr("value", baohanh);
+        loadIDLENTHE();
+        var ct = { "MA_PT": maphutung, "SOLUONG": soluong, "DONGIA": dongia, "THANHTIEN": thanhtien, "THOIHAN_BAOHANH": baohanh }
+        $.ajax({
+
+
+            url: '/PhieuDichVu/ThemChiTiet/',
+            data: JSON.stringify({ chitiet: ct }),
+            //data: JSON.stringify({ id: itemid, product: myitem, list: list, item: myitem }),
+
+            type: 'POST',
+
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (result) {
+                isSuccess = result.issucess;
+                id = result.newid;
+                var $newrow = $("#chitietphieu-table").find("tr:last-child").find('td input.ID');
+                $newrow.attr("value", id);
+                alert($newrow.attr("value"))
+                message = result.message;
+                //alert(message);
+            },
+            error: function (result) {
+                isSuccess = result.value;
+                message = result.message;
+            }
+
+        }).done(function () {
+            //if (isSuccess == "1") {
+            //    //row.remove();
+            //    //alert("Thêm Thành Công");
+            //    // window.location.replace("index");
+            //}
+            //else {
+            //    //alert("Error. Please, check the data");
+            //}
+        });
+
+    });
+
+    function loadIDLENTHE() {
+        $(".record-template").each(function () {
+
+            var id = $(this).attr("data-id");
+            var nameDV = "[" + id + "].ID_PHIEUDV";
+            var nameMaPhuTung = "[" + id + "].MA_PT";
+            var nameMaTienCong = "[" + id + "].MA_TIENCONG";
+
+            var nameSoLuong = "[" + id + "].SOLUONG";
+            var nameDonGia = "[" + id + "].DONGIA";
+            var nameTienCong = "[" + id + "].TIENCONG";
+            var nameThanhTien = "[" + id + "].THANHTIEN";
+            var nameThoiHanBaoHanh = "[" + id + "].THOIHAN_BAOHANH"
+
+            $(this).find(".maPDV").attr("name", nameDV);
+            $(this).find(".maPT").attr("name", nameMaPhuTung);
+            //$(this).find(".maTC").attr("name", nameMaTienCong);
+            $(this).find(".txtSoluong").attr("name", nameSoLuong);
+            $(this).find(".txtdonGia").attr("name", nameDonGia);
+            //$(this).find(".txtTienCong").attr("name", nameTienCong);
+            $(this).find(".txtThanhTien").attr("name", nameThanhTien);
+            $(this).find(".txtBaoHanh").attr("name", nameThoiHanBaoHanh);
+
+        })
+    };
+
+    function CapNhapID() {
+        var id_cuoi = $("#chitietphieu-table").find(".trFirstRow").attr("data-id");
+        i = parseInt(id_cuoi) + 1;
+
+        $(".record-template").each(function () {
+            var id = i;
+            $(this).attr("data-id", i);
+            var nameDV = "[" + id + "].ID_PHIEUDV";
+            var nameMaPhuTung = "[" + id + "].MA_PT";
+            //var nameMaTienCong = "[" + id + "].MA_TIENCONG";
+
+            var nameSoLuong = "[" + id + "].SOLUONG";
+            var nameDonGia = "[" + id + "].DONGIA";
+            //var nameTienCong = "[" + id + "].TIENCONG";
+            var nameThanhTien = "[" + id + "].THANHTIEN";
+            var nameThoiHanBaoHanh = "[" + id + "].THOIHAN_BAOHANH"
+
+            $(this).find(".maPDV").attr("name", nameDV);
+            $(this).find(".maPT").attr("name", nameMaPhuTung);
+            //$(this).find(".maTC").attr("name", nameMaTienCong);
+            $(this).find(".txtSoluong").attr("name", nameSoLuong);
+            $(this).find(".txtdonGia").attr("name", nameDonGia);
+            //$(this).find(".txtTienCong").attr("name", nameTienCong);
+            $(this).find(".txtThanhTien").attr("name", nameThanhTien);
+            $(this).find(".txtBaoHanh").attr("name", nameThoiHanBaoHanh);
+
+            i++;
+        })
+    }
+</script>
