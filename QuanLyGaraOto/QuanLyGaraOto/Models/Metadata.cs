@@ -73,5 +73,28 @@ namespace QuanLyGaraOto.Models
         [StringLength(100, ErrorMessage = "Địa chỉ chỉ chứa tối đa 100 ký tự")]
         public string DIACHI { get; set; }
     }
+    public class PHUTUNGMetadata
+    {
+        [Required(ErrorMessage = "Mã phụ tùng không được để trống!")]
+        [StringLength(20, ErrorMessage = "Mã phụ tùng chỉ chứa tối đa 20 ký tự")]
+        public string MA_PHUTUNG { get; set; }
+        public string TEN_PHUTUNG { get; set; }
+    }
+    public class NHACUNGCAPMetadata
+    {
 
+    }
+    public class PHIEUTHUMetadata
+    {
+        
+    }
+
+    public class PHIEUNHAPHANGMetadata
+    {
+        
+    }
+    public class PHIEUDATHANGMetadata
+    {
+
+    }
 }

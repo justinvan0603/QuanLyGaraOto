@@ -86,12 +86,15 @@ namespace QuanLyGaraOto.Controllers
         {
             GARADBEntities context = new GARADBEntities();
             THO tho = context.THOes.Single(c => c.MA_THO == id);
+            tho.SDT = tho.SDT.Replace(" ", "");
             return View(tho);
         }
 
         [HttpPost]
         public ActionResult CapNhat(THO tho)
         {
+            if (!ModelState.IsValid)
+                return View(tho);
             try
             {
                 GARADBEntities context = new GARADBEntities();
