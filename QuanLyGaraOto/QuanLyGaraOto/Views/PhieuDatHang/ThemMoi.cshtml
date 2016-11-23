@@ -67,9 +67,9 @@
             </tr>
             <tr>
                 <td><label class="input-sm">Ngày lập:</label></td>
-                <td><input class="form-control input-sm" type="text" value="@String.Format("{0:dd/MM/yyyy}", DateTime.Now.Date)" readonly="readonly" /></td>
+                <td><input class="form-control input-sm ngaylap" type="text" value="@String.Format("{0:dd/MM/yyyy}", DateTime.Now.Date)" readonly="readonly" /></td>
                 <td><label class="input-sm">Ngày hẹn giao:</label></td>
-                <td><input class="form-control input-sm" type="text" value="@String.Format("{0:dd/MM/yyyy}", @Model.PhieuDatHang.NgayGiao)" name="NgayGiao" placeholder="27/8/2016" /></td>
+                <td><input class="form-control input-sm date ngayhengiao" id="datepicker1" type="text" value="@String.Format("{0:dd/MM/yyyy}", @Model.PhieuDatHang.NgayGiao)" name="NgayGiao" placeholder="27/8/2016" /></td>
             </tr>
             <tr>
                 <td><label class="input-sm">Nhóm nhà cung cấp:</label></td>
@@ -194,65 +194,73 @@
         //$(".cboTC option[value='2']").attr("selected", true);
         $('.cboTho').val('@val').prop('selected', true);
     })*@
-    $('#chitietphieu-table').on('click', '.clickable-row', function (event) {
-        if ($(this).hasClass('active')) {
-            $(this).removeClass('active');
-        } else {
-            $(this).addClass('active').siblings().removeClass('active');
-        }
-    });
-    $("form").submit(function (e) {
-        var rowCount = $("#chitietphieu-table tr").length;
-        var numberofContentRow = parseInt(rowCount - 2);
-        //alert(numberofContentRow);
-        if (numberofContentRow == 0) {
-            alert("Vui lòng nhập dữ liệu vào bảng chi tiết!");
-            e.preventDefault();
-        }
-        if ($(".txtMaPhieu").val().length <= 0) {
-            alert("Vui lòng nhập mã số phiếu dịch vụ!");
-            e.preventDefault();
-        }
-    })
-    $("body").delegate("#btnDelete", "click", function () {
-        var row = $(this).closest("tr");
-        var soluong = row.find("input.txtSoluong").attr("value");
-        var phutung = row.find("input.maPT").attr("value");
-        var thanhtien = row.find("input.txtThanhTien").attr("value");
+    $('#chitietphieu-table')
+        .on('click',
+            '.clickable-row',
+            function(event) {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                } else {
+                    $(this).addClass('active').siblings().removeClass('active');
+                }
+            });
+    $("form")
+        .submit(function(e) {
+            var rowCount = $("#chitietphieu-table tr").length;
+            var numberofContentRow = parseInt(rowCount - 2);
+            //alert(numberofContentRow);
+            if (numberofContentRow == 0) {
+                alert("Vui lòng nhập dữ liệu vào bảng chi tiết!");
+                e.preventDefault();
+            }
+            if ($(".txtMaPhieu").val().length <= 0) {
+                alert("Vui lòng nhập mã số phiếu dịch vụ!");
+                e.preventDefault();
+            }
+        })
+    $("body")
+        .delegate("#btnDelete",
+            "click",
+            function() {
+                var row = $(this).closest("tr");
+                var soluong = row.find("input.txtSoluong").attr("value");
+                var phutung = row.find("input.maPT").attr("value");
+                var thanhtien = row.find("input.txtThanhTien").attr("value");
 
-        var tongtien = parseInt($('.lblTongTien').text());
+                var tongtien = parseInt($('.lblTongTien').text());
 
-        $('.lblTongTien').text(parseInt(tongtien - thanhtien));
+                $('.lblTongTien').text(parseInt(tongtien - thanhtien));
 
-        var conlai = parseInt($('select.cboPT option[value="' + phutung + '"]').attr("title"));
-        var tongso = parseInt(conlai) + parseInt(soluong);
-        $('select.cboPT option[value="' + phutung + '"]').attr("title", tongso)
-        var rowCount = $("#chitietphieu-table tr").length;
-        //alert(rowCount);
-        // $(this).closest("tr");
-        row.remove();
-        CapNhapID();
-        
+                var conlai = parseInt($('select.cboPT option[value="' + phutung + '"]').attr("title"));
+                var tongso = parseInt(conlai) + parseInt(soluong);
+                $('select.cboPT option[value="' + phutung + '"]').attr("title", tongso)
+                var rowCount = $("#chitietphieu-table tr").length;
+                //alert(rowCount);
+                // $(this).closest("tr");
+                row.remove();
+                CapNhapID();
 
-        
-    });
+
+            });
+
     function cboLoaiPTSelectChanged() {
         var HieuXe = $('.cboLoaiPT').children("option").filter(":selected").attr("value");
         $.ajax({
-            url: '/PhieuDatHang/GetPhuTungByHieuXe/',
-            type: 'post',
-            data: {
-                hieuxe: HieuXe
-            }
-        }).done(function (response) {
-            document.getElementById("cbo").options.length = 0;
-            $(".cboPT").empty();
-            $(".cboPT").html(response);
-            var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
-            var dongia = $('.cboPT').children("option").filter(":selected").attr("itemprop");
-            $('.lblTonKho').text(parseInt(tonkho));
-            $('.txtDonGia').val(parseInt(dongia));
-        });
+                url: '/PhieuDatHang/GetPhuTungByHieuXe/',
+                type: 'post',
+                data: {
+                    hieuxe: HieuXe
+                }
+            })
+            .done(function(response) {
+                document.getElementById("cbo").options.length = 0;
+                $(".cboPT").empty();
+                $(".cboPT").html(response);
+                var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
+                var dongia = $('.cboPT').children("option").filter(":selected").attr("itemprop");
+                $('.lblTonKho').text(parseInt(tonkho));
+                $('.txtDonGia').val(parseInt(dongia));
+            });
         //$("province_dll").change(function () {
         //    $.ajax({
         //        url: '/PhieuDichVu/GetPhuTungByHieuXe/',
@@ -293,125 +301,130 @@
         $('.lblThanhTien').text(parseInt(thanhtien));
     }
 
-    $('.txtDonGia').on('input', function (e) {
-        var soluong = parseInt($('input.txtSoLuong').val());
+    $('.txtDonGia')
+        .on('input',
+            function(e) {
+                var soluong = parseInt($('input.txtSoLuong').val());
 
-        var dongia = parseInt($('input.txtDonGia').val());
+                var dongia = parseInt($('input.txtDonGia').val());
 
-        var tien = parseInt(soluong * dongia);
-        var thanhtien = parseInt(tien);
+                var tien = parseInt(soluong * dongia);
+                var thanhtien = parseInt(tien);
 
-        $('.lblThanhTien').text('');
-        $('.lblThanhTien').text(parseInt(thanhtien));
-    })
+                $('.lblThanhTien').text('');
+                $('.lblThanhTien').text(parseInt(thanhtien));
+            })
 
-    $('.txtSoLuong').on('input', function (e) {
-        var soluong = parseInt($('input.txtSoLuong').val());
+    $('.txtSoLuong')
+        .on('input',
+            function(e) {
+                var soluong = parseInt($('input.txtSoLuong').val());
 
-        var dongia = parseInt($('input.txtDonGia').val());
-        //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
-        var tien = soluong * dongia;
-        var thanhtien = parseInt(tien);
-        $('.lblThanhTien').text('');
-        $('.lblThanhTien').text(parseInt(thanhtien));
-        //alert('text changed');
-    })
-    $("#btnAdd").click(function () {
-        var tonkho = parseInt($('.cboPT').children("option").filter(":selected").attr("title"));
-        var soluong = parseInt($('input.txtSoLuong').val());
+                var dongia = parseInt($('input.txtDonGia').val());
+                //var tiencong = $('.cboTC').children("option").filter(":selected").attr("title");
+                var tien = soluong * dongia;
+                var thanhtien = parseInt(tien);
+                $('.lblThanhTien').text('');
+                $('.lblThanhTien').text(parseInt(thanhtien));
+                //alert('text changed');
+            })
+    $("#btnAdd")
+        .click(function() {
+            var tonkho = parseInt($('.cboPT').children("option").filter(":selected").attr("title"));
+            var soluong = parseInt($('input.txtSoLuong').val());
 
-        var dongia = parseInt($('input.txtDonGia').val());
-        var tongtien = parseInt($('.lblTongTien').text());
+            var dongia = parseInt($('input.txtDonGia').val());
+            var tongtien = parseInt($('.lblTongTien').text());
 
-        if (isNaN(dongia) == true) {
-            alert("Đơn giá không được để trống!")
-            return;
-        }
-        if (isNaN(soluong) == true) {
-            alert("Số lượng không được để trống!")
-            return;
-        }
-        if (dongia <= 0) {
-            alert("Nhập sai đơn giá!")
-            return;
-        }
-        if (soluong <= 0) {
-            alert("Nhập sai số lượng!")
-            return;
-        }
+            if (isNaN(dongia) == true) {
+                alert("Đơn giá không được để trống!")
+                return;
+            }
+            if (isNaN(soluong) == true) {
+                alert("Số lượng không được để trống!")
+                return;
+            }
+            if (dongia <= 0) {
+                alert("Nhập sai đơn giá!")
+                return;
+            }
+            if (soluong <= 0) {
+                alert("Nhập sai số lượng!")
+                return;
+            }
 
-        var id_cuoi = $("#chitietphieu-table tr").length - 3;
-        //var id_cuoi = $("#chitietphieu-table").find("tr:last-child").attr("data-id");
+            var id_cuoi = $("#chitietphieu-table tr").length - 3;
+            //var id_cuoi = $("#chitietphieu-table").find("tr:last-child").attr("data-id");
 
-        //alert(id_cuoi);
-        i = parseInt(id_cuoi) + 1;
-        //alert(i);
-        var tdnoidung = $(".record-template").html();
+            //alert(id_cuoi);
+            i = parseInt(id_cuoi) + 1;
+            //alert(i);
+            var tdnoidung = $(".record-template").html();
 
-        var trnoidung = "<tr class=\"record-template\" data-id=\"" + i + "\">" + tdnoidung + "</tr>";
+            var trnoidung = "<tr class=\"record-template\" data-id=\"" + i + "\">" + tdnoidung + "</tr>";
 
-        $("#chitietphieu-table").append(trnoidung);
-
-
-
-        var maphutung = $('.cboPT').children("option").filter(":selected").attr("value");
-        var $maphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.maPT');
-
-        $maphutung.attr("value", maphutung);
-
-        var tenpt = $('.cboPT').children("option").filter(":selected").text();
-
-        var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
-        $tenphutung.attr("value", tenpt);
-
-        var $txtMaTenPT = $("#chitietphieu-table").find("tr:last-child").find('td input.maTenPT');
-        var maTenPT = $('.cboPT').children("option").filter(":selected").attr("id");
-        $txtMaTenPT.attr("value", maTenPT);
+            $("#chitietphieu-table").append(trnoidung);
 
 
-        var $txtsoluong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtSoluong');
+            var maphutung = $('.cboPT').children("option").filter(":selected").attr("value");
+            var $maphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.maPT');
 
-        $txtsoluong.attr("value", soluong);
+            $maphutung.attr("value", maphutung);
 
-        var $txtdongia = $("#chitietphieu-table").find("tr:last-child").find('td input.txtdonGia');
-        $txtdongia.attr("value", dongia);
+            var tenpt = $('.cboPT').children("option").filter(":selected").text();
 
-        var thanhtien = parseInt(soluong * dongia);
-        var $txtthanhtien = $("#chitietphieu-table").find("tr:last-child").find('td input.txtThanhTien');
-        $txtthanhtien.attr("value", thanhtien);
+            var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
+            $tenphutung.attr("value", tenpt);
 
-        $('.lblTongTien').text(parseInt(tongtien + thanhtien));
+            var $txtMaTenPT = $("#chitietphieu-table").find("tr:last-child").find('td input.maTenPT');
+            var maTenPT = $('.cboPT').children("option").filter(":selected").attr("id");
+            $txtMaTenPT.attr("value", maTenPT);
 
-        var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
-        $tenphutung.attr("value", tenpt);
 
-        loadIDLENTHE();
+            var $txtsoluong = $("#chitietphieu-table").find("tr:last-child").find('td input.txtSoluong');
 
-    });
+            $txtsoluong.attr("value", soluong);
+
+            var $txtdongia = $("#chitietphieu-table").find("tr:last-child").find('td input.txtdonGia');
+            $txtdongia.attr("value", dongia);
+
+            var thanhtien = parseInt(soluong * dongia);
+            var $txtthanhtien = $("#chitietphieu-table").find("tr:last-child").find('td input.txtThanhTien');
+            $txtthanhtien.attr("value", thanhtien);
+
+            $('.lblTongTien').text(parseInt(tongtien + thanhtien));
+
+            var $tenphutung = $("#chitietphieu-table").find("tr:last-child").find('td input.txtTenPT');
+            $tenphutung.attr("value", tenpt);
+
+            loadIDLENTHE();
+
+        });
 
     function loadIDLENTHE() {
-        $(".record-template").each(function () {
+        $(".record-template")
+            .each(function() {
 
-            var id = $(this).attr("data-id");
-            //alert(id);
-            //alert($(this).find(".txtTenPT").attr("value"));
+                var id = $(this).attr("data-id");
+                //alert(id);
+                //alert($(this).find(".txtTenPT").attr("value"));
 
-            var nameDV = "[" + id + "].Id_PhieuDatHang";
-            var nameMaPhuTung = "[" + id + "].MA_PHUTUNG";
+                var nameDV = "[" + id + "].Id_PhieuDatHang";
+                var nameMaPhuTung = "[" + id + "].MA_PHUTUNG";
 
-            var nameSoLuong = "[" + id + "].SOLUONG";
-            var nameDonGia = "[" + id + "].DONGIA";
-            var nameThanhTien = "[" + id + "].THANHTIEN";
+                var nameSoLuong = "[" + id + "].SOLUONG";
+                var nameDonGia = "[" + id + "].DONGIA";
+                var nameThanhTien = "[" + id + "].THANHTIEN";
 
-            $(this).find(".maPDH").attr("name", nameDV);
-            $(this).find(".maPT").attr("name", nameMaPhuTung);
-            //$(this).find(".maTC").attr("name", nameMaTienCong);
-            $(this).find(".txtSoluong").attr("name", nameSoLuong);
-            $(this).find(".txtdonGia").attr("name", nameDonGia);
-            //$(this).find(".txtTienCong").attr("name", nameTienCong);
-            $(this).find(".txtThanhTien").attr("name", nameThanhTien);
+                $(this).find(".maPDH").attr("name", nameDV);
+                $(this).find(".maPT").attr("name", nameMaPhuTung);
+                //$(this).find(".maTC").attr("name", nameMaTienCong);
+                $(this).find(".txtSoluong").attr("name", nameSoLuong);
+                $(this).find(".txtdonGia").attr("name", nameDonGia);
+                //$(this).find(".txtTienCong").attr("name", nameTienCong);
+                $(this).find(".txtThanhTien").attr("name", nameThanhTien);
 
-        })
+            })
     };
 
     function CapNhapID() {
@@ -419,40 +432,62 @@
         //alert(id_cuoi);
         i = parseInt(id_cuoi);
         // alert(i);
-        $(".record-template").each(function () {
+        $(".record-template")
+            .each(function() {
 
-            var id = i;
-            $(this).attr("data-id", i);
-            var nameDV = "[" + id + "].Id_PhieuDatHang";
-            var nameMaPhuTung = "[" + id + "].MA_PHUTUNG";
+                var id = i;
+                $(this).attr("data-id", i);
+                var nameDV = "[" + id + "].Id_PhieuDatHang";
+                var nameMaPhuTung = "[" + id + "].MA_PHUTUNG";
 
-            var nameSoLuong = "[" + id + "].SOLUONG";
-            var nameDonGia = "[" + id + "].DONGIA";
-            var nameThanhTien = "[" + id + "].THANHTIEN";
+                var nameSoLuong = "[" + id + "].SOLUONG";
+                var nameDonGia = "[" + id + "].DONGIA";
+                var nameThanhTien = "[" + id + "].THANHTIEN";
 
-            $(this).find(".maPDH").attr("name", nameDV);
-            $(this).find(".maPT").attr("name", nameMaPhuTung);
-            //$(this).find(".maTC").attr("name", nameMaTienCong);
-            $(this).find(".txtSoluong").attr("name", nameSoLuong);
-            $(this).find(".txtdonGia").attr("name", nameDonGia);
-            //$(this).find(".txtTienCong").attr("name", nameTienCong);
-            $(this).find(".txtThanhTien").attr("name", nameThanhTien);
-            // alert(i);
-            i++;
-        })
+                $(this).find(".maPDH").attr("name", nameDV);
+                $(this).find(".maPT").attr("name", nameMaPhuTung);
+                //$(this).find(".maTC").attr("name", nameMaTienCong);
+                $(this).find(".txtSoluong").attr("name", nameSoLuong);
+                $(this).find(".txtdonGia").attr("name", nameDonGia);
+                //$(this).find(".txtTienCong").attr("name", nameTienCong);
+                $(this).find(".txtThanhTien").attr("name", nameThanhTien);
+                // alert(i);
+                i++;
+            })
     }
+
     function cboNNCCSelectChanged() {
         var NNCC = $('.cboNNCC').children("option").filter(":selected").attr("value");
         $.ajax({
-            url: '/PhieuDathang/GetNCCByNhomNCC/',
-            type: 'post',
-            data: {
-                nhomncc: NNCC
-            }
-        }).done(function (response) {
-            $(".cboNCC").empty();
-            $(".cboNCC").html(response);
-        });
+                url: '/PhieuDathang/GetNCCByNhomNCC/',
+                type: 'post',
+                data: {
+                    nhomncc: NNCC
+                }
+            })
+            .done(function(response) {
+                $(".cboNCC").empty();
+                $(".cboNCC").html(response);
+            });
     }
 </script>
+<link href="~/Content/css/plugin/DatePicker/datepicker.css" rel="stylesheet" />
+<script src="~/Content/plugin/DatePicker/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $(".date").datepicker({ dateFormat: 'dd/mm/yy' });
+
+    });
+
+    $("form").submit(function (e) {
+        var fromdate = $(".ngaydat").val();
+        var todate = $(".ngayhengiao").val();
+        if (new Date(fromdate).getTime() > new Date(todate).getTime()) {
+            e.preventDefault();
+            alert("Ngày bắt đầu không được quá ngày kết thúc!");
+        }
+    })
+</script>
+
+
 

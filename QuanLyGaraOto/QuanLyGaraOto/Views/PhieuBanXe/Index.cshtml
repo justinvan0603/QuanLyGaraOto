@@ -69,7 +69,7 @@
                             @Html.ActionLink("Sửa", "SuaPhieuBanXe", new { id = @item.id }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
                             @if (!item.isPaid) // only show delete button and create receipt voucher if the bill is not paid
                             {
-                                <a class="btnCreateReceiptVoucher btn btn-primary glyphicon glyphicon-notes" href="@Url.Action("ThemMoi", "PhieuThu", new { idphieu = @item.id, type = "pbx"})">Lập phiếu thu</a>
+                                <a href="@Url.Action("ThemMoi", "PhieuThu", new { idphieu = @item.id, type = "pbx" })" class="btn btn-primary input-sm" role="button"><span class="glyphicon glyphicon-plus"></span>Lập phiếu thu</a>
                                 <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
                                 
                             }

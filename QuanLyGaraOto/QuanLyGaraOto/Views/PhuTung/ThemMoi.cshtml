@@ -8,29 +8,30 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <h3 class="text-center" style="color: green;">Thêm thông tin phụ tùng</h3>
-    @using (Html.BeginForm("ThemMoi", "PhuTung", FormMethod.Post))
-    {
-        <div class="form-group ">
-            <label class="input-sm">Mã phụ tùng:</label>
-            <input class="form-control input-sm" type="text" maxlength="20" name="MA_PHUTUNG" required />
-        </div>
-        <div class="form-group ">
-            <label class="input-sm">Tên phụ tùng:</label>
-            <input class="form-control input-sm" type="text" maxlength="100" name="TEN_PHUTUNG" required/>
-        </div>
-        <div class="form-group">
-            <label class="input-sm">Hiệu xe:</label>
-            <select name="MA_HIEUXE" class="form-control input-sm">
-                @foreach (var item in Model)
-                {
-                    <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
-                }
-            </select>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span> Lưu</button>
-        </div>
-    }
+<h3 class="text-center" style="color: green;">THÊM THÔNG TIN PHỤ TÙNG</h3>
+@using (Html.BeginForm("ThemMoi", "PhuTung", FormMethod.Post))
+{
+    <div class="form-group ">
+        <label class="input-sm">Mã phụ tùng:</label>
+        <input id="mapt" class="form-control input-sm" type="text" maxlength="20" name="MA_PHUTUNG" required oninput="setCustomValidity('')" oninvalid="setCustomValidity('Mã phụ tùng không được để trống')" />
+    </div>
+    <div class="form-group ">
+        <label class="input-sm">Tên phụ tùng:</label>
+        <input id="tenpt" class="form-control input-sm" type="text" maxlength="100" name="TEN_PHUTUNG" required oninput="setCustomValidity('')" oninvalid="setCustomValidity('Tên phụ tùng không được để trống')" />
+    </div>
+    <div class="form-group">
+        <label class="input-sm">Hiệu xe:</label>
+        <select name="MA_HIEUXE" class="form-control input-sm">
+            @foreach (var item in Model)
+            {
+                <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span> Lưu</button>
+    </div>
+}
 </body>
+
 

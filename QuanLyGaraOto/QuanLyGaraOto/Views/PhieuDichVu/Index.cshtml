@@ -72,10 +72,9 @@
                         <td>
 
                             @Html.ActionLink("Sửa", "SuaPhieuDichVu", new { id = @item.Id_PhieuDV }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
-                            <a class="btnCreateBill btn btn-default glyphicon glyphicon-pencil" href="@Url.Action("NhapPhieuThu","PhieuThu",new {id = @item.Id_PhieuDV})">Lập phiếu thu</a>
                             <!--<button id="btnDelete" type="button" class="btn btn-danger glyphicon-remove">Delete</button>-->
                             <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
-
+                            <a href="@Url.Action("ThemMoi", "PhieuThu", new { idphieu = @item.Id_PhieuDV, type = "pdv" })" class="btn btn-primary input-sm" role="button"><span class="glyphicon glyphicon-plus"></span>Lập phiếu thu</a>
                         </td>
                         <td>
                             @if (Model.service.CHITIET_PHIEUBH.Where(e => e.MA_PHIEUDV == item.Id_PhieuDV).Count() > 0)

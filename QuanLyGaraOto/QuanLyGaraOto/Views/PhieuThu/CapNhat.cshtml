@@ -33,7 +33,7 @@
             <tbody>
                 <tr>
                     <td><label>Mã phiếu thu:</label></td>
-                    <td>@Html.TextBoxFor(m => m.PhieuThu.MAPHIEUTHU, new { @class = "form-control input-sm" })</td>
+                    <td>@Html.TextBoxFor(m => m.PhieuThu.MAPHIEUTHU, new { @class = "form-control input-sm", oninput = "setCustomValidity('')", oninvalid = "setCustomValidity('Mã phiếu thu không được để trống');" })</td>
                 </tr>
                 <tr>
                     <td><label>Ngày lập:</label></td>
@@ -49,7 +49,7 @@
                 </tr>
                 <tr>
                     <td><label>Số tiền thu:</label></td>
-                    <td>@Html.TextBoxFor(m => m.PhieuThu.SOTIEN, new { @class = "form-control", @type = "number" })</td>
+                    <td>@Html.TextBoxFor(m => m.PhieuThu.SOTIEN, new { @class = "form-control", @type = "number", oninput = "setCustomValidity('Số điện thoại không được bỏ trống')", onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })</td>
                 </tr>
 
             </tbody>

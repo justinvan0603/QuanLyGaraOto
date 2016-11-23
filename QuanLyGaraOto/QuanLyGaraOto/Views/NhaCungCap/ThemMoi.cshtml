@@ -8,20 +8,20 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <h3 class="text-center" style="color: green;">Thêm thông tin nhà cung cấp</h3>
+    <h3 class="text-center" style="color: green;">THÊM NHÀ CUNG CẤP</h3>
     @using (Html.BeginForm("ThemMoi", "NhaCungCap", FormMethod.Post))
     {
         <div class="form-group ">
             <label class="input-sm">Tên nhà cung cấp:</label>
-            <input class="form-control input-sm" type="text" maxlength="100" name="TenNCC" required/>
+            <input class="form-control input-sm" type="text" maxlength="100" name="TenNCC" required oninput="setCustomValidity('')" oninvalid="setCustomValidity('Tên nhà cung cấp không được để trống');" />
         </div>
         <div class="form-group ">
             <label class="input-sm">Địa chỉ:</label>
-            <input class="form-control input-sm" type="text" maxlength="250" name="DiaChi" required/>
+            <input class="form-control input-sm" type="text" maxlength="250" name="DiaChi" required oninput="setCustomValidity('')" oninvalid="setCustomValidity('Địa chỉ không được để trống');" />
         </div>
         <div class="form-group ">
             <label class="input-sm">Số điện thoại:</label>
-            <input class="form-control input-sm" type="number" maxlength="11" name="SDT" required/>
+            <input class="form-control input-sm" type="number" pattern="[0-9]" maxlength="11" name="SDT" required oninput="setCustomValidity('Số điện thoại không được bỏ trống')" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
         </div>
         <div class="form-group">
             <label class="input-sm">Nhóm nhà cung cấp:</label>
@@ -37,4 +37,3 @@
         </div>
     }
 </body>
-
