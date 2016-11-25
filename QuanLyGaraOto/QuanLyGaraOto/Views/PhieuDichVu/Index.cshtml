@@ -15,9 +15,6 @@
 @Html.Raw(TempData["msg"])
 <h3 class="text-center" style="color:green;">DANH SÁCH PHIẾU DỊCH VỤ</h3>
 
-
-
-
 @using (@Html.BeginForm("Index", "PhieuDichVu", FormMethod.Get, new { @class = "form-inline" }))
 {
     <div class="form-inline">
@@ -51,7 +48,6 @@
                 <th>@Html.ActionLink("Còn lại", "Index", new { sortOrder = ViewBag.RemainSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })<span class="glyphicon glyphicon-arrow-down"></span></th>
 
                 <th>Thao tác</th>
-                <th>Bảo hành</th>
 
 
             </tr>
@@ -75,8 +71,6 @@
                             <!--<button id="btnDelete" type="button" class="btn btn-danger glyphicon-remove">Delete</button>-->
                             <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
                             <a href="@Url.Action("ThemMoi", "PhieuThu", new { idphieu = @item.Id_PhieuDV, type = "pdv" })" class="btn btn-primary input-sm" role="button"><span class="glyphicon glyphicon-plus"></span>Lập phiếu thu</a>
-                        </td>
-                        <td>
                             @if (Model.service.CHITIET_PHIEUBH.Where(e => e.MA_PHIEUDV == item.Id_PhieuDV).Count() > 0)
                             {
                                 List<QuanLyGaraOto.Models.CHITIET_PHIEUBH> baoHanhs = Model.service.CHITIET_PHIEUBH.Where(e => e.MA_PHIEUDV == item.Id_PhieuDV).ToList();
@@ -88,6 +82,7 @@
                             }
                             @*@Html.ActionLink("Bảo hành", "PhieuBaoHanh/ThemPhieuBaoHanhFromPhieuDichVu", new { idPhieuDichVu = @item.Id_PhieuDV }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })*@
                         </td>
+
                     </tr>
 
                 }

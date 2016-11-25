@@ -60,7 +60,7 @@
                                 <td> @item.TEN_PHUTUNG</td>
                                 <td> @item.MA_HIEUXE</td>
                                 <td> @item.SOLUONGTON</td>
-                                <td> @item.DONGIAXUAT</td>
+                                <td> @String.Format("{0:#,###,###,###}", item.DONGIAXUAT)</td>
                                 <td> @item.TG_BAOHANH</td>
                                 <td>
                                     @Html.ActionLink("Sửa", "CapNhat", new {id = @item.ID}, new {@class = "btn btn-warning glyphicon glyphicon-pencil"})

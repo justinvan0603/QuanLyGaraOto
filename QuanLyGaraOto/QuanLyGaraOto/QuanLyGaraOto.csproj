@@ -316,6 +316,7 @@
     <Compile Include="ViewModel\ThemPhieuTiepNhanModel.cs" />
     <Compile Include="ViewModel\ThemPhieuTiepNhanTuKhachQuenModel.cs" />
     <Compile Include="ViewModel\ThoViewModel.cs" />
+    <Compile Include="ViewModel\TongQuanViewModel.cs" />
     <Compile Include="ViewModel\XeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

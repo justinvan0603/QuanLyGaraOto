@@ -206,11 +206,11 @@
 
                             </td>
                             <td>
-                                <input type="text" class="txtdonGia form-control input-sm" name="DONGIA" value="@item.DONGIA" readonly @*disabled*@/>
+                                <input type="text" class="txtdonGia form-control input-sm" name="DONGIA" value="@String.Format("{0:#,###,###,###}", item.DONGIA)" readonly @*disabled*@ />
                             </td>
 
                             <td>
-                                <input type="text" class=" txtThanhTien form-control input-sm" name="THANHTIEN" value="@item.THANHTIEN" readonly @*disable*@ d/>
+                                <input type="text" class=" txtThanhTien form-control input-sm" name="THANHTIEN" value="@String.Format("{0:#,###,###,###}", item.THANHTIEN)" readonly @*disable*@ d />
                             </td>
                             <td>
                                 <input type="button" value="Xóa" class="btn btn-danger btn-sm" id="btnDelete"/>
@@ -224,10 +224,10 @@
             </div>
             <div>
                 <label class="input-sm">Tổng tiền:</label>
-                <label class="lblTongTien input-sm">@Model.PhieuDatHang.TongTien</label>
+                <label class="lblTongTien input-sm">@String.Format("{0:#,###,###,###}", Model.PhieuDatHang.TongTien)</label>
             </div>
             <div class="form-group" style="padding-left:10px;">
-                <button class="btn btn-primary" type="submit">Lưu</button>
+                <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-floppy-save input-sm"></span>Lưu</button>
             </div>
         </div>
 

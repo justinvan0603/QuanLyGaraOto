@@ -21,7 +21,7 @@
     </style>
 </head>
 <body>
-    <h3 class="text-center" style="color: green;">Lập phiếu thu tiền</h3>
+    <h3 class="text-center" style="color: green;">CẬP NHẬT PHIẾU THU</h3>
     @using (Html.BeginForm("CapNhat", "PhieuThu", FormMethod.Post))
     {
         @Html.HiddenFor(m => m.PhieuThu.ID_PHIEUTHUTIEN, Model)
@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
                     <td><label>Ngày lập:</label></td>
-                    <td>@Html.TextBoxFor(m => m.PhieuThu.NGAYLAP, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                    <td>@Html.TextBoxFor(m => m.PhieuThu.NGAYLAP, "{0:dd/MM/yyyy}", new { @class = "form-control input-sm ngaylap", @readonly = "readonly" })</td>
                 </tr>
                 <tr>
                     <td><label>Tên nhân viên:</label></td>
@@ -49,13 +49,13 @@
                 </tr>
                 <tr>
                     <td><label>Số tiền thu:</label></td>
-                    <td>@Html.TextBoxFor(m => m.PhieuThu.SOTIEN, new { @class = "form-control", @type = "number", oninput = "setCustomValidity('Số điện thoại không được bỏ trống')", onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })</td>
+                    <td>@Html.TextBoxFor(m => m.PhieuThu.SOTIEN, "{0:#,###,###,###}",new { @class = "form-control input-sm sotien", @type = "number", oninput = "setCustomValidity('Số tiền không được bỏ trống')", onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })</td>
                 </tr>
 
             </tbody>
         </table>
         <div class="form-group">
-            <button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-plus input-sm"></span> Lưu</button>
+            <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-floppy-save input-sm"></span> Lưu</button>
         </div>
     }
 </body>

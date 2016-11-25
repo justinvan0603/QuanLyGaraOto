@@ -7,26 +7,26 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <h3 class="text-center" style="color: green;">Thêm thông tin thợ</h3>
+    <h3 class="text-center" style="color: green;">THÊM THÔNG TIN THỢ</h3>
     @using (Html.BeginForm("ThemMoi", "Tho", FormMethod.Post))
     {
         <div class="form-group">
-            <label>Họ tên:</label>
-            @Html.TextBoxFor(m => m.TENTHO, new {@class = "form-control"})
+            <label class="input-sm">Họ tên:</label>
+            @Html.TextBoxFor(m => m.TENTHO, new { @class = "form-control input-sm" })
             @Html.ValidationMessage("TENTHO", new { @style = "color:red;" })
         </div>
         <div class="form-group">
-            <label>Số điện thoại:</label>
-            @Html.TextBoxFor(m => m.SDT, new {@class = "form-control"})
+            <label class="input-sm">Số điện thoại:</label>
+            @Html.TextBoxFor(m => m.SDT, new { @class = "form-control input-sm" })
             @Html.ValidationMessage("SDT", new {@style = "color:red;"})
         </div>
         <div class="form-group">
-            <label>Địa chỉ:</label>
-            @Html.TextBoxFor(m => m.DIACHI, new {@class = "form-control"})
+            <label class="input-sm">Địa chỉ:</label>
+            @Html.TextBoxFor(m => m.DIACHI, new { @class = "form-control input-sm" })
             @Html.ValidationMessage("DIACHI", new {@style = "color:red;"})
         </div>
         <div class="form-group">
-            <button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-plus"></span> Lưu</button>
+            <button class="btn btn-primary input-sm"><span class="glyphicon glyphicon-floppy-save"></span> Lưu</button>
         </div>
     }
 </body>
