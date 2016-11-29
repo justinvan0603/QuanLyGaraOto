@@ -471,7 +471,6 @@
     <Content Include="Views\PhieuTiepNhan\ThemPhieuTiepNhan.cshtml" />
     <Content Include="Views\PhieuTiepNhan\ThemPhieuTiepNhanTuKhachQuen.cshtml" />
     <Content Include="Views\PhieuBaoHanh\Index.cshtml" />
-    <Content Include="Views\PhieuBaoHanh\ThemPhieuBaoHanhFromPhieuDichVu.cshtml" />
     <Content Include="Views\PhieuBaoHanh\DuplicatedBillExceptionView.cshtml" />
     <Content Include="Views\PhieuBaoHanh\SuaPhieuBaoHanh.cshtml" />
   </ItemGroup>

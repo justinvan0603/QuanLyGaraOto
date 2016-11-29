@@ -44,8 +44,6 @@
                 <th>Nhân viên</th>
                 <th>Số tiền</th>
                 <th>Nội dung</th>
-                <th>Mã phiếu nhập hàng</th>
-                <th>Mã phiếu mua xe</th>
                 <th>Tùy chọn</th>
             </tr>
         </thead>
@@ -61,8 +59,6 @@
                         <td> @(item.MA_NV != null ? @item.NHANVIEN.HOTEN : "Chưa cập nhật")</td>
                         <td> @String.Format("{0:#,###,###,###}", item.SOTIEN)</td>
                         <td>@item.NOIDUNG</td>
-                        <td> @item.ID_PHIEUNHAPHANG</td>
-                        <td> @item.ID_PHIEUMUAXE</td><!-- chi quan tam den ngay, khong quan tam chi tiet den gio-->
                         <td>
                             @Html.ActionLink("Sửa", "SuaPhieuChi", new { id = @item.ID }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
                             <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>

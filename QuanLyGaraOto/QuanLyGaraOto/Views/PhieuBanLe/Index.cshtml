@@ -73,10 +73,20 @@
                         <td id="conlai"> @Math.Round(item.SoTienConLai)</td>
                         <td>
 
-                            @Html.ActionLink("Sửa", "SuaPhieuBanLe", new { id = @item.ID_PHIEUBANLE }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
+                            @Html.ActionLink("Sửa", "SuaPhieuBanLe", new { id = @item.ID_PHIEUBANLE }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
+                            <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+                            @if (Model.service.CHITIET_PHIEUBH.Where(e => e.MAPHIEU_BANLE == item.ID_PHIEUBANLE).Count() > 0)
+                            {
+                                List<QuanLyGaraOto.Models.CHITIET_PHIEUBH> baoHanhs = Model.service.CHITIET_PHIEUBH.Where(e => e.MAPHIEU_BANLE == item.ID_PHIEUBANLE).ToList();
+                                <a class="btnCreateBill btn btn-default glyphicon glyphicon-pencil" href="@Url.Action("SuaPhieuBaoHanh", "PhieuBaoHanh", new { idPhieuBaoHanh = @baoHanhs[0].MA_PHIEUBH})">Thông tin bảo hành</a>
+                            }
+                            else
+                            {
+                                <a class="btnCreateBill btn btn-default glyphicon glyphicon-pencil" href="@Url.Action("ThemPhieuBaoHanhFromPhieuBanLe", "PhieuBaoHanh", new { idPhieuBanLe = @item.ID_PHIEUBANLE })">Bảo hành</a>
+                            }
 
                             <!--<button id="btnDelete" type="button" class="btn btn-danger glyphicon-remove">Delete</button>-->
-                            <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+
                             <a href="@Url.Action("ThemMoi", "PhieuThu", new { idphieu = @item.ID_PHIEUBANLE, type = "pbl" })" class="btn btn-primary input-sm" role="button"><span class="glyphicon glyphicon-plus"></span>Lập phiếu thu</a>
                         </td>
                     </tr>
@@ -103,10 +113,8 @@
 
 
 
-    $(document).ready(function ()
-    {
-        $(".btnDelete").on("click", function (e)
-        {
+    $(document).ready(function () {
+        $(".btnDelete").on("click", function (e) {
             e.preventDefault();
             var $item = $(this).closest("tr").find("#id").text();
             var itemid = $item.valueOf();
@@ -119,7 +127,7 @@
 
                 url: '/PhieuBanLe/Xoa/',
 
-                data: JSON.stringify({id:itemid}),
+                data: JSON.stringify({ id: itemid }),
 
                 type: 'POST',
 

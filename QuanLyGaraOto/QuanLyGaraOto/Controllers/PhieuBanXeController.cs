@@ -131,6 +131,15 @@ namespace QuanLyGaraOto.Controllers
             this.service.PHIEU_BANXE.Add(phieuBanXeMoi);
             this.service.SaveChanges();
             // tien hanh lap phieu thu
+            // update so tien no neu khach hang la khach quen
+            if (phieuBanXeMoi.MAKH != null)
+            {
+                // tim thong tin khach hang theo id
+                KHACHHANG customer = this.service.KHACHHANGs.Where(e => e.MA_KH == phieuBanXeMoi.MAKH).FirstOrDefault();
+                customer.SOTIENNO += phieuBanXeMoi.SOTIENCONLAI;
+                this.service.Entry(customer).State = System.Data.Entity.EntityState.Modified;
+                this.service.SaveChanges();
+            }
 
             return RedirectToAction("Index"); // after the opertation completes, redirect to the list screen
         }
@@ -187,14 +196,27 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult SuaPhieuBanXe(PHIEU_BANXE modifiedBillInformation)
         {
             PHIEU_BANXE updatingBillInfor = this.service.PHIEU_BANXE.Single(e => e.ID_PHIEUBANXE == modifiedBillInformation.ID_PHIEUBANXE); // get the bill from database
+            // so tien con lai cu cua phieu
+            decimal? soTienConLaiCu = updatingBillInfor.SOTIENCONLAI;
             // start to update information (note : only update the non-readonly attribute from view)
             updatingBillInfor.HANBAOHANH = modifiedBillInformation.HANBAOHANH;
             updatingBillInfor.HANCHOTTHANHTOAN = modifiedBillInformation.HANCHOTTHANHTOAN;
             updatingBillInfor.MAKH = modifiedBillInformation.MAKH;
             updatingBillInfor.SOTIENCONLAI = modifiedBillInformation.SOTIENCONLAI;
-
+            
             this.service.Entry(updatingBillInfor).State = System.Data.Entity.EntityState.Modified; // 
             this.service.SaveChanges(); // synchronize database
+
+            if (updatingBillInfor.MAKH != null)
+            {
+                // update lai thong tin tien no cua khach hang neu la khach quen
+                KHACHHANG customer = this.service.KHACHHANGs.Where(e => e.MA_KH == updatingBillInfor.MAKH).FirstOrDefault();
+                customer.SOTIENNO -= soTienConLaiCu; // khong quan tam den so tien con lai cu
+                customer.SOTIENNO += modifiedBillInformation.SOTIENCONLAI; // update lai so tien con lai moi
+                this.service.Entry(customer).State = System.Data.Entity.EntityState.Modified;
+                this.service.SaveChanges();
+            }
+            // tro lai man hinh danh sach
             return RedirectToAction("Index");
         }
     }
