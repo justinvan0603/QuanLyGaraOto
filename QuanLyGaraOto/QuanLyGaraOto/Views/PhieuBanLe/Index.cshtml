@@ -85,10 +85,7 @@
                             {
                                 <a class="btnCreateBill btn btn-default glyphicon glyphicon-pencil" href="@Url.Action("ThemPhieuBaoHanhFromPhieuBanLe", "PhieuBaoHanh", new { idPhieuBanLe = @item.ID_PHIEUBANLE })">Bảo hành</a>
                             }
-
-                            <!--<button id="btnDelete" type="button" class="btn btn-danger glyphicon-remove">Delete</button>-->
-
-                            <a href="@Url.Action("ThemMoi", "PhieuThu", new { idphieu = @item.ID_PHIEUBANLE, type = "pbl" })" class="btn btn-primary input-sm" role="button"><span class="glyphicon glyphicon-plus"></span>Lập phiếu thu</a>
+                           <a href="@Url.Action("ThemMoi", "PhieuThu", new { idphieu = @item.ID_PHIEUBANLE, type = "pbl" })" class="btn btn-primary btn-sm" role="button"><span class="glyphicon glyphicon-plus"></span>Lập phiếu thu</a>
                         </td>
                     </tr>
 
