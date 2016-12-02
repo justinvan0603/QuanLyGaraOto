@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using QuanLyGaraOto.Models;
+
 namespace QuanLyGaraOto.ViewModel
 {
     public class PhieuBanLeViewModel
     {
+       
         public PHIEU_BANLE PhieuBanLe { get; set; }
         public List<KHACHHANG> ListKhachHang { get; set; }
         public List<PHUTUNG> ListPhuTung { get; set; }

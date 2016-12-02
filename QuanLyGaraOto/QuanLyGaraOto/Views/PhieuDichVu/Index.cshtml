@@ -82,11 +82,11 @@
                             @if (Model.service.CHITIET_PHIEUBH.Where(e => e.MA_PHIEUDV == item.Id_PhieuDV).Count() > 0)
                             {
                                 List<QuanLyGaraOto.Models.CHITIET_PHIEUBH> baoHanhs = Model.service.CHITIET_PHIEUBH.Where(e => e.MA_PHIEUDV == item.Id_PhieuDV).ToList();
-                                <a class="btnCreateBill btn btn-default glyphicon glyphicon-pencil btn-sm" href="@Url.Action("SuaPhieuBaoHanh", "PhieuBaoHanh", new { idPhieuBaoHanh = @baoHanhs[0].MA_PHIEUBH})">Thông tin bảo hành</a>
+                                <a class="btnCreateBill btn btn-primary glyphicon glyphicon-pencil btn-sm" href="@Url.Action("SuaPhieuBaoHanh", "PhieuBaoHanh", new { idPhieuBaoHanh = @baoHanhs[0].MA_PHIEUBH})">Thông tin bảo hành</a>
                             }
                             else
                             {
-                                <a class="btnCreateBill btn btn-default glyphicon glyphicon-pencil btn-sm" href="@Url.Action("ThemPhieuBaoHanhFromPhieuDichVu", "PhieuBaoHanh", new { idPhieuDichVu = @item.Id_PhieuDV })">Bảo hành</a>
+                                <a class="btnCreateBill btn btn-primary glyphicon glyphicon-pencil btn-sm" href="@Url.Action("ThemPhieuBaoHanhFromPhieuDichVu", "PhieuBaoHanh", new { idPhieuDichVu = @item.Id_PhieuDV })">Bảo hành</a>
                             }
                             @*@Html.ActionLink("Bảo hành", "PhieuBaoHanh/ThemPhieuBaoHanhFromPhieuDichVu", new { idPhieuDichVu = @item.Id_PhieuDV }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })*@
                         </td>

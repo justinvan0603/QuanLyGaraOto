@@ -10,11 +10,11 @@ namespace QuanLyGaraOto.Models
     {
 
     }
-    [MetadataType(typeof(NHANVIENMetadata))]
-    public partial class NHANVIEN
-    {
+    //[MetadataType(typeof(NHANVIENMetadata))]
+    //public partial class NHANVIEN
+    //{
 
-    }
+    //}
     [MetadataType(typeof(PHUTUNGMetadata))]
     public partial class PHUTUNG
     {

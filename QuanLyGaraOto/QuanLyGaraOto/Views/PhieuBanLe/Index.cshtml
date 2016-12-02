@@ -1,5 +1,6 @@
 ﻿@model QuanLyGaraOto.ViewModel.DSPhieuBanLeViewModel
 @using PagedList.Mvc;
+@using System.Globalization;
 @{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
     ViewBag.Title = "Danh sách phiếu bán lẻ";
@@ -65,12 +66,12 @@
                     <tr class="clickable-row">
                         <td id="id" style="display:none">@item.ID_PHIEUBANLE</td>
                         <td> @item.MaPhieuBan</td>
-                        <td> @item.NgayLap</td>
-                        <td> @item.HanChotThanhToan</td>
+                        <td> @item.NgayLap.Date.ToShortDateString()</td>
+                        <td> @item.HanChotThanhToan.Date.ToShortDateString()</td>
                         <td> @item.TenNV</td>
                         <td>@item.TenKH</td>
-                        <td> @*@Math.Round(item.TongTien)*@ @String.Format("{0:#,###,###,###}", item.TongTien) </td>
-                        <td id="conlai"> @*@Math.Round(item.SoTienConLai)*@ @String.Format("{0:#,###,###,###}", item.SoTienConLai)</td>
+                        <td> @*@Math.Round(item.TongTien)*@ @*@String.Format("{00:#,###,###,###}", item.TongTien)*@ @string.Format("{0:n0}", item.TongTien)  </td>
+                        <td id="conlai"> @*@Math.Round(item.SoTienConLai)*@ @*@String.Format("{0:#,###,###,###}", item.SoTienConLai)*@ @string.Format("{0:n0}", item.SoTienConLai)</td>
                         <td>
 
                             @Html.ActionLink("Sửa", "SuaPhieuBanLe", new { id = @item.ID_PHIEUBANLE }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
