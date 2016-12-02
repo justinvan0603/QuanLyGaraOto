@@ -1,9 +1,9 @@
 ﻿@{
     string Username = "Người dùng";
-    if(ViewBag.Username != null)
-    {
-        Username = ViewBag.Username;
-    }
+   // if(ViewBag.Username != null)
+   // {
+    Username = Session["Username"].ToString();
+    //}
 }
 <style>
     .navbar-default {
@@ -18,7 +18,7 @@
 <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom:0; background-color: #005299;border-radius: 0; border-color:#005299;" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-hand-right"></span></a>
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home"></span></a>
             <b class="navbar-brand" style="color:white;">QUẢN LÝ GARA XE Ô TÔ</b>
         </div>
 

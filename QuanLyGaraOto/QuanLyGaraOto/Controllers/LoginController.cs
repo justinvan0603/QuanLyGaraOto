@@ -55,6 +55,7 @@ namespace QuanLyGaraOto.Controllers
                         Session["Username"] = nv.USERNAME;
                         Session["UserID"] = nv.MA_NV;
                         Session["staff_name"] = nv.HOTEN;
+                        ViewBag.Username = nv.USERNAME;
                         return RedirectToAction("Index", "Home");
                     }
                     else

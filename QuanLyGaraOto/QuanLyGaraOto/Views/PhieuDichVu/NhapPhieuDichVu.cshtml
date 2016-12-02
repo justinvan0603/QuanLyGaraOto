@@ -50,7 +50,60 @@
     
     <input type="hidden" name="PhieuDichVu.MA_NHANVIEN" value="@Model.PhieuDichVu.MA_NHANVIEN" />
     <input type="hidden" name="PhieuDichVu.MAPHIEU_TIEPNHAN" value="@Model.PhieuDichVu.MAPHIEU_TIEPNHAN" />
-    <div class="form-group form-inline">
+    <table class="table-info borderless">
+        <tr>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
+        </tr>
+        <tbody>
+            <tr>
+                <td><label class="input-sm">Mã phiếu:</label></td>
+                <td><input type="text" name="PhieuDichVu.MA_PHIEUDV" value="" class="txtMaPhieu form-control input-sm" /></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Ngày lập:</label></td>
+                <td><label class="input-sm">@Model.PhieuDichVu.NGAYLAP.Value.Date.ToShortDateString()</label></td>
+                <td></td>
+                <td></td>
+            </tr>
+                <tr>
+                    <td><label class="input-sm">Người lập:</label></td>
+                    <td><label class="input-sm">@Model.TenNV</label></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            <tr>
+                <td><label class="input-sm">Chủ xe:</label></td>
+                <td><label class="input-sm">@Model.TenKH</label></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Thợ phụ trách:</label></td>
+                <td><select name="PhieuDichVu.MATHO" class="cboTho form-control input-sm" onchange="cboThoSelectChanged()">
+    @foreach (var item in Model.ListTho)
+    {
+        <option value="@item.MA_THO" title="@item.SDT">@item.TENTHO</option>
+    }
+</select>
+                </td>
+
+                <td><label class="input-sm">Số điện thoại:</label></td>
+                <td><label class="lblSDT input-sm ">@sdt</label></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Tiền công:</label></td>
+                <td>@Html.TextBoxFor(model => model.PhieuDichVu.TIENCONG, new { @class = "txtTienCong form-control input-sm" })</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    @*<div class="form-group form-inline">
         <label class="input-sm">Mã phiếu:</label>
         <input type="text" name="PhieuDichVu.MA_PHIEUDV" value="" class="txtMaPhieu form-control input-sm"/>
     </div>
@@ -87,7 +140,7 @@
         <label class="input-sm">Tiền công:</label>
         @Html.TextBoxFor(model => model.PhieuDichVu.TIENCONG, new { @class= "txtTienCong form-control"})
         @*<input class="txtTienCong form-control input-sm" type="number" min="1000" max="10000" name="PhieuDichVu.TIENCONG" required />*@
-    </div>
+    @*</div>*@
     <div class="panel panel-default" style="width:99%;">
         <div class="panel-heading">Thông tin chi tiết:</div>
         <div class="panel-body">
@@ -124,7 +177,7 @@
 
             </div>
             <div class="form-inline">
-                <input type="button" value="Thêm chi tiết" class="btn btn-success" id="btnAdd" />
+                <input type="button" value="Thêm chi tiết" class="btn btn-success btn-sm" id="btnAdd" />
 
 
             </div>
@@ -186,7 +239,7 @@
             </div>
             <div class="form-group" style="padding-left:10px;">
 
-                <button class="btn btn-primary" type="submit">Lưu</button>
+                <button class="btn btn-primary btn-sm" type="submit">Lưu</button>
             </div>
         </div>
 

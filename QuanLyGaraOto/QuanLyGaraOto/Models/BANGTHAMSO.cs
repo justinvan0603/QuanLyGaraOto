@@ -15,6 +15,7 @@ namespace QuanLyGaraOto.Models
     public partial class BANGTHAMSO
     {
         public string TENTHAMSO { get; set; }
+        public string NOIDUNG { get; set; }
         public string GIATRI { get; set; }
     }
 }

@@ -28,6 +28,7 @@ namespace QuanLyGaraOto.Controllers
                                       Id_PhieuDV = pdv.ID_PHIEUDV,
                                       MaPhieuDV = pdv.MA_PHIEUDV,
                                       NgayLap = pdv.NGAYLAP,
+                                      HanChot = pdv.HANCHOTTHANHTOAN,
                                       TenNV = nv.HOTEN,
                                       TenTho = tho.TENTHO,
                                       TongTien = pdv.TONGTIEN,
@@ -42,6 +43,7 @@ namespace QuanLyGaraOto.Controllers
                 data.Id_PhieuDV = item.Id_PhieuDV;
                 data.MaPhieuDV = item.MaPhieuDV;
                 data.NgayLap = item.NgayLap.Value;
+                data.HanChot = item.HanChot.Value;
                 data.TenNV = item.TenNV;
                 data.TenTho = item.TenTho;
                 data.TongTien = item.TongTien.Value;
@@ -90,16 +92,32 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult NhapPhieuDichVu(int? maphieutiepnhan)
         {
+
             GARADBEntities context = new GARADBEntities();
+
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN nv = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value);
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
+
             PhieuDVViewModel vmPhieuDV = new PhieuDVViewModel();
+            PHIEU_TIEPNHAN phieutiepnhan = context.PHIEU_TIEPNHAN.Single(ptnx => ptnx.MA_PHIEUTIEPNHAN == maphieutiepnhan.Value);
             vmPhieuDV.PhieuDichVu = new PHIEU_DICHVU();
             vmPhieuDV.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuDV.ListTho = new List<THO>();
             vmPhieuDV.ListTho = context.THOes.ToList();
             vmPhieuDV.ListTienCong = context.TIENCONGs.ToList();
+            vmPhieuDV.TenKH = context.KHACHHANGs.Single(kh => kh.MA_KH == phieutiepnhan.MA_KH).TEN_KH;
+            vmPhieuDV.TenNV = Session["staff_name"].ToString();
+            vmPhieuDV.PhieuDichVu.MA_NHANVIEN = int.Parse(Session["UserID"].ToString());
             BANGTHAMSO a = context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO.Equals("HanChotPhieuDichVu"));
             vmPhieuDV.PhieuDichVu.NGAYLAP = DateTime.Now.Date;
             vmPhieuDV.PhieuDichVu.HANCHOTTHANHTOAN = DateTime.Now.Date.AddDays(int.Parse(a.GIATRI)).Date;
+            vmPhieuDV.PhieuDichVu.MAPHIEU_TIEPNHAN = maphieutiepnhan.Value;
             if (maphieutiepnhan != null)
             {
                 string bienso = context.PHIEU_TIEPNHAN.Single(ptn => ptn.MA_PHIEUTIEPNHAN == maphieutiepnhan.Value).BIENSO_XE;
@@ -134,6 +152,7 @@ namespace QuanLyGaraOto.Controllers
             viewmodel.PhieuDichVu.HANCHOTTHANHTOAN = DateTime.Now.Date.AddDays(int.Parse(a.GIATRI)).Date;
             viewmodel.PhieuDichVu.SOTIEN_CONLAI = viewmodel.PhieuDichVu.TIENCONG;
             viewmodel.PhieuDichVu.TONGTIEN = viewmodel.PhieuDichVu.TIENCONG;
+            //viewmodel.PhieuDichVu.MA_NHANVIEN = int.Parse(Session["UserID"].ToString());
             //viewmodel.PhieuDichVu.TONGTIEN = listCT.Sum(ct => ct.THANHTIEN);
             context.PHIEU_DICHVU.Add(viewmodel.PhieuDichVu);
             context.SaveChanges();
@@ -153,6 +172,15 @@ namespace QuanLyGaraOto.Controllers
         {
             
             GARADBEntities context = new GARADBEntities();
+
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             if(context.PHIEU_THUTIEN.Any(pt => pt.ID_PHIEUDV == id.Value))
             {
                 TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể sửa phiếu dịch vụ đã lập phiếu thu tiền! </div> </div> </div>";
@@ -161,14 +189,16 @@ namespace QuanLyGaraOto.Controllers
             }
             PhieuDVViewModel vmPhieuDV = new PhieuDVViewModel();
             vmPhieuDV.PhieuDichVu = context.PHIEU_DICHVU.Single(p => p.ID_PHIEUDV == id.Value);
-            
+            PHIEU_TIEPNHAN ptn = context.PHIEU_TIEPNHAN.Single(ptnx => ptnx.MA_PHIEUTIEPNHAN == vmPhieuDV.PhieuDichVu.MAPHIEU_TIEPNHAN);
             vmPhieuDV.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuDV.ListTho = new List<THO>();
             vmPhieuDV.ListTho = context.THOes.ToList();
             vmPhieuDV.ListChiTietPhieu = new List<CHITIET_PHIEUDV>();
             vmPhieuDV.ListChiTietPhieu = context.CHITIET_PHIEUDV.Where(ct => ct.ID_PHIEUDV == id.Value).ToList();
             vmPhieuDV.ListHieuXe = context.HIEUXEs.ToList();
-            
+            vmPhieuDV.SDT = context.KHACHHANGs.Single(kh => kh.MA_KH == ptn.MA_KH).SDT;
+            vmPhieuDV.TenKH = context.KHACHHANGs.Single(kh => kh.MA_KH == ptn.MA_KH).TEN_KH;
+            vmPhieuDV.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == vmPhieuDV.PhieuDichVu.MA_NHANVIEN).HOTEN;
             return View(vmPhieuDV);
             //vmPhieuDV.MaPhieuDV = "PDV001";
             //vmPhieuDV.MaPhieuTiepNhan = 3;
@@ -199,6 +229,16 @@ namespace QuanLyGaraOto.Controllers
             try
             {
                 GARADBEntities context = new GARADBEntities();
+                int UserId = int.Parse(Session["UserID"].ToString());
+                NHANVIEN nv = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+                NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value);
+                if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+                {
+                    TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền thực hiện thao tác này! </div> </div> </div>";
+                    //return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+                    return Json(new { value = "-1", message = "Bạn không có quyền thực hiện thao tác này!" }, JsonRequestBehavior.AllowGet);
+                }
+
                 var target = context.PHIEU_DICHVU.Single(pdv => pdv.ID_PHIEUDV == id);
                 
 

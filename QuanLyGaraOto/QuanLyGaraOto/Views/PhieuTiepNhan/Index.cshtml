@@ -39,7 +39,7 @@
 
 <div class="table-responsive" style="padding-top:10px;">
     <table id="phieutiepnhan_table" class="table table-bordered table table-hover" style="text-align : center">
-        <thead style="color:red; text-align : center;">
+        <thead style="color:red; ">
             <tr>
                 <th>Mã phiếu</th>
                 <th>Ngày lập</th>
@@ -75,6 +75,7 @@
                             {
                                 <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
                             }
+                            @Html.ActionLink("Lập phiếu dịch vụ", "NhapPhieuDichVu","PhieuDichVu", new { maphieutiepnhan = @item.maPhieuTiepNhan }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
                         </td>
                     </tr>
                 }

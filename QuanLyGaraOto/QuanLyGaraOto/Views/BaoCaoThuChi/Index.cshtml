@@ -7,9 +7,34 @@
 
 </head>
 <h3 class="text-center" style="color:green;">@ViewBag.Title</h3>
-@using(@Html.BeginForm("XemBaoCao","BaoCaoThuChi",FormMethod.Post))
+@using (@Html.BeginForm("XemBaoCao", "BaoCaoThuChi", FormMethod.Post))
 {
-    <div class="form-group form-inline">
+    <table class="table-info borderless">
+        <tr>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
+        </tr>
+        <tbody>
+            <tr>
+                <td><label class="input-sm">Từ ngày:</label></td>
+                <td><input name="TuNgay" type="text" id="datepicker1" class="date form-control input-sm tungay" max="@DateTime.Now.Date"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Đến ngày:</label></td>
+                <td><input name="DenNgay" type="text" id="datepicker2" class="date form-control input-sm denngay" max="@DateTime.Now.Date"></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+
+
+        </tbody>
+    </table>
+    @*<div class="form-group form-inline">
         <label class="input-sm">Từ ngày:</label>
         <input name="TuNgay" type="text" id="datepicker1" class="date form-control input-sm tungay" max="@DateTime.Now.Date">
 
@@ -17,9 +42,9 @@
     <div class="form-group form-inline">
         <label class="input-sm">Đến ngày:</label>
         <input name="DenNgay" type="text" id="datepicker2" class="date form-control input-sm denngay" max="@DateTime.Now.Date">
-    </div>
+    </div>*@
     <div class="form-group">
-        <button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-plus"></span> Xem</button>
+        <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span> Xem</button>
     </div>
 }
 <link href="~/Content/css/plugin/DatePicker/datepicker.css" rel="stylesheet" />

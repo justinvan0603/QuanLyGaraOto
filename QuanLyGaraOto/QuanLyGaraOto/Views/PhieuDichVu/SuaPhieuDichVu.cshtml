@@ -10,7 +10,7 @@
     int slTon = 0;
     decimal dongia = 0;
     int hanbaohanh = 0;
-
+    
     List<PHUTUNG> listPT = Model.ListPhuTung.Where(pt => pt.MA_HIEUXE.Equals(Model.ListHieuXe[0].MA_HIEUXE)).ToList();
     if (listPT.Count > 0)
     {
@@ -44,7 +44,63 @@
 @using (Html.BeginForm("SuaPhieuDichVu", "PhieuDichVu", FormMethod.Post, new { @class = "form-horizontal" }))
 { 
     <input type="hidden" name="PhieuDichVu.ID_PHIEUDV" value="@Model.PhieuDichVu.ID_PHIEUDV"/>
-    <div class="form-inline">
+    <input type="hidden" name="PhieuDichVu.MA_NHANVIEN" value="@Model.PhieuDichVu.MA_NHANVIEN" />
+    <input type="hidden" name="PhieuDichVu.MAPHIEU_TIEPNHAN" value="@Model.PhieuDichVu.MAPHIEU_TIEPNHAN" />
+    <table class="table-info borderless">
+        <tr>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
+        </tr>
+        <tbody>
+            <tr>
+                <td><label class="input-sm">Mã phiếu:</label></td>
+                <td><input name="PhieuDichVu.MA_PHIEUDV" value="@Model.PhieuDichVu.MA_PHIEUDV" class="txtMaPhieu form-control input-sm" /></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Ngày lập:</label></td>
+                <td><label class="input-sm">@Model.PhieuDichVu.HANCHOTTHANHTOAN.Value.Date.ToShortDateString()</label></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Người lập:</label></td>
+                <td><label class="input-sm">@Model.TenNV</label></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Chủ xe:</label></td>
+                <td><label class="input-sm">@Model.TenKH</label></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Thợ phụ trách:</label></td>
+                <td>
+                    <select name="PhieuDichVu.MATHO" class="cboTho form-control input-sm">
+                        @foreach (var item in Model.ListTho)
+                        {
+                            <option value="@item.MA_THO">@item.TENTHO</option>
+                        }
+                    </select>
+                </td>
+
+                <td><label class="input-sm">Số điện thoại:</label></td>
+                <td><label class="lblSDT input-sm ">@Model.SDT</label></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Tiền công:</label></td>
+                <td><input class="txtTienCong form-control input-sm" type="number" name="PhieuDichVu.TIENCONG" value="@Math.Round(Model.PhieuDichVu.TIENCONG.Value)" /></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    @*<div class="form-inline">
         <label>Mã phiếu:</label>
         <input name="PhieuDichVu.MA_PHIEUDV" value="@Model.PhieuDichVu.MA_PHIEUDV" class="txtMaPhieu form-control input-sm" />
         
@@ -74,14 +130,14 @@
         }
     </select>
     <label>Số điện thoại:</label>
-    <label class="lblSDT input-sm ">1234</label>
+    <label class="lblSDT input-sm ">@Model.SDT</label>
 </div>
 
 <div class="form-group form-inline">
     <label class="input-sm">Tiền công:</label>
     <input class="txtTienCong form-control" type="number"  name="PhieuDichVu.TIENCONG" value="@Math.Round(Model.PhieuDichVu.TIENCONG.Value)"/>
 
-</div>
+</div>*@
 <div class="panel panel-default" style="width:99%;">
     <div class="panel-heading">Thông tin chi tiết:</div>
     <div class="panel-body">
@@ -224,7 +280,7 @@
         </div>
         <div class="form-group" style="padding-left:10px;">
 
-            <button class="btn btn-primary" type="submit">Lưu</button>
+            <button class="btn btn-primary btn-sm" type="submit">Lưu</button>
         </div>
     </div>
 
@@ -278,7 +334,7 @@
         var rowcount = $("#chitietphieu-table tr").length-2;
         if (rowcount == 1)
         {
-            alert("Không thể xóa thêm chi tiết phiếu! Phải có ít nhất một chi tiết phiếu!");
+            alert("Không thể xóa ! Phải có ít nhất một chi tiết phiếu!");
             return;
         }
         var row = $(this).closest("tr");
@@ -595,11 +651,11 @@
             }
 
         }).done(function () {
-            //if (isSuccess == "1") {
+            if (isSuccess == "1") {
             //    row.remove();
-            //    alert("Thêm Thành Công");
+                alert("Thêm Thành Công");
             //     window.location.replace("index");
-            //}
+            }
             //else {
             //    alert("Error. Please, check the data");
             //}

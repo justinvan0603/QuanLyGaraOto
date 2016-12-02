@@ -11,6 +11,7 @@ namespace QuanLyGaraOto.ViewModel
         public int Id_PhieuDV { get; set; }
         public string MaPhieuDV { get; set; }
         public DateTime NgayLap { get; set; }
+        public DateTime HanChot { get; set; }
         public string TenNV { get; set; }
         public string TenTho { get; set; }
         public decimal TongTien { get; set; }

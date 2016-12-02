@@ -54,7 +54,57 @@
 
 @using (@Html.BeginForm("NhapPhieuBanLe", "PhieuBanLe", FormMethod.Post, new { @class = "form-horizontal" }))
 {
-    <div class="form-group form-inline">
+    <input type="hidden" name="PhieuBanLe.MaNV" value="@Model.PhieuBanLe.MaNV" />
+    <table class="table-info borderless">
+        <tr>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
+        </tr>
+        <tbody>
+            <tr>
+                <td><label class="input-sm">Mã phiếu:</label></td>
+                <td><input type="text" name="PhieuBanLe.MaPhieuBan" value="" class="txtMaPhieu form-control input-sm" /></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Ngày lập:</label></td>
+                <td><label class="input-sm">@Model.PhieuBanLe.NgayLap.Value.Date.ToShortDateString()</label></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Người lập:</label></td>
+                <td><label class="input-sm">@Model.TenNV</label></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Hạn chót thanh toán:</label></td>
+                <td><label class="input-sm">@Model.PhieuBanLe.HanChotThanhToan</label></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Khách hàng:</label></td>
+                <td>
+                    <select class="cboKhachHang form-control input-sm" name="PhieuBanLe.MaKH" onchange="cboKhachHangSelectChanged()">
+                        @foreach (var item in Model.ListKhachHang)
+                        {
+                            <option value="@item.MA_KH" title="@item.SDT">@item.TEN_KH</option>
+                        }
+                    </select>
+
+
+                <td><label class="input-sm">Số điện thoại:</label></td>
+                <td><label class="lblSDT input-sm ">@sdt</label></td>
+            </tr>
+           
+        </tbody>
+    </table>
+    @*<div class="form-group form-inline">
         <label class="input-sm">Mã phiếu:</label>
         <input type="text" name="PhieuBanLe.MaPhieuBan" value="" class="txtMaPhieu form-control input-sm" />
     </div>
@@ -80,7 +130,7 @@
         </select>
         <label class="input-sm">Số điện thoại:</label>
         <label class="lblSDT input-sm ">@sdt</label>
-    </div>
+    </div>*@
     <div class="panel panel-default" style="width:99%;">
         <div class="panel-heading">Thông tin chi tiết:</div>
         <div class="panel-body">
@@ -171,7 +221,7 @@
                                 <input type="text" class="txtBaoHanh form-control input-sm" name="THOIHAN_BAOHANH" value="" readonly @*disabled*@ />
                             </td>
                             <td>
-                                <input type="button" value="Xóa" class="btn btn-danger" id="btnDelete" />
+                                <input type="button" value="Xóa" class="btn btn-danger btn-sm" id="btnDelete" />
                             </td>
                         </tr>
 
@@ -386,7 +436,7 @@
         //$txttiencong.attr("value", tiencong);
 
         var thanhtien = parseInt(soluong * dongia);
-        alert(thanhtien);
+       // alert(thanhtien);
         var $txtthanhtien = $("#chitietphieu-table").find("tr:last-child").find('td input.txtThanhTien');
         $txtthanhtien.attr("value", thanhtien);
         var baohanh = $('.txtBH').val();

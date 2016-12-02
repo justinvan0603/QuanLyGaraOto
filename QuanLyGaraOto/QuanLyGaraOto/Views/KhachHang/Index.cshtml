@@ -20,31 +20,32 @@
         <div class="form-inline">
             <div class="form-group">
                 <label for="searchOption">Tìm theo:</label>
-                @Html.DropDownList("searchOption", Model.listSearchOption, new { @class = "form-control" })
+                @Html.DropDownList("searchOption", Model.listSearchOption, new { @class = "form-control input-sm" })
                @* @Html.DropDownListFor(m => m.selectedValue, Model.listSearchOption, new { @class = "form-control" })*@
 
             </div>
             <div class="form-group">
                 <label for="searchOption">Giá trị:</label>
-                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" }) 
+                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control input-sm" }) 
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+                <button type="submit" class="btn btn-info btn-sm" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
             </div>
         </div>
     }
-@Html.ActionLink("Thêm", "ThemMoi", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
+<a href="@Url.Action("ThemMoi","KhachHang")" class="btn btn-primary" role="button" style="margin-top: 5px"><span class="glyphicon glyphicon-plus"></span>Thêm mới</a>
+@*@Html.ActionLink("Thêm", "ThemMoi", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })*@
 
-    <div class="table-responsive" style="padding-top:10px;" >
+    <div class="table-responsive" style="padding-top:10px; margin-left:-20px;" >
         <table id="khachhang-table" class="table table-bordered table table-hover " >
-            <thead style="color:red;">
+            <thead style="color:red; background-color:white;">
                 <tr>
                     <th style="display:none">Id</th>
-                    <th>@Html.ActionLink("Họ tên", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })<span class="glyphicon glyphicon-arrow-down"></span></th>
+                    <th>@Html.ActionLink("Họ tên", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
                     <th>Số CMND</th>
                     <th>Điện thoại</th>
                     <th>Địa chỉ</th>
-                    <th>@Html.ActionLink("Số tiền nợ", "Index", new { sortOrder = ViewBag.OweSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })<span class="glyphicon glyphicon-arrow-down"></span></th>
+                    <th>@Html.ActionLink("Số tiền nợ", "Index", new { sortOrder = ViewBag.OweSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>

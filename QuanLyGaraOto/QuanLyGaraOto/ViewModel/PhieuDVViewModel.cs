@@ -18,8 +18,8 @@ namespace QuanLyGaraOto.ViewModel
         public string TenNV { get; set; }
         public string TenKH { get; set; }
 
-       
-        
+
+        public string SDT { get; set; }
 
     }
 }

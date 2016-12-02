@@ -21,20 +21,21 @@
 
         <div class="form-group">
             <label for="searchOption">Tìm theo tên:</label>
-            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control input-sm" })
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+            <button type="submit" class="btn btn-info btn-sm" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
         </div>
     </div>
 }
 
 
-<div class="table-responsive" style="padding-top:10px;">
+<div class="table-responsive" style="padding-top:10px; margin-left:-20px;">
     <table id="thamso-table" class="table table-bordered table table-hover ">
-        <thead style="color:red;">
+        <thead style="color:red; background-color:white;">
             <tr>
-                <th >Tên tham số:</th>
+                <th style="display:none;">ID</th>
+                <th >Tên tham số</th>
                 <th>Giá trị</th>
                 <th>Thao tác</th>
             </tr>
@@ -45,13 +46,14 @@
                 foreach (var item in Model.ListThamSo.ToList())
                 {
                     <tr class="clickable-row">
-                        <td id="id" >@item.TENTHAMSO</td>
+                        <td id="id" style="display:none;">@item.TENTHAMSO</td>
+                        <td>@item.NOIDUNG</td>
                         <td> @item.GIATRI</td>
 
 
                         <td>
 
-                            @Html.ActionLink("Sửa", "CapNhat", new { id = @item.TENTHAMSO }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
+                            @Html.ActionLink("Sửa", "SuaThamSo", new { tenthamso = @item.TENTHAMSO }, new { @class = "btn btn-warning glyphicon glyphicon-pencil btn-sm" }) 
 
 
                         </td>
@@ -61,7 +63,7 @@
             }
         </tbody>
     </table>
-    Page @(Model.ListThamSo.PageCount < Model.ListThamSo.PageNumber ? 0 : Model.ListThamSo.PageNumber) of @Model.ListThamSo.PageCount
+    Trang @(Model.ListThamSo.PageCount < Model.ListThamSo.PageNumber ? 0 : Model.ListThamSo.PageNumber) của @Model.ListThamSo.PageCount
 
     @Html.PagedListPager(Model.ListThamSo, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))
 </div>

@@ -10,6 +10,7 @@
             <PropertyRef Name="TENTHAMSO" />
           </Key>
           <Property Name="TENTHAMSO" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="NOIDUNG" Type="nvarchar" MaxLength="100" />
           <Property Name="GIATRI" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CHITIET_PHIEUBANLE">
@@ -880,7 +881,6 @@
           </AssociationSet>
           <EntitySet Name="NHACUNGCAPs" EntityType="GARADBModel.NHACUNGCAP" />
           <EntitySet Name="NHOMNHACUNGCAPs" EntityType="GARADBModel.NHOMNHACUNGCAP" />
-          <EntitySet Name="BANGTHAMSOes" EntityType="GARADBModel.BANGTHAMSO" />
           <EntitySet Name="NHANVIENs" EntityType="GARADBModel.NHANVIEN" />
           <AssociationSet Name="FK_NHANVIEN_NHOMNGUOIDUNG" Association="GARADBModel.FK_NHANVIEN_NHOMNGUOIDUNG">
             <End Role="NHOMNGUOIDUNG" EntitySet="NHOMNGUOIDUNGs" />
@@ -978,6 +978,7 @@
             <End Role="PHIEU_BAOHANH" EntitySet="PHIEU_BAOHANH" />
             <End Role="CHITIET_PHIEUBH" EntitySet="CHITIET_PHIEUBH" />
           </AssociationSet>
+          <EntitySet Name="BANGTHAMSOes" EntityType="GARADBModel.BANGTHAMSO" />
           </EntityContainer>
         <EntityType Name="XE">
           <Key>
@@ -1219,13 +1220,6 @@
             <PropertyRef Name="TenNhom" />
           </Key>
           <Property Name="TenNhom" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="BANGTHAMSO">
-          <Key>
-            <PropertyRef Name="TENTHAMSO" />
-          </Key>
-          <Property Name="TENTHAMSO" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="false" />
-          <Property Name="GIATRI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="NHANVIEN">
           <Key>
@@ -1629,6 +1623,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BANGTHAMSO">
+          <Key>
+            <PropertyRef Name="TENTHAMSO" />
+          </Key>
+          <Property Name="TENTHAMSO" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="NOIDUNG" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GIATRI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1827,14 +1829,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BANGTHAMSOes">
-            <EntityTypeMapping TypeName="GARADBModel.BANGTHAMSO">
-              <MappingFragment StoreEntitySet="BANGTHAMSO">
-                <ScalarProperty Name="GIATRI" ColumnName="GIATRI" />
-                <ScalarProperty Name="TENTHAMSO" ColumnName="TENTHAMSO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="NHANVIENs">
             <EntityTypeMapping TypeName="GARADBModel.NHANVIEN">
               <MappingFragment StoreEntitySet="NHANVIEN">
@@ -1947,6 +1941,15 @@
                 <ScalarProperty Name="MA_PHUTUNG" ColumnName="MA_PHUTUNG" />
                 <ScalarProperty Name="MA_PHIEUDV" ColumnName="MA_PHIEUDV" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BANGTHAMSOes">
+            <EntityTypeMapping TypeName="GARADBModel.BANGTHAMSO">
+              <MappingFragment StoreEntitySet="BANGTHAMSO">
+                <ScalarProperty Name="GIATRI" ColumnName="GIATRI" />
+                <ScalarProperty Name="NOIDUNG" ColumnName="NOIDUNG" />
+                <ScalarProperty Name="TENTHAMSO" ColumnName="TENTHAMSO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

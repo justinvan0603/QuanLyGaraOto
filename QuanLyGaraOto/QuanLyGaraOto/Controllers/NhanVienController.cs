@@ -42,42 +42,51 @@ namespace QuanLyGaraOto.Controllers
                 row.NhomNguoiDung = item.NhomNguoiDung;
                 row.DiaChi = item.DiaChi;
                 data.Add(row);
-                if(searchString != null)
-                {
-                    page = 1;
-                }
-                else
-                {
-                    searchString = currentFilter;
-                }
-                ViewBag.CurrentFilter = searchString;
-                if(!String.IsNullOrEmpty(searchString))
-                {
-                    if(searchOption != null)
-                    {
-                        switch(searchOption)
-                        {
-                            case 0: { break; }
-                            case 1: { data = data.Where(nv => nv.HoTen.Contains(searchString)).ToList(); break; }
-                            case 2: { data = data.Where(nv => nv.Username.Contains(searchString)).ToList(); break; }
-                            case 3: { data = data.Where(nv => nv.SDT.Contains(searchString)).ToList(); break; }
-                        }
-                    }
-                }
-                int pageSize = 5;
-                int pageNumber = (page ?? 1);
-                NhanVienViewModel vmNhanVien = new NhanVienViewModel();
-                vmNhanVien.ListNhanVien = data.ToPagedList(pageNumber, pageSize);
-
-                return View(vmNhanVien);
+                
             }
 
-            return View();
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                if (searchOption != null)
+                {
+                    switch (searchOption)
+                    {
+                        case 0: { break; }
+                        case 1: { data = data.Where(nv => nv.HoTen.Contains(searchString)).ToList(); break; }
+                        case 2: { data = data.Where(nv => nv.Username.Contains(searchString)).ToList(); break; }
+                        case 3: { data = data.Where(nv => nv.SDT.Contains(searchString)).ToList(); break; }
+                    }
+                }
+            }
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            NhanVienViewModel vmNhanVien = new NhanVienViewModel();
+            vmNhanVien.ListNhanVien = data.ToPagedList(pageNumber, pageSize);
+
+            return View(vmNhanVien);
         }
         [HttpGet]
         public ActionResult SuaNhanVien(int? id)
         {
+
             GARADBEntities context = new GARADBEntities();
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 1)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { currentFilter = String.Empty, searchString = String.Empty });
+            }
             SuaNhanVienViewModel vmNhanVien = new SuaNhanVienViewModel();
             vmNhanVien.NhanVien = context.NHANVIENs.Single(nv => nv.MA_NV == id.Value);
             vmNhanVien.ListNhomNguoiDung = context.NHOMNGUOIDUNGs.ToList();
@@ -113,6 +122,15 @@ namespace QuanLyGaraOto.Controllers
         {
             List<NHOMNGUOIDUNG> ListNhomNguoiDung = new List<NHOMNGUOIDUNG>();
             GARADBEntities context = new GARADBEntities();
+
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 1)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { currentFilter = String.Empty, searchString = String.Empty });
+            }
             ListNhomNguoiDung = context.NHOMNGUOIDUNGs.ToList();
             ViewBag.ListNhomNguoiDung = context.NHOMNGUOIDUNGs.ToList();
             return View();
@@ -154,6 +172,14 @@ namespace QuanLyGaraOto.Controllers
             {
                 
                 GARADBEntities context = new GARADBEntities();
+                int UserId = int.Parse(Session["UserID"].ToString());
+                NHANVIEN st = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+                NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+                if (groupuser.CAPDO != 2 && groupuser.CAPDO != 1)
+                {
+                    TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                    return Json(new { value = "-1", message = "Bạn không có quyền thực hiện thao tác này!" }, JsonRequestBehavior.AllowGet);
+                }
                 var target = context.NHANVIENs.Single(s => s.MA_NV == id);
                 if (!target.USERNAME.Equals(Session["Username"]))
                 {
