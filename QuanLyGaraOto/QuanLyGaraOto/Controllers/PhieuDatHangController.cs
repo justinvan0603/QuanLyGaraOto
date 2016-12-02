@@ -75,10 +75,11 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuDH.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuDH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
             vmPhieuDH.ListHieuXe = context.HIEUXEs.ToList();
-            vmPhieuDH.PhieuDatHang.MaNV = 1;
+            int UserId = int.Parse(Session["UserID"].ToString());
+            vmPhieuDH.PhieuDatHang.MaNV = UserId;
             int tggh = Int32.Parse(context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO == "ThoiGianGiaoHang").GIATRI);
             vmPhieuDH.PhieuDatHang.NgayGiao = DateTime.Now.Date.AddDays(tggh);
-            vmPhieuDH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == 1).HOTEN;
+            vmPhieuDH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == UserId).HOTEN;
             return View(vmPhieuDH);
         }
 

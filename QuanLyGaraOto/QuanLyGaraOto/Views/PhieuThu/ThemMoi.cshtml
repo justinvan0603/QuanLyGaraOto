@@ -16,6 +16,15 @@
         .fixed-table-container {
             border:0px !important;
         }
+        .table-info {
+            border-bottom:0px !important;
+        }
+        .table-info th, .table td {
+            border: 1px !important;
+        }
+        .fixed-table-container {
+            border:0px !important;
+        }
     </style>
 </head>
 <body>
@@ -26,45 +35,50 @@
         @Html.HiddenFor(m => m.PhieuThuTien.ID_PHIEUBANXE, Model)
         @Html.HiddenFor(m => m.PhieuThuTien.ID_PHIEUBANLE, Model)
         @Html.HiddenFor(m => m.PhieuThuTien.ID_PHIEUDV, Model)
-    <table class="table borderless">
+
+    <table class="table-info borderless">
         <tr>
             <th class="col-xs-2"></th>
-            <th class="col-xs-10"></th>
+            <th class="col-xs-4"></th>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
         </tr>
         <tbody>
             <tr>
-                <td ><label class="input-sm">Mã phiếu thu:</label></td>
+                <td><label class="input-sm">Mã phiếu thu:</label></td>
                 <td>@Html.TextBoxFor(m => m.PhieuThuTien.MAPHIEUTHU, new { @class = "form-control input-sm", oninput = "setCustomValidity('')", oninvalid = "setCustomValidity('Mã phiếu thu không được để trống');" })</td>
+                <td></td>
+                <td></td>
             </tr>
-            <tr>
-                <td><label class="input-sm">Ngày lập:</label></td>
-                <td>@Html.TextBoxFor(m => m.PhieuThuTien.NGAYLAP, new { @class = "form-control input-sm", @readonly="readonly"})</td>
-            </tr>
-            <tr>
-                <td><label class="input-sm">Tên nhân viên:</label></td>
-                <td>@Html.TextBoxFor(m => m.TenNV, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
-            </tr>
+        <tr>
+            <td><label class="input-sm">Tên nhân viên lập:</label></td>
+            <td>@Html.TextBoxFor(m => m.TenNV, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+            <td><label class="input-sm">Ngày lập:</label></td>
+            <td>@Html.TextBoxFor(m => m.PhieuThuTien.NGAYLAP, "{0:dd/MM/yyyy}", new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+        </tr>
             <tr>
                 <td><label class="input-sm">Nội dung thu:</label></td>
                 <td>@Html.TextBoxFor(m => m.PhieuThuTien.NOIDUNG_THU, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
-            </tr>
-            <tr>
                 <td><label class="input-sm">Trị giá phiếu cần thu:</label></td>
-                <td>@Html.TextBoxFor(m => m.TongTien, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                <td>@Html.TextBoxFor(m => m.TongTien, "{0:#,###,###,###}", new { @class = "form-control input-sm", @readonly = "readonly" })</td>
             </tr>
-            <tr>
-                <td><label class="input-sm">Số tiền còn lại:</label></td>
-                <td>@Html.TextBoxFor(m => m.ConNo, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
-            </tr>
+        <tr>
+            <td><label class="input-sm">Số tiền còn lại cần thu:</label></td>
+            <td>@Html.TextBoxFor(m => m.ConNo, "{0:#,###,###,###}", new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+            <td></td>
+            <td></td>
+        </tr>
             <tr>
                 <td><label class="input-sm">Số tiền thu:</label></td>
-                <td>@Html.TextBoxFor(m => m.PhieuThuTien.SOTIEN, new { @class = "form-control input-sm", @type = "number", oninput="setCustomValidity('Số điện thoại không được bỏ trống')", onkeypress="return event.charCode >= 48 && event.charCode <= 57" })</td>
+                <td>@Html.TextBoxFor(m => m.PhieuThuTien.SOTIEN, new {@class = "form-control input-sm", @type = "number", oninput = "setCustomValidity('Số tiền thu không được bỏ trống')", onkeypress = "return event.charCode >= 48 && event.charCode <= 57"})</td>
+                <td></td>
+                <td></td>
             </tr>
-
         </tbody>
     </table>
+
         <div class="form-group">
-            <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-floppy-save input-sm"></span> Lưu</button>
+            <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-floppy-save"></span> Lưu</button>
         </div>
     }
 </body>

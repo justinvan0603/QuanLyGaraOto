@@ -9,8 +9,9 @@
 </head>
 
 <style>
-    .table th {
+    .table th , .clickable-row {
         width: auto !important;
+        font-size: 10pt;
     }
 </style>
 <body>
@@ -20,19 +21,19 @@
     {
         <div class="form-inline">
             <div class="form-group">
-                <label for="searchOption">Tìm theo:</label>
-                @Html.DropDownList("searchOption", Model.listSearchOption, new { @class = "form-control" })
+                <label class="input-sm" for="searchOption">Tìm theo:</label>
+                @Html.DropDownList("searchOption", Model.listSearchOption, new { @class = "form-control input-sm" })
             </div>
             <div class="form-group">
-                <label for="searchString">Giá trị:</label>
-                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+                <label class="input-sm" for="searchString">Giá trị:</label>
+                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control input-sm" })
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
+                <button type="submit" class="btn btn-info btn-sm" style="margin-top:35px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
             </div>
         </div>
     }
-    <a href="../NhaCungCap/ThemMoi" class="btn btn-primary" role="button" style="margin-top: 5px"><span class="glyphicon glyphicon-plus"></span>Thêm mới</a>
+    <a href="../NhaCungCap/ThemMoi" class="btn btn-primary btn-sm" role="button" style="margin-top: 5px"><span class="glyphicon glyphicon-plus"></span>Thêm mới</a>
     @*@Html.ActionLink("Thêm", "ThemMoi", null, new { @class = "btn btn-primary glyphicon glyphicon-plus" })*@
     <div class="table-responsive" style="padding-top: 10px;">
         <div class="row">
@@ -54,13 +55,13 @@
                         {
                             <tr class="clickable-row">
                                 <td id="id" style="display: none">@item.MaNCC</td>
-                                <td> @item.TenNCC</td>
-                                <td> @item.DiaChi</td>
-                                <td> @item.SDT</td>
-                                <td> @item.NhomNCC</td>
-                                <td>
-                                    @Html.ActionLink("Sửa", "CapNhat", new {id = @item.MaNCC}, new {@class = "btn btn-warning glyphicon glyphicon-pencil"})
-                                    <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+                                <td style="vertical-align: middle"> @item.TenNCC</td>
+                                <td style="vertical-align: middle"> @item.DiaChi</td>
+                                <td style="vertical-align: middle"> @item.SDT</td>
+                                <td style="vertical-align: middle"> @item.NhomNCC</td>
+                                <td style="vertical-align: middle">
+                                    @Html.ActionLink("Sửa", "CapNhat", new { id = @item.MaNCC }, new { @class = "btn btn-warning glyphicon glyphicon-pencil btn-sm" })
+                                    <button class="btnDelete btn btn-danger glyphicon glyphicon-remove btn-sm" type="button">Xóa</button>
                                 </td>
                             </tr>
                         }
@@ -69,11 +70,12 @@
                 </table>
             </div>
         </div>
+        <div style="font-size: 10pt">
+            Trang @(Model.ListNhaCungCap.PageCount < Model.ListNhaCungCap.PageNumber ? 0 : Model.ListNhaCungCap.PageNumber) của @Model.ListNhaCungCap.PageCount
 
-                Trang @(Model.ListNhaCungCap.PageCount < Model.ListNhaCungCap.PageNumber ? 0 : Model.ListNhaCungCap.PageNumber) của @Model.ListNhaCungCap.PageCount
-
-                @Html.PagedListPager(Model.ListNhaCungCap, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
-            </div>
+            @Html.PagedListPager(Model.ListNhaCungCap, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
+        </div>
+        </div>
 
             <script src="~/Scripts/jquery-1.10.2.min.js"></script>
             <script>

@@ -69,8 +69,9 @@ namespace QuanLyGaraOto.Controllers
             GARADBEntities context = new GARADBEntities();
             lapPhieuThuViewModel = new LapPhieuThuViewModel();
             lapPhieuThuViewModel.PhieuThuTien.NGAYLAP = DateTime.Now;
-            lapPhieuThuViewModel.PhieuThuTien.MA_NV = 1;
-            lapPhieuThuViewModel.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == 1).HOTEN;
+            int UserId = int.Parse(Session["UserID"].ToString());
+            lapPhieuThuViewModel.PhieuThuTien.MA_NV = UserId;
+            lapPhieuThuViewModel.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == UserId).HOTEN;
             if (type.Equals("pbl"))
             {
                 PHIEU_BANLE phieuBanle = context.PHIEU_BANLE.Single(c => c.ID_PHIEUBANLE == idphieu);

@@ -9,8 +9,9 @@
 </head>
 
 <style>
-    .table th {
+    .table th , .clickable-row {
         width: auto !important;
+        font-size: 10pt;
     }
 </style>
 <body>
@@ -28,50 +29,53 @@
                 @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control input-sm" })
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-info input-sm" style="margin-top:30px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
+                <button type="submit" class="btn btn-info btn-sm" style="margin-top:35px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
             </div>
         </div>
     }
     @*@Html.ActionLink("Thêm mới", "ThemMoi", null, new { @class = "btn btn-primary glyphicon glyphicon-plus", @style = "margin-top: 5px" })*@
-    <a href="../Tho/ThemMoi" class="btn btn-primary input-sm" role="button" style="margin-top: 5px"><span class="glyphicon glyphicon-plus"></span>Thêm mới</a>
-        <div class="table-responsive" style="padding-top:10px;">
-            <div class="row">
-                <div class="col-sm-11">
-                    <table id="tho-table" class="table table-bordered table table-hover ">
-                        <thead style="color: red; background-color: white">
-                            <tr>
-                                <th style="display:none">Id</th>
-                                <th>@Html.ActionLink("Họ tên", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
-                                <th>Số điện thoại</th>
-                                <th>Địa chỉ</th>
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{
-                                foreach (var item in Model.ListTho.ToList())
-                                {
-                                    <tr class="clickable-row">
-                                        <td id="id" style="display:none">@item.MA_THO</td>
-                                        <td> @item.TENTHO</td>
-                                        <td> @item.SDT</td>
-                                        <td>@item.DIACHI</td>
-                                        <td>
-                                            @Html.ActionLink("Sửa", "CapNhat", new { id = @item.MA_THO }, new { @class = "btn btn-warning glyphicon glyphicon-pencil input-sm" })
-                                            <button class="btnDelete btn btn-danger glyphicon glyphicon-remove input-sm" type="button">Xóa</button>
-                                        </td>
-                                    </tr>
-                                }
+    <a href="../Tho/ThemMoi" class="btn btn-primary btn-sm" role="button" style="margin-top: 5px"><span class="glyphicon glyphicon-plus"></span>Thêm mới</a>
+    <div class="table-responsive" style="padding-top:10px;">
+        <div class="row">
+            <div class="col-sm-11">
+                <table id="tho-table" class="table table-bordered table table-hover ">
+                    <thead style="color: red; background-color: white">
+                        <tr>
+                            <th style="display:none">Id</th>
+                            <th>@Html.ActionLink("Họ tên", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
+                            <th>Số điện thoại</th>
+                            <th>Địa chỉ</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model.ListTho.ToList())
+                            {
+                                <tr class="clickable-row">
+                                    <td id="id" style="display:none">@item.MA_THO</td>
+                                    <td style="vertical-align: middle"> @item.TENTHO</td>
+                                    <td style="vertical-align: middle"> @item.SDT</td>
+                                    <td style="vertical-align: middle">@item.DIACHI</td>
+                                    <td style="vertical-align: middle">
+                                        @Html.ActionLink("Sửa", "CapNhat", new { id = @item.MA_THO }, new { @class = "btn btn-warning glyphicon glyphicon-pencil btn-sm" })
+                                        <button class="btnDelete btn btn-danger glyphicon glyphicon-remove btn-sm" type="button">Xóa</button>
+                                    </td>
+                                </tr>
                             }
-                        </tbody>
-                    </table>
-                </div>
+                        }
+                    </tbody>
+                </table>
             </div>
-            
+        </div>
+        <div style="font-size: 10pt">
             Trang @(Model.ListTho.PageCount < Model.ListTho.PageNumber ? 0 : Model.ListTho.PageNumber) của @Model.ListTho.PageCount
 
             @Html.PagedListPager(Model.ListTho, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
         </div>
+    </div>
+
+
 
         <script src="~/Scripts/jquery-1.10.2.min.js"></script>
         <script>

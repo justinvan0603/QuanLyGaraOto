@@ -8,8 +8,9 @@
     <title>@ViewBag.Title</title>
 </head>
 <style>
-    .table th {
+    .table th , .clickable-row {
         width: auto !important;
+        font-size: 10pt;
     }
 </style>
 <body>
@@ -19,15 +20,15 @@
     {
         <div class="form-inline">
             <div class="form-group">
-                <label for="searchOption">Tìm theo:</label>
-                @Html.DropDownList("searchOption", Model.listSearchOption, new { @class = "form-control" })
+                <label class="input-sm" for="searchOption">Tìm theo:</label>
+                @Html.DropDownList("searchOption", Model.listSearchOption, new { @class = "form-control input-sm" })
             </div>
             <div class="form-group">
-                <label for="searchOption">Giá trị:</label>
-                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+                <label class="input-sm" for="searchOption">Giá trị:</label>
+                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control input-sm" })
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-info" style="margin-top: 25px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
+                <button type="submit" class="btn btn-info btn-sm" style="margin-top: 35px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
             </div>
         </div>
     }
@@ -37,42 +38,44 @@
             <div class="col-sm-11">
                 <table id="phieuthu-table" class="table table-bordered table table-hover ">
                     <thead style="color: red; background-color: white">
-                    <tr>
-                        <th style="display: none">Id</th>
-                        <th>Mã phiếu thu</th>
-                        <th>@Html.ActionLink("Ngày lập phiếu", "Index", new {sortOrder = ViewBag.DateSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption})</th>
-                        <th>Tên nhân viên</th>
-                        <th>Nội dung</th>
-                        <th>Số tiền</th>
-                        <th>Thao tác</th>
-                    </tr>
+                        <tr>
+                            <th style="display: none">Id</th>
+                            <th>Mã phiếu thu</th>
+                            <th>@Html.ActionLink("Ngày lập phiếu", "Index", new { sortOrder = ViewBag.DateSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
+                            <th>Tên nhân viên</th>
+                            <th>Nội dung</th>
+                            <th>Số tiền</th>
+                            <th>Thao tác</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @{
-                        foreach (var item in Model.ListPhieuThu.ToList())
-                        {
-                            <tr class="clickable-row">
-                                <td id="id" style="display: none">@item.PhieuThu.ID_PHIEUTHUTIEN</td>
-                                <td> @item.PhieuThu.MAPHIEUTHU</td>
-                                <td> @String.Format("{0:dd/MM/yyyy}", item.PhieuThu.NGAYLAP)</td>
-                                <td>@item.TenNV</td>
-                                <td>@item.PhieuThu.NOIDUNG_THU</td>
-                                <td>@String.Format("{0:#,###,###,###}", item.PhieuThu.SOTIEN)</td>
-                                <td>
-                                    @Html.ActionLink("Sửa", "CapNhat", new {id = @item.PhieuThu.ID_PHIEUTHUTIEN}, new {@class = "btn btn-warning glyphicon glyphicon-pencil"})
-                                    <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
-                                </td>
-                            </tr>
+                        @{
+                            foreach (var item in Model.ListPhieuThu.ToList())
+                            {
+                                <tr class="clickable-row">
+                                    <td id="id" style="display: none">@item.PhieuThu.ID_PHIEUTHUTIEN</td>
+                                    <td style="vertical-align: middle"> @item.PhieuThu.MAPHIEUTHU</td>
+                                    <td style="vertical-align: middle"> @String.Format("{0:dd/MM/yyyy}", item.PhieuThu.NGAYLAP)</td>
+                                    <td style="vertical-align: middle">@item.TenNV</td>
+                                    <td style="vertical-align: middle">@item.PhieuThu.NOIDUNG_THU</td>
+                                    <td style="vertical-align: middle">@String.Format("{0:#,###,###,###}", item.PhieuThu.SOTIEN)</td>
+                                    <td style="vertical-align: middle">
+                                        @Html.ActionLink("Sửa", "CapNhat", new { id = @item.PhieuThu.ID_PHIEUTHUTIEN }, new { @class = "btn btn-warning glyphicon glyphicon-pencil btn-sm" })
+                                        <button class="btnDelete btn btn-danger glyphicon glyphicon-remove btn-sm" type="button">Xóa</button>
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
                     </tbody>
                 </table>
             </div>
-            </div>
-                Trang @(Model.ListPhieuThu.PageCount < Model.ListPhieuThu.PageNumber ? 0 : Model.ListPhieuThu.PageNumber) của @Model.ListPhieuThu.PageCount
+        </div>
+        <div style="font-size: 10pt">
+            Trang @(Model.ListPhieuThu.PageCount < Model.ListPhieuThu.PageNumber ? 0 : Model.ListPhieuThu.PageNumber) của @Model.ListPhieuThu.PageCount
 
-                @Html.PagedListPager(Model.ListPhieuThu, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
-            </div>
+            @Html.PagedListPager(Model.ListPhieuThu, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
+        </div>
+    </div>
 
             <script src="~/Scripts/jquery-1.10.2.min.js"></script>
             <script>

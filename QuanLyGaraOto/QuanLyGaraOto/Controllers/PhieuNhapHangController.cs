@@ -83,9 +83,10 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuNH.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuNH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
             vmPhieuNH.ListHieuXe = context.HIEUXEs.ToList();
-            vmPhieuNH.PhieuNhapHang.MA_NV = 1;
+            int UserId = int.Parse(Session["UserID"].ToString());
+            vmPhieuNH.PhieuNhapHang.MA_NV = UserId;
             vmPhieuNH.PhieuNhapHang.NGAYLAP = DateTime.Now.Date;
-            vmPhieuNH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == 1).HOTEN;
+            vmPhieuNH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == UserId).HOTEN;
             PHIEU_DATHANG pdhPhieuDathang = context.PHIEU_DATHANG.Single(pdh => pdh.Id_PhieuDatHang == idphieuDH);
             vmPhieuNH.PhieuNhapHang.MaNCC = pdhPhieuDathang.MaNCC;
             vmPhieuNH.MaPhieuDatHang = pdhPhieuDathang.MaPhieuDat;
@@ -102,9 +103,10 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuNH.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuNH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
             vmPhieuNH.ListHieuXe = context.HIEUXEs.ToList();
-            vmPhieuNH.PhieuNhapHang.MA_NV = 1;
+            int UserId = int.Parse(Session["UserID"].ToString());
+            vmPhieuNH.PhieuNhapHang.MA_NV = UserId;
             vmPhieuNH.PhieuNhapHang.NGAYLAP = DateTime.Now.Date;
-            vmPhieuNH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == 1).HOTEN;
+            vmPhieuNH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == UserId).HOTEN;
             vmPhieuNH.PhieuNhapHang.MaNCC = null;
             vmPhieuNH.MaPhieuDatHang = "Không đặt trước";
             vmPhieuNH.PhieuNhapHang.ID_PHIEUDATHANG = null;
