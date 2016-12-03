@@ -70,7 +70,7 @@
         </tr>
             <tr>
                 <td><label class="input-sm">Số tiền thu:</label></td>
-                <td>@Html.TextBoxFor(m => m.PhieuThuTien.SOTIEN, new {@class = "form-control input-sm", @type = "number", oninput = "setCustomValidity('Số tiền thu không được bỏ trống')", onkeypress = "return event.charCode >= 48 && event.charCode <= 57"})</td>
+                <td>@Html.TextBoxFor(m => m.PhieuThuTien.SOTIEN, new { @class = "form-control input-sm", @type = "number", oninput = "setCustomValidity('')", oninvalid = "setCustomValidity('Số tiền thu không được bỏ trống')", onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })</td>
                 <td></td>
                 <td></td>
             </tr>

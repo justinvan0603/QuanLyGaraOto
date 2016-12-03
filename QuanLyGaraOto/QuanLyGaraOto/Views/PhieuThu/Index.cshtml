@@ -60,7 +60,7 @@
                                     <td style="vertical-align: middle">@item.PhieuThu.NOIDUNG_THU</td>
                                     <td style="vertical-align: middle">@String.Format("{0:#,###,###,###}", item.PhieuThu.SOTIEN)</td>
                                     <td style="vertical-align: middle">
-                                        @Html.ActionLink("Sửa", "CapNhat", new { id = @item.PhieuThu.ID_PHIEUTHUTIEN }, new { @class = "btn btn-warning glyphicon glyphicon-pencil btn-sm" })
+                                        @*@Html.ActionLink("Sửa", "CapNhat", new { id = @item.PhieuThu.ID_PHIEUTHUTIEN }, new { @class = "btn btn-warning glyphicon glyphicon-pencil btn-sm" })*@
                                         <button class="btnDelete btn btn-danger glyphicon glyphicon-remove btn-sm" type="button">Xóa</button>
                                     </td>
                                 </tr>
@@ -119,9 +119,9 @@
                                         .done(function () {
                                             if (isSuccess == "1") {
                                                 row.remove();
-                                                alert(message);
+                                                location.reload();
                                             } else {
-                                                alert(message);
+                                                location.reload();
                                             }
                                         });
                                 });

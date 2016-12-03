@@ -20,5 +20,7 @@ namespace QuanLyGaraOto.ViewModel
         }
         public PHIEU_THUTIEN PhieuThu { get; set; }
         public string TenNV { get; set; }
+        public decimal? TongTien { get; set; }
+        public decimal? ConNo { get; set; }
     }
 }

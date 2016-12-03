@@ -85,7 +85,7 @@ namespace QuanLyGaraOto.Controllers
                 lapPhieuThuViewModel.PhieuThuTien.ID_PHIEUBANXE = idphieu;
                 lapPhieuThuViewModel.TongTien = phieuBanxe.TRIGIA;
                 lapPhieuThuViewModel.ConNo = phieuBanxe.SOTIENCONLAI;
-                lapPhieuThuViewModel.PhieuThuTien.NOIDUNG_THU = "Thu tiền phiếu bán lẻ. Mã phiếu: " + phieuBanxe.MAPHIEUBAN;
+                lapPhieuThuViewModel.PhieuThuTien.NOIDUNG_THU = "Thu tiền phiếu bán xe. Mã phiếu: " + phieuBanxe.MAPHIEUBAN;
 
             } else if (type.Equals("pdv"))
             {
@@ -93,7 +93,7 @@ namespace QuanLyGaraOto.Controllers
                 lapPhieuThuViewModel.PhieuThuTien.ID_PHIEUDV = idphieu;
                 lapPhieuThuViewModel.TongTien = phieuDichvu.TONGTIEN;
                 lapPhieuThuViewModel.ConNo = phieuDichvu.SOTIEN_CONLAI;
-                lapPhieuThuViewModel.PhieuThuTien.NOIDUNG_THU = "Thu tiền phiếu bán lẻ. Mã phiếu: " + phieuDichvu.MA_PHIEUDV;
+                lapPhieuThuViewModel.PhieuThuTien.NOIDUNG_THU = "Thu tiền phiếu dịch vụ. Mã phiếu: " + phieuDichvu.MA_PHIEUDV;
             }
             return View(lapPhieuThuViewModel);
         }
@@ -119,11 +119,28 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult CapNhat(int id)
         {
-            GARADBEntities context = new GARADBEntities();
-            
+            GARADBEntities context = new GARADBEntities();        
             PHIEU_THUTIEN ptt = context.PHIEU_THUTIEN.Single(c => c.ID_PHIEUTHUTIEN == id);
             String tennv = context.NHANVIENs.Single(nv => nv.MA_NV == ptt.MA_NV).HOTEN;
-            PhieuThuViewModel phieuThuViewModel = new PhieuThuViewModel(ptt,tennv);
+            PhieuThuViewModel phieuThuViewModel = new PhieuThuViewModel(ptt, tennv);
+            if(ptt.ID_PHIEUBANLE != null)
+            {
+                PHIEU_BANLE phieuBanle = context.PHIEU_BANLE.Single(c => c.ID_PHIEUBANLE == ptt.ID_PHIEUBANLE);
+                phieuThuViewModel.TongTien = phieuBanle.TongTien;
+                phieuThuViewModel.ConNo = phieuBanle.SoTienConLai;
+            }
+            else if (ptt.ID_PHIEUBANXE != null)
+            {
+                PHIEU_BANXE phieuBanxe = context.PHIEU_BANXE.Single(c => c.ID_PHIEUBANXE == ptt.ID_PHIEUBANXE);
+                phieuThuViewModel.TongTien = phieuBanxe.TRIGIA;
+                phieuThuViewModel.ConNo = phieuBanxe.SOTIENCONLAI;
+            }
+            else
+            {
+                PHIEU_DICHVU phieuDichvu = context.PHIEU_DICHVU.Single(c => c.ID_PHIEUDV == ptt.ID_PHIEUDV);
+                phieuThuViewModel.TongTien = phieuDichvu.TONGTIEN;
+                phieuThuViewModel.ConNo = phieuDichvu.SOTIEN_CONLAI;
+            }
             return View(phieuThuViewModel);
         }
 
