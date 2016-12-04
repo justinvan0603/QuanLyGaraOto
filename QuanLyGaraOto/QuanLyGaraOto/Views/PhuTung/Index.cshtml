@@ -61,7 +61,7 @@
                                     <td style="vertical-align: middle"> @item.TEN_PHUTUNG</td>
                                     <td style="vertical-align: middle"> @item.MA_HIEUXE</td>
                                     <td style="vertical-align: middle"> @item.SOLUONGTON</td>
-                                    <td style="vertical-align: middle"> @String.Format("{0:#,###,###,###}", item.DONGIAXUAT)</td>
+                                    <td style="vertical-align: middle"> @String.Format("{0:n0}", item.DONGIAXUAT)</td>
                                     <td style="vertical-align: middle"> @item.TG_BAOHANH</td>
                                     <td style="vertical-align: middle">
                                         @Html.ActionLink("Sửa", "CapNhat", new { id = @item.ID }, new { @class = "btn btn-warning glyphicon glyphicon-pencil btn-sm" })

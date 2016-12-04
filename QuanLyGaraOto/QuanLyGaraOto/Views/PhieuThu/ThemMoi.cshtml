@@ -28,13 +28,13 @@
     </style>
 </head>
 <body>
-    <h3 class="text-center" style="color: green;">LẬP PHIẾU THU</h3>
-    @using (Html.BeginForm("ThemMoi", "PhieuThu", FormMethod.Post))
-    {
-        @Html.HiddenFor(m => m.PhieuThuTien.MA_NV, Model)
-        @Html.HiddenFor(m => m.PhieuThuTien.ID_PHIEUBANXE, Model)
-        @Html.HiddenFor(m => m.PhieuThuTien.ID_PHIEUBANLE, Model)
-        @Html.HiddenFor(m => m.PhieuThuTien.ID_PHIEUDV, Model)
+<h3 class="text-center" style="color: green;">LẬP PHIẾU THU</h3>
+@using (Html.BeginForm("ThemMoi", "PhieuThu", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.PhieuThuTien.MA_NV, Model)
+    @Html.HiddenFor(m => m.PhieuThuTien.ID_PHIEUBANXE, Model)
+    @Html.HiddenFor(m => m.PhieuThuTien.ID_PHIEUBANLE, Model)
+    @Html.HiddenFor(m => m.PhieuThuTien.ID_PHIEUDV, Model)
 
     <table class="table-info borderless">
         <tr>
@@ -44,42 +44,54 @@
             <th class="col-xs-4"></th>
         </tr>
         <tbody>
-            <tr>
-                <td><label class="input-sm">Mã phiếu thu:</label></td>
-                <td>@Html.TextBoxFor(m => m.PhieuThuTien.MAPHIEUTHU, new { @class = "form-control input-sm", oninput = "setCustomValidity('')", oninvalid = "setCustomValidity('Mã phiếu thu không được để trống');" })</td>
-                <td></td>
-                <td></td>
-            </tr>
+        <tr>
+            <td><label class="input-sm">Mã phiếu thu:</label></td>
+            <td>@Html.TextBoxFor(m => m.PhieuThuTien.MAPHIEUTHU, new {@class = "form-control input-sm", oninput = "setCustomValidity('')", oninvalid = "setCustomValidity('Mã phiếu thu không được để trống');"})</td>
+            <td></td>
+            <td></td>
+        </tr>
         <tr>
             <td><label class="input-sm">Tên nhân viên lập:</label></td>
-            <td>@Html.TextBoxFor(m => m.TenNV, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+            <td>@Html.TextBoxFor(m => m.TenNV, new {@class = "form-control input-sm", @readonly = "readonly"})</td>
             <td><label class="input-sm">Ngày lập:</label></td>
-            <td>@Html.TextBoxFor(m => m.PhieuThuTien.NGAYLAP, "{0:dd/MM/yyyy}", new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+            <td>@Html.TextBoxFor(m => m.PhieuThuTien.NGAYLAP, "{0:dd/MM/yyyy}", new {@class = "form-control input-sm", @readonly = "readonly"})</td>
         </tr>
-            <tr>
-                <td><label class="input-sm">Nội dung thu:</label></td>
-                <td>@Html.TextBoxFor(m => m.PhieuThuTien.NOIDUNG_THU, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
-                <td><label class="input-sm">Trị giá phiếu cần thu:</label></td>
-                <td>@Html.TextBoxFor(m => m.TongTien, "{0:#,###,###,###}", new { @class = "form-control input-sm", @readonly = "readonly" })</td>
-            </tr>
+        <tr>
+            <td><label class="input-sm">Nội dung thu:</label></td>
+            <td>@Html.TextBoxFor(m => m.PhieuThuTien.NOIDUNG_THU, new {@class = "form-control input-sm", @readonly = "readonly"})</td>
+            <td><label class="input-sm">Trị giá phiếu cần thu:</label></td>
+            <td>@Html.TextBoxFor(m => m.TongTien, "{0:#,###,###,###}", new {@class = "form-control input-sm", @readonly = "readonly"})</td>
+        </tr>
         <tr>
             <td><label class="input-sm">Số tiền còn lại cần thu:</label></td>
-            <td>@Html.TextBoxFor(m => m.ConNo, "{0:#,###,###,###}", new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+            <td>@Html.TextBoxFor(m => m.ConNo, "{0:#,###,###,###}", new {@class = "form-control input-sm sotienno", @readonly = "readonly"})</td>
             <td></td>
             <td></td>
         </tr>
-            <tr>
-                <td><label class="input-sm">Số tiền thu:</label></td>
-                <td>@Html.TextBoxFor(m => m.PhieuThuTien.SOTIEN, new { @class = "form-control input-sm", @type = "number", oninput = "setCustomValidity('')", oninvalid = "setCustomValidity('Số tiền thu không được bỏ trống')", onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })</td>
-                <td></td>
-                <td></td>
-            </tr>
+        <tr>
+            <td><label class="input-sm">Số tiền thu:</label></td>
+            <td>@Html.TextBoxFor(m => m.PhieuThuTien.SOTIEN, new {@class = "form-control input-sm sotienthu", @type = "number", oninput = "setCustomValidity('')", oninvalid = "setCustomValidity('Số tiền thu không được bỏ trống')", onkeypress = "return event.charCode >= 48 && event.charCode <= 57"})</td>
+            <td></td>
+            <td></td>
+        </tr>
         </tbody>
     </table>
 
-        <div class="form-group">
-            <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-floppy-save"></span> Lưu</button>
-        </div>
-    }
+    <div class="form-group">
+        <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-floppy-save"></span> Lưu</button>
+    </div>
+}
+    <script>
+
+    $("form").submit(function (e) {
+        var sotienno = $(".sotienno").val().split(',').join('');
+        var sotienthu = $(".sotienthu").val();
+        if (sotienthu > sotienno) {
+            e.preventDefault();
+            alert("Số tiền thu không được vượt quá số tiền nợ!");
+        }
+    })
+    </script>
 </body>
+
 

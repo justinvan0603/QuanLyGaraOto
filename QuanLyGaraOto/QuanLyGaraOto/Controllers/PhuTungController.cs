@@ -75,6 +75,8 @@ namespace QuanLyGaraOto.Controllers
             try
             {
                 GARADBEntities context = new GARADBEntities();
+                phutung.SOLUONGTON = 0;
+                phutung.DONGIAXUAT = 0;
                 context.PHUTUNGs.Add(phutung);
                 context.SaveChanges();
                 TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
