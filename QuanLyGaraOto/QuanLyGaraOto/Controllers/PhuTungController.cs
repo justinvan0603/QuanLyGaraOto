@@ -109,6 +109,7 @@ namespace QuanLyGaraOto.Controllers
                 target.MA_PHUTUNG = phutung.MA_PHUTUNG;
                 target.TEN_PHUTUNG = phutung.TEN_PHUTUNG;
                 target.MA_HIEUXE = phutung.MA_HIEUXE;
+                target.TG_BAOHANH = phutung.TG_BAOHANH;
                 context.SaveChanges();
                 TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Cập nhật thành công! </div> </div> </div>";
             }

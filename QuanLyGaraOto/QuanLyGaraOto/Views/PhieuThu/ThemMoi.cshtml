@@ -46,7 +46,7 @@
         <tbody>
         <tr>
             <td><label class="input-sm">Mã phiếu thu:</label></td>
-            <td>@Html.TextBoxFor(m => m.PhieuThuTien.MAPHIEUTHU, new {@class = "form-control input-sm", oninput = "setCustomValidity('')", oninvalid = "setCustomValidity('Mã phiếu thu không được để trống');"})</td>
+            <td>@Html.TextBoxFor(m => m.PhieuThuTien.MAPHIEUTHU, new {@class = "form-control input-sm", oninput = "setCustomValidity('')", required="required", maxlength = 20, oninvalid = "setCustomValidity('Mã phiếu thu không được để trống');"})</td>
             <td></td>
             <td></td>
         </tr>
@@ -89,6 +89,10 @@
         if (sotienthu > sotienno) {
             e.preventDefault();
             alert("Số tiền thu không được vượt quá số tiền nợ!");
+        }
+        if (sotienthu <= 0) {
+            e.preventDefault();
+            alert("Số tiền thu phải lớn hơn không!");
         }
     })
     </script>
