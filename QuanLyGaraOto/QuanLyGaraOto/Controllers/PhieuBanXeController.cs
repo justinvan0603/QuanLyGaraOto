@@ -111,7 +111,16 @@ namespace QuanLyGaraOto.Controllers
             // dau tien, load tat ca danh sach xe co trong GARA co nhu cau ban (HINHTHUC == true)
             // sau do load danh sach khach hang de nhan vien co the chon neu do la khach quan trong GARA
             PhieuBanXeViewModel phieuBanXeViewModel = new PhieuBanXeViewModel();
+            // load danh sach xe ban trong database (chi load danh sach xe ban chua duoc ban)
             phieuBanXeViewModel.listOfXes = this.service.XEs.ToList().Where(e => e.HINHTHUC == true).ToList();
+            foreach (XE xe in phieuBanXeViewModel.listOfXes)
+            {
+                if (this.service.PHIEU_BANXE.Where(e => e.BS_XE == xe.BS_XE).Count() > 0)
+                {
+                    // xoa xe nay ra khoi danh sach neu xe nay da duoc ban 
+                    phieuBanXeViewModel.listOfXes.Remove(xe);
+                }
+            }
             phieuBanXeViewModel.listOfKhachHang = this.service.KHACHHANGs.ToList();
             return View(phieuBanXeViewModel);
         }
@@ -151,24 +160,20 @@ namespace QuanLyGaraOto.Controllers
         /// <param name="billId"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Xoa(int billId)
+        public JsonResult Xoa(int? billId)
         {
-            try
+            PHIEU_BANXE phieuBanXe = this.service.PHIEU_BANXE.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
+            // after removing the verhical sale of bill => remove the correspoding receipt that is related to it
+            PHIEU_THUTIEN correspondingReceiptInformation = this.service.PHIEU_THUTIEN.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
+            if (correspondingReceiptInformation != null)
             {
-                PHIEU_BANXE phieuBanXe = this.service.PHIEU_BANXE.Single(e => e.ID_PHIEUBANXE == billId);
-                this.service.PHIEU_BANXE.Remove(phieuBanXe);
-                // after removing the verhincal sale of bill => remove the correspoding receipt that is related to it
-                PHIEU_THUTIEN correspondingReceiptInformation = this.service.PHIEU_THUTIEN.Single(e => e.ID_PHIEUBANXE == billId);
                 this.service.PHIEU_THUTIEN.Remove(correspondingReceiptInformation);
                 this.service.SaveChanges();
-                // tra ve 
-                return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception e)
-            {
-
-                return Json(new { value = "-1", message = "SYSTEM ERROR !" }, JsonRequestBehavior.AllowGet);
-            }
+            this.service.PHIEU_BANXE.Remove(phieuBanXe);
+            this.service.SaveChanges();
+            // tra ve 
+            return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -203,7 +208,7 @@ namespace QuanLyGaraOto.Controllers
             updatingBillInfor.HANCHOTTHANHTOAN = modifiedBillInformation.HANCHOTTHANHTOAN;
             updatingBillInfor.MAKH = modifiedBillInformation.MAKH;
             updatingBillInfor.SOTIENCONLAI = modifiedBillInformation.SOTIENCONLAI;
-            
+
             this.service.Entry(updatingBillInfor).State = System.Data.Entity.EntityState.Modified; // 
             this.service.SaveChanges(); // synchronize database
 

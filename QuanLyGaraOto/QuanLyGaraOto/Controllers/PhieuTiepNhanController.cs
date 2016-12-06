@@ -103,7 +103,7 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult SuaPhieuTiepNhan(int? maPhieu)
         {
             PhieuTiepNhanViewModel viewModel = new PhieuTiepNhanViewModel();
-            viewModel.selectedPhieuTiepNhan = this.service.PHIEU_TIEPNHAN.Where(e => e.MA_PHIEUTIEPNHAN == maPhieu).SingleOrDefault();
+            viewModel.selectedPhieuTiepNhan = this.service.PHIEU_TIEPNHAN.Where(e => e.MA_PHIEUTIEPNHAN == maPhieu).FirstOrDefault();
             return View(viewModel);
         }
 
@@ -176,10 +176,9 @@ namespace QuanLyGaraOto.Controllers
                 var phieuTiepNhan = new PHIEU_TIEPNHAN();
                 phieuTiepNhan.BIENSO_XE = infor.bienSoXe;
                 phieuTiepNhan.MA_KH = khachHang.MA_KH;
-                phieuTiepNhan.MA_NV = 1; // test
+                phieuTiepNhan.MA_NV = int.Parse(Session["UserID"].ToString());
                 phieuTiepNhan.NGAYLAP = infor.ngayTiepNhan;
                 phieuTiepNhan.TINHTRANG = infor.tinhTrang;
-
 
 
 
@@ -242,9 +241,10 @@ namespace QuanLyGaraOto.Controllers
             PhieuTiepNhan.NGAYLAP = infor.ngayLap;
             PhieuTiepNhan.BIENSO_XE = infor.bienSoXe;
             PhieuTiepNhan.MA_KH = infor.maKhachHang;
-            PhieuTiepNhan.MA_NV = 1; // Code for testing
+            PhieuTiepNhan.MA_NV = int.Parse(Session["UserID"].ToString());
             PhieuTiepNhan.TINHTRANG = infor.tinhTrang;
-            // PhieuTiepNhan.MASOCHO = 
+            PhieuTiepNhan.MASOCHO = this.service.PHIEU_TIEPNHAN.Count() + 1;
+            PhieuTiepNhan.NGAYTRAXE = DateTime.Now; // mac dinh la thoi gian hien tai.
             this.service.PHIEU_TIEPNHAN.Add(PhieuTiepNhan);
             this.service.SaveChanges();
             return RedirectToAction("Index");

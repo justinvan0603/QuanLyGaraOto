@@ -17,6 +17,7 @@
 
 @using (@Html.BeginForm("Index", "PhieuMuaXe", FormMethod.Get, new { @class = "form-inline" }))
 {
+    <h3 class="text-center" style="color: green;">DANH SÁCH PHIẾU MUA XE</h3>
     <div class="form-inline">
         <div class="form-group">
             <label for="searchOption">Tìm theo:</label>
@@ -36,7 +37,7 @@
 
 <div class="table-responsive" style="padding-top:10px;">
     <table id="phieubanxe_table" class="table table-bordered table table-hover">
-        <thead style="color:red; text-align : center;">
+        <thead style="color:red; text-align : center; background-color : white;">
             <tr>
                 <th style="display:none">Id</th>
                 <th>Mã phiếu</th>

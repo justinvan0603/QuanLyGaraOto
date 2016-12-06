@@ -23,7 +23,7 @@ namespace QuanLyGaraOto.ViewModel
         [RegularExpression("[0-9]", ErrorMessage = "Số điện thoại vừa nhập không hợp lệ!")]
         public string dienThoai { get; set; }
 
-        [Required(ErrorMessage = "Số điện thoại không được để trống!")]
+        [Required(ErrorMessage ="Địa chỉ không được để trống!")]
         [StringLength(20, ErrorMessage = "Số điện thoại chỉ chứa tối đa 20 ký tự")]
         [RegularExpression("[0-9]", ErrorMessage = "Số điện thoại vừa nhập không hợp lệ!")]
         public string diaChi { get; set; }

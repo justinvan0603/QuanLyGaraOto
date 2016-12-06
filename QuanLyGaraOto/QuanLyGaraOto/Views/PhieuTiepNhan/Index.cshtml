@@ -18,6 +18,7 @@
 
 @using (@Html.BeginForm("Index", "PhieuTiepNhan", FormMethod.Get, new { @class = "form-inline" }))
 {
+    <h3 class="text-center" style="color: green;">DANH SÁCH PHIẾU TIẾP NHẬN</h3>
     <div class="form-inline">
         <div class="form-group">
             <label for="searchOption">Tìm theo:</label>
@@ -33,13 +34,13 @@
     </div>
 }
 <div class="row">
-    @Html.ActionLink("Thêm mới", "ThemPhieuTiepNhan", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
-    @Html.ActionLink("Từ khách quen", "ThemPhieuTiepNhanTuKhachQuen", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
+    <a href="../PhieuTiepNhan/ThemPhieuTiepNhan" class="btn btn-primary btn-sm" role="button" style="margin-top: 5px"><span class="glyphicon glyphicon-plus"></span>Thêm mới</a>
+    <a href="../PhieuTiepNhan/ThemPhieuTiepNhanTuKhachQuen" class="btn btn-primary btn-sm" role="button" style="margin-top: 5px"><span class="glyphicon glyphicon-plus"></span>Thêm mới từ khách quen</a>
 </div>
 
 <div class="table-responsive" style="padding-top:10px;">
     <table id="phieutiepnhan_table" class="table table-bordered table table-hover" style="text-align : center">
-        <thead style="color:red; ">
+        <thead style="color:red; background-color: white; ">
             <tr>
                 <th>Mã phiếu</th>
                 <th>Ngày lập</th>
@@ -69,13 +70,13 @@
                         <td>@item.maSoCho</td>
                         <!-- Chi cho phep xoa khi phieu tiep nhan chua duoc co phieu dich vu-->
 
-                        <td>
+                        <td style="text-align : right;">
                             @Html.ActionLink("Sửa", "SuaPhieuTiepNhan", new { maPhieu = @item.maPhieuTiepNhan }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
                             @if (Model.service.PHIEU_DICHVU.Where(e => e.MAPHIEU_TIEPNHAN == item.maPhieuTiepNhan).Count() == 0)
                             {
                                 <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
                             }
-                            @Html.ActionLink("Lập phiếu dịch vụ", "NhapPhieuDichVu","PhieuDichVu", new { maphieutiepnhan = @item.maPhieuTiepNhan }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
+                            @Html.ActionLink("Lập phiếu dịch vụ", "NhapPhieuDichVu", "PhieuDichVu", new { maphieutiepnhan = @item.maPhieuTiepNhan }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
                         </td>
                     </tr>
                 }

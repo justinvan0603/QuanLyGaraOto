@@ -9,8 +9,9 @@ namespace QuanLyGaraOto.Models
 
     public class KHACHHANGMetadata
     {
-        public int MA_NHOMNGUOIDUNG { get; set; }
-        public int MA_NV {get; set;}
+        // bi loi khi them phieu tiep nhan
+       // public int MA_NHOMNGUOIDUNG { get; set; }
+       // public int MA_NV {get; set;}
         [Required(ErrorMessage = "Tên không được để trống!")]
         [StringLength(100, ErrorMessage = "Tên chỉ chứa tối đa 100 ký tự")]
         [RegularExpression(@"^[\p{L}\p{N} ]*$", ErrorMessage = "Tên vừa nhập không hợp lệ!")]
