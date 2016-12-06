@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Lập phiếu thu tiền";
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
+    int sotientithieu = @Model.SoTienThuToiThieu;
 }
 @Html.Raw(TempData["msg"])
 <head>
@@ -46,7 +47,7 @@
         <tbody>
         <tr>
             <td><label class="input-sm">Mã phiếu thu:</label></td>
-            <td>@Html.TextBoxFor(m => m.PhieuThuTien.MAPHIEUTHU, new {@class = "form-control input-sm", oninput = "setCustomValidity('')", required="required", maxlength = 20, oninvalid = "setCustomValidity('Mã phiếu thu không được để trống');"})</td>
+            <td>@Html.TextBoxFor(m => m.PhieuThuTien.MAPHIEUTHU, new {@class = "form-control input-sm", placeholder="PTT00X", oninput = "setCustomValidity('')", required="required", maxlength = 20, oninvalid = "setCustomValidity('Mã phiếu thu không được để trống');"})</td>
             <td></td>
             <td></td>
         </tr>
@@ -70,7 +71,7 @@
         </tr>
         <tr>
             <td><label class="input-sm">Số tiền thu:</label></td>
-            <td>@Html.TextBoxFor(m => m.PhieuThuTien.SOTIEN, new {@class = "form-control input-sm sotienthu", @type = "number", oninput = "setCustomValidity('')", oninvalid = "setCustomValidity('Số tiền thu không được bỏ trống')", onkeypress = "return event.charCode >= 48 && event.charCode <= 57"})</td>
+            <td>@Html.TextBoxFor(m => m.PhieuThuTien.SOTIEN, new { @class = "form-control input-sm sotienthu", @type = "number", required = "required", oninput = "setCustomValidity('')", oninvalid = "setCustomValidity('Số tiền thu không được bỏ trống')", onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })</td>
             <td></td>
             <td></td>
         </tr>
@@ -83,18 +84,21 @@
 }
     <script>
 
-    $("form").submit(function (e) {
-        var sotienno = $(".sotienno").val().split(',').join('');
-        var sotienthu = $(".sotienthu").val();
-        if (sotienthu > sotienno) {
-            e.preventDefault();
-            alert("Số tiền thu không được vượt quá số tiền nợ!");
-        }
-        if (sotienthu <= 0) {
-            e.preventDefault();
-            alert("Số tiền thu phải lớn hơn không!");
-        }
-    })
+        $("form")
+            .submit(function(e) {
+                var sotienno = parseInt($(".sotienno").val().split(',').join(''));
+                var sotienthu = parseInt($(".sotienthu").val());
+                if (sotienthu > sotienno) {
+                    e.preventDefault();
+                    alert("Số tiền thu không được vượt quá số tiền nợ!");
+                } else if (sotienthu <= 0) {
+                    e.preventDefault();
+                    alert("Số tiền thu phải lớn hơn 0!");
+                } else if (sotienthu < '@sotientithieu') {
+                        e.preventDefault();
+                        alert("Số tiền thu tối thiểu: " + @sotientithieu.ToString());
+                }  
+        })
     </script>
 </body>
 

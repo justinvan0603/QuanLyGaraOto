@@ -3,6 +3,7 @@
 @{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
     ViewBag.Title = "Lập phiếu đặt hàng";
+    int slNhapMax = Model.SoLuongNhapToiDa;
     int slTon = 0;
     decimal dongia = 0;
     List<PHUTUNG> listPT = Model.ListPhuTung.Where(pt => pt.MA_HIEUXE.Equals(Model.ListHieuXe[0].MA_HIEUXE)).ToList();
@@ -212,13 +213,11 @@
             if (numberofContentRow == 0) {
                 alert("Vui lòng nhập dữ liệu vào bảng chi tiết!");
                 e.preventDefault();
-            }
-            if ($(".txtMaPhieu").val().length <= 0) {
+            } else if ($(".txtMaPhieu").val().length <= 0) {
                 alert("Vui lòng nhập mã số phiếu dịch vụ!");
                 e.preventDefault();
-            }
-            if ($(".ngayhengiao").val() < $(".ngaylap").val()) {
-                alert("Ngày hẹn giao phải lớn hơn ngày lập phiếu!");
+            } else if ($(".ngayhengiao").val() < $(".ngaylap").val()) {
+                alert("Ngày hẹn giao phải lớn hơn hoặc bằng ngày lập phiếu!");
                 e.preventDefault();
             }
         })
@@ -346,6 +345,10 @@
             }
             if (isNaN(soluong) == true) {
                 alert("Số lượng không được để trống!")
+                return;
+            }
+            if (soluong > '@slNhapMax') {
+                alert("Số lượng nhập tối đa mỗi phụ tùng là: " + @slNhapMax.ToString());
                 return;
             }
             if (dongia <= 0) {

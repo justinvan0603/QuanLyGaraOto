@@ -16,5 +16,6 @@ namespace QuanLyGaraOto.ViewModel
         public decimal? TongTien { get; set; }
         public decimal? ConNo { get; set; }
         public string TenNV { get; set; }
+        public int SoTienThuToiThieu { get; set; }
     }
 }

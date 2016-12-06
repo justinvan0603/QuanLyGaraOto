@@ -22,6 +22,7 @@ namespace QuanLyGaraOto.ViewModel
         public PHIEU_DATHANG PhieuDatHang { get; set; }
         public string TenNV { get; set; }
         public string TenNCC { get; set; }
+        public int SoLuongNhapToiDa { get; set; }
         public List<PHUTUNG> ListPhuTung { get; set; }
         public List<NHACUNGCAP> ListNhaCungCap { get; set; }
         public List<NHOMNHACUNGCAP> ListNhomNCC { get; set; }
