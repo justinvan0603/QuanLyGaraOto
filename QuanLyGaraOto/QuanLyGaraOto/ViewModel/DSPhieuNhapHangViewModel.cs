@@ -14,7 +14,8 @@ namespace QuanLyGaraOto.ViewModel
                                                                                     new SelectListItem(){Text = "Mã phiếu nhập hàng", Value="1"},                                                                                   
                                                                                     new SelectListItem(){Text = "Mã phiếu đặt hàng", Value="2"},
                                                                                     new SelectListItem(){Text = "Ngày lập", Value="3"},
-                                                                                    new SelectListItem(){Text = "Tên nhân viên", Value="4"}};
+                                                                                    new SelectListItem(){Text = "Tên nhân viên", Value="4"},
+                                                                                    new SelectListItem(){Text = "Tên nhà cung câp", Value="5"}};
         public IPagedList<PhieuNhapHangViewModel> ListPhieuNhapHang { get; set; }
     }
 }

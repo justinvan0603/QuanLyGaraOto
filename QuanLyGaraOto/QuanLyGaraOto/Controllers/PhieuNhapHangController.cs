@@ -49,14 +49,53 @@ namespace QuanLyGaraOto.Controllers
             {
                 if (searchOption != null)
                 {
-                    switch (searchOption)
+                    try
                     {
-                        case 0: { break; }
-                        case 1: { listPNH = listPNH.Where(c => c.PhieuNhapHang.MA_PHIEUNHAPHANG.Contains(searchString)).ToList(); break; }
-                        case 2: { listPNH = listPNH.Where(c => c.MaPhieuDatHang.Contains(searchString)).ToList(); break; }
-                        case 3: { listPNH = listPNH.Where(c => c.PhieuNhapHang.NGAYLAP.Value.Date.Equals(DateTime.Parse(searchString).Date)).ToList(); break; }
-                        case 4: { listPNH = listPNH.Where(c => c.TenNV.Contains(searchString)).ToList(); break; }
-                        default: { break; }
+                        switch (searchOption)
+                        {
+                            case 0:
+                            {
+                                break;
+                            }
+                            case 1:
+                            {
+                                listPNH =
+                                    listPNH.Where(c => c.PhieuNhapHang.MA_PHIEUNHAPHANG.Contains(searchString)).ToList();
+                                break;
+                            }
+                            case 2:
+                            {
+                                listPNH = listPNH.Where(c => c.MaPhieuDatHang.Contains(searchString)).ToList();
+                                break;
+                            }
+                            case 3:
+                            {
+                                listPNH =
+                                    listPNH.Where(
+                                        c =>
+                                            c.PhieuNhapHang.NGAYLAP.Value.Date.Equals(DateTime.Parse(searchString).Date))
+                                        .ToList();
+                                break;
+                            }
+                            case 4:
+                            {
+                                listPNH = listPNH.Where(c => c.TenNV.Contains(searchString)).ToList();
+                                break;
+                            }
+                            case 5:
+                            {
+                                listPNH = listPNH.Where(c => c.TenNCC.Contains(searchString)).ToList();
+                                break;
+                            }
+                            default:
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thời gian bạn nhập vào không đúng! </div> </div> </div>";
                     }
                 }
 
@@ -85,6 +124,8 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuNH.ListHieuXe = context.HIEUXEs.ToList();
             int UserId = int.Parse(Session["UserID"].ToString());
             vmPhieuNH.PhieuNhapHang.MA_NV = UserId;
+            int slNhapMax = Int32.Parse(context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO == "SoLuongNhapHangToiDa").GIATRI);
+            vmPhieuNH.SoLuongNhapToiDa = slNhapMax;
             vmPhieuNH.PhieuNhapHang.NGAYLAP = DateTime.Now.Date;
             vmPhieuNH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == UserId).HOTEN;
             PHIEU_DATHANG pdhPhieuDathang = context.PHIEU_DATHANG.Single(pdh => pdh.Id_PhieuDatHang == idphieuDH);
@@ -105,6 +146,8 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuNH.ListHieuXe = context.HIEUXEs.ToList();
             int UserId = int.Parse(Session["UserID"].ToString());
             vmPhieuNH.PhieuNhapHang.MA_NV = UserId;
+            int slNhapMax = Int32.Parse(context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO == "SoLuongNhapHangToiDa").GIATRI);
+            vmPhieuNH.SoLuongNhapToiDa = slNhapMax;
             vmPhieuNH.PhieuNhapHang.NGAYLAP = DateTime.Now.Date;
             vmPhieuNH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == UserId).HOTEN;
             vmPhieuNH.PhieuNhapHang.MaNCC = null;
@@ -148,7 +191,8 @@ namespace QuanLyGaraOto.Controllers
             GARADBEntities context = new GARADBEntities();
             PhieuNhapHangViewModel vmPhieuNH = new PhieuNhapHangViewModel();
             vmPhieuNH.PhieuNhapHang = context.PHIEU_NHAPHANG.Single(p => p.ID_PHIEUNHAPHANG == id);
-
+            int slNhapMax = Int32.Parse(context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO == "SoLuongNhapHangToiDa").GIATRI);
+            vmPhieuNH.SoLuongNhapToiDa = slNhapMax;
             vmPhieuNH.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuNH.ListNhaCungCap = context.NHACUNGCAPs.ToList();
             vmPhieuNH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();

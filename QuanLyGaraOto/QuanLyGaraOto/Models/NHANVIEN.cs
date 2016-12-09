@@ -33,6 +33,7 @@ namespace QuanLyGaraOto.Models
         public string SDT { get; set; }
         public string DIACHI { get; set; }
         public Nullable<int> MA_NHOMNGUOIDUNG { get; set; }
+        public Nullable<bool> GIOITINH { get; set; }
     
         public virtual NHOMNGUOIDUNG NHOMNGUOIDUNG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

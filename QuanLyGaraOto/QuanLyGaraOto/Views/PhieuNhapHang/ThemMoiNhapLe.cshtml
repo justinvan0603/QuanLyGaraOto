@@ -3,6 +3,7 @@
 @{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
     ViewBag.Title = "Lập phiếu nhập hàng";
+    int slNhapMax = Model.SoLuongNhapToiDa;
     int slTon = 0;
     decimal dongia = 0;
     List<PHUTUNG> listPT = Model.ListPhuTung.Where(pt => pt.MA_HIEUXE.Equals(Model.ListHieuXe[0].MA_HIEUXE)).ToList();
@@ -59,22 +60,16 @@
 
             <tr>
                 <td><label class="input-sm">Mã phiếu nhập:</label></td>
-                <td><input class="txtMaPhieu form-control input-sm" type="text" name="MA_PHIEUNHAPHANG" placeholder="PNH00X" /></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><label class="input-sm">Người lập:</label></td>
-                <td><input class="form-control input-sm" type="text" value="@Model.TenNV" readonly="readonly" /></td>
+                <td><input class="txtMaPhieu form-control input-sm" type="text" maxlength="20" name="MA_PHIEUNHAPHANG" placeholder="PNH00X" /></td>
                 <td><label class="input-sm">Mã phiếu đặt :</label></td>
                 <td><input class="txtMaPhieuDH form-control input-sm" type="text" value="@Model.MaPhieuDatHang" name="MaPhieuDatHang" readonly="readonly" /></td>
             </tr>
             <tr>
+                <td><label class="input-sm">Người lập:</label></td>
+                <td><input class="form-control input-sm" type="text" value="@Model.TenNV" readonly="readonly" /></td>
                 <td><label class="input-sm">Ngày lập:</label></td>
                 <td><input class="form-control input-sm" type="text" value="@String.Format("{0:dd/MM/yyyy}", DateTime.Now.Date)" readonly="readonly" /></td>
-                <td></td>
-                <td></td>
-            </tr>
+             </tr>
             <tr>
                 <td><label class="input-sm">Nhóm nhà cung cấp:</label></td>
                 <td>
@@ -97,7 +92,7 @@
             </tr>
         </tbody>
     </table>
-    <div class="panel panel-default" style="width: 99%;">
+    <div class="panel panel-default" style="width: 99%; margin-top: 10px">
         <div class="panel-heading">Thông tin chi tiết:</div>
         <div class="panel-body">
             <div class=" form-group form-inline" style="padding-left: 5px;">
@@ -112,10 +107,10 @@
 
 
                 <label class="input-sm">Phụ tùng:</label>
-                <select id="cbo" class="cboPT form-control input-sm" style="width: 8%" onchange="cboPTSelectChanged()">
+                <select id="cbo" class="cboPT form-control input-sm" style="width: 12%" onchange="cboPTSelectChanged()">
                     @foreach (var item in listPT)
                     {
-                        <option value="@item.ID" title="@item.SOLUONGTON" id="@item.MA_PHUTUNG" label="@item.TEN_PHUTUNG" itemscope="@item.TG_BAOHANH" itemprop="@item.DONGIAXUAT">@item.TEN_PHUTUNG</option>
+                        <option value="@item.ID" title="@item.SOLUONGTON" id="@item.MA_PHUTUNG" itemscope="@item.TG_BAOHANH" itemprop="@item.DONGIAXUAT"> @String.Concat(item.TEN_PHUTUNG, " - ", item.MA_PHUTUNG) </option>
                     }
                 </select>
 
@@ -123,9 +118,9 @@
                 <label class="input-sm">Lượng tồn:</label>
                 <label class="lblTonKho input-sm" style="width: 2%">@slTon</label>
                 <label class="input-sm">Số lượng:</label>
-                <input type="number" maxlength="3" pattern="[0-9]" class=" txtSoLuong form-control input-sm" style="width: 4%" />
+                <input type="number" maxlength="3" pattern="[0-9]" placeholder="0" class=" txtSoLuong form-control input-sm" style="width: 4%" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                 <label class="input-sm">Đơn giá:</label>
-                <input type="number" maxlength="8" pattern="[0-9]" class="txtDonGia form-control input-sm" style="width: 7%" value="@dongia" />
+                <input type="number" maxlength="8" pattern="[0-9]" placeholder="0" class="txtDonGia form-control input-sm" style="width: 7%" value="@dongia" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                 <label class="input-sm">Thành tiền:</label>
                 <label class="lblThanhTien input-sm" style="width: 10%">0</label>
                 <input type="button" value="Thêm chi tiết" class="btn btn-success btn-sm" id="btnAdd" />
@@ -244,7 +239,7 @@
     function cboLoaiPTSelectChanged() {
         var HieuXe = $('.cboLoaiPT').children("option").filter(":selected").attr("value");
         $.ajax({
-            url: '/PhieuNhapHang/GetPhuTungByHieuXe/',
+            url: '/PhieuDatHang/GetPhuTungByHieuXe/',
             type: 'post',
             data: {
                 hieuxe: HieuXe
@@ -314,12 +309,16 @@
             alert("Số lượng không được để trống!")
             return;
         }
+        if (soluong > '@slNhapMax') {
+            alert("Số lượng nhập tối đa mỗi phụ tùng là: " + @slNhapMax.ToString());
+            return;
+        }
         if (dongia <= 0) {
-            alert("Nhập sai đơn giá!")
+            alert("Đơn giá phụ tùng phải lớn hơn 0!")
             return;
         }
         if (soluong <= 0) {
-            alert("Nhập sai số lượng!")
+            alert("Số lượng phụ tùng phải lớn hơn 0!")
             return;
         }
 

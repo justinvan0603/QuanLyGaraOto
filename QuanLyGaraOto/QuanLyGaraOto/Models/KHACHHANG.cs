@@ -26,6 +26,7 @@ namespace QuanLyGaraOto.Models
         public string SDT { get; set; }
         public string DIACHI { get; set; }
         public Nullable<decimal> SOTIENNO { get; set; }
+        public Nullable<bool> GIOITINH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEU_TIEPNHAN> PHIEU_TIEPNHAN { get; set; }
