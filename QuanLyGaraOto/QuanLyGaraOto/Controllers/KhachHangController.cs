@@ -83,6 +83,7 @@ namespace QuanLyGaraOto.Controllers
                 }
                 else
                 {
+                    
                     //client.TEN_KH=ModelState["TEN_KH"].Value.AttemptedValue;
                     return View(client);
                 }
@@ -91,29 +92,39 @@ namespace QuanLyGaraOto.Controllers
             {
                 TempData["msg"] = "<script>alert('Đã xảy ra lỗi. Vui lòng thử lại!');</script>";
             }
-
-            return RedirectToAction("ThemMoi");
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
+            return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            //return RedirectToAction("ThemMoi");
         }
         [HttpGet]
         public ActionResult CapNhat(int? id)
         {
             GARADBEntities context = new Models.GARADBEntities();
-            KHACHHANG client = context.KHACHHANGs.Single(c => c.MA_KH == 3);
+            KHACHHANG client = context.KHACHHANGs.Single(c => c.MA_KH == id.Value);
             return View(client);
         }
         [HttpPost]
         public ActionResult CapNhat(KHACHHANG client)
         {
             GARADBEntities context = new Models.GARADBEntities();
-            var target = context.KHACHHANGs.Find(client.MA_KH);
-            target.TEN_KH = client.TEN_KH;
-            target.SDT = client.SDT;
-            target.CMND = client.CMND;
-            target.DIACHI = client.DIACHI;
-            context.SaveChanges();
-            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Đã cập nhật thành công! </div> </div> </div>";
-            //TempData["msg"] = "<script>alert('Đã cập nhật thành công');</script>";
-            return View();
+            if (ModelState.IsValid)
+            {
+                var target = context.KHACHHANGs.Find(client.MA_KH);
+                target.TEN_KH = client.TEN_KH;
+                target.SDT = client.SDT;
+                target.CMND = client.CMND;
+                target.DIACHI = client.DIACHI;
+                context.SaveChanges();
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Đã cập nhật thành công! </div> </div> </div>";
+                //TempData["msg"] = "<script>alert('Đã cập nhật thành công');</script>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
+            else
+            {
+                KHACHHANG KH = context.KHACHHANGs.Single(c => c.MA_KH == client.MA_KH);
+                return View(KH);
+            }
+            //return View();
         }
         [ValidateInput(false)]
         [HttpPost]

@@ -24,6 +24,7 @@ namespace QuanLyGaraOto.Controllers
                                       MaNV = nv.MA_NV,
                                       Username = nv.USERNAME,
                                       HoTen = nv.HOTEN,
+                                      GioiTinh = nv.GIOITINH,
                                       SDT = nv.SDT,
                                       DiaChi = nv.DIACHI,
                                       MaNhomNguoiDung = nv.MA_NHOMNGUOIDUNG,
@@ -38,6 +39,7 @@ namespace QuanLyGaraOto.Controllers
                 row.HoTen = item.HoTen;
                 row.Username = item.Username;
                 row.SDT = item.SDT;
+                row.GioiTinh = item.GioiTinh.Value;
                 row.MaNhomNguoiDung = item.MaNhomNguoiDung.Value;
                 row.NhomNguoiDung = item.NhomNguoiDung;
                 row.DiaChi = item.DiaChi;
@@ -105,6 +107,7 @@ namespace QuanLyGaraOto.Controllers
                 target.MA_NHOMNGUOIDUNG = nv.MA_NHOMNGUOIDUNG;
                 target.SDT = nv.SDT;
                 target.DIACHI = nv.DIACHI;
+                context.SaveChanges();
                 TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Cập nhật tài khoản thành công! </div> </div> </div>";
                 //TempData["msg"] = "<script>alert('Sửa tài khoản thành công!');</script>";
                 return RedirectToAction("Index", new { currentFilter = String.Empty, searchString = String.Empty });

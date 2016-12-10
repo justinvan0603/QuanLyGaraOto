@@ -13,6 +13,10 @@
     .table th {
         width: auto !important;
     }
+    .table th , .clickable-row {
+        width: auto !important;
+        font-size: 10pt;
+    }
 </style>
 @Html.Raw(TempData["msg"])
 @using (@Html.BeginForm("Index", "NhanVien", FormMethod.Get, new { @class = "form-inline" }))
@@ -41,6 +45,7 @@
             <tr>
                 <th style="display:none">Id</th>
                 <th>Họ tên</th>
+                <th>Giới tính</th>
                 <th>Username</th>
                 <th>Điện thoại</th>
                 <th>Địa chỉ</th>
@@ -55,13 +60,21 @@
                 {
                     <tr class="clickable-row">
                         <td id="id" style="display:none">@item.MaNV</td>
-                        <td> @item.HoTen</td>
-                        <td> @item.Username</td>
-                        <td> @item.SDT</td>
-                        <td> @item.DiaChi</td>
-                        <td> @item.NhomNguoiDung</td>
+                        <td style="vertical-align: middle"> @item.HoTen</td>
+                        @if (@item.GioiTinh == true)
+                        {
+                            <td style="vertical-align: middle">Nam</td>
+                        }
+                        else
+                        {
+                            <td style="vertical-align: middle">Nữ</td>
+                        }
+                        <td style="vertical-align: middle"> @item.Username</td>
+                        <td style="vertical-align: middle"> @item.SDT</td>
+                        <td style="vertical-align: middle"> @item.DiaChi</td>
+                        <td style="vertical-align: middle"> @item.NhomNguoiDung</td>
 
-                        <td>
+                        <td style="vertical-align: middle">
 
                             @Html.ActionLink("Sửa", "SuaNhanVien", new { id = @item.MaNV }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
 

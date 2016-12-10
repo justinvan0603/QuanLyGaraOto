@@ -10,7 +10,7 @@
 namespace QuanLyGaraOto.Reports {
     
     
-    public partial class BaoCaoCongNo {
+    public partial class ThongKeKH {
         
         /// <summary>
         /// form1 control.
@@ -31,12 +31,12 @@ namespace QuanLyGaraOto.Reports {
         protected global::System.Web.UI.WebControls.Button btnExport;
         
         /// <summary>
-        /// CongNoReportViewer control.
+        /// ThongKeReportViewer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer CongNoReportViewer;
+        protected global::Microsoft.Reporting.WebForms.ReportViewer ThongKeReportViewer;
     }
 }

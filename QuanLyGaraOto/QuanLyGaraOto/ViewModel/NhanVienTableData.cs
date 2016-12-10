@@ -14,5 +14,6 @@ namespace QuanLyGaraOto.ViewModel
         public string DiaChi { get; set; }
         public int MaNhomNguoiDung { get; set; }
         public string NhomNguoiDung { get; set; }
+        public bool GioiTinh { get; set; }
     }
 }

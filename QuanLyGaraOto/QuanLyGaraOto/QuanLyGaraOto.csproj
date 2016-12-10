@@ -57,6 +57,10 @@
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.6.4\lib\net40\Rotativa.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -153,6 +157,7 @@
     <Compile Include="Controllers\PhuTungController.cs" />
     <Compile Include="Controllers\ThamSoController.cs" />
     <Compile Include="Controllers\ThoController.cs" />
+    <Compile Include="Controllers\ThongKeKHNoController.cs" />
     <Compile Include="GARADBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -279,6 +284,13 @@
     <Compile Include="Reports\BaoCaoTonKho.aspx.designer.cs">
       <DependentUpon>BaoCaoTonKho.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\ThongKeKH.aspx.cs">
+      <DependentUpon>ThongKeKH.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ThongKeKH.aspx.designer.cs">
+      <DependentUpon>ThongKeKH.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BaoCaoThuChiViewModel.cs" />
     <Compile Include="ViewModel\DSPhieuBanLeViewModel.cs" />
     <Compile Include="ViewModel\DSPhieuDVTableData.cs" />
@@ -349,6 +361,8 @@
     <Content Include="Reports\BaoCaoCongNo.aspx" />
     <Content Include="Reports\BaoCaoThuChi.aspx" />
     <Content Include="Reports\BaoCaoTonKho.aspx" />
+    <Content Include="Reports\ThongKeKH.aspx" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\404.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -372,6 +386,7 @@
     <Content Include="GARADBDataSet.xsc">
       <DependentUpon>GARADBDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="GARADBDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>GARADBDataSet.Designer.cs</LastGenOutput>
@@ -473,11 +488,15 @@
     <Content Include="Views\PhieuBaoHanh\Index.cshtml" />
     <Content Include="Views\PhieuBaoHanh\DuplicatedBillExceptionView.cshtml" />
     <Content Include="Views\PhieuBaoHanh\SuaPhieuBaoHanh.cshtml" />
+    <Content Include="Views\ThongKeKHNo\Index.cshtml" />
+    <Content Include="Views\PhieuDichVu\In.cshtml" />
+    <Content Include="Views\PhieuBanLe\In.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\BaoCaoCongNo.rdlc" />
     <EmbeddedResource Include="Reports\BaoCaoThuChi.rdlc" />
     <EmbeddedResource Include="Reports\BaoCaoTonKho.rdlc" />
+    <EmbeddedResource Include="Reports\ThongKeKH.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -19,17 +19,18 @@ namespace QuanLyGaraOto.Models
 
         [Required(ErrorMessage = "Số CMND không được để trống!")]
         [StringLength(30, ErrorMessage = "Số CMND chỉ chứa tối đa 30 ký tự")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "Số CMND vừa nhập không hợp lệ!")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Số CMND vừa nhập không hợp lệ!")]
         public string CMND { get; set; }
 
         [Required(ErrorMessage = "Số điện thoại không được để trống!")]
         [StringLength(20, ErrorMessage = "Số điện thoại chỉ chứa tối đa 20 ký tự")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "Số điện thoại vừa nhập không hợp lệ!")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Số điện thoại vừa nhập không hợp lệ!")]
         public string SDT { get; set; }
 
         [Required(ErrorMessage = "Địa chỉ không được để trống!")]
         [StringLength(100, ErrorMessage = "Địa chỉ chỉ chứa tối đa 20 ký tự")]
         public string DIACHI { get; set; }
+        public bool GIOITINH { get; set; }
     }
 
     public class NHANVIENMetadata
@@ -58,6 +59,7 @@ namespace QuanLyGaraOto.Models
         [StringLength(100, ErrorMessage = "Địa chỉ chỉ tối đa 100 ký tự!")]
         //[RegularExpression(@"[^a-zA-Z0-9\s]", ErrorMessage = "Địa chỉ không hợp lệ!")]
         public string DIACHI { get; set; }
+        public bool GIOITINH { get; set; }
     }
 
     public class THOMetadata

@@ -1,6 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BaoCaoCongNo.aspx.cs" Inherits="QuanLyGaraOto.Reports.BaoCaoCongNo" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ThongKeKH.aspx.cs" Inherits="QuanLyGaraOto.Reports.BaoCaoCongNo" %>
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
+
 
 <!DOCTYPE html>
 

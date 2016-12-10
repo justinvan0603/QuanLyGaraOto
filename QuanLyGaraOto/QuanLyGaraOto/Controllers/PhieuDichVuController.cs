@@ -6,10 +6,55 @@ using System.Web.Mvc;
 using QuanLyGaraOto.ViewModel;
 using QuanLyGaraOto.Models;
 using PagedList;
+using Rotativa.Options;
 namespace QuanLyGaraOto.Controllers
 {
     public class PhieuDichVuController : Controller
     {
+        public ActionResult In(int? id)
+        {
+            GARADBEntities context = new GARADBEntities();
+
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
+            //if (context.PHIEU_THUTIEN.Any(pt => pt.ID_PHIEUDV == id.Value))
+            //{
+            //    TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể sửa phiếu dịch vụ đã lập phiếu thu tiền! </div> </div> </div>";
+            //    //TempData["msg"] = "<script>alert('Không thể sửa phiếu dịch vụ đã lập phiếu thu tiền!');</script>";
+            //    return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            //}
+            PhieuDVViewModel vmPhieuDV = new PhieuDVViewModel();
+            vmPhieuDV.PhieuDichVu = context.PHIEU_DICHVU.Single(p => p.ID_PHIEUDV == id.Value);
+            PHIEU_TIEPNHAN ptn = context.PHIEU_TIEPNHAN.Single(ptnx => ptnx.MA_PHIEUTIEPNHAN == vmPhieuDV.PhieuDichVu.MAPHIEU_TIEPNHAN);
+            vmPhieuDV.ListPhuTung = context.PHUTUNGs.ToList();
+            vmPhieuDV.ListTho = new List<THO>();
+            vmPhieuDV.ListTho = context.THOes.ToList();
+            vmPhieuDV.ListChiTietPhieu = new List<CHITIET_PHIEUDV>();
+            vmPhieuDV.ListChiTietPhieu = context.CHITIET_PHIEUDV.Where(ct => ct.ID_PHIEUDV == id.Value).ToList();
+            vmPhieuDV.ListHieuXe = context.HIEUXEs.ToList();
+            vmPhieuDV.SDT = context.KHACHHANGs.Single(kh => kh.MA_KH == ptn.MA_KH).SDT;
+            vmPhieuDV.TenKH = context.KHACHHANGs.Single(kh => kh.MA_KH == ptn.MA_KH).TEN_KH;
+            vmPhieuDV.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == vmPhieuDV.PhieuDichVu.MA_NHANVIEN).HOTEN;
+            string fileName = vmPhieuDV.PhieuDichVu.MA_PHIEUDV + ".pdf";
+            // return View(vmPhieuDV);
+            return new Rotativa.ViewAsPdf("In", vmPhieuDV)
+            {
+                FileName = fileName,
+
+                PageOrientation = Orientation.Landscape,
+                PageSize = Size.A4,
+                PageMargins = { Left = 0, Right = 0 }, // it's in millimeters
+                CustomSwitches = "--disable-smart-shrinking",
+
+
+            };
+        }
         // GET: PhieuDichVu
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? searchOption, int? page)
         {

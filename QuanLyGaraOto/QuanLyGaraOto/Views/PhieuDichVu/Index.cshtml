@@ -11,6 +11,10 @@
     .table th {
         width: auto !important;
     }
+    .table th , .clickable-row {
+        width: auto !important;
+        font-size: 10pt;
+    }
 </style>
 @Html.Raw(TempData["msg"])
 <h3 class="text-center" style="color:green;">DANH SÁCH PHIẾU DỊCH VỤ</h3>
@@ -63,15 +67,15 @@
                 {
                     <tr class="clickable-row">
                         <td id="id" style="display:none">@item.Id_PhieuDV</td>
-                        <td> @item.MaPhieuDV</td>
-                        <td> @item.NgayLap.Date.ToShortDateString()</td>
-                        <td>@item.HanChot.Date.ToShortDateString()</td>
-                        <td> @item.TenNV</td>
-                        <td> @item.TenTho</td>
-                        <td> @*@Math.Round(item.TongTien)*@@String.Format("{0:#,###,###,###}",item.TongTien)</td>
-                        <td id="conlai"> @*@Math.Round(item.SoTienConLai)*@ @String.Format("{0:#,###,###,###}", item.SoTienConLai)</td>
-                        <td>
-
+                        <td style="vertical-align: middle"> @item.MaPhieuDV</td>
+                        <td style="vertical-align: middle">@item.NgayLap.Date.ToShortDateString()</td>
+                        <td style="vertical-align: middle">@item.HanChot.Date.ToShortDateString()</td>
+                        <td style="vertical-align: middle"> @item.TenNV</td>
+                        <td style="vertical-align: middle"> @item.TenTho</td>
+                        <td style="vertical-align: middle"> @*@Math.Round(item.TongTien)*@@String.Format("{0:#,###,###,###}", item.TongTien)</td>
+                        <td id="conlai" style="vertical-align: middle"> @*@Math.Round(item.SoTienConLai)*@ @String.Format("{0:#,###,###,###}", item.SoTienConLai)</td>
+                        <td style="vertical-align: middle">
+                            @Html.ActionLink("In", "In", new { id = @item.Id_PhieuDV }, new { @class = "btn btn-info glyphicon glyphicon-pencil btn-sm" })
                             @Html.ActionLink("Sửa", "SuaPhieuDichVu", new { id = @item.Id_PhieuDV }, new { @class = "btn btn-warning glyphicon glyphicon-pencil btn-sm" })
                             <a href="@Url.Action("ThemMoi", "PhieuThu", new {idphieu = @item.Id_PhieuDV, type = "pdv"})" class="btn btn-primary btn-sm glyphicon glyphicon-plus">Lập phiếu thu</a>
                             <!--<button id="btnDelete" type="button" class="btn btn-danger glyphicon-remove">Delete</button>-->

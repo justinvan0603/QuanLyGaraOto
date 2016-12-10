@@ -223,7 +223,9 @@
                                     <input class="txtTenPT form-control input-sm" type="text" value="@Model.ListPhuTung.Single(pt => pt.ID == @item.MAPT).TEN_PHUTUNG" readonly />
 
                                 </td>
- 
+                                <td>
+                                    <input class="maTenPT form-control input-sm" type="text" value="@Model.ListPhuTung.Single(pt => pt.ID == @item.MAPT).MA_PHUTUNG" readonly />
+                                </td>
                                 <td>
                                     <input type="text" class="txtSoluong form-control input-sm" name="SOLUONG" value="@item.SOLUONG" readonly />
 
@@ -280,10 +282,23 @@
             $(this).addClass('active').siblings().removeClass('active');
         }
     });
+    //function cboHXSelectChanged() {
+    //    var HieuXe = $('.cboHieuXe').children("option").filter(":selected").attr("value");
+    //    $.ajax({
+    //        url: '/PhieuDichVu/GetPhuTungByHieuXe/',
+    //        type: 'post',
+    //        data: {
+    //            hieuxe: HieuXe
+    //        }
+    //    }).done(function (response) {
+    //        $(".cboPT").empty();
+    //        $(".cboPT").html(response);
+    //    });
+    //}
     function cboHXSelectChanged() {
-        var HieuXe = $('.cboHieuXe').children("option").filter(":selected").attr("value");
+        var HieuXe = $('.cboHX').children("option").filter(":selected").attr("value");
         $.ajax({
-            url: '/PhieuDichVu/GetPhuTungByHieuXe/',
+            url: '/PhieuBanLe/GetPhuTungByHieuXe/',
             type: 'post',
             data: {
                 hieuxe: HieuXe
@@ -291,6 +306,13 @@
         }).done(function (response) {
             $(".cboPT").empty();
             $(".cboPT").html(response);
+            var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
+            var dongia = $('.cboPT').children("option").filter(":selected").attr("itemprop");
+            var thoihanbaohanh = $('.cboPT').children("option").filter(":selected").attr("itemscope");
+            // alert(mapt);
+            $('.lblTonKho').text(parseInt(tonkho));
+            $('.txtDonGia').val(parseInt(dongia));
+            $('.txtBH').val(parseInt(thoihanbaohanh));
         });
     }
 

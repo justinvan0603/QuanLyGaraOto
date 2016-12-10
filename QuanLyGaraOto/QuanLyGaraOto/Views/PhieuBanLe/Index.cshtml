@@ -14,6 +14,10 @@
     .table th {
         width: auto !important;
     }
+    .table th , .clickable-row {
+        width: auto !important;
+        font-size: 10pt;
+    }
 </style>
 <h3 class="text-center" style="color:green;">DANH SÁCH PHIẾU BÁN LẺ</h3>
 
@@ -54,7 +58,7 @@
                 <th>@Html.ActionLink("Còn lại", "Index", new { sortOrder = ViewBag.RemainSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })<span class="glyphicon glyphicon-arrow-down"></span></th>
 
                 <th>Thao tác</th>
-
+                
 
             </tr>
         </thead>
@@ -65,28 +69,31 @@
                 {
                     <tr class="clickable-row">
                         <td id="id" style="display:none">@item.ID_PHIEUBANLE</td>
-                        <td> @item.MaPhieuBan</td>
-                        <td> @item.NgayLap.Date.ToShortDateString()</td>
-                        <td> @item.HanChotThanhToan.Date.ToShortDateString()</td>
-                        <td> @item.TenNV</td>
-                        <td>@item.TenKH</td>
-                        <td> @*@Math.Round(item.TongTien)*@ @*@String.Format("{00:#,###,###,###}", item.TongTien)*@ @string.Format("{0:n0}", item.TongTien)  </td>
-                        <td id="conlai"> @*@Math.Round(item.SoTienConLai)*@ @*@String.Format("{0:#,###,###,###}", item.SoTienConLai)*@ @string.Format("{0:n0}", item.SoTienConLai)</td>
-                        <td>
-
-                            @Html.ActionLink("Sửa", "SuaPhieuBanLe", new { id = @item.ID_PHIEUBANLE }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
-                            <button class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+                        <td style="vertical-align: middle"> @item.MaPhieuBan</td>
+                        <td style="vertical-align: middle"> @item.NgayLap.Date.ToShortDateString()</td>
+                        <td style="vertical-align: middle"> @item.HanChotThanhToan.Date.ToShortDateString()</td>
+                        <td style="vertical-align: middle"> @item.TenNV</td>
+                        <td style="vertical-align: middle">@item.TenKH</td>
+                        <td style="vertical-align: middle"> @*@Math.Round(item.TongTien)*@ @*@String.Format("{00:#,###,###,###}", item.TongTien)*@ @string.Format("{0:n0}", item.TongTien)  </td>
+                        <td id="conlai" style="vertical-align: middle"> @*@Math.Round(item.SoTienConLai)*@ @*@String.Format("{0:#,###,###,###}", item.SoTienConLai)*@ @string.Format("{0:n0}", item.SoTienConLai)</td>
+                        <td style="vertical-align: middle">
+                            @*@Html.ActionLink("Sửa", "SuaPhieuBanLe", new { id = @item.ID_PHIEUBANLE }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })*@
+                            <button class="btnDelete btn btn-danger glyphicon glyphicon-remove btn-sm" type="button">Xóa</button>
+                            <a href="@Url.Action("In", "PhieuBanLe", new { id = @item.ID_PHIEUBANLE})" class="btn btn-info glyphicon glyphicon-pencil btn-sm">In</a>
+                            <a href="@Url.Action("SuaPhieuBanLe", "PhieuBanLe", new { idphieu = @item.ID_PHIEUBANLE})" class="btn btn-warning glyphicon glyphicon-pencil btn-sm">Sửa</a>
+                            <br />
+                            <a href="@Url.Action("ThemMoi", "PhieuThu", new { id = @item.ID_PHIEUBANLE, type = "pbl" })" class="btn btn-primary btn-sm glyphicon glyphicon-plus">Lập phiếu thu</a>
                             @if (Model.service.CHITIET_PHIEUBH.Where(e => e.MAPHIEU_BANLE == item.ID_PHIEUBANLE).Count() > 0)
                             {
                                 List<QuanLyGaraOto.Models.CHITIET_PHIEUBH> baoHanhs = Model.service.CHITIET_PHIEUBH.Where(e => e.MAPHIEU_BANLE == item.ID_PHIEUBANLE).ToList();
-                                <a class="btnCreateBill btn btn-default glyphicon glyphicon-pencil" href="@Url.Action("SuaPhieuBaoHanh", "PhieuBaoHanh", new { idPhieuBaoHanh = @baoHanhs[0].MA_PHIEUBH})">Thông tin bảo hành</a>
+                                <a class="btnCreateBill btn btn-default btn-sm glyphicon glyphicon-pencil" href="@Url.Action("SuaPhieuBaoHanh", "PhieuBaoHanh", new { idPhieuBaoHanh = @baoHanhs[0].MA_PHIEUBH})">Thông tin bảo hành</a>
                             }
                             else
                             {
-                                <a class="btnCreateBill btn btn-default glyphicon glyphicon-pencil" href="@Url.Action("ThemPhieuBaoHanhFromPhieuBanLe", "PhieuBaoHanh", new { idPhieuBanLe = @item.ID_PHIEUBANLE })">Bảo hành</a>
+                                <a class="btnCreateBill btn btn-default btn-sm glyphicon glyphicon-pencil" href="@Url.Action("ThemPhieuBaoHanhFromPhieuBanLe", "PhieuBaoHanh", new { idPhieuBanLe = @item.ID_PHIEUBANLE })">Bảo hành</a>
                             }
-                            <a href="@Url.Action("ThemMoi", "PhieuThu", new { idphieu = @item.ID_PHIEUBANLE, type = "pbl" })" class="btn btn-primary btn-sm glyphicon glyphicon-plus">Lập phiếu thu</a>
                         </td>
+                        
                     </tr>
 
                 }

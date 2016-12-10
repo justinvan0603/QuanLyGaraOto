@@ -12,6 +12,10 @@
     .table th {
         width: auto !important;
     }
+    .table th , .clickable-row {
+        width: auto !important;
+        font-size: 10pt;
+    }
 </style>
 @Html.Raw(TempData["msg"])
 <h3 class="text-center" style="color:green;">DANH SÁCH KHÁCH HÀNG </h3>
@@ -44,6 +48,7 @@
                 <th style="display:none">Id</th>
                 <th>@Html.ActionLink("Họ tên", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
                 <th>Số CMND</th>
+                <th>Giới tính</th>
                 <th>Điện thoại</th>
                 <th>Địa chỉ</th>
                 <th>@Html.ActionLink("Số tiền nợ", "Index", new { sortOrder = ViewBag.OweSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
@@ -57,13 +62,22 @@
                 {
                     <tr class="clickable-row">
                         <td id="id" style="display:none">@item.MA_KH</td>
-                        <td> @item.TEN_KH</td>
-                        <td> @item.CMND</td>
-                        <td> @item.SDT</td>
-                        <td>@item.DIACHI</td>
-                        <td> @Math.Round(item.SOTIENNO.Value)</td>
+                        <td style="vertical-align: middle"> @item.TEN_KH</td>
+                        <td style="vertical-align: middle"> @item.CMND</td>
+                        @if (@item.GIOITINH.Value == true)
+                        {
+                            <td style="vertical-align: middle">Nam</td>
+                        }
+                        else
+                        {
+                            <td style="vertical-align: middle">Nữ</td>
+                        }
+                        
+                        <td style="vertical-align: middle"> @item.SDT</td>
+                        <td style="vertical-align: middle">@item.DIACHI</td>
+                        <td style="vertical-align: middle"> @*@Math.Round(item.SOTIENNO.Value)*@ @String.Format("{0:#,###,###,###}", item.SOTIENNO.Value)</td>
 
-                        <td>
+                        <td style="vertical-align: middle">
 
                             @Html.ActionLink("Sửa", "CapNhat", new { id = @item.MA_KH }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
 

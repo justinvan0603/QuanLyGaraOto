@@ -52,6 +52,7 @@ namespace QuanLyGaraOto.Controllers
                         int permissionLevel = context.NHOMNGUOIDUNGs.Single(gr => gr.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value).CAPDO.Value;
                         //string groupUser = context.NHOMNGUOIDUNGs.Single(gr => gr.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value).TEN_NHOM;
                         //SetUserPermission(permissionLevel);
+                        Session.Timeout = 30;
                         Session["Username"] = nv.USERNAME;
                         Session["UserID"] = nv.MA_NV;
                         Session["staff_name"] = nv.HOTEN;
