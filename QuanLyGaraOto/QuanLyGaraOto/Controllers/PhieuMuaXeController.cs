@@ -161,7 +161,7 @@ namespace QuanLyGaraOto.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult SuaPhieuMuaXe(int? id)
+        public ActionResult SuaPhieuMuaXe(int id)
         {
             // lay thong tin phieu mua xe tu database
             PHIEU_MUAXE phieuMuaXe = this.service.PHIEU_MUAXE.Where(e => e.ID_PHIEUMUAXE == id).FirstOrDefault();

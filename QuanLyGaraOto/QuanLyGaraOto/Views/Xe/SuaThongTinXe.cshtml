@@ -8,66 +8,69 @@
     <title>@ViewBag.Title</title>
 </head>
 
-<h3 class="text-center" style="color:green;">Thông tin xe</h3>
+<h3 class="text-center" style="color:green;">THÔNG TIN XE</h3>
 
 @using (Html.BeginForm("SuaThongTinXe", "Xe", FormMethod.Post, new { @id = "#suathongtinxe_form" }))
 {
-    <div class="form-group">
-        <label class="input-sm" style="color : red;">Biển số xe :</label>
-        <input class="form-control input-sm" type="text" maxlength="100" readonly="readonly" value="@Model.selectedXe.BS_XE" name="BS_XE" required />
-    </div>
-    <div class="form-group ">
-        <label class="input-sm">Ngày tiếp nhận :</label>
-        <input class="form-control input-sm" readonly="readonly" type="date" value="@String.Format("{0:dd/MM/yyyy}",Model.selectedXe.NGAY_TIEPNHAN.Value)" maxlength="30" name="NGAY_TIEPNHAN" required />
-    </div>
-    <div class="form-group ">
-        <label class="input-sm">Mã khách hàng :</label>
-        <input class="form-control input-sm" type="text" value="@Model.selectedXe.MA_KH" readonly="readonly" maxlength="30" name="maNhanVien" required /> <!--auto fill information of the staff-->
-    </div>
-    <div class="form-group">
-        <label class="input-sm">Hiệu xe :</label>
-        <select name="HIEU_XE" class="cboNhom form-control input-sm">
-            <option value="Hãng khác" style="color: blue; font-weight : bold;">Hãng khác</option> <!--trường hợp là khách vãng lai-->
-            @foreach (var item in Model.danhSachHieuXe)
-            {
-                if (item.MA_HIEUXE == Model.selectedXe.HIEU_XE)
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label class="input-sm" style="color : red;">Biển số xe :</label>
+            <input class="form-control input-sm" type="text" maxlength="100" readonly="readonly" value="@Model.selectedXe.BS_XE" name="BS_XE" required />
+        </div>
+        <div class="form-group ">
+            <label class="input-sm">Ngày tiếp nhận :</label>
+            <input class="form-control input-sm" readonly="readonly" type="date" value="@String.Format("{0:dd/MM/yyyy}",Model.selectedXe.NGAY_TIEPNHAN.Value)" maxlength="30" name="NGAY_TIEPNHAN" required />
+        </div>
+        <div class="form-group ">
+            <label class="input-sm">Mã khách hàng :</label>
+            <input class="form-control input-sm" type="text" value="@Model.selectedXe.MA_KH" readonly="readonly" maxlength="30" name="maNhanVien" required /> <!--auto fill information of the staff-->
+        </div>
+        <div class="form-group">
+            <label class="input-sm">Hiệu xe :</label>
+            <select name="HIEU_XE" class="cboNhom form-control input-sm">
+                <option value="Hãng khác" style="color: blue; font-weight : bold;">Hãng khác</option> <!--trường hợp là khách vãng lai-->
+                @foreach (var item in Model.danhSachHieuXe)
                 {
-                    <option value="@item.MA_HIEUXE" selected="selected">@item.MA_HIEUXE</option>
+                    if (item.MA_HIEUXE == Model.selectedXe.HIEU_XE)
+                    {
+                        <option value="@item.MA_HIEUXE" selected="selected">@item.MA_HIEUXE</option>
+                    }
+                    else
+                    {
+                        <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+                    }
                 }
-                else
-                {
-                    <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
-                }
-            }
-        </select>
+            </select>
+        </div>
     </div>
 
     <div class="form-group">
         <label class="input-sm">Hình thức :</label>
         <input class="form-control input-sm" type="text" value="@(Model.selectedXe.HINHTHUC == true ? "Xe bán" : "Xe sửa")" readonly="readonly" maxlength="30" name="HINHTHUC" required />
     </div>
-    <div class="form-group">
-        <label class="input-sm">Số khung :</label>
-        <input class="form-control input-sm" type="text" value="@Model.selectedXe.SO_KHUNG" placeholder="Số khung xe" maxlength="30" name="SO_KHUNG" required />
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label class="input-sm">Số khung :</label>
+            <input class="form-control input-sm" type="text" value="@Model.selectedXe.SO_KHUNG" placeholder="Số khung xe" maxlength="30" name="SO_KHUNG" required />
+        </div>
+        <div class="form-group">
+            <label class="input-sm">Số máy :</label>
+            <input class="form-control input-sm" type="text" placeholder="Số máy" value="@Model.selectedXe.SO_MAY" maxlength="30" name="SO_MAY" required />
+        </div>
+        <div class="form-group">
+            <label class="input-sm">Số Km :</label>
+            <input class="form-control input-sm" type="text" placeholder="Số Km" value="@Model.selectedXe.SO_KM" maxlength="30" name="SO_KM" required />
+        </div>
+        <div class="form-group">
+            <label for="tinhTrang" class="input-sm">Tình trạng xe :</label>
+            <textarea class="form-control" rows="5" id="tinhTrang" name="TINH_TRANG">@Model.selectedXe.TINH_TRANG</textarea>
+        </div>
+        <div class="form-group">
+            <label class="input-sm">Đời xe :</label>
+            <input class="form-control input-sm" type="text" value="@Model.selectedXe.DOI_XE" placeholder="Đời xe" maxlength="30" name="DOI_XE" required />
+        </div>
+        <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
     </div>
-    <div class="form-group">
-        <label class="input-sm">Số máy :</label>
-        <input class="form-control input-sm" type="text" placeholder="Số máy" value="@Model.selectedXe.SO_MAY" maxlength="30" name="SO_MAY" required />
-    </div>
-    <div class="form-group">
-        <label class="input-sm">Số Km :</label>
-        <input class="form-control input-sm" type="text" placeholder="Số Km" value="@Model.selectedXe.SO_KM" maxlength="30" name="SO_KM" required />
-    </div>
-    <div class="form-group">
-        <label for="tinhTrang" class="input-sm">Tình trạng xe :</label>
-        <textarea class="form-control" rows="5" id="tinhTrang" name="TINH_TRANG">@Model.selectedXe.TINH_TRANG</textarea>
-    </div>
-    <div class="form-group">
-        <label class="input-sm">Đời xe :</label>
-        <input class="form-control input-sm" type="text" value="@Model.selectedXe.DOI_XE" placeholder="Đời xe" maxlength="30" name="DOI_XE" required />
-    </div>
-    <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
-
     @*<script>
 
             ///

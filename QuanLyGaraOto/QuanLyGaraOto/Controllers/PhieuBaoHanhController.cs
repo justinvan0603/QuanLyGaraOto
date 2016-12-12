@@ -232,6 +232,29 @@ namespace QuanLyGaraOto.Controllers
         }
 
 
+        /// <summary>
+        /// Delete a verhical sale of bill from database. 
+        /// </summary>
+        /// <param name="idPhieuBaoHanh"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Xoa(int? idPhieuBaoHanh)
+        {
+            PHIEU_BAOHANH phieuBaoHanh = this.service.PHIEU_BAOHANH.Where(e => e.MA_PHIEUBH == idPhieuBaoHanh).FirstOrDefault();
+            // after removing the verhical sale of bill => remove the correspoding receipt that is related to it
+            List<CHITIET_PHIEUBH> danhSachChiTietPhieuBaoHanh = this.service.CHITIET_PHIEUBH.Where(e => e.MA_PHIEUBH == idPhieuBaoHanh).ToList();
+            foreach (CHITIET_PHIEUBH chiTiet in danhSachChiTietPhieuBaoHanh)
+            {
+                this.service.CHITIET_PHIEUBH.Remove(chiTiet);
+            }
+            this.service.SaveChanges();
+            this.service.PHIEU_BAOHANH.Remove(phieuBaoHanh);
+            this.service.SaveChanges();
+            // tra ve 
+            return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
+        }
+
+
         public ActionResult DuplicatedBillExceptionView()
         {
             return View();

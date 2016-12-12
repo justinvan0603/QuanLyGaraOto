@@ -33,7 +33,7 @@
         </div>
     </div>
 }
-@Html.ActionLink("Thêm mới", "NhapPhieuMuaXe", null, new { @class = "btn btn-primary btn-lg glyphicon glyphicon-plus" })
+<a href="../PhieuMuaXe/NhapPhieuMuaXe" class="btn btn-primary btn-sm" role="button" style="margin-top: 5px"><span class="glyphicon glyphicon-plus"></span>Thêm mới</a>
 
 <div class="table-responsive" style="padding-top:10px;">
     <table id="phieubanxe_table" class="table table-bordered table table-hover">
@@ -63,7 +63,7 @@
                         <td>@item.bienSoXe</td>
                         <td> @String.Format("{0:#,###,###,###}", item.triGia)</td>
                         <td>
-                            @Html.ActionLink("Sửa", "SuaPhieuMuaXe", new { id = @item.id }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
+                            <a class="btnCreateReceiptVoucher btn btn-primary glyphicon glyphicon-pencil" href="@Url.Action("SuaPhieuMuaXe", new { id = @item.id })">Sửa</a>
                             @if (!item.isPaid) // only show delete button and create receipt voucher if the bill is not paid
                             {
                                 <a class="btnCreateReceiptVoucher btn btn-primary glyphicon glyphicon-notes" href="@Url.Action("NhapPhieuChiFromPhieuMuaXe", "PhieuChi", new { idPhieuMuaXe = @item.id })">Lập phiếu chi</a>

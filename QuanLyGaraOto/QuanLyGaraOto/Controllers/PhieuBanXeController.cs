@@ -162,18 +162,20 @@ namespace QuanLyGaraOto.Controllers
         [HttpPost]
         public JsonResult Xoa(int? billId)
         {
-            PHIEU_BANXE phieuBanXe = this.service.PHIEU_BANXE.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
-            // after removing the verhical sale of bill => remove the correspoding receipt that is related to it
-            PHIEU_THUTIEN correspondingReceiptInformation = this.service.PHIEU_THUTIEN.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
-            if (correspondingReceiptInformation != null)
-            {
-                this.service.PHIEU_THUTIEN.Remove(correspondingReceiptInformation);
+                PHIEU_BANXE phieuBanXe = this.service.PHIEU_BANXE.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
+                // after removing the verhical sale of bill => remove the correspoding receipt that is related to it
+                PHIEU_THUTIEN correspondingReceiptInformation = this.service.PHIEU_THUTIEN.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
+                if (correspondingReceiptInformation != null)
+                {
+                    this.service.PHIEU_THUTIEN.Remove(correspondingReceiptInformation);
+                    this.service.SaveChanges();
+                }
+                this.service.PHIEU_BANXE.Remove(phieuBanXe);
                 this.service.SaveChanges();
-            }
-            this.service.PHIEU_BANXE.Remove(phieuBanXe);
-            this.service.SaveChanges();
-            // tra ve 
-            return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
+                // tra ve 
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xoá thành công! </div> </div> </div>";
+                return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
+       
         }
 
         /// <summary>

@@ -17,6 +17,7 @@
 
 @using (@Html.BeginForm("Index", "PhieuBaoHanh", FormMethod.Get, new { @class = "form-inline" }))
 {
+    @Html.Raw(TempData["msg"])
     <h3 class="text-center" style="color: green;">DANH SÁCH PHIẾU BẢO HÀNH</h3>
     <div class="form-inline">
         <div class="form-group">
@@ -58,7 +59,7 @@
                         <td> @(item.MA_NV != null ? @item.NHANVIEN.HOTEN : "Chưa cập nhật")</td>
                         <td>@item.TINHTRANG</td>
                         <td>
-                            @Html.ActionLink("Sửa", "SuaPhieuBaoHanh", new { idPhieuBaoHanh = @item.MA_PHIEUBH }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
+                            <a class="btn btn-primary glyphicon glyphicon-notes" href="@Url.Action("SuaPhieuBaoHanh", new { idPhieuBaoHanh = @item.MA_PHIEUBH })">Sửa</a>
                             <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
 
                         </td>
@@ -85,9 +86,7 @@
     // Handle when user click delete button
     //
     $(document).ready(function () {
-        $("#button_delete").on("click", function (e) {
-
-            e.preventDefault();
+        $('#button_delete').on("click", function (e) {
             var $item = $(this).closest("tr").find("#id").text();
             var itemid = $item.valueOf();
             var isSucess = -1;
@@ -97,7 +96,7 @@
             $.ajax({
                 url: '/PhieuBaoHanh/Xoa/',
 
-                data: JSON.stringify({ id: itemid }), // parameter
+                data: JSON.stringify({ idPhieuBaoHanh: itemid }), // parameter
 
                 type: 'POST',
 
