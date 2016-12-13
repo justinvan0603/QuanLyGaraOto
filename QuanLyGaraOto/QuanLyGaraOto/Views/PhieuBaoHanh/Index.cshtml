@@ -58,7 +58,8 @@
                         <td> @String.Format("{0:dd/MM/yyyy}", item.NGAYLAP.Value.Date)</td> <!-- chi quan tam den ngay, khong quan tam chi tiet den gio-->
                         <td> @(item.MA_NV != null ? @item.NHANVIEN.HOTEN : "Chưa cập nhật")</td>
                         <td>@item.TINHTRANG</td>
-                        <td>
+                        <td style="text-align: left">
+                            <a class="btn btn-primary glyphicon glyphicon-print" href="@Url.Action("In", new { id = @item.MA_PHIEUBH })">In</a>
                             <a class="btn btn-primary glyphicon glyphicon-notes" href="@Url.Action("SuaPhieuBaoHanh", new { idPhieuBaoHanh = @item.MA_PHIEUBH })">Sửa</a>
                             <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
 

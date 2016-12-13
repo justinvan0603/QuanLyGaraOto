@@ -61,7 +61,8 @@
                         <td> @String.Format("{0:#,###,###,###}", item.SOTIEN)</td>
                         <td>@item.NOIDUNG</td>
                         <td>
-                            @Html.ActionLink("Sửa", "SuaPhieuChi", new { id = @item.ID }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
+                            @Html.ActionLink("In", "In", new { id = @item.ID }, new { @class = "btn btn-primary glyphicon glyphicon-print" })
+                            @Html.ActionLink("Sửa", "SuaPhieuChi", new { id = @item.ID }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
                             <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
 
                         </td>

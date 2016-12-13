@@ -71,7 +71,8 @@
                         <!-- Chi cho phep xoa khi phieu tiep nhan chua duoc co phieu dich vu-->
 
                         <td style="text-align : right;">
-                            @Html.ActionLink("Sửa", "SuaPhieuTiepNhan" ,"PhieuTiepNhan", new { maPhieu = @item.maPhieuTiepNhan }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
+                            <a href="@Url.Action("In", "PhieuTiepNhan", new { id = @item.maPhieuTiepNhan })" class="btn btn-primary btn-sm glyphicon glyphicon-print">In</a>
+                            @Html.ActionLink("Sửa", "SuaPhieuTiepNhan", "PhieuTiepNhan", new { maPhieu = @item.maPhieuTiepNhan }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
                             @if (Model.service.PHIEU_DICHVU.Where(e => e.MAPHIEU_TIEPNHAN == item.maPhieuTiepNhan).Count() == 0)
                             {
                                 <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>

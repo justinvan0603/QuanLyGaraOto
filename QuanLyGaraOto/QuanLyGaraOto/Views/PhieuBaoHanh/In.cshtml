@@ -1,0 +1,128 @@
+﻿<html>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/bootstrap")
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@using QuanLyGaraOto.Models;
+@model QuanLyGaraOto.ViewModel.PhieuBaoHanhViewModel
+
+<head>
+    <title>In phiếu chi</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    @using (Html.BeginForm("SuaPhieuBaoHanh", "PhieuBaoHanh", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <div class="form-inline" hidden>
+            <input type="text" name="id" value="@Model.selectedItem.MA_PHIEUBH" />
+        </div>
+        <div class="form-inline">
+            <label>Ngày lập:</label>
+            <label>@Model.selectedItem.NGAYLAP</label>
+        </div>
+        <div class="form-inline">
+            <label>Mã phiếu:</label>
+            <label>@Model.selectedItem.MA_PHIEUBH</label>
+        </div>
+        <div class="form-inline">
+            <label>Người lập:</label>
+            <label>@Model.selectedItem.NHANVIEN.HOTEN</label>
+        </div>
+        <div class="form-inline">
+            <label>Tình trạng:</label>
+            <textarea name="tinhTrang" cols="30" rows="5">@Model.selectedItem.TINHTRANG</textarea>
+        </div>
+
+        <div class="panel panel-default" style="width:99%;">
+            <div class="panel-heading">Thông tin chi tiết:</div>
+            <div class="panel-body">
+
+                <div class="table-responsive" style="padding-top:10px; margin-right:20px;">
+                    <table id="chitietphieu-table" class="table table-bordered table table-hover table-condensed ">
+                        @*<thead style="color:red;">*@
+                        <tr class="trFirstRow" style="color:red;" data-id="-1">
+                            <th style="display:none">Id</th>
+                            <th>Phụ tùng</th>
+                            <th>Mã phụ tùng</th>
+                            <th>Ngày hẹn trả</th>
+                            <th>Ngảy trả</th>
+                        </tr>
+                        @*  </thead>*@
+                        <tbody>
+                            <tr class="record-template" style="display:none">
+                                <td style="display:none">
+                                    <input type="hidden" class="ID" name="ID" value="" />
+                                </td>
+                                <td style="display:none;">
+                                    <input type="hidden" class="maPDV" name="ID_PHIEUDV" value="" />
+                                </td>
+                                <td style="display:none;">
+                                    <input type="hidden" class="maPT" name="MA_PT" value="" />
+                                </td>
+                                <td>
+                                    <input class="txtTenPT form-control input-sm" type="text" value="" readonly />
+
+                                </td>
+
+                                <td>
+                                    <input type="text" class="txtMaTenPT form-control input-sm" value="" readonly />
+
+                                </td>
+                                <td>
+                                    <input type="text" class="txtSoluong form-control input-sm" name="SOLUONG" value="" readonly />
+
+                                </td>
+                                <td>
+                                    <input type="text" class="txtdonGia form-control input-sm" name="DONGIA" value="" readonly />
+                                </td>
+
+                                <td>
+                                    <input type="text" class=" txtThanhTien form-control input-sm" name="THANHTIEN" value="" readonly />
+                                </td>
+                                <td>
+                                    <input type="text" class="txtBaoHanh form-control input-sm" name="THOIHAN_BAOHANH" value="" readonly />
+                                </td>
+                                <td>
+                                    <input type="button" value="Xóa" class="btnDelete btn btn-danger" />
+                                </td>
+                            </tr>
+                            @foreach (var item in Model.danhSachChiTietBaoHanh)
+                            {
+                                <tr class="record-template">
+                                    <td style="display:none">
+                                        <input type="hidden" class="ID" name="ID" value="@item.Id" />
+                                    </td>
+                                    <td style="display:none;">
+                                        <input type="hidden" class="maPDV" name="ID_PHIEUDV" value="@(item.MA_PHIEUDV != null ? item.MA_PHIEUDV.ToString() : "")" />
+                                    </td>
+                                    <td style="display:none;">
+                                        <input class="maPT" name="MA_PT" value="@item.MA_PHUTUNG" />
+                                    </td>
+                                    <td>
+                                        <input class="txtTenPT form-control input-sm" type="text" value="@item.PHUTUNG.TEN_PHUTUNG" readonly />
+
+                                    </td>
+                                    <td><input class="txtMaTenPT form-control input-sm" type="text" value="@item.MA_PHUTUNG" readonly /></td>
+                                    <td>
+                                        <!-- <input type="date" class="dateboxNgayHenTra form-control input-sm" name="ngayHenTra" value="@item.NGAYHENTRA.Value.ToString("yyyy-MM-dd")" /> -->
+                                        <input class="form-control input-sm date ngayhentra" id="datepicker_ngayhentra" type="text" value="@String.Format("{0:dd/MM/yyyy}", @item.NGAYHENTRA)" name="ngayhentra" placeholder="27/8/2016" />
+
+                                    </td>
+                                    <td>
+                                        <!--   <input type="date" class="dateboxNgayTra form-control input-sm" name="ngayTra" value="@item.NGAYTRA.Value.ToString("yyyy-MM-dd")" /> -->
+                                        <input class="form-control input-sm date ngaytra" id="datepicker_ngaytra" type="text" value="@String.Format("{0:dd/MM/yyyy}", @item.NGAYTRA)" name="ngaytra" placeholder="27/8/2016" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>

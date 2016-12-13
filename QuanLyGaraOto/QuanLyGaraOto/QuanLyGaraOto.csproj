@@ -491,6 +491,9 @@
     <Content Include="Views\ThongKeKHNo\Index.cshtml" />
     <Content Include="Views\PhieuDichVu\In.cshtml" />
     <Content Include="Views\PhieuBanLe\In.cshtml" />
+    <Content Include="Views\PhieuTiepNhan\In.cshtml" />
+    <Content Include="Views\PhieuChi\In.cshtml" />
+    <Content Include="Views\PhieuBaoHanh\In.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\BaoCaoCongNo.rdlc" />
