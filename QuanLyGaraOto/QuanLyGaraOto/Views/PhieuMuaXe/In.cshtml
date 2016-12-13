@@ -1,0 +1,152 @@
+﻿<html>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/bootstrap")
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@using QuanLyGaraOto.Models;
+@model QuanLyGaraOto.ViewModel.PhieuMuaXeViewModel
+
+    <head>
+        <title>In phiếu chi</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU MUA XE</h3>
+
+        @using (Html.BeginForm("SuaPhieuMuaXe", "PhieuMuaXe", FormMethod.Post, new { @id = "#new_sale_bill_form" }))
+        {
+            <div class="col-sm-6">
+                <div class="form-group" hidden="hidden">
+                    <input class="form-control input-sm" hidden="hidden" type="text" maxlength="100" value="@Model.selectedBill.id" name="maPhieuMuaXe" required />
+                </div>
+                <div class="form-group">
+                    <label class="input-sm" style="color : red;">Mã phiếu :</label>
+                    <input class="form-control input-sm" type="text" maxlength="100" readonly="readonly" value="@Model.selectedBill.maPhieuMuaXe" name="maPhieuMuaXe" required />
+                </div>
+                <div class="form-group ">
+                    <label class="input-sm"> Ngày lập :</label>
+                    <input class="form-control input-sm" readonly="readonly" type="text" value="@Model.selectedBill.ngayLapPhieu.Value" id="datebox_ngaylapphieu" maxlength="30" name="ngayLapPhieu" required />
+                </div>
+                <div class="form-group ">
+                    <label class="input-sm">Mã Nhân viên lập :</label>
+                    <input class="form-control input-sm" type="text" value="@Model.selectedBill.maNhanVien" readonly="readonly" maxlength="30" name="maNhanVien" required /> <!--auto fill information of the staff-->
+                </div>
+                <div class="form-group">
+                    <label class="input-sm">Khách hàng :</label>
+                    <select name="maKhachHang" class="cboNhom form-control input-sm">
+                        <option value="@null" style="color: blue; font-weight : bold;">Khách vãng lai</option> <!--trường hợp là khách vãng lai-->
+                        @foreach (var item in Model.danhSachKhachHang)
+                        {
+                            if (item.MA_KH == Model.selectedBill.maKhachHang)
+                            {
+                                <option value="@item.MA_KH" selected="selected">@item.TEN_KH</option>
+                            }
+                            else
+                            {
+                                <option value="@item.MA_KH">@item.TEN_KH</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="input-sm">Hiệu xe :</label>
+                    <select name="hieuXe" class="cboNhom form-control input-sm">
+                        <option value="Hãng khác" style="color: blue; font-weight : bold;">Hãng khác</option> <!--trường hợp là khách vãng lai-->
+                        @foreach (var item in Model.danhSachHieuXe)
+                        {
+                            if (item.MA_HIEUXE == Model.selectedBill.hieuXe)
+                            {
+                                <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+                            }
+                            else
+                            {
+                                <option value="@item.MA_HIEUXE" selected="selected">@item.MA_HIEUXE</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="input-sm">Biển số xe :</label>
+                    <input class="form-control input-sm" type="text" value="@Model.selectedBill.bienSoXe" readonly="readonly" placeholder="Biển số xe" maxlength="30" name="bienSoXe" required />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="input-sm">Số khung :</label>
+                    <input class="form-control input-sm" type="text" value="@Model.selectedBill.soKhung" placeholder="Số khung xe" maxlength="30" name="soKhung" required />
+                </div>
+                <div class="form-group">
+                    <label class="input-sm">Số máy :</label>
+                    <input class="form-control input-sm" type="text" placeholder="Số máy" value="@Model.selectedBill.soMay" maxlength="30" name="soMay" required />
+                </div>
+                <div class="form-group">
+                    <label for="tinhTrang" class="input-sm">Tình trạng xe :</label>
+                    <textarea class="form-control" rows="5" id="tinhTrang" name="tinhTrang">@Model.selectedBill.tinhTrang</textarea>
+                </div>
+                <div class="form-group">
+                    <label class="input-sm">Đời xe :</label>
+                    <input class="form-control input-sm" type="text" value="@Model.selectedBill.doiXe" placeholder="Đời xe" maxlength="30" name="doiXe" required />
+                </div>
+                <div class="form-group ">
+                    <label class="input-sm" style="color: blue">Trị giá (VNĐ):</label>
+                    <input class="form-control input-sm" type="number" id="textbox_trigia" value="@Model.selectedBill.tongGiaTri" required maxlength="20" name="tongGiaTri" />
+                </div>
+            </div>
+        }
+
+    </body>
+</html>
+
+@*<script>
+
+        ///
+        // Ultility method for comparing date validation
+        //
+        var isAfterStartDate = function (startDateStr, endDateStr) {
+            var inDate = new Date(startDateStr),
+                eDate = new Date(endDateStr);
+            if (eDate >= inDate) {
+                return true;
+            } else {
+                return false;
+            }
+
+        };
+        //
+        // Check data validation before submitting form
+        $("form").submit(function (e) {
+            // Firstly, check final payment date and creation date
+            var creationTime = $("#datebox_ngaytiepnhan").val();
+            var finalPaymentTime = $("#datebox_ngaytraxe").val();
+            if (isAfterStartDate(creationTime, finalPaymentTime) == false) {
+                alert("Hạn chót thanh toán phải lớn hơn hoặc cùng với ngày lập phiếu !");
+                e.preventDefault();
+            }
+
+            // check validation of paying
+            var remainder = new Number($("#textbox_sotienconlai").val());
+            var total = new Number($("#textbox_trigia").val());
+            if (remainder >= total) {
+                alert("Số tiền còn lại phải nhỏ hơn số tổng trị giá phiếu !");
+                e.preventDefault();
+            }
+        });
+        // update creation date in text box
+        document.getElementById("datebox_ngaylapphieu").valueAsDate = new Date();
+
+    </script>*@
+
+
+
+
+
+
+
+
+
+
+

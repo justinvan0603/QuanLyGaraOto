@@ -63,7 +63,8 @@
                         <td>@item.bienSoXe</td>
                         <td> @String.Format("{0:#,###,###,###}", item.triGia)</td>
                         <td>
-                            <a class="btnCreateReceiptVoucher btn btn-primary glyphicon glyphicon-pencil" href="@Url.Action("SuaPhieuMuaXe", new { id = @item.id })">Sửa</a>
+                            <a class="btnCreateReceiptVoucher btn btn-primary glyphicon glyphicon-print" href="@Url.Action("In", new { id = @item.id })">In</a>
+                            <a class="btnCreateReceiptVoucher btn btn-warning glyphicon glyphicon-pencil" href="@Url.Action("SuaPhieuMuaXe", new { id = @item.id })">Sửa</a>
                             @if (!item.isPaid) // only show delete button and create receipt voucher if the bill is not paid
                             {
                                 <a class="btnCreateReceiptVoucher btn btn-primary glyphicon glyphicon-notes" href="@Url.Action("NhapPhieuChiFromPhieuMuaXe", "PhieuChi", new { idPhieuMuaXe = @item.id })">Lập phiếu chi</a>

@@ -6,11 +6,13 @@ using System.Web.Mvc;
 using QuanLyGaraOto.Models;
 using PagedList;
 using QuanLyGaraOto.ViewModel;
+using Rotativa.Options;
 
 namespace QuanLyGaraOto.Controllers
 {
     public class PhieuBanXeController : Controller
     {
+        private readonly static string FILE_NAME_PREFIX = "phieubanxe_";
 
         private GARADBEntities service = new GARADBEntities(); // entity service object to manipulate data
 
@@ -162,20 +164,20 @@ namespace QuanLyGaraOto.Controllers
         [HttpPost]
         public JsonResult Xoa(int? billId)
         {
-                PHIEU_BANXE phieuBanXe = this.service.PHIEU_BANXE.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
-                // after removing the verhical sale of bill => remove the correspoding receipt that is related to it
-                PHIEU_THUTIEN correspondingReceiptInformation = this.service.PHIEU_THUTIEN.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
-                if (correspondingReceiptInformation != null)
-                {
-                    this.service.PHIEU_THUTIEN.Remove(correspondingReceiptInformation);
-                    this.service.SaveChanges();
-                }
-                this.service.PHIEU_BANXE.Remove(phieuBanXe);
+            PHIEU_BANXE phieuBanXe = this.service.PHIEU_BANXE.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
+            // after removing the verhical sale of bill => remove the correspoding receipt that is related to it
+            PHIEU_THUTIEN correspondingReceiptInformation = this.service.PHIEU_THUTIEN.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
+            if (correspondingReceiptInformation != null)
+            {
+                this.service.PHIEU_THUTIEN.Remove(correspondingReceiptInformation);
                 this.service.SaveChanges();
-                // tra ve 
-                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xoá thành công! </div> </div> </div>";
-                return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
-       
+            }
+            this.service.PHIEU_BANXE.Remove(phieuBanXe);
+            this.service.SaveChanges();
+            // tra ve 
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xoá thành công! </div> </div> </div>";
+            return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
+
         }
 
         /// <summary>
@@ -225,6 +227,37 @@ namespace QuanLyGaraOto.Controllers
             }
             // tro lai man hinh danh sach
             return RedirectToAction("Index");
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult In(int? id)
+        {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
+            PHIEU_BANXE bill = this.service.PHIEU_BANXE.Single(e => e.ID_PHIEUBANXE == id); // find bill via id
+            PhieuBanXeViewModel viewModel = new PhieuBanXeViewModel();
+            viewModel.selectedPHIEUBANXE = bill; // information of the desired sale of bill
+            viewModel.listOfKhachHang = this.service.KHACHHANGs.ToList(); // list of all customers
+            string fileName = FILE_NAME_PREFIX + viewModel.selectedPHIEUBANXE.ID_PHIEUBANXE + ".pdf";
+            return new Rotativa.ViewAsPdf("In", viewModel)
+            {
+                FileName = fileName,
+                PageOrientation = Orientation.Landscape,
+                PageSize = Size.A4,
+                PageMargins = { Left = 0, Right = 0 }, // it's in millimeters
+                CustomSwitches = "--disable-smart-shrinking"
+            };
         }
     }
 }
