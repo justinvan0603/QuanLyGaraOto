@@ -77,9 +77,10 @@ namespace QuanLyGaraOto.Controllers
                 if (ModelState.IsValid)
                 {
                     GARADBEntities context = new Models.GARADBEntities();
+                    client.SOTIENNO = 0;
                     context.KHACHHANGs.Add(client);
                     context.SaveChanges();
-                    TempData["msg"] = "<script>alert('Đã thêm thành công');</script>";
+                    //TempData["msg"] = "<script>alert('Đã thêm thành công');</script>";
                 }
                 else
                 {

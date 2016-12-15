@@ -5,6 +5,11 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 namespace QuanLyGaraOto.Models
 {
+    [MetadataType(typeof(BANGTHAMSOMetadata))]
+    public partial class BANGTHAMSO
+    {
+
+    }
     [MetadataType(typeof(KHACHHANGMetadata))]
     public partial class KHACHHANG
     {

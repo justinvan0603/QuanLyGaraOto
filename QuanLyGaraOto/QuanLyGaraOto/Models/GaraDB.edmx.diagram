@@ -47,10 +47,8 @@
         <AssociationConnector Association="GARADBModel.FK_CHITIET_PHIEUBH_PHIEU_BAOHANH" />
         <EntityTypeShape EntityType="GARADBModel.BANGTHAMSO" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="GARADBModel.NHOMNGUOIDUNG" Width="1.5" PointX="2" PointY="9" />
-        <EntityTypeShape EntityType="GARADBModel.KHACHHANG" Width="1.5" PointX="8.625" PointY="20.875" />
         <EntityTypeShape EntityType="GARADBModel.NHANVIEN" Width="1.5" PointX="4.25" PointY="7.875" />
         <EntityTypeShape EntityType="GARADBModel.THO" Width="1.5" PointX="10.875" PointY="5.75" />
-        <AssociationConnector Association="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG" />
         <AssociationConnector Association="GARADBModel.FK_NHANVIEN_NHOMNGUOIDUNG" />
         <AssociationConnector Association="GARADBModel.FK_PDH_NHANVIEN" />
         <AssociationConnector Association="GARADBModel.FK_PHIEU_BAOHANH_NHANVIEN" />
@@ -60,6 +58,8 @@
         <AssociationConnector Association="GARADBModel.FK_PHIEUTHUTIEN_NHANVIEN" />
         <AssociationConnector Association="GARADBModel.FK_PHIEUTIEPNHAN_NHANVIEN" />
         <AssociationConnector Association="GARADBModel.FK_PHIEUDV_THO" />
+        <EntityTypeShape EntityType="GARADBModel.KHACHHANG" Width="1.5" PointX="3.375" PointY="1" />
+        <AssociationConnector Association="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

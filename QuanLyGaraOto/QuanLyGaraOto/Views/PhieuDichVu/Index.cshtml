@@ -72,8 +72,8 @@
                         <td style="vertical-align: middle">@item.HanChot.Date.ToShortDateString()</td>
                         <td style="vertical-align: middle"> @item.TenNV</td>
                         <td style="vertical-align: middle"> @item.TenTho</td>
-                        <td style="vertical-align: middle"> @*@Math.Round(item.TongTien)*@@String.Format("{0:#,###,###,###}", item.TongTien)</td>
-                        <td id="conlai" style="vertical-align: middle"> @*@Math.Round(item.SoTienConLai)*@ @String.Format("{0:#,###,###,###}", item.SoTienConLai)</td>
+                        <td style="vertical-align: middle"> @*@Math.Round(item.TongTien)*@@*@String.Format("{0:#,###,###,###}", item.TongTien)*@ @string.Format("{0:n0}", item.TongTien)</td>
+                        <td id="conlai" style="vertical-align: middle"> @*@Math.Round(item.SoTienConLai)*@ @*@String.Format("{0:#,###,###,###}", item.SoTienConLai)*@ @string.Format("{0:n0}", item.SoTienConLai)</td>
                         <td style="vertical-align: middle">
                             @Html.ActionLink("In", "In", new { id = @item.Id_PhieuDV }, new { @class = "btn btn-info glyphicon glyphicon-pencil btn-sm" })
                             @Html.ActionLink("Sửa", "SuaPhieuDichVu", new { id = @item.Id_PhieuDV }, new { @class = "btn btn-warning glyphicon glyphicon-pencil btn-sm" })

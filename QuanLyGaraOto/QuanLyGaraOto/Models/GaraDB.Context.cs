@@ -48,8 +48,8 @@ namespace QuanLyGaraOto.Models
         public virtual DbSet<CHITIET_PHIEUBH> CHITIET_PHIEUBH { get; set; }
         public virtual DbSet<BANGTHAMSO> BANGTHAMSOes { get; set; }
         public virtual DbSet<NHOMNGUOIDUNG> NHOMNGUOIDUNGs { get; set; }
-        public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
         public virtual DbSet<NHANVIEN> NHANVIENs { get; set; }
         public virtual DbSet<THO> THOes { get; set; }
+        public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
     }
 }

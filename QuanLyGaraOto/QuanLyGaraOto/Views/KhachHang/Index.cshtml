@@ -75,7 +75,7 @@
                         
                         <td style="vertical-align: middle"> @item.SDT</td>
                         <td style="vertical-align: middle">@item.DIACHI</td>
-                        <td style="vertical-align: middle"> @*@Math.Round(item.SOTIENNO.Value)*@ @String.Format("{0:#,###,###,###}", item.SOTIENNO.Value)</td>
+                        <td style="vertical-align: middle"> @*@Math.Round(item.SOTIENNO.Value)*@ @*@String.Format("{0:#,###,###,###}", item.SOTIENNO.Value)*@ @string.Format("{0:n0}", item.SOTIENNO)</td>
 
                         <td style="vertical-align: middle">
 

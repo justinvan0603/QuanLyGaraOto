@@ -32,7 +32,15 @@ namespace QuanLyGaraOto.Models
         public string DIACHI { get; set; }
         public bool GIOITINH { get; set; }
     }
-
+    public class BANGTHAMSOMetadata
+    {
+        public string TENTHAMSO { get; set; }
+        public string NOIDUNG { get; set; }
+        [Required(ErrorMessage = "Giá trị không được để trống!")]
+        [StringLength(30, ErrorMessage = "Giá trị chỉ chứa tối đa 50 ký tự")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Số Giá trị vừa nhập không hợp lệ!")]
+        public string GIATRI { get; set; }
+    }
     public class NHANVIENMetadata
     {
         [Required(ErrorMessage = "Tên đăng nhập không được để trống!")]

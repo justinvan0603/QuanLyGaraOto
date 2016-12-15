@@ -84,7 +84,7 @@
           <Property Name="MA_KH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TEN_KH" Type="nvarchar" MaxLength="255" />
           <Property Name="CMND" Type="varchar" MaxLength="100" />
-          <Property Name="SDT" Type="char" MaxLength="20" />
+          <Property Name="SDT" Type="varchar" MaxLength="20" />
           <Property Name="DIACHI" Type="nvarchar" MaxLength="255" />
           <Property Name="SOTIENNO" Type="money" />
           <Property Name="GIOITINH" Type="bit" />
@@ -908,13 +908,8 @@
           </AssociationSet>
           <EntitySet Name="BANGTHAMSOes" EntityType="GARADBModel.BANGTHAMSO" />
           <EntitySet Name="NHOMNGUOIDUNGs" EntityType="GARADBModel.NHOMNGUOIDUNG" />
-          <EntitySet Name="KHACHHANGs" EntityType="GARADBModel.KHACHHANG" />
           <EntitySet Name="NHANVIENs" EntityType="GARADBModel.NHANVIEN" />
           <EntitySet Name="THOes" EntityType="GARADBModel.THO" />
-          <AssociationSet Name="FK_PHIEUTIEPNHAN_KHACHHANG" Association="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG">
-            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
-            <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
-          </AssociationSet>
           <AssociationSet Name="FK_NHANVIEN_NHOMNGUOIDUNG" Association="GARADBModel.FK_NHANVIEN_NHOMNGUOIDUNG">
             <End Role="NHOMNGUOIDUNG" EntitySet="NHOMNGUOIDUNGs" />
             <End Role="NHANVIEN" EntitySet="NHANVIENs" />
@@ -950,6 +945,11 @@
           <AssociationSet Name="FK_PHIEUDV_THO" Association="GARADBModel.FK_PHIEUDV_THO">
             <End Role="THO" EntitySet="THOes" />
             <End Role="PHIEU_DICHVU" EntitySet="PHIEU_DICHVU" />
+          </AssociationSet>
+          <EntitySet Name="KHACHHANGs" EntityType="GARADBModel.KHACHHANG" />
+          <AssociationSet Name="FK_PHIEUTIEPNHAN_KHACHHANG" Association="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG">
+            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
+            <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="XE">
@@ -996,8 +996,8 @@
           <NavigationProperty Name="XE" Relationship="GARADBModel.FK_PHIEUTIEPNHAN_XE" FromRole="PHIEU_TIEPNHAN" ToRole="XE" />
           <NavigationProperty Name="PHIEU_DICHVU" Relationship="GARADBModel.FK_PHIEU_DICHVU_PHIEUTIEPNHAN" FromRole="PHIEU_TIEPNHAN" ToRole="PHIEU_DICHVU" />
           <Property Name="MA_NV" Type="Int32" />
-          <NavigationProperty Name="KHACHHANG" Relationship="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG" FromRole="PHIEU_TIEPNHAN" ToRole="KHACHHANG" />
           <NavigationProperty Name="NHANVIEN" Relationship="GARADBModel.FK_PHIEUTIEPNHAN_NHANVIEN" FromRole="PHIEU_TIEPNHAN" ToRole="NHANVIEN" />
+          <NavigationProperty Name="KHACHHANG" Relationship="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG" FromRole="PHIEU_TIEPNHAN" ToRole="KHACHHANG" />
         </EntityType>
         <Association Name="FK_PHIEUTIEPNHAN_XE">
           <End Type="GARADBModel.XE" Role="XE" Multiplicity="0..1" />
@@ -1472,19 +1472,6 @@
           <Property Name="CAPDO" Type="Int32" />
           <NavigationProperty Name="NHANVIENs" Relationship="GARADBModel.FK_NHANVIEN_NHOMNGUOIDUNG" FromRole="NHOMNGUOIDUNG" ToRole="NHANVIEN" />
         </EntityType>
-        <EntityType Name="KHACHHANG">
-          <Key>
-            <PropertyRef Name="MA_KH" />
-          </Key>
-          <Property Name="MA_KH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TEN_KH" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CMND" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
-          <Property Name="DIACHI" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="SOTIENNO" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="GIOITINH" Type="Boolean" />
-          <NavigationProperty Name="PHIEU_TIEPNHAN" Relationship="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG" FromRole="KHACHHANG" ToRole="PHIEU_TIEPNHAN" />
-        </EntityType>
         <EntityType Name="NHANVIEN">
           <Key>
             <PropertyRef Name="MA_NV" />
@@ -1517,18 +1504,6 @@
           <Property Name="GIOITINH" Type="Boolean" />
           <NavigationProperty Name="PHIEU_DICHVU" Relationship="GARADBModel.FK_PHIEUDV_THO" FromRole="THO" ToRole="PHIEU_DICHVU" />
         </EntityType>
-        <Association Name="FK_PHIEUTIEPNHAN_KHACHHANG">
-          <End Type="GARADBModel.KHACHHANG" Role="KHACHHANG" Multiplicity="1" />
-          <End Type="GARADBModel.PHIEU_TIEPNHAN" Role="PHIEU_TIEPNHAN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KHACHHANG">
-              <PropertyRef Name="MA_KH" />
-            </Principal>
-            <Dependent Role="PHIEU_TIEPNHAN">
-              <PropertyRef Name="MA_KH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_NHANVIEN_NHOMNGUOIDUNG">
           <End Type="GARADBModel.NHOMNGUOIDUNG" Role="NHOMNGUOIDUNG" Multiplicity="0..1" />
           <End Type="GARADBModel.NHANVIEN" Role="NHANVIEN" Multiplicity="*" />
@@ -1634,6 +1609,31 @@
             </Principal>
             <Dependent Role="PHIEU_DICHVU">
               <PropertyRef Name="MATHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="KHACHHANG">
+          <Key>
+            <PropertyRef Name="MA_KH" />
+          </Key>
+          <Property Name="MA_KH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TEN_KH" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CMND" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DIACHI" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SOTIENNO" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GIOITINH" Type="Boolean" />
+          <NavigationProperty Name="PHIEU_TIEPNHAN" Relationship="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG" FromRole="KHACHHANG" ToRole="PHIEU_TIEPNHAN" />
+        </EntityType>
+        <Association Name="FK_PHIEUTIEPNHAN_KHACHHANG">
+          <End Type="GARADBModel.KHACHHANG" Role="KHACHHANG" Multiplicity="1" />
+          <End Type="GARADBModel.PHIEU_TIEPNHAN" Role="PHIEU_TIEPNHAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MA_KH" />
+            </Principal>
+            <Dependent Role="PHIEU_TIEPNHAN">
+              <PropertyRef Name="MA_KH" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1924,19 +1924,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="KHACHHANGs">
-            <EntityTypeMapping TypeName="GARADBModel.KHACHHANG">
-              <MappingFragment StoreEntitySet="KHACHHANG">
-                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
-                <ScalarProperty Name="SOTIENNO" ColumnName="SOTIENNO" />
-                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="CMND" ColumnName="CMND" />
-                <ScalarProperty Name="TEN_KH" ColumnName="TEN_KH" />
-                <ScalarProperty Name="MA_KH" ColumnName="MA_KH" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="NHANVIENs">
             <EntityTypeMapping TypeName="GARADBModel.NHANVIEN">
               <MappingFragment StoreEntitySet="NHANVIEN">
@@ -1959,6 +1946,19 @@
                 <ScalarProperty Name="SDT" ColumnName="SDT" />
                 <ScalarProperty Name="TENTHO" ColumnName="TENTHO" />
                 <ScalarProperty Name="MA_THO" ColumnName="MA_THO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KHACHHANGs">
+            <EntityTypeMapping TypeName="GARADBModel.KHACHHANG">
+              <MappingFragment StoreEntitySet="KHACHHANG">
+                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+                <ScalarProperty Name="SOTIENNO" ColumnName="SOTIENNO" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="TEN_KH" ColumnName="TEN_KH" />
+                <ScalarProperty Name="MA_KH" ColumnName="MA_KH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

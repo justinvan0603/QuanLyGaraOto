@@ -240,7 +240,16 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuDV.ListTho = context.THOes.ToList();
             vmPhieuDV.ListChiTietPhieu = new List<CHITIET_PHIEUDV>();
             vmPhieuDV.ListChiTietPhieu = context.CHITIET_PHIEUDV.Where(ct => ct.ID_PHIEUDV == id.Value).ToList();
-            vmPhieuDV.ListHieuXe = context.HIEUXEs.ToList();
+            int maphieutiepnhan = vmPhieuDV.PhieuDichVu.MAPHIEU_TIEPNHAN.Value;
+            if (maphieutiepnhan != null)
+            {
+                string bienso = context.PHIEU_TIEPNHAN.Single(p => p.MA_PHIEUTIEPNHAN == maphieutiepnhan).BIENSO_XE;
+                string hieuxe = context.XEs.Single(x => x.BS_XE.Equals(bienso)).HIEU_XE;
+                vmPhieuDV.ListHieuXe = context.HIEUXEs.Where(hx => hx.MA_HIEUXE.Equals(hieuxe) || hx.MA_HIEUXE.Equals("Tất cả")).ToList();
+            }
+            else
+                vmPhieuDV.ListHieuXe = context.HIEUXEs.ToList();
+           // vmPhieuDV.ListHieuXe = context.HIEUXEs.ToList();
             vmPhieuDV.SDT = context.KHACHHANGs.Single(kh => kh.MA_KH == ptn.MA_KH).SDT;
             vmPhieuDV.TenKH = context.KHACHHANGs.Single(kh => kh.MA_KH == ptn.MA_KH).TEN_KH;
             vmPhieuDV.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == vmPhieuDV.PhieuDichVu.MA_NHANVIEN).HOTEN;
@@ -260,7 +269,7 @@ namespace QuanLyGaraOto.Controllers
             target.MATHO = viewModel.PhieuDichVu.MATHO;
             decimal tiencongcu = target.TIENCONG.Value;
             decimal chenhlech = viewModel.PhieuDichVu.TIENCONG.Value - tiencongcu;
-            target.TIENCONG += viewModel.PhieuDichVu.TIENCONG;
+            target.TIENCONG = viewModel.PhieuDichVu.TIENCONG;
             target.TONGTIEN += chenhlech;
             target.SOTIEN_CONLAI += chenhlech;
 
@@ -303,7 +312,8 @@ namespace QuanLyGaraOto.Controllers
                         context.SaveChanges();
                     }
                     context.PHIEU_DICHVU.Remove(target);
-                    TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xóa thành công! </div> </div> </div>";
+                    context.SaveChanges();
+                    TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xóa thành công! </div> </div> </div>";
                     return Json(new { value = "1", message = "Xóa thành công!" }, JsonRequestBehavior.AllowGet);
                 }
             }

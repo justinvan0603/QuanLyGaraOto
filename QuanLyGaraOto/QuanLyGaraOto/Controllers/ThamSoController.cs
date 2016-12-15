@@ -61,17 +61,25 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult SuaThamSo(BANGTHAMSO thamso)
         {
             GARADBEntities context = new GARADBEntities();
-            try
+            if (ModelState.IsValid)
             {
-                var target = context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO.Equals(thamso.TENTHAMSO));
-                target.GIATRI = thamso.GIATRI;
-                TempData["msg"] = "<script>alert('Đã cập nhật thành công!');</script>";
-                return RedirectToAction("Index", new { currentFilter = String.Empty, searchString = String.Empty });
+                try
+                {
+                    var target = context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO.Equals(thamso.TENTHAMSO));
+                    target.GIATRI = thamso.GIATRI;
+                    TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Đã cập nhật thành công! </div> </div> </div>";
+                    return RedirectToAction("Index", new { currentFilter = String.Empty, searchString = String.Empty });
+                }
+                catch (Exception)
+                {
+                    TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể cập nhật. Vui lòng thử lại! </div> </div> </div>";
+                    // TempData["msg"] = "<script>alert('Không thể cập nhật. Vui lòng thử lại!');</script>";
+                    return RedirectToAction("Index", new { currentFilter = String.Empty, searchString = String.Empty });
+                }
             }
-            catch(Exception )
+            else
             {
-                TempData["msg"] = "<script>alert('Không thể cập nhật. Vui lòng thử lại!');</script>";
-                return RedirectToAction("Index", new { currentFilter = String.Empty, searchString = String.Empty });
+                return View(thamso);
             }
            
         }
