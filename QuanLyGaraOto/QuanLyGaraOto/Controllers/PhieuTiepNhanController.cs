@@ -181,6 +181,8 @@ namespace QuanLyGaraOto.Controllers
                 phieuTiepNhan.MA_NV = int.Parse(Session["UserID"].ToString());
                 phieuTiepNhan.NGAYLAP = infor.ngayTiepNhan;
                 phieuTiepNhan.TINHTRANG = infor.tinhTrang;
+                phieuTiepNhan.MASOCHO = this.service.PHIEU_TIEPNHAN.Count() + 1; // update ma so cho
+                phieuTiepNhan.NGAYTRAXE = DateTime.Now; // mac dinh ngay tra xe sau khi tiep nhan la ngay hien tai
 
 
 

@@ -18,7 +18,7 @@
     </div>
     <div class="form-group ">
         <label class="input-sm">Ngày tiếp nhận :</label>
-        <input class="form-control input-sm" readonly="readonly" id="datebox_ngaytiepnhan" type="date" value="@Model.selectedPhieuTiepNhan.NGAYLAP.Value.ToString("yyyy-MM-dd")" maxlength="30" name="NGAYLAP" required />
+        <input class="form-control input-sm" readonly="readonly" id="datebox_ngaytiepnhan" type="text" value="@String.Format("{0:dd/MM/yyyy}", @Model.selectedPhieuTiepNhan.NGAYLAP)" maxlength="30" name="NGAYLAP" required />
     </div>
     <div class="form-group ">
         <label class="input-sm">Khách hàng :</label>
@@ -26,7 +26,7 @@
     </div>
     <div class="form-group ">
         <label class="input-sm">Biển số xe :</label>
-        <input class="form-control input-sm" readonly="readonly" type="date" value="@Model.selectedPhieuTiepNhan.BIENSO_XE" maxlength="30" name="BIENSO_XE" required />
+        <input class="form-control input-sm" readonly="readonly" type="text" value="@Model.selectedPhieuTiepNhan.BIENSO_XE" maxlength="30" name="BIENSO_XE" required />
         <a href="/Xe/SuaThongTinXe?bienSoXe=@Model.selectedPhieuTiepNhan.BIENSO_XE">Sửa thông tin xe</a> <!-- toi trang sua thong tin xe -->
     </div>
     <div class="form-group ">
@@ -35,7 +35,8 @@
     </div>
     <div class="form-group ">
         <label class="input-sm">Ngày trả xe :</label>
-        <input class="form-control input-sm" id="datebox_ngaytraxe" type="date" value="@(Model.selectedPhieuTiepNhan.NGAYTRAXE.Value.ToString("yyyy-MM-dd") != null  ? Model.selectedPhieuTiepNhan.NGAYTRAXE.Value.ToString("yyyy-MM-dd") : "" )" maxlength="30" name="NGAYTRAXE" required /> <!--auto fill information of the staff-->
+        <input class="form-control input-sm date ngayhengiao" id="datepicker_ngaytra" type="text" value="@String.Format("{0:dd/MM/yyyy}", @Model.selectedPhieuTiepNhan.NGAYTRAXE)" name="NGAYTRAXE" placeholder="27/8/2016" />
+
     </div>
     <div class="form-group ">
         <label class="input-sm">Tình trạng :</label>
@@ -44,7 +45,13 @@
 
     <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
 
+    <link href="~/Content/css/plugin/DatePicker/datepicker.css" rel="stylesheet" />
+    <script src="~/Content/plugin/DatePicker/jquery-ui.js"></script>
     <script>
+        $(function () {
+            $(".date").datepicker({ dateFormat: 'dd/mm/yy' });
+
+        });
 
         ///
         // Ultility method for comparing date validation
@@ -64,7 +71,7 @@
         $("form").submit(function (e) {
             // Firstly, check final payment date and creation date
             var creationTime = $("#datebox_ngaytiepnhan").val();
-            var finalPaymentTime = $("#datebox_ngaytraxe").val();
+            var finalPaymentTime = $("#datepicker_ngaytra").val();
             if (isAfterStartDate(creationTime, finalPaymentTime) == false) {
                 alert("Hạn chót thanh toán phải lớn hơn hoặc cùng với ngày lập phiếu !");
                 e.preventDefault();
@@ -79,7 +86,7 @@
             }
         });
         // update creation date in text box
-        document.getElementById("datebox_ngaylapphieu").valueAsDate = new Date();
+
 
     </script>
 }
