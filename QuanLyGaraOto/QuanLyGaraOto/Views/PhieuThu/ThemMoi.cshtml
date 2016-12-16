@@ -71,7 +71,7 @@
         </tr>
         <tr>
             <td><label class="input-sm">Số tiền thu:</label></td>
-            <td>@Html.TextBoxFor(m => m.PhieuThuTien.SOTIEN, new { @class = "form-control input-sm sotienthu", @type = "number", required = "required", oninput = "setCustomValidity('')", oninvalid = "setCustomValidity('Số tiền thu không được bỏ trống')", onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })</td>
+            <td>@Html.TextBoxFor(m => m.PhieuThuTien.SOTIEN, new { @class = "form-control input-sm sotienthu", @placeholder = "0", @maxlength = 9, @type = "number", required = "required", oninput = "setCustomValidity('')", oninvalid = "setCustomValidity('Số tiền thu không được bỏ trống')", onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })</td>
             <td></td>
             <td></td>
         </tr>
@@ -88,6 +88,7 @@
             .submit(function(e) {
                 var sotienno = parseInt($(".sotienno").val().split(',').join(''));
                 var sotienthu = parseInt($(".sotienthu").val());
+                var sotienconlaisaukhithu = sotienno - sotienthu;
                 if (sotienthu > sotienno) {
                     e.preventDefault();
                     alert("Số tiền thu không được vượt quá số tiền nợ!");
@@ -97,7 +98,12 @@
                 } else if (sotienthu < '@sotientithieu') {
                         e.preventDefault();
                         alert("Số tiền thu tối thiểu: " + @sotientithieu.ToString());
-                }  
+                } else if(sotienconlaisaukhithu < '@sotientithieu'){
+                    if (sotienconlaisaukhithu > 0) {
+                        e.preventDefault();
+                        alert("Sô tiền còn lại sau khi thu không được bé hơn số tiền thu tối thiểu: " + @sotientithieu.ToString());
+                    }
+                }
         })
     </script>
 </body>

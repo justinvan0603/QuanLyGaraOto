@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+@model QuanLyGaraOto.ViewModel.PhieuThuViewModel
+@{
+    ViewBag.Title = "General";
+}
+<html>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/bootstrap")
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<title>@ViewBag.Title</title>*@
+
+    <style>
+        html, body {
+            margin: 0px !important;
+            padding: 0px !important;
+            overflow-x: hidden;
+        }
+
+        .row.content {
+            height: auto;
+        }
+
+        @@media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+
+            .row.content {
+                height: auto;
+            }
+        }
+        .table {
+            border-bottom:0px !important;
+        }
+        .table th, .table td {
+            border: 1px !important;
+        }
+        .fixed-table-container {
+            border:0px !important;
+        }
+        .table-info {
+            border-bottom:0px !important;
+        }
+        .table-info th, .table td {
+            border: 1px !important;
+        }
+        .fixed-table-container {
+            border:0px !important;
+        }
+    </style>
+</head>
+<body style="background-color:#e6e6e6; ">
+
+<div class="container-fluid " style="margin-left: 20px;">
+
+
+
+    <div class="row content">
+        <div class="row">
+
+            <h3 class="text-center" style="color: green;">PHIẾU THU</h3>
+            @using (Html.BeginForm("CapNhat", "PhieuThu", FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.PhieuThu.ID_PHIEUTHUTIEN, Model)
+                <table class="table-info borderless">
+                    <tr>
+                        <th class="col-xs-2"></th>
+                        <th class="col-xs-4"></th>
+                        <th class="col-xs-2"></th>
+                        <th class="col-xs-4"></th>
+                    </tr>
+                    <tbody>
+                    <tr>
+                        <td><label class="input-sm">Mã phiếu thu:</label></td>
+                        <td>@Html.TextBoxFor(m => m.PhieuThu.MAPHIEUTHU, new {@class = "form-control input-sm", oninput = "setCustomValidity('')", oninvalid = "setCustomValidity('Mã phiếu thu không được để trống');"})</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><label class="input-sm">Tên nhân viên lập:</label></td>
+                        <td>@Html.TextBoxFor(m => m.TenNV, new {@class = "form-control input-sm", @readonly = "readonly"})</td>
+                        <td><label class="input-sm">Ngày lập:</label></td>
+                        <td>@Html.TextBoxFor(m => m.PhieuThu.NGAYLAP, "{0:dd/MM/yyyy}", new {@class = "form-control input-sm", @readonly = "readonly"})</td>
+                    </tr>
+                    <tr>
+                        <td><label class="input-sm">Nội dung thu:</label></td>
+                        <td>@Html.TextBoxFor(m => m.PhieuThu.NOIDUNG_THU, new {@class = "form-control input-sm", @readonly = "readonly"})</td>
+                        <td><label class="input-sm">Số tiền thu:</label></td>
+                        <td>@Html.TextBoxFor(m => m.PhieuThu.SOTIEN, "{0:n0}", new { @class = "form-control input-sm", @placeholder = "0"})</td>
+                    </tr>
+                    </tbody>
+                </table>
+            }
+
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+    <div class="container-fluid" style="margin-top: 20px">
+        <div class="row">
+            <div style="float:left;margin-left:100px;">
+                <p><strong>Người lập</strong></p>
+                <p><i>Ký tên</i></p>
+            </div>
+            <div style="float:right; margin-right:100px;">
+
+                <p><strong>Khách hàng</strong></p>
+                <p><i>Ký tên</i></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+@*@RenderSection("scripts")*@

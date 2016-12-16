@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using PagedList;
 using QuanLyGaraOto.Models;
 using QuanLyGaraOto.ViewModel;
+using Rotativa.Options;
 
 namespace QuanLyGaraOto.Controllers
 {
@@ -119,31 +120,24 @@ namespace QuanLyGaraOto.Controllers
         }
 
         [HttpGet]
-        public ActionResult CapNhat(int id)
+        public ActionResult In(int id)
         {
             GARADBEntities context = new GARADBEntities();        
             PHIEU_THUTIEN ptt = context.PHIEU_THUTIEN.Single(c => c.ID_PHIEUTHUTIEN == id);
             String tennv = context.NHANVIENs.Single(nv => nv.MA_NV == ptt.MA_NV).HOTEN;
             PhieuThuViewModel phieuThuViewModel = new PhieuThuViewModel(ptt, tennv);
-            if(ptt.ID_PHIEUBANLE != null)
+
+            string fileName = phieuThuViewModel.PhieuThu.MAPHIEUTHU + ".pdf";
+            //return View(vmPhieuBanLe);
+            return new Rotativa.ViewAsPdf("In", phieuThuViewModel)
             {
-                PHIEU_BANLE phieuBanle = context.PHIEU_BANLE.Single(c => c.ID_PHIEUBANLE == ptt.ID_PHIEUBANLE);
-                phieuThuViewModel.TongTien = phieuBanle.TongTien;
-                phieuThuViewModel.ConNo = phieuBanle.SoTienConLai;
-            }
-            else if (ptt.ID_PHIEUBANXE != null)
-            {
-                PHIEU_BANXE phieuBanxe = context.PHIEU_BANXE.Single(c => c.ID_PHIEUBANXE == ptt.ID_PHIEUBANXE);
-                phieuThuViewModel.TongTien = phieuBanxe.TRIGIA;
-                phieuThuViewModel.ConNo = phieuBanxe.SOTIENCONLAI;
-            }
-            else
-            {
-                PHIEU_DICHVU phieuDichvu = context.PHIEU_DICHVU.Single(c => c.ID_PHIEUDV == ptt.ID_PHIEUDV);
-                phieuThuViewModel.TongTien = phieuDichvu.TONGTIEN;
-                phieuThuViewModel.ConNo = phieuDichvu.SOTIEN_CONLAI;
-            }
-            return View(phieuThuViewModel);
+                FileName = fileName,
+                PageOrientation = Orientation.Landscape,
+                PageSize = Size.A4,
+                PageMargins = { Left = 0, Right = 0 }, // it's in millimeters
+                CustomSwitches = "--disable-smart-shrinking",
+            };
+
         }
 
         [HttpPost]

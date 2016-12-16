@@ -82,7 +82,7 @@
                             <a href="@Url.Action("In", "PhieuBanLe", new { id = @item.ID_PHIEUBANLE})" class="btn btn-info glyphicon glyphicon-pencil btn-sm">In</a>
                             <a href="@Url.Action("SuaPhieuBanLe", "PhieuBanLe", new { idphieu = @item.ID_PHIEUBANLE})" class="btn btn-warning glyphicon glyphicon-pencil btn-sm">Sửa</a>
                             <br />
-                            <a href="@Url.Action("ThemMoi", "PhieuThu", new { id = @item.ID_PHIEUBANLE, type = "pbl" })" class="btn btn-primary btn-sm glyphicon glyphicon-plus">Lập phiếu thu</a>
+                            <a href="@Url.Action("ThemMoi", "PhieuThu", new { idphieu = @item.ID_PHIEUBANLE, type = "pbl" })" class="btn btn-primary btn-sm glyphicon glyphicon-plus">Lập phiếu thu</a>
                             @if (Model.service.CHITIET_PHIEUBH.Where(e => e.MAPHIEU_BANLE == item.ID_PHIEUBANLE).Count() > 0)
                             {
                                 List<QuanLyGaraOto.Models.CHITIET_PHIEUBH> baoHanhs = Model.service.CHITIET_PHIEUBH.Where(e => e.MAPHIEU_BANLE == item.ID_PHIEUBANLE).ToList();
