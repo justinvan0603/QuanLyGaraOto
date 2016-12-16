@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using QuanLyGaraOto.Models;
 using PagedList;
 using QuanLyGaraOto.ViewModel;
+using Rotativa.Options;
 
 namespace QuanLyGaraOto.Controllers
 {
@@ -190,7 +191,33 @@ namespace QuanLyGaraOto.Controllers
             }
             return RedirectToAction("Index");
         }
-        
+
+        [HttpGet]
+        public ActionResult In(int id = 50)
+        {
+            GARADBEntities context = new GARADBEntities();
+            PhieuDatHangViewModel vmPhieuDH = new PhieuDatHangViewModel();
+            vmPhieuDH.PhieuDatHang = context.PHIEU_DATHANG.Single(p => p.Id_PhieuDatHang == id);
+            int slNhapMax = Int32.Parse(context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO == "SoLuongNhapHangToiDa").GIATRI);
+            vmPhieuDH.ListPhuTung = context.PHUTUNGs.ToList();
+            vmPhieuDH.ListNhaCungCap = context.NHACUNGCAPs.ToList();
+            vmPhieuDH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
+            vmPhieuDH.ListHieuXe = context.HIEUXEs.ToList();
+            vmPhieuDH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == vmPhieuDH.PhieuDatHang.MaNV).HOTEN;
+            vmPhieuDH.ListChiTietPhieuDH = new List<CHITIET_PHIEUDATHANG>();
+            vmPhieuDH.ListChiTietPhieuDH = context.CHITIET_PHIEUDATHANG.Where(ct => ct.Id_PhieuDatHang == id).ToList();
+            vmPhieuDH.SoLuongNhapToiDa = slNhapMax;
+
+            string fileName = vmPhieuDH.PhieuDatHang.MaPhieuDat + ".pdf";
+            return new Rotativa.ViewAsPdf("In", vmPhieuDH)
+            {
+                FileName = fileName,
+                PageOrientation = Orientation.Landscape,
+                PageSize = Size.A4,
+                PageMargins = { Left = 0, Right = 0 }, // it's in millimeters
+                CustomSwitches = "--disable-smart-shrinking",
+            };
+        }
 
         [ValidateInput(false)]
         [HttpPost]

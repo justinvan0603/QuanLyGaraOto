@@ -63,7 +63,7 @@
                                 <td style="vertical-align: middle">@item.TenNCC</td>
                                 <td style="vertical-align: middle">@String.Format("{0:#,###,###,###}", item.PhieuDatHang.TongTien)</td>
                                 <td style="vertical-align: middle">
-                                    @*<a class="btnCreateReceiptVoucher btn btn-primary glyphicon glyphicon-notes" href="@Url.Action("ThemMoi", "PhieuNhapHang", new {idphieuDH = @item.PhieuDatHang.Id_PhieuDatHang})">Lập phiếu nhập hàng</a>*@
+                                    <a href="@Url.Action("In", "PhieuDatHang", new { id = @item.PhieuDatHang.Id_PhieuDatHang})" class="btn btn-info glyphicon glyphicon-pencil btn-sm">In</a>
                                     <a href="@Url.Action("ThemMoi", "PhieuNhapHang", new {idphieuDH = @item.PhieuDatHang.Id_PhieuDatHang})" class="btn btn-primary btn-sm glyphicon glyphicon-plus" role="button">Lập phiếu nhập hàng</a>
                                     @Html.ActionLink("Sửa", "CapNhat", new { id = @item.PhieuDatHang.Id_PhieuDatHang }, new { @class = "btn btn-warning glyphicon glyphicon-pencil btn-sm" })
                                     <button class="btnDelete btn btn-danger btn-sm glyphicon glyphicon-remove" type="button">Xóa</button>

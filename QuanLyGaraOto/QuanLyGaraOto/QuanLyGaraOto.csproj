@@ -497,6 +497,8 @@
     <Content Include="Views\PhieuBanXe\In.cshtml" />
     <Content Include="Views\PhieuMuaXe\In.cshtml" />
     <Content Include="Views\PhieuThu\In.cshtml" />
+    <Content Include="Views\PhieuDatHang\In.cshtml" />
+    <Content Include="Views\PhieuNhapHang\In.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\BaoCaoCongNo.rdlc" />

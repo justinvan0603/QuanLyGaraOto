@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using PagedList;
 using QuanLyGaraOto.Models;
 using QuanLyGaraOto.ViewModel;
+using Rotativa.Options;
 
 namespace QuanLyGaraOto.Controllers
 {
@@ -231,44 +232,42 @@ namespace QuanLyGaraOto.Controllers
             return RedirectToAction("Index");
         }
 
-        /*
-        [ValidateInput(false)]
-        [HttpPost]
-        public JsonResult Xoa(int id)
+        [HttpGet]
+        public ActionResult In(int id = 2)
         {
-            try
+            GARADBEntities context = new GARADBEntities();
+            PhieuNhapHangViewModel vmPhieuNH = new PhieuNhapHangViewModel();
+            vmPhieuNH.PhieuNhapHang = context.PHIEU_NHAPHANG.Single(p => p.ID_PHIEUNHAPHANG == id);
+            int slNhapMax = Int32.Parse(context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO == "SoLuongNhapHangToiDa").GIATRI);
+            vmPhieuNH.SoLuongNhapToiDa = slNhapMax;
+            vmPhieuNH.ListPhuTung = context.PHUTUNGs.ToList();
+            vmPhieuNH.ListNhaCungCap = context.NHACUNGCAPs.ToList();
+            vmPhieuNH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
+            vmPhieuNH.ListHieuXe = context.HIEUXEs.ToList();
+            vmPhieuNH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == vmPhieuNH.PhieuNhapHang.MA_NV).HOTEN;
+            if (vmPhieuNH.PhieuNhapHang.ID_PHIEUDATHANG != null)
             {
-                GARADBEntities context = new GARADBEntities();
-                var target = context.PHIEU_NHAPHANG.Find(id);
-                context.PHIEU_NHAPHANG.Remove(target);
-                context.SaveChanges();
-                return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
+                PHIEU_DATHANG pdhPhieuDathang = context.PHIEU_DATHANG.Single(pdh => pdh.Id_PhieuDatHang == vmPhieuNH.PhieuNhapHang.ID_PHIEUDATHANG);
+                vmPhieuNH.MaPhieuDatHang = pdhPhieuDathang.MaPhieuDat;
             }
-            catch (Exception)
+            else
             {
-                return Json(new { value = "-1", message = "Không thể xóa do phiếu đặt hàng này!" }, JsonRequestBehavior.AllowGet);
-            }
-
-        }       
-
-        [HttpPost]
-        public JsonResult XoaChiTiet(int id)
-        {
-            try
-            {
-                GARADBEntities context = new GARADBEntities();
-                var target = context.CHITIET_PHIEUNH.Single(ct => ct.ID == id);
-                context.CHITIET_PHIEUNH.Remove(target);
-                context.SaveChanges();
-                return Json(new { value = "1", message = "Xóa thành công!" }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception)
-            {
-                return Json(new { value = "-1", message = "Không thể xóa chi tiết phiếu!" }, JsonRequestBehavior.AllowGet);
+                vmPhieuNH.MaPhieuDatHang = "Không đặt trước";
             }
 
+            vmPhieuNH.ListChiTietPhieuNH = new List<CHITIET_PHIEUNH>();
+            vmPhieuNH.ListChiTietPhieuNH = context.CHITIET_PHIEUNH.Where(ct => ct.ID_PHIEUNHAPHANG == id).ToList();
+
+            string fileName = vmPhieuNH.PhieuNhapHang.MA_PHIEUNHAPHANG + ".pdf";
+            return new Rotativa.ViewAsPdf("In", vmPhieuNH)
+            {
+                FileName = fileName,
+                PageOrientation = Orientation.Landscape,
+                PageSize = Size.A4,
+                PageMargins = { Left = 0, Right = 0 }, // it's in millimeters
+                CustomSwitches = "--disable-smart-shrinking",
+            };
         }
-        */
 
         [HttpPost]
         public JsonResult ThemChiTiet(CHITIET_PHIEUNH chitiet)
