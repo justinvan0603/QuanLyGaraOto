@@ -18,7 +18,7 @@
     </div>
     <div class="form-group ">
         <label class="input-sm">Ngày tiếp nhận :</label>
-        <input class="form-control input-sm" readonly="readonly" id="datebox_ngaytiepnhan" type="text" value="@String.Format("{0:dd/MM/yyyy}", @Model.selectedPhieuTiepNhan.NGAYLAP)" maxlength="30" name="NGAYLAP" required />
+        <input class="form-control input-sm" readonly="readonly" id="datebox_ngaytiepnhan" type="text" value="@String.Format("{0:yyyy/MM/dd}", @Model.selectedPhieuTiepNhan.NGAYLAP)" maxlength="30" name="NGAYLAP" required />
     </div>
     <div class="form-group ">
         <label class="input-sm">Khách hàng :</label>
@@ -35,7 +35,7 @@
     </div>
     <div class="form-group ">
         <label class="input-sm">Ngày trả xe :</label>
-        <input class="form-control input-sm date ngayhengiao" id="datepicker_ngaytra" type="text" value="@String.Format("{0:dd/MM/yyyy}", @Model.selectedPhieuTiepNhan.NGAYTRAXE)" name="NGAYTRAXE" placeholder="27/8/2016" />
+        <input class="form-control input-sm date ngayhengiao" id="datepicker_ngaytra" type="text" value="@String.Format("{0:yyyy/MM/dd}", @Model.selectedPhieuTiepNhan.NGAYTRAXE)" name="NGAYTRAXE" placeholder="27/8/2016" />
 
     </div>
     <div class="form-group ">
@@ -49,7 +49,7 @@
     <script src="~/Content/plugin/DatePicker/jquery-ui.js"></script>
     <script>
         $(function () {
-            $(".date").datepicker({ dateFormat: 'dd/mm/yy' });
+            $(".date").datepicker({ dateFormat: 'yy/mm/dd' });
 
         });
 
@@ -73,15 +73,8 @@
             var creationTime = $("#datebox_ngaytiepnhan").val();
             var finalPaymentTime = $("#datepicker_ngaytra").val();
             if (isAfterStartDate(creationTime, finalPaymentTime) == false) {
-                alert("Hạn chót thanh toán phải lớn hơn hoặc cùng với ngày lập phiếu !");
-                e.preventDefault();
-            }
-
-            // check validation of paying
-            var remainder = new Number($("#textbox_sotienconlai").val());
-            var total = new Number($("#textbox_trigia").val());
-            if (remainder >= total) {
-                alert("Số tiền còn lại phải nhỏ hơn số tổng trị giá phiếu !");
+                alert("Ngày hẹn giao KHÔNG trước ngày lập phiếu");
+                alert(creationTime + "-" + finalPaymentTime);
                 e.preventDefault();
             }
         });
