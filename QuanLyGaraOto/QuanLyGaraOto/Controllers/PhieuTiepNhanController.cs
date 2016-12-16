@@ -64,16 +64,31 @@ namespace QuanLyGaraOto.Controllers
                         case 0: { break; }
                         case 1: // loc theo ngay lap phieu
                             {
-                                listViewModels = listViewModels.Where(c =>
-                                    c.ngayLap.Value.Date.Equals(DateTime.Parse(searchString).Date)).ToList();
+                                try
+                                {
+                                    listViewModels = listViewModels.Where(c =>
+                                        c.ngayLap.Value.Date.Equals(DateTime.Parse(searchString).Date)).ToList();
+                                }
+                                catch (Exception e)
+                                {
+
+                                }
                                 break;
                             }
                         case 2: // loc theo ngay lap hen tra xe
                             {
-                                listViewModels = listViewModels.Where(c =>
-                                    c.ngayTra.Value.Date.Equals(DateTime.Parse(searchString).Date)).ToList();
+                                try
+                                {
+                                    listViewModels = listViewModels.Where(c =>
+                                        c.ngayTra.Value.Date.Equals(DateTime.Parse(searchString).Date)).ToList();
+                                }
+                                catch (Exception e)
+                                {
+                                       
+                                }
                                 break;
                             }
+
 
                         default: { break; }
                     }

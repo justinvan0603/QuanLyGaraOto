@@ -45,9 +45,17 @@ namespace QuanLyGaraOto.Controllers
                         case 0: { break; }
                         case 1:
                             {
-                                // loc phieu chi theo ngay lap phieu
-                                listOfPhieuBaoHanh = listOfPhieuBaoHanh.Where(e => e.NGAYLAP.Value.Date.Equals(DateTime.Parse(searchString).Date)).ToList();
+                                try
+                                {
+                                    // loc phieu chi theo ngay lap phieu
+                                    listOfPhieuBaoHanh = listOfPhieuBaoHanh.Where(e => e.NGAYLAP.Value.Date.Equals(DateTime.Parse(searchString).Date)).ToList();
+                                }
+                                catch (Exception e)
+                                {
+
+                                }
                                 break;
+
                             }
                         default: { break; }
                     }
@@ -216,8 +224,8 @@ namespace QuanLyGaraOto.Controllers
             if (chiTietPBH != null)
             {
                 // tien hanh cap nhat thong tin
-                chiTietPBH.NGAYHENTRA = DateTime.ParseExact(chitiet.ngayHenTra, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                chiTietPBH.NGAYTRA = DateTime.ParseExact(chitiet.ngayTra, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                chiTietPBH.NGAYHENTRA = DateTime.ParseExact(chitiet.ngayHenTra, "dd/MM/yyyy", CultureInfo.CurrentCulture);
+                chiTietPBH.NGAYTRA = DateTime.ParseExact(chitiet.ngayTra, "dd/MM/yyyy", CultureInfo.CurrentCulture);
                 this.service.Entry(chiTietPBH).State = System.Data.Entity.EntityState.Modified;
                 this.service.SaveChanges();
                 // thong bao cho nguoi dung da cap nhat thanh cong

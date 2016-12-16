@@ -48,12 +48,19 @@ namespace QuanLyGaraOto.Controllers
                         case 2:
                             {
                                 // loc theo hieu xe
-                                listOfXe = listOfXe.Where(e => e.HIEU_XE.ToLower().Contains(searchString.ToLower())).ToList(); break;
+                                listOfXe = listOfXe.Where(e => e.HIEU_XE.ToLower().Contains(searchString.ToLower())).ToList();
+                                break;
                             }
                         case 3:
                             {
                                 // loc theo xe ban
                                 listOfXe = listOfXe.Where(e => e.HINHTHUC == true).ToList();
+                                break;
+                            }
+                        case 4:
+                            {
+                                // loc theo xe sua chua
+                                listOfXe = listOfXe.Where(e => e.HINHTHUC == false).ToList();
                                 break;
                             }
 

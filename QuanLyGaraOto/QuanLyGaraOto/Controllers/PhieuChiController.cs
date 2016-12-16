@@ -43,8 +43,20 @@ namespace QuanLyGaraOto.Controllers
                         case 0: { break; }
                         case 1:
                             {
-                                // loc phieu chi theo ngay lap phieu
-                                listOfPhieuChis = listOfPhieuChis.Where(e => e.NGAYLAP.Value.Date.Equals(DateTime.Parse(searchString).Date)).ToList();
+                                listOfPhieuChis = listOfPhieuChis.Where(e => e.MA_PHIEUCHI == searchString).ToList();
+                                break;
+                            }
+                        case 2:
+                            {
+                                try
+                                {
+                                    // loc phieu chi theo ngay lap phieu
+                                    listOfPhieuChis = listOfPhieuChis.Where(e => e.NGAYLAP.Value.Date.Equals(DateTime.Parse(searchString).Date)).ToList();
+                                }
+                                catch (Exception e)
+                                {
+                                    listOfPhieuChis = this.service.PHIEU_CHI.ToList();
+                                }
                                 break;
                             }
                         default: { break; }
@@ -139,6 +151,29 @@ namespace QuanLyGaraOto.Controllers
 
             return RedirectToAction("Index");
 
+        }
+
+
+        /// <summary>
+        /// Xoa phieu tiep nhan 
+        /// </summary>
+        /// <param name="billId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Xoa(int billId)
+        {
+            try
+            {
+                PHIEU_CHI phieuChi = this.service.PHIEU_CHI.Where(e => e.ID == billId).FirstOrDefault();
+                this.service.PHIEU_CHI.Remove(phieuChi);
+                this.service.SaveChanges();
+                // tra ve 
+                return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new { value = "-1", message = "SYSTEM ERROR !" }, JsonRequestBehavior.AllowGet);
+            }
         }
 
 

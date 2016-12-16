@@ -11,10 +11,12 @@
 
 
 <style>
-    .table th {
+    .table th, .clickable-row {
         width: auto !important;
+        font-size: 10pt;
     }
 </style>
+
 
 @using (@Html.BeginForm("Index", "PhieuTiepNhan", FormMethod.Get, new { @class = "form-inline" }))
 {
@@ -75,9 +77,11 @@
                             @Html.ActionLink("Sửa", "SuaPhieuTiepNhan", "PhieuTiepNhan", new { maPhieu = @item.maPhieuTiepNhan }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
                             @if (Model.service.PHIEU_DICHVU.Where(e => e.MAPHIEU_TIEPNHAN == item.maPhieuTiepNhan).Count() == 0)
                             {
+                                @Html.ActionLink("Lập phiếu dịch vụ", "NhapPhieuDichVu", "PhieuDichVu", new { maphieutiepnhan = @item.maPhieuTiepNhan }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
                                 <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
                             }
-                            @Html.ActionLink("Lập phiếu dịch vụ", "NhapPhieuDichVu", "PhieuDichVu", new { maphieutiepnhan = @item.maPhieuTiepNhan }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
+
+
                         </td>
                     </tr>
                 }
@@ -102,7 +106,7 @@
     // Handle when user click delete button
     //
     $(document).ready(function () {
-        $("#button_delete").on("click", function (e) {
+        $(".btnDelete").on("click", function (e) {
             // tim cot co id = 'maPhieuTiepNhan'
             var $item = $(this).closest("tr").find("#maPhieuTiepNhan").text();
             var itemid = $item.valueOf();

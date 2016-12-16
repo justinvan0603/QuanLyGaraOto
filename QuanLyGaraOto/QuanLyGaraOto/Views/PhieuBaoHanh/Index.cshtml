@@ -10,10 +10,12 @@
 
 
 <style>
-    .table th {
+    .table th, .clickable-row {
         width: auto !important;
+        font-size: 10pt;
     }
 </style>
+
 
 @using (@Html.BeginForm("Index", "PhieuBaoHanh", FormMethod.Get, new { @class = "form-inline" }))
 {
@@ -36,7 +38,7 @@
 }
 
 <div class="table-responsive" style="padding-top:10px;">
-    <table id="phieuchi_table" class="table table-bordered table table-hover">
+    <table id="phieubaohanh_table" class="table table-bordered table table-hover">
         <thead style="color:red; text-align : center; background-color : white;">
             <tr>
                 <th style="display:none">Id</th>
@@ -75,7 +77,7 @@
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
-    $('#phieubanxe_table').on('click', '.clickable-row', function (event) {
+    $('#phieubaohanh_table').on('click', '.clickable-row', function (event) {
         if ($(this).hasClass('active')) {
             $(this).removeClass('active');
         } else {
@@ -87,7 +89,7 @@
     // Handle when user click delete button
     //
     $(document).ready(function () {
-        $('#button_delete').on("click", function (e) {
+        $('.btnDelete').on("click", function (e) {
             var $item = $(this).closest("tr").find("#id").text();
             var itemid = $item.valueOf();
             var isSucess = -1;

@@ -10,10 +10,12 @@
 
 
 <style>
-    .table th {
+    .table th, .clickable-row {
         width: auto !important;
+        font-size: 10pt;
     }
 </style>
+
 
 @using (@Html.BeginForm("Index", "PhieuChi", FormMethod.Get, new { @class = "form-inline" }))
 {
@@ -22,14 +24,13 @@
         <div class="form-group">
             <label for="searchOption">Tìm theo:</label>
             @Html.DropDownList("searchOption", Model.listSearchOption, new { @class = "form-control" })
-            @* @Html.DropDownListFor(m => m.selectedValue, Model.listSearchOption, new { @class = "form-control" })*@
         </div>
         <div class="form-group">
             <label for="searchOption">Giá trị:</label>
-            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Ví dụ : 25/8/2016" })
+            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Ví dụ : 8/25/2016" })
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+            <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
         </div>
     </div>
 }
@@ -45,7 +46,7 @@
                 <th>Nhân viên</th>
                 <th>Số tiền</th>
                 <th>Nội dung</th>
-                <th>Tùy chọn</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
         <tbody>
@@ -60,7 +61,7 @@
                         <td> @(item.MA_NV != null ? @item.NHANVIEN.HOTEN : "Chưa cập nhật")</td>
                         <td> @String.Format("{0:#,###,###,###}", item.SOTIEN)</td>
                         <td>@item.NOIDUNG</td>
-                        <td>
+                        <td style="text-align: inherit">
                             @Html.ActionLink("In", "In", new { id = @item.ID }, new { @class = "btn btn-primary glyphicon glyphicon-print" })
                             @Html.ActionLink("Sửa", "SuaPhieuChi", new { id = @item.ID }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
                             <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
@@ -71,27 +72,24 @@
             }
         </tbody>
     </table>
-    Page @(Model.danhSachPhieuChi.PageCount < Model.danhSachPhieuChi.PageNumber ? 0 : Model.danhSachPhieuChi.PageNumber) of @Model.danhSachPhieuChi.PageCount
+    Trang @(Model.danhSachPhieuChi.PageCount < Model.danhSachPhieuChi.PageNumber ? 0 : Model.danhSachPhieuChi.PageNumber) of @Model.danhSachPhieuChi.PageCount
     @Html.PagedListPager(Model.danhSachPhieuChi, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
-    $('#phieubanxe_table').on('click', '.clickable-row', function (event) {
+    $('#phieuchi_table').on('click', '.clickable-row', function (event) {
         if ($(this).hasClass('active')) {
             $(this).removeClass('active');
         } else {
             $(this).addClass('active').siblings().removeClass('active');
         }
     });
-
     ///
     // Handle when user click delete button
     //
     $(document).ready(function () {
-        $("#button_delete").on("click", function (e) {
-
-            e.preventDefault();
+        $(".btnDelete").on("click", function (e) {
             var $item = $(this).closest("tr").find("#id").text();
             var itemid = $item.valueOf();
             var isSucess = -1;
@@ -121,7 +119,7 @@
                 if (isSuccess == "1") {
                     row.remove();
                     alert(message);
-                    // window.location.replace("index");
+                    window.location.replace("index");
                 }
                 else {
                     alert(message);

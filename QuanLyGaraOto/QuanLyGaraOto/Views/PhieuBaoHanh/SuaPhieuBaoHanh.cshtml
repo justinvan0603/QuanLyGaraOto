@@ -119,17 +119,16 @@
                                 </td>
                                 <td><input class="txtMaTenPT form-control input-sm" type="text" value="@item.MA_PHUTUNG" readonly /></td>
                                 <td>
-                                    <!-- <input type="date" class="dateboxNgayHenTra form-control input-sm" name="ngayHenTra" value="@item.NGAYHENTRA.Value.ToString("yyyy-MM-dd")" /> -->
-                                    <input class="form-control input-sm date ngayhentra" id="datepicker_ngayhentra" type="text" value="@String.Format("{0:dd/MM/yyyy}", @item.NGAYHENTRA)" name="ngayhentra" placeholder="27/8/2016" />
+                                    <input class="form-control input-sm date ngayhentra" type="text" value="@String.Format("{0:dd/MM/yyyy}", @item.NGAYHENTRA)" name="ngayhentra" placeholder="27/8/2016" />
 
                                 </td>
                                 <td>
-                                    <!--   <input type="date" class="dateboxNgayTra form-control input-sm" name="ngayTra" value="@item.NGAYTRA.Value.ToString("yyyy-MM-dd")" /> -->
-                                    <input class="form-control input-sm date ngaytra" id="datepicker_ngaytra" type="text" value="@String.Format("{0:dd/MM/yyyy}", @item.NGAYTRA)" name="ngaytra" placeholder="27/8/2016" />
+                                    <input class="form-control input-sm date ngaytra" type="text" value="@String.Format("{0:dd/MM/yyyy}", @item.NGAYTRA)" name="ngaytra" placeholder="27/8/2016" />
                                 </td>
                                 <td>
                                     <input id="button_update" type="button" value="Lưu" class="btn-update btn btn-danger btn-sm" />
                                 </td>
+
                             </tr>
                         }
                     </tbody>
@@ -145,8 +144,11 @@
 <script src="~/Content/plugin/DatePicker/jquery-ui.js"></script>
 <script>
     $(function () {
-        $(".date").datepicker({ dateFormat: 'dd/mm/yy' });
-
+        $(".date").datepicker({
+            dateFormat: 'dd/mm/yy',
+            changeMonth: true,
+            changeYear: true
+        });
     });
     $("form").submit(function (e) {
         var rowCount = $("#chitietphieu-table tr").length;

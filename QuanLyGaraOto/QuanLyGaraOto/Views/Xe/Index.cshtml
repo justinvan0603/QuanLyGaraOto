@@ -8,13 +8,15 @@
     <title>@ViewBag.Title</title>
 </head>
 
+<
 <style>
-    .table th {
+    .table th, .clickable-row {
         width: auto !important;
+        font-size: 10pt;
     }
 </style>
 <body>
-    <h3 class="text-center" style="color: green;">Danh sách xe</h3>
+    <h3 class="text-center" style="color: green;">DANH SÁCH XE</h3>
 
     @using (@Html.BeginForm("Index", "Xe", FormMethod.Get, new { @class = "form-inline" }))
     {
@@ -48,7 +50,7 @@
                     <th>Số khung</th>
                     <th>Đời xe</th>
                     <th>Số Km</th>
-                    <th>Tùy chọn</th>
+                    <th>Thao tác</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,7 +63,7 @@
                             <td>@String.Format("{0:dd/MM/yyyy}", item.NGAY_TIEPNHAN.Value.Date.ToString())</td>
                             <td>@item.HIEU_XE</td>
                             <td> @item.TINH_TRANG</td>
-                            <td>@(item.HINHTHUC == true ? "Xe bán" : "Sửa chữa")</td>
+                            <td>@(item.HINHTHUC == true ? "Xe cửa hàng" : "Sửa chữa")</td>
                             <td> @item.SO_MAY</td>
                             <td>@item.SO_KHUNG</td>
                             <td>@item.DOI_XE</td>

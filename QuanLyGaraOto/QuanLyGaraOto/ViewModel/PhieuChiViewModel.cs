@@ -24,7 +24,8 @@ namespace QuanLyGaraOto.ViewModel
 
         // danh sach options de loc du lieu
         public List<SelectListItem> listSearchOption = new List<SelectListItem>() { new SelectListItem(){Text = "", Value="0"},
-                                                                                    new SelectListItem(){Text = "Ngày lập", Value="1"}};
+                                                                                    new SelectListItem(){Text = "", Value="1"},
+                                                                                    new SelectListItem(){Text = "Ngày lập", Value="2"}};
 
 
         /**
