@@ -32,7 +32,7 @@
             @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Ví dụ : 25/8/2016" })
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+            <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
         </div>
     </div>
 }
@@ -62,7 +62,7 @@
                         <td>@item.TINHTRANG</td>
                         <td style="text-align: left">
                             <a class="btn btn-primary glyphicon glyphicon-print" href="@Url.Action("In", new { id = @item.MA_PHIEUBH })">In</a>
-                            <a class="btn btn-primary glyphicon glyphicon-notes" href="@Url.Action("SuaPhieuBaoHanh", new { idPhieuBaoHanh = @item.MA_PHIEUBH })">Sửa</a>
+                            <a class="btn btn-primary glyphicon glyphicon-pencil" href="@Url.Action("SuaPhieuBaoHanh", new { idPhieuBaoHanh = @item.MA_PHIEUBH })">Sửa</a>
                             <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
 
                         </td>
@@ -71,7 +71,7 @@
             }
         </tbody>
     </table>
-    Page @(Model.danhSachPhieuBaoHanh.PageCount < Model.danhSachPhieuBaoHanh.PageNumber ? 0 : Model.danhSachPhieuBaoHanh.PageNumber) of @Model.danhSachPhieuBaoHanh.PageCount
+    Trang @(Model.danhSachPhieuBaoHanh.PageCount < Model.danhSachPhieuBaoHanh.PageNumber ? 0 : Model.danhSachPhieuBaoHanh.PageNumber) of @Model.danhSachPhieuBaoHanh.PageCount
     @Html.PagedListPager(Model.danhSachPhieuBaoHanh, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
 </div>
 
@@ -118,8 +118,8 @@
             }).done(function () {
                 if (isSuccess == "1") {
                     row.remove();
-                    alert(message);
-                    // window.location.replace("index");
+                    // alert(message);
+                    window.location.replace("index");
                 }
                 else {
                     alert(message);

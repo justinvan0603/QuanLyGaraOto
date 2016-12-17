@@ -260,6 +260,7 @@ namespace QuanLyGaraOto.Controllers
             this.service.SaveChanges();
             this.service.PHIEU_BAOHANH.Remove(phieuBaoHanh);
             this.service.SaveChanges();
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xóa thành cồng</div> </div> </div>";
             // tra ve 
             return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
         }

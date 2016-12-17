@@ -18,6 +18,7 @@
 
 @using (@Html.BeginForm("Index", "PhieuBanXe", FormMethod.Get, new { @class = "form-inline" }))
 {
+    @Html.Raw(TempData["msg"])
     <h3 class="text-center" style="color: green;">DANH SÁCH PHIẾU BÁN XE</h3>
     <div class="form-inline">
         <div class="form-group">
@@ -30,7 +31,7 @@
             @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Ví dụ : 1/1/2016" })
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+            <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
         </div>
     </div>
 }
@@ -43,11 +44,11 @@
                 <th style="display:none">Id</th>
                 <th>Mã phiếu</th>
                 <th>Ngày lập</th>
-                <th>Mã nhân viên</th>
+                <th>Nhân viên</th>
                 <th>Biến số xe</th>
                 <th>Trị giá</th>
                 <th>Hạn chót thanh toán</th>
-                <th>Tùy chọn</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
         <tbody>
@@ -58,7 +59,7 @@
                         <td id="id" style="display:none">@item.id</td> <!-- id cua phieu ban se duoc fill nhung se khong hien thi tren view cua client-->
                         <td> @item.maPhieuBan</td>
                         <td> @String.Format("{0:dd/MM/yyyy}", item.ngayLapPhieu.Value.Date)</td> <!-- chi quan tam den ngay, khong quan tam chi tiet den gio-->
-                        <td> @item.maNhanVien</td>
+                        <td> @Model.service.NHANVIENs.Where(e => e.MA_NV == item.maNhanVien).Single().HOTEN</td>
                         <td> @item.bienSoXe</td>
                         <td> @String.Format("{0:#,###,###,###}", item.giaTri)</td>
                         <td> @String.Format("{0:dd/MM/yyyy}", item.hanChotThanhToan.Value.Date)</td><!-- chi quan tam den ngay, khong quan tam chi tiet den gio-->
@@ -76,7 +77,7 @@
             }
         </tbody>
     </table>
-    Page @(Model.listOfPHIEUBANXEs.PageCount < Model.listOfPHIEUBANXEs.PageNumber ? 0 : Model.listOfPHIEUBANXEs.PageNumber) of @Model.listOfPHIEUBANXEs.PageCount
+    Trang @(Model.listOfPHIEUBANXEs.PageCount < Model.listOfPHIEUBANXEs.PageNumber ? 0 : Model.listOfPHIEUBANXEs.PageNumber) of @Model.listOfPHIEUBANXEs.PageCount
     @Html.PagedListPager(Model.listOfPHIEUBANXEs, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
 </div>
 
@@ -123,11 +124,11 @@
             }).done(function () {
                 if (isSuccess == "1") {
                     row.remove();
-                    alert(message);
-                    // window.location.replace("index");
+                    //alert(message);
+                    window.location.replace("index");
                 }
                 else {
-                    alert(message);
+                    //alert(message);
                 }
             });
         })

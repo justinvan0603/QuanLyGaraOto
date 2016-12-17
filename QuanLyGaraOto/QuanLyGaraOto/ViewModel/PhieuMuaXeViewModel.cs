@@ -26,7 +26,7 @@ namespace QuanLyGaraOto.ViewModel
         /// </summary>
         public List<SelectListItem> filterOptions = new List<SelectListItem>() { new SelectListItem(){Text = "", Value="0"},
                                                                                     new SelectListItem(){Text = "Ngày lập", Value="1"},
-                                                                                    new SelectListItem(){Text = "Mã khách hàng" , Value="2"}};
+                                                                                    new SelectListItem(){Text = "Mã phiếu" , Value="2"}};
         /// <summary>
         /// Danh sach khach hang tu database
         /// </summary>

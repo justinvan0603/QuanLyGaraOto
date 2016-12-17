@@ -8,7 +8,6 @@
     <title>@ViewBag.Title</title>
 </head>
 
-<
 <style>
     .table th, .clickable-row {
         width: auto !important;
@@ -41,7 +40,7 @@
             <thead style="color:red; background-color : white">
                 <tr>
                     <th>@Html.ActionLink("Biển số xe", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
-                    <th>Mã khách hàng</th>
+                    <th>Khách hàng</th>
                     <th>Ngày tiếp nhận</th>
                     <th>Hiệu xe</th>
                     <th>Tình trạng</th>
@@ -59,8 +58,8 @@
                     {
                         <tr class="clickable-row">
                             <td id="bien_so_xe"> @item.BS_XE</td>
-                            <td> @(item.MA_KH == null ? "Khách vãn lai" : item.MA_KH.ToString())</td>
-                            <td>@String.Format("{0:dd/MM/yyyy}", item.NGAY_TIEPNHAN.Value.Date.ToString())</td>
+                            <td> @(item.MA_KH == null ? "Khách vãn lai" : Model.service.KHACHHANGs.Where(e => e.MA_KH == item.MA_KH).Single().TEN_KH)</td>
+                            <td>@String.Format("{0:dd/MM/yyyy}", item.NGAY_TIEPNHAN)</td>
                             <td>@item.HIEU_XE</td>
                             <td> @item.TINH_TRANG</td>
                             <td>@(item.HINHTHUC == true ? "Xe cửa hàng" : "Sửa chữa")</td>

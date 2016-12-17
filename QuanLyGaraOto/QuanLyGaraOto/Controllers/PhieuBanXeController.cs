@@ -69,7 +69,11 @@ namespace QuanLyGaraOto.Controllers
                     switch (searchOption)
                     {
                         case 0: { break; }
-                        case 1: break; // search theo ma phieu -> update code sau
+                        case 1:
+                            {
+                                PHIEUBANXEsDataTableModels = PHIEUBANXEsDataTableModels.Where(c =>
+                                 c.maPhieuBan == searchString).ToList(); break;
+                            }; // search theo ma phieu -> update code sau
                         case 2:
                             {
                                 PHIEUBANXEsDataTableModels = PHIEUBANXEsDataTableModels.Where(c =>
@@ -114,13 +118,15 @@ namespace QuanLyGaraOto.Controllers
             // sau do load danh sach khach hang de nhan vien co the chon neu do la khach quan trong GARA
             PhieuBanXeViewModel phieuBanXeViewModel = new PhieuBanXeViewModel();
             // load danh sach xe ban trong database (chi load danh sach xe ban chua duoc ban)
-            phieuBanXeViewModel.listOfXes = this.service.XEs.ToList().Where(e => e.HINHTHUC == true).ToList();
-            foreach (XE xe in phieuBanXeViewModel.listOfXes)
+            List<XE> temporaryList = this.service.XEs.Where(e => e.HINHTHUC == true).ToList();
+            phieuBanXeViewModel.listOfXes = new List<XE>();
+            foreach (XE xe in temporaryList.ToList())
             {
-                if (this.service.PHIEU_BANXE.Where(e => e.BS_XE == xe.BS_XE).Count() > 0)
+                if (this.service.PHIEU_BANXE.Where(e => e.BS_XE == xe.BS_XE).Count() == 0)
                 {
                     // xoa xe nay ra khoi danh sach neu xe nay da duoc ban 
-                    phieuBanXeViewModel.listOfXes.Remove(xe);
+                    // phieuBanXeViewModel.listOfXes.Remove(xe);
+                    phieuBanXeViewModel.listOfXes.Add(xe);
                 }
             }
             phieuBanXeViewModel.listOfKhachHang = this.service.KHACHHANGs.ToList();

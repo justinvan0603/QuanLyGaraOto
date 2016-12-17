@@ -8,14 +8,14 @@
     <title>@ViewBag.Title</title>
 </head>
 
-<h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU XE MỚI</h3>
+<h3 class="text-center" style="color:green;">THÔNG TIN XE MỚI</h3>
 
 @using (Html.BeginForm("NhapXe", "Xe", FormMethod.Post, new { @id = "#nhap_xe_form" }))
 {
     <div class="col-sm-6">
         <div class="form-group">
-            <label class="input-sm" style="color : red;">Biển số xe :</label>
-            <input class="form-control input-sm" type="text" maxlength="100" name="BS_XE" required />
+            <label class="input-sm">Biển số xe :</label>
+            <input class="form-control input-sm" type="text" maxlength="10" name="BS_XE" required />
         </div>
         <div class="form-group ">
             <label class="input-sm"> Ngày tiếp nhận :</label>
@@ -42,25 +42,30 @@
         </div>
         <div class="form-group">
             <label class="input-sm">Số khung :</label>
-            <input class="form-control input-sm" type="text" placeholder="Số khung xe" maxlength="30" name="SO_KHUNG" required />
+            <input class="form-control input-sm" type="text" placeholder="Số khung xe" maxlength="10" name="SO_KHUNG" required />
         </div>
         <div class="form-group">
             <label class="input-sm">Số máy :</label>
-            <input class="form-control input-sm" type="text" placeholder="Số máy" maxlength="30" name="SO_MAY" required />
+            <input class="form-control input-sm" type="text" placeholder="Số máy" maxlength=10" name="SO_MAY" required />
         </div>
     </div>
     <div class="col-sm-6">
         <div class="form-group">
             <label for="tinhTrang" class="input-sm">Tình trạng xe :</label>
-            <textarea class="form-control" rows="5" id="tinhTrang" name="TINHTRANG"></textarea>
+            <textarea maxlength="1000" class="form-control" required rows="5" id="tinhTrang" name="TINHTRANG"></textarea>
         </div>
         <div class="form-group">
             <label class="input-sm">Đời xe :</label>
-            <input class="form-control input-sm" type="text" placeholder="Đời xe" maxlength="30" name="DOI_XE" required />
+            <select name="DOI_XE" class=" form-control input-sm">
+                @for (int i = 1900; i < DateTime.Now.Year; ++i)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
         </div>
         <div class="form-group">
             <label class="input-sm">Số Km :</label>
-            <input class="form-control input-sm" type="text" placeholder="Số Km" maxlength="30" name="SO_KM" required />
+            <input class="form-control input-sm" type="number" placeholder="Số Km" maxlength="6" name="SO_KM" required />
         </div>
 
         <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span>Lưu</button>
@@ -68,41 +73,41 @@
 
     @*<script>
 
-            ///
-            // Ultility method for comparing date validation
-            //
-            var isAfterStartDate = function (startDateStr, endDateStr) {
-                var inDate = new Date(startDateStr),
-                    eDate = new Date(endDateStr);
-                if (eDate >= inDate) {
-                    return true;
-                } else {
-                    return false;
-                }
+        ///
+        // Ultility method for comparing date validation
+        //
+        var isAfterStartDate = function (startDateStr, endDateStr) {
+            var inDate = new Date(startDateStr),
+                eDate = new Date(endDateStr);
+            if (eDate >= inDate) {
+                return true;
+            } else {
+                return false;
+            }
 
-            };
-            //
-            // Check data validation before submitting form
-            $("form").submit(function (e) {
-                // Firstly, check final payment date and creation date
-                var creationTime = $("#datebox_ngaylapphieu").val();
-                var finalPaymentTime = $("#datebox_hanchotthanhtoan").val();
-                if (isAfterStartDate(creationTime, finalPaymentTime) == false) {
-                    alert("Hạn chót thanh toán phải lớn hơn hoặc cùng với ngày lập phiếu !");
-                    e.preventDefault();
-                }
+        };
+        //
+        // Check data validation before submitting form
+        $("form").submit(function (e) {
+            // Firstly, check final payment date and creation date
+            var creationTime = $("#datebox_ngaylapphieu").val();
+            var finalPaymentTime = $("#datebox_hanchotthanhtoan").val();
+            if (isAfterStartDate(creationTime, finalPaymentTime) == false) {
+                alert("Hạn chót thanh toán phải lớn hơn hoặc cùng với ngày lập phiếu !");
+                e.preventDefault();
+            }
 
-                // check validation of paying
-                var remainder = new Number($("#textbox_sotienconlai").val());
-                var total = new Number($("#textbox_trigia").val());
-                if (remainder >= total) {
-                    alert("Số tiền còn lại phải nhỏ hơn số tổng trị giá phiếu !");
-                    e.preventDefault();
-                }
-            });
-            // update creation date in text box
-            document.getElementById("datebox_ngaylapphieu").valueAsDate = new Date();
+            // check validation of paying
+            var remainder = new Number($("#textbox_sotienconlai").val());
+            var total = new Number($("#textbox_trigia").val());
+            if (remainder >= total) {
+                alert("Số tiền còn lại phải nhỏ hơn số tổng trị giá phiếu !");
+                e.preventDefault();
+            }
+        });
+        // update creation date in text box
+        // document.getElementById("datebox_ngaylapphieu").valueAsDate = new Date();
 
-        </script>*@
+    </script>*@
 }
 

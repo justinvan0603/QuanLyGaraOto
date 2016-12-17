@@ -8,14 +8,14 @@
     <title>@ViewBag.Title</title>
 </head>
 
-<h3 class="text-center" style="color:green;">THÔNG TIN XE</h3>
+<h3 class="text-center" style="color:green;">CẬP NHẬT THÔNG TIN XE</h3>
 
 @using (Html.BeginForm("SuaThongTinXe", "Xe", FormMethod.Post, new { @id = "#suathongtinxe_form" }))
 {
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <div class="form-group">
             <label class="input-sm" style="color : red;">Biển số xe :</label>
-            <input class="form-control input-sm" type="text" maxlength="100" readonly="readonly" value="@Model.selectedXe.BS_XE" name="BS_XE" required />
+            <input class="form-control input-sm" type="text" maxlength="20" value="@Model.selectedXe.BS_XE" name="BS_XE" required />
         </div>
         <div class="form-group ">
             <label class="input-sm">Ngày tiếp nhận :</label>
@@ -23,7 +23,7 @@
         </div>
         <div class="form-group ">
             <label class="input-sm">Mã khách hàng :</label>
-            <input class="form-control input-sm" type="text" value="@Model.selectedXe.MA_KH" readonly="readonly" maxlength="30" name="maNhanVien" required /> <!--auto fill information of the staff-->
+            <input class="form-control input-sm" type="text" value="@(Model.selectedXe.MA_KH == null ? "Cửa hàng" : Model.service.KHACHHANGs.Where(e => e.MA_KH == Model.selectedXe.MA_KH).Single().TEN_KH)" readonly="readonly" maxlength="30" name="maNhanVien" required /> <!--auto fill information of the staff-->
         </div>
         <div class="form-group">
             <label class="input-sm">Hiệu xe :</label>
@@ -44,11 +44,11 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="input-sm">Hình thức :</label>
-        <input class="form-control input-sm" type="text" value="@(Model.selectedXe.HINHTHUC == true ? "Xe bán" : "Xe sửa")" readonly="readonly" maxlength="30" name="HINHTHUC" required />
-    </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label class="input-sm">Hình thức :</label>
+            <input class="form-control input-sm" type="text" value="@(Model.selectedXe.HINHTHUC == true ? "Xe bán" : "Xe sửa")" readonly="readonly" maxlength="30" name="HINHTHUC" required />
+        </div>
         <div class="form-group">
             <label class="input-sm">Số khung :</label>
             <input class="form-control input-sm" type="text" value="@Model.selectedXe.SO_KHUNG" placeholder="Số khung xe" maxlength="30" name="SO_KHUNG" required />
@@ -61,6 +61,9 @@
             <label class="input-sm">Số Km :</label>
             <input class="form-control input-sm" type="text" placeholder="Số Km" value="@Model.selectedXe.SO_KM" maxlength="30" name="SO_KM" required />
         </div>
+
+    </div>
+    <div class="col-sm-4">
         <div class="form-group">
             <label for="tinhTrang" class="input-sm">Tình trạng xe :</label>
             <textarea class="form-control" rows="5" id="tinhTrang" name="TINH_TRANG">@Model.selectedXe.TINH_TRANG</textarea>
@@ -71,45 +74,46 @@
         </div>
         <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
     </div>
-    @*<script>
-
-            ///
-            // Ultility method for comparing date validation
-            //
-            var isAfterStartDate = function (startDateStr, endDateStr) {
-                var inDate = new Date(startDateStr),
-                    eDate = new Date(endDateStr);
-                if (eDate >= inDate) {
-                    return true;
-                } else {
-                    return false;
-                }
-
-            };
-            //
-            // Check data validation before submitting form
-            $("form").submit(function (e) {
-                // Firstly, check final payment date and creation date
-                var creationTime = $("#datebox_ngaylapphieu").val();
-                var finalPaymentTime = $("#datebox_hanchotthanhtoan").val();
-                if (isAfterStartDate(creationTime, finalPaymentTime) == false) {
-                    alert("Hạn chót thanh toán phải lớn hơn hoặc cùng với ngày lập phiếu !");
-                    e.preventDefault();
-                }
-
-                // check validation of paying
-                var remainder = new Number($("#textbox_sotienconlai").val());
-                var total = new Number($("#textbox_trigia").val());
-                if (remainder >= total) {
-                    alert("Số tiền còn lại phải nhỏ hơn số tổng trị giá phiếu !");
-                    e.preventDefault();
-                }
-            });
-            // update creation date in text box
-            document.getElementById("datebox_ngaylapphieu").valueAsDate = new Date();
-
-        </script>*@
 }
+@*<script>
+
+        ///
+        // Ultility method for comparing date validation
+        //
+        var isAfterStartDate = function (startDateStr, endDateStr) {
+            var inDate = new Date(startDateStr),
+                eDate = new Date(endDateStr);
+            if (eDate >= inDate) {
+                return true;
+            } else {
+                return false;
+            }
+
+        };
+        //
+        // Check data validation before submitting form
+        $("form").submit(function (e) {
+            // Firstly, check final payment date and creation date
+            var creationTime = $("#datebox_ngaylapphieu").val();
+            var finalPaymentTime = $("#datebox_hanchotthanhtoan").val();
+            if (isAfterStartDate(creationTime, finalPaymentTime) == false) {
+                alert("Hạn chót thanh toán phải lớn hơn hoặc cùng với ngày lập phiếu !");
+                e.preventDefault();
+            }
+
+            // check validation of paying
+            var remainder = new Number($("#textbox_sotienconlai").val());
+            var total = new Number($("#textbox_trigia").val());
+            if (remainder >= total) {
+                alert("Số tiền còn lại phải nhỏ hơn số tổng trị giá phiếu !");
+                e.preventDefault();
+            }
+        });
+        // update creation date in text box
+        document.getElementById("datebox_ngaylapphieu").valueAsDate = new Date();
+
+    </script>*@
+
 
 
 

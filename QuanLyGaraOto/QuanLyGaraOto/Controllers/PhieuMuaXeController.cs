@@ -39,7 +39,7 @@ namespace QuanLyGaraOto.Controllers
                 }
                 else
                 {
-                    temp.khachHang = "Khách vãn lai";
+                    temp.khachHang = "Khách vãng lai";
                 }
                 temp.nhanVien = this.service.NHANVIENs.Where(e => e.MA_NV == item.MaNV).First().HOTEN; // ten nhan vien
                 temp.maPhieuMua = item.MAPHIEUMUA;
@@ -74,11 +74,18 @@ namespace QuanLyGaraOto.Controllers
                     switch (searchOption)
                     {
                         case 0: { break; }
-                        case 1: break; // search theo ma phieu -> update code sau
-                        case 2:
+                        case 2: { danhSachPhieuMuaXe = danhSachPhieuMuaXe.Where(e => e.maPhieuMua == searchString).ToList(); break; }
+                        case 1:
                             {
-                                danhSachPhieuMuaXe = danhSachPhieuMuaXe.Where(c =>
-                                    c.ngayLapPhieu.Value.Date.Equals(DateTime.Parse(searchString).Date)).ToList(); break;
+                                try
+                                {
+                                    danhSachPhieuMuaXe = danhSachPhieuMuaXe.Where(c =>
+                                        c.ngayLapPhieu.Value.Date.Equals(DateTime.Parse(searchString).Date)).ToList();
+                                }
+                                catch (Exception e)
+                                {
+                                }
+                                break;
                             } // loc theo ngay lap phieu
 
                         default: { break; }
@@ -269,6 +276,7 @@ namespace QuanLyGaraOto.Controllers
                 // after removing the verhincal sale of bill => remove the correspoding receipt that is related to it
                 this.service.SaveChanges();
                 // tra ve 
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xoá thành công! </div> </div> </div>";
                 return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
