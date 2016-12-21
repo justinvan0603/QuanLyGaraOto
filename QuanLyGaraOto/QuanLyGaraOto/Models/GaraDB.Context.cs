@@ -33,9 +33,7 @@ namespace QuanLyGaraOto.Models
         public virtual DbSet<PHIEU_DICHVU> PHIEU_DICHVU { get; set; }
         public virtual DbSet<PHIEU_BAOHANH> PHIEU_BAOHANH { get; set; }
         public virtual DbSet<PHIEU_BANLE> PHIEU_BANLE { get; set; }
-        public virtual DbSet<PHIEU_BANXE> PHIEU_BANXE { get; set; }
         public virtual DbSet<PHIEU_CHI> PHIEU_CHI { get; set; }
-        public virtual DbSet<PHIEU_MUAXE> PHIEU_MUAXE { get; set; }
         public virtual DbSet<NHACUNGCAP> NHACUNGCAPs { get; set; }
         public virtual DbSet<NHOMNHACUNGCAP> NHOMNHACUNGCAPs { get; set; }
         public virtual DbSet<PHUTUNG> PHUTUNGs { get; set; }
@@ -51,5 +49,7 @@ namespace QuanLyGaraOto.Models
         public virtual DbSet<NHANVIEN> NHANVIENs { get; set; }
         public virtual DbSet<THO> THOes { get; set; }
         public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
+        public virtual DbSet<PHIEU_BANXE> PHIEU_BANXE { get; set; }
+        public virtual DbSet<PHIEU_MUAXE> PHIEU_MUAXE { get; set; }
     }
 }

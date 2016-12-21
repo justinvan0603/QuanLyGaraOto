@@ -430,6 +430,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PBX_KH">
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+          <End Role="PHIEU_BANXE" Type="Self.PHIEU_BANXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MA_KH" />
+            </Principal>
+            <Dependent Role="PHIEU_BANXE">
+              <PropertyRef Name="MAKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PBX_NV">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+          <End Role="PHIEU_BANXE" Type="Self.PHIEU_BANXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MA_NV" />
+            </Principal>
+            <Dependent Role="PHIEU_BANXE">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PDH_NCC">
           <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="1" />
           <End Role="PHIEU_DATHANG" Type="Self.PHIEU_DATHANG" Multiplicity="*" />
@@ -610,6 +634,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PMX_KH">
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+          <End Role="PHIEU_MUAXE" Type="Self.PHIEU_MUAXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MA_KH" />
+            </Principal>
+            <Dependent Role="PHIEU_MUAXE">
+              <PropertyRef Name="MAKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PMX_NV">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+          <End Role="PHIEU_MUAXE" Type="Self.PHIEU_MUAXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MA_NV" />
+            </Principal>
+            <Dependent Role="PHIEU_MUAXE">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PNH_NCC">
           <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="0..1" />
           <End Role="PHIEU_NHAPHANG" Type="Self.PHIEU_NHAPHANG" Multiplicity="*" />
@@ -717,6 +765,14 @@
             <End Role="NHOMNGUOIDUNG" EntitySet="NHOMNGUOIDUNG" />
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
           </AssociationSet>
+          <AssociationSet Name="FK_PBX_KH" Association="Self.FK_PBX_KH">
+            <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+            <End Role="PHIEU_BANXE" EntitySet="PHIEU_BANXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PBX_NV" Association="Self.FK_PBX_NV">
+            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+            <End Role="PHIEU_BANXE" EntitySet="PHIEU_BANXE" />
+          </AssociationSet>
           <AssociationSet Name="FK_PDH_NCC" Association="Self.FK_PDH_NCC">
             <End Role="NHACUNGCAP" EntitySet="NHACUNGCAP" />
             <End Role="PHIEU_DATHANG" EntitySet="PHIEU_DATHANG" />
@@ -777,6 +833,14 @@
             <End Role="XE" EntitySet="XE" />
             <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
           </AssociationSet>
+          <AssociationSet Name="FK_PMX_KH" Association="Self.FK_PMX_KH">
+            <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+            <End Role="PHIEU_MUAXE" EntitySet="PHIEU_MUAXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PMX_NV" Association="Self.FK_PMX_NV">
+            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+            <End Role="PHIEU_MUAXE" EntitySet="PHIEU_MUAXE" />
+          </AssociationSet>
           <AssociationSet Name="FK_PNH_NCC" Association="Self.FK_PNH_NCC">
             <End Role="NHACUNGCAP" EntitySet="NHACUNGCAP" />
             <End Role="PHIEU_NHAPHANG" EntitySet="PHIEU_NHAPHANG" />
@@ -833,13 +897,7 @@
           </AssociationSet>
           <EntitySet Name="PHIEU_BAOHANH" EntityType="GARADBModel.PHIEU_BAOHANH" />
           <EntitySet Name="PHIEU_BANLE" EntityType="GARADBModel.PHIEU_BANLE" />
-          <EntitySet Name="PHIEU_BANXE" EntityType="GARADBModel.PHIEU_BANXE" />
           <EntitySet Name="PHIEU_CHI" EntityType="GARADBModel.PHIEU_CHI" />
-          <EntitySet Name="PHIEU_MUAXE" EntityType="GARADBModel.PHIEU_MUAXE" />
-          <AssociationSet Name="FK_PHIEUBANXE_XE" Association="GARADBModel.FK_PHIEUBANXE_XE">
-            <End Role="XE" EntitySet="XEs" />
-            <End Role="PHIEU_BANXE" EntitySet="PHIEU_BANXE" />
-          </AssociationSet>
           <EntitySet Name="NHACUNGCAPs" EntityType="GARADBModel.NHACUNGCAP" />
           <EntitySet Name="NHOMNHACUNGCAPs" EntityType="GARADBModel.NHOMNHACUNGCAP" />
           <EntitySet Name="PHUTUNGs" EntityType="GARADBModel.PHUTUNG" />
@@ -950,6 +1008,28 @@
           <AssociationSet Name="FK_PHIEUTIEPNHAN_KHACHHANG" Association="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG">
             <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
             <End Role="PHIEU_TIEPNHAN" EntitySet="PHIEU_TIEPNHAN" />
+          </AssociationSet>
+          <EntitySet Name="PHIEU_BANXE" EntityType="GARADBModel.PHIEU_BANXE" />
+          <EntitySet Name="PHIEU_MUAXE" EntityType="GARADBModel.PHIEU_MUAXE" />
+          <AssociationSet Name="FK_PBX_KH" Association="GARADBModel.FK_PBX_KH">
+            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
+            <End Role="PHIEU_BANXE" EntitySet="PHIEU_BANXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PMX_KH" Association="GARADBModel.FK_PMX_KH">
+            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
+            <End Role="PHIEU_MUAXE" EntitySet="PHIEU_MUAXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PBX_NV" Association="GARADBModel.FK_PBX_NV">
+            <End Role="NHANVIEN" EntitySet="NHANVIENs" />
+            <End Role="PHIEU_BANXE" EntitySet="PHIEU_BANXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PMX_NV" Association="GARADBModel.FK_PMX_NV">
+            <End Role="NHANVIEN" EntitySet="NHANVIENs" />
+            <End Role="PHIEU_MUAXE" EntitySet="PHIEU_MUAXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHIEUBANXE_XE" Association="GARADBModel.FK_PHIEUBANXE_XE">
+            <End Role="XE" EntitySet="XEs" />
+            <End Role="PHIEU_BANXE" EntitySet="PHIEU_BANXE" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="XE">
@@ -1096,22 +1176,6 @@
           <Property Name="SoTienConLai" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="CHITIET_PHIEUBANLE" Relationship="GARADBModel.FK_CTBANLE_PHIEUBANLE" FromRole="PHIEU_BANLE" ToRole="CHITIET_PHIEUBANLE" />
         </EntityType>
-        <EntityType Name="PHIEU_BANXE">
-          <Key>
-            <PropertyRef Name="ID_PHIEUBANXE" />
-          </Key>
-          <Property Name="ID_PHIEUBANXE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MAPHIEUBAN" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NGAYLAP" Type="DateTime" Precision="0" />
-          <Property Name="HANCHOTTHANHTOAN" Type="DateTime" Precision="0" />
-          <Property Name="HANBAOHANH" Type="Int32" />
-          <Property Name="BS_XE" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
-          <Property Name="TRIGIA" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="SOTIENCONLAI" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="MAKH" Type="Int32" />
-          <Property Name="MaNV" Type="Int32" />
-          <NavigationProperty Name="XE" Relationship="GARADBModel.FK_PHIEUBANXE_XE" FromRole="PHIEU_BANXE" ToRole="XE" />
-        </EntityType>
         <EntityType Name="PHIEU_CHI">
           <Key>
             <PropertyRef Name="ID" />
@@ -1127,30 +1191,6 @@
           <NavigationProperty Name="PHIEU_NHAPHANG" Relationship="GARADBModel.FK_PHIEUCHI_PHIEU_NHAPHANG" FromRole="PHIEU_CHI" ToRole="PHIEU_NHAPHANG" />
           <NavigationProperty Name="NHANVIEN" Relationship="GARADBModel.FK_PHIEUCHI_NHANVIEN" FromRole="PHIEU_CHI" ToRole="NHANVIEN" />
         </EntityType>
-        <EntityType Name="PHIEU_MUAXE">
-          <Key>
-            <PropertyRef Name="ID_PHIEUMUAXE" />
-          </Key>
-          <Property Name="ID_PHIEUMUAXE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MAPHIEUMUA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NGAYLAP" Type="DateTime" Precision="0" />
-          <Property Name="MAKH" Type="Int32" />
-          <Property Name="MaNV" Type="Int32" />
-          <Property Name="BS_XE" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
-          <Property Name="TRIGIA" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
-        <Association Name="FK_PHIEUBANXE_XE">
-          <End Type="GARADBModel.XE" Role="XE" Multiplicity="0..1" />
-          <End Type="GARADBModel.PHIEU_BANXE" Role="PHIEU_BANXE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="XE">
-              <PropertyRef Name="BS_XE" />
-            </Principal>
-            <Dependent Role="PHIEU_BANXE">
-              <PropertyRef Name="BS_XE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="NHACUNGCAP">
           <Key>
             <PropertyRef Name="MaNCC" />
@@ -1492,6 +1532,8 @@
           <NavigationProperty Name="PHIEU_CHI" Relationship="GARADBModel.FK_PHIEUCHI_NHANVIEN" FromRole="NHANVIEN" ToRole="PHIEU_CHI" />
           <NavigationProperty Name="PHIEU_THUTIEN" Relationship="GARADBModel.FK_PHIEUTHUTIEN_NHANVIEN" FromRole="NHANVIEN" ToRole="PHIEU_THUTIEN" />
           <NavigationProperty Name="PHIEU_TIEPNHAN" Relationship="GARADBModel.FK_PHIEUTIEPNHAN_NHANVIEN" FromRole="NHANVIEN" ToRole="PHIEU_TIEPNHAN" />
+          <NavigationProperty Name="PHIEU_BANXE" Relationship="GARADBModel.FK_PBX_NV" FromRole="NHANVIEN" ToRole="PHIEU_BANXE" />
+          <NavigationProperty Name="PHIEU_MUAXE" Relationship="GARADBModel.FK_PMX_NV" FromRole="NHANVIEN" ToRole="PHIEU_MUAXE" />
         </EntityType>
         <EntityType Name="THO">
           <Key>
@@ -1624,6 +1666,8 @@
           <Property Name="SOTIENNO" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="GIOITINH" Type="Boolean" />
           <NavigationProperty Name="PHIEU_TIEPNHAN" Relationship="GARADBModel.FK_PHIEUTIEPNHAN_KHACHHANG" FromRole="KHACHHANG" ToRole="PHIEU_TIEPNHAN" />
+          <NavigationProperty Name="PHIEU_BANXE" Relationship="GARADBModel.FK_PBX_KH" FromRole="KHACHHANG" ToRole="PHIEU_BANXE" />
+          <NavigationProperty Name="PHIEU_MUAXE" Relationship="GARADBModel.FK_PMX_KH" FromRole="KHACHHANG" ToRole="PHIEU_MUAXE" />
         </EntityType>
         <Association Name="FK_PHIEUTIEPNHAN_KHACHHANG">
           <End Type="GARADBModel.KHACHHANG" Role="KHACHHANG" Multiplicity="1" />
@@ -1634,6 +1678,98 @@
             </Principal>
             <Dependent Role="PHIEU_TIEPNHAN">
               <PropertyRef Name="MA_KH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PHIEU_BANXE">
+          <Key>
+            <PropertyRef Name="ID_PHIEUBANXE" />
+          </Key>
+          <Property Name="ID_PHIEUBANXE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MAPHIEUBAN" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NGAYLAP" Type="DateTime" Precision="0" />
+          <Property Name="HANCHOTTHANHTOAN" Type="DateTime" Precision="0" />
+          <Property Name="HANBAOHANH" Type="Int32" />
+          <Property Name="BS_XE" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="TRIGIA" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SOTIENCONLAI" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MAKH" Type="Int32" />
+          <Property Name="MaNV" Type="Int32" />
+          <NavigationProperty Name="KHACHHANG" Relationship="GARADBModel.FK_PBX_KH" FromRole="PHIEU_BANXE" ToRole="KHACHHANG" />
+          <NavigationProperty Name="NHANVIEN" Relationship="GARADBModel.FK_PBX_NV" FromRole="PHIEU_BANXE" ToRole="NHANVIEN" />
+          <NavigationProperty Name="XE" Relationship="GARADBModel.FK_PHIEUBANXE_XE" FromRole="PHIEU_BANXE" ToRole="XE" />
+        </EntityType>
+        <EntityType Name="PHIEU_MUAXE">
+          <Key>
+            <PropertyRef Name="ID_PHIEUMUAXE" />
+          </Key>
+          <Property Name="ID_PHIEUMUAXE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MAPHIEUMUA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NGAYLAP" Type="DateTime" Precision="0" />
+          <Property Name="MAKH" Type="Int32" />
+          <Property Name="MaNV" Type="Int32" />
+          <Property Name="BS_XE" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="TRIGIA" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="KHACHHANG" Relationship="GARADBModel.FK_PMX_KH" FromRole="PHIEU_MUAXE" ToRole="KHACHHANG" />
+          <NavigationProperty Name="NHANVIEN" Relationship="GARADBModel.FK_PMX_NV" FromRole="PHIEU_MUAXE" ToRole="NHANVIEN" />
+        </EntityType>
+        <Association Name="FK_PBX_KH">
+          <End Type="GARADBModel.KHACHHANG" Role="KHACHHANG" Multiplicity="0..1" />
+          <End Type="GARADBModel.PHIEU_BANXE" Role="PHIEU_BANXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MA_KH" />
+            </Principal>
+            <Dependent Role="PHIEU_BANXE">
+              <PropertyRef Name="MAKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PMX_KH">
+          <End Type="GARADBModel.KHACHHANG" Role="KHACHHANG" Multiplicity="0..1" />
+          <End Type="GARADBModel.PHIEU_MUAXE" Role="PHIEU_MUAXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MA_KH" />
+            </Principal>
+            <Dependent Role="PHIEU_MUAXE">
+              <PropertyRef Name="MAKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PBX_NV">
+          <End Type="GARADBModel.NHANVIEN" Role="NHANVIEN" Multiplicity="0..1" />
+          <End Type="GARADBModel.PHIEU_BANXE" Role="PHIEU_BANXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MA_NV" />
+            </Principal>
+            <Dependent Role="PHIEU_BANXE">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PMX_NV">
+          <End Type="GARADBModel.NHANVIEN" Role="NHANVIEN" Multiplicity="0..1" />
+          <End Type="GARADBModel.PHIEU_MUAXE" Role="PHIEU_MUAXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MA_NV" />
+            </Principal>
+            <Dependent Role="PHIEU_MUAXE">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHIEUBANXE_XE">
+          <End Type="GARADBModel.XE" Role="XE" Multiplicity="0..1" />
+          <End Type="GARADBModel.PHIEU_BANXE" Role="PHIEU_BANXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XE">
+              <PropertyRef Name="BS_XE" />
+            </Principal>
+            <Dependent Role="PHIEU_BANXE">
+              <PropertyRef Name="BS_XE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1743,22 +1879,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PHIEU_BANXE">
-            <EntityTypeMapping TypeName="GARADBModel.PHIEU_BANXE">
-              <MappingFragment StoreEntitySet="PHIEU_BANXE">
-                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
-                <ScalarProperty Name="MAKH" ColumnName="MAKH" />
-                <ScalarProperty Name="SOTIENCONLAI" ColumnName="SOTIENCONLAI" />
-                <ScalarProperty Name="TRIGIA" ColumnName="TRIGIA" />
-                <ScalarProperty Name="BS_XE" ColumnName="BS_XE" />
-                <ScalarProperty Name="HANBAOHANH" ColumnName="HANBAOHANH" />
-                <ScalarProperty Name="HANCHOTTHANHTOAN" ColumnName="HANCHOTTHANHTOAN" />
-                <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
-                <ScalarProperty Name="MAPHIEUBAN" ColumnName="MAPHIEUBAN" />
-                <ScalarProperty Name="ID_PHIEUBANXE" ColumnName="ID_PHIEUBANXE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PHIEU_CHI">
             <EntityTypeMapping TypeName="GARADBModel.PHIEU_CHI">
               <MappingFragment StoreEntitySet="PHIEU_CHI">
@@ -1770,19 +1890,6 @@
                 <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
                 <ScalarProperty Name="MA_PHIEUCHI" ColumnName="MA_PHIEUCHI" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PHIEU_MUAXE">
-            <EntityTypeMapping TypeName="GARADBModel.PHIEU_MUAXE">
-              <MappingFragment StoreEntitySet="PHIEU_MUAXE">
-                <ScalarProperty Name="TRIGIA" ColumnName="TRIGIA" />
-                <ScalarProperty Name="BS_XE" ColumnName="BS_XE" />
-                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
-                <ScalarProperty Name="MAKH" ColumnName="MAKH" />
-                <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
-                <ScalarProperty Name="MAPHIEUMUA" ColumnName="MAPHIEUMUA" />
-                <ScalarProperty Name="ID_PHIEUMUAXE" ColumnName="ID_PHIEUMUAXE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1959,6 +2066,35 @@
                 <ScalarProperty Name="CMND" ColumnName="CMND" />
                 <ScalarProperty Name="TEN_KH" ColumnName="TEN_KH" />
                 <ScalarProperty Name="MA_KH" ColumnName="MA_KH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHIEU_BANXE">
+            <EntityTypeMapping TypeName="GARADBModel.PHIEU_BANXE">
+              <MappingFragment StoreEntitySet="PHIEU_BANXE">
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="MAKH" ColumnName="MAKH" />
+                <ScalarProperty Name="SOTIENCONLAI" ColumnName="SOTIENCONLAI" />
+                <ScalarProperty Name="TRIGIA" ColumnName="TRIGIA" />
+                <ScalarProperty Name="BS_XE" ColumnName="BS_XE" />
+                <ScalarProperty Name="HANBAOHANH" ColumnName="HANBAOHANH" />
+                <ScalarProperty Name="HANCHOTTHANHTOAN" ColumnName="HANCHOTTHANHTOAN" />
+                <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
+                <ScalarProperty Name="MAPHIEUBAN" ColumnName="MAPHIEUBAN" />
+                <ScalarProperty Name="ID_PHIEUBANXE" ColumnName="ID_PHIEUBANXE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHIEU_MUAXE">
+            <EntityTypeMapping TypeName="GARADBModel.PHIEU_MUAXE">
+              <MappingFragment StoreEntitySet="PHIEU_MUAXE">
+                <ScalarProperty Name="TRIGIA" ColumnName="TRIGIA" />
+                <ScalarProperty Name="BS_XE" ColumnName="BS_XE" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="MAKH" ColumnName="MAKH" />
+                <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
+                <ScalarProperty Name="MAPHIEUMUA" ColumnName="MAPHIEUMUA" />
+                <ScalarProperty Name="ID_PHIEUMUAXE" ColumnName="ID_PHIEUMUAXE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

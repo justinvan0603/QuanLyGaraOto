@@ -21,5 +21,8 @@ namespace QuanLyGaraOto.Models
         public Nullable<int> MaNV { get; set; }
         public string BS_XE { get; set; }
         public Nullable<decimal> TRIGIA { get; set; }
+    
+        public virtual KHACHHANG KHACHHANG { get; set; }
+        public virtual NHANVIEN NHANVIEN { get; set; }
     }
 }

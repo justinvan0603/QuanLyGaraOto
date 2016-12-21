@@ -25,6 +25,8 @@ namespace QuanLyGaraOto.Models
         public Nullable<int> MAKH { get; set; }
         public Nullable<int> MaNV { get; set; }
     
+        public virtual KHACHHANG KHACHHANG { get; set; }
+        public virtual NHANVIEN NHANVIEN { get; set; }
         public virtual XE XE { get; set; }
     }
 }

@@ -18,6 +18,8 @@ namespace QuanLyGaraOto.Models
         public KHACHHANG()
         {
             this.PHIEU_TIEPNHAN = new HashSet<PHIEU_TIEPNHAN>();
+            this.PHIEU_BANXE = new HashSet<PHIEU_BANXE>();
+            this.PHIEU_MUAXE = new HashSet<PHIEU_MUAXE>();
         }
     
         public int MA_KH { get; set; }
@@ -30,5 +32,9 @@ namespace QuanLyGaraOto.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEU_TIEPNHAN> PHIEU_TIEPNHAN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PHIEU_BANXE> PHIEU_BANXE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PHIEU_MUAXE> PHIEU_MUAXE { get; set; }
     }
 }
