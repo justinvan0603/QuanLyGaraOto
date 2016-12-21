@@ -206,7 +206,8 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuBanLe.PhieuBanLe.HanChotThanhToan = DateTime.Now.Date.AddDays(int.Parse(a.GIATRI)).Date;
             DateTime t = DateTime.Now;
             //t.AddDays(30)
-            vmPhieuBanLe.TenNV = "";
+            //Sua loi khong hien thi ten nguoi lap!!
+            //vmPhieuBanLe.TenNV = "";
             //vmPhieuBanLe.TenNV = context.NHANVIENs.Single(s => s.USERNAME.Equals(Session["Username"])).HOTEN;
             return View(vmPhieuBanLe);
         }
@@ -307,6 +308,15 @@ namespace QuanLyGaraOto.Controllers
             GARADBEntities context = new GARADBEntities();
             var ListPhuTung = context.PHUTUNGs.Where(pt => pt.MA_HIEUXE.Equals(hieuxe)).Select(pt => "<option value='" + pt.ID + "' title='" + pt.SOLUONGTON + "' id='" + pt.MA_PHUTUNG + "' itemscope='" + pt.TG_BAOHANH + "' itemprop='" + pt.DONGIAXUAT + "'>" + pt.TEN_PHUTUNG + "</option>");
             return Content(String.Join("", ListPhuTung));
+        }
+        [HttpPost]
+        public JsonResult ThemChiTiet(CHITIET_PHIEUBANLE chitiet)
+        {
+            GARADBEntities context = new GARADBEntities();
+            context.CHITIET_PHIEUBANLE.Add(chitiet);
+            context.SaveChanges();
+            TempData["msg"] = @"<div id=""rowSucess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm chi tiết thành công! </div> </div> </div>";
+            return Json(new { issucess = "1", newid = "1", message = "OK" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

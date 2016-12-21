@@ -80,16 +80,21 @@ namespace QuanLyGaraOto.Reports
 
             DataTable tb = ds.TC_BAOCAOTHUCHI_Store;
             ThuChiReportViewer.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("GaraDBDataSet", tb));
-            string deviceInfo =
-          "<DeviceInfo>" +
+            string deviceInfo = "<DeviceInfo>" +
           "  <OutputFormat>EMF</OutputFormat>" +
-          "  <PageWidth>8.5in</PageWidth>" +
-          "  <PageHeight>11in</PageHeight>" +
-          "<MarginTop>0.25in</MarginTop>"+
-                "<MarginLeft>0.25in</MarginLeft>"+
-                "<MarginRight>0.25in</MarginRight>"+
-                "<MarginBottom>0.25in</MarginBottom>"+
+          "  <PageWidth>29.7cm</PageWidth>" +
+          "  <PageHeight>21cm</PageHeight>" +
+
           "</DeviceInfo>";
+          //"<DeviceInfo>" +
+          //"  <OutputFormat>EMF</OutputFormat>" +
+          //"  <PageWidth>8.5in</PageWidth>" +
+          //"  <PageHeight>11in</PageHeight>" +
+          //"<MarginTop>0.25in</MarginTop>"+
+          //      "<MarginLeft>0.25in</MarginLeft>"+
+          //      "<MarginRight>0.25in</MarginRight>"+
+          //      "<MarginBottom>0.25in</MarginBottom>"+
+          //"</DeviceInfo>";
             //DataTable tb = ds.KH_BAOCAOCONGNO_Store;
             //ThuChiReportViewer.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("GaraDBDataSet", tb));
             byte[] bytes = ThuChiReportViewer.LocalReport.Render("PDF", deviceInfo, out mimeType, out encoding, out extension, out streamIds, out warnings);

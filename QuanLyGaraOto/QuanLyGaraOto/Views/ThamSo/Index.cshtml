@@ -15,7 +15,7 @@
 @Html.Raw(TempData["msg"])
 <h3 class="text-center" style="color:green;">DANH SÁCH THAM SỐ HỆ THỐNG</h3>
 
-@using (@Html.BeginForm("Index", "KhachHang", FormMethod.Get, new { @class = "form-inline" }))
+@using (@Html.BeginForm("Index", "ThamSo", FormMethod.Get, new { @class = "form-inline" }))
 {
     <div class="form-inline">
 
@@ -24,7 +24,7 @@
             @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control input-sm" })
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-info btn-sm" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+            <button type="submit" class="btn btn-info btn-sm" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Tìm</button>
         </div>
     </div>
 }

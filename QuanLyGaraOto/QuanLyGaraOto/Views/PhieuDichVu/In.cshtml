@@ -32,7 +32,7 @@
 @using QuanLyGaraOto.Models;
 @model QuanLyGaraOto.ViewModel.PhieuDVViewModel
 @{
-    Layout = null;
+   // Layout = null;
     //int slTon = 0;
     //if (Model.ListPhuTung.Count > 0)
     //{
@@ -131,8 +131,8 @@
                     <div class="panel-heading">Thông tin chi tiết:</div>
                     <div class="panel-body">
 
-                        <div class="table-responsive" style="padding-top:10px; margin-right:20px;">
-                            <table id="chitietphieu-table" class="table table-bordered table table-hover table-condensed ">
+                        <div class="table-responsive" style="padding-top:10px; margin-right:20px; width:auto; overflow-x: hidden;">
+                            <table id="chitietphieu-table" class="table table-bordered table table-hover table-condensed " style="overflow-x: hidden;" >
                                 <thead style="color:red;">
                                     <tr class="trFirstRow" style="color:red;" data-id="-1">
                                         <th style="display:none">Id</th>

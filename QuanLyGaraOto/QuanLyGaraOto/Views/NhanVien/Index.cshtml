@@ -33,7 +33,7 @@
             @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control input-sm" })
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-info btn-sm" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+            <button type="submit" class="btn btn-info btn-sm" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Tìm</button>
         </div>
     </div>
 }
@@ -76,8 +76,8 @@
 
                         <td style="vertical-align: middle">
 
-                            @Html.ActionLink("Sửa", "SuaNhanVien", new { id = @item.MaNV }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) |
-
+                            @Html.ActionLink("Sửa", "SuaNhanVien", new { id = @item.MaNV }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" }) 
+                            @*Da fix du dau gach*@
                             <!--<button id="btnDelete" type="button" class="btn btn-danger glyphicon-remove">Delete</button>-->
                             <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove btn-sm" type="button">Xóa</button>
 

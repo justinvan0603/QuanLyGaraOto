@@ -278,13 +278,13 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>0.79167in</Height>
+    <Height>0.76042in</Height>
     <Style />
   </Body>
   <Width>6.59375in</Width>
   <Page>
     <PageHeader>
-      <Height>1.57292in</Height>
+      <Height>2.10417in</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -307,6 +307,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox14</rd:DefaultName>
+          <Top>0.6018in</Top>
+          <Left>0.17708in</Left>
           <Height>0.25in</Height>
           <Width>1.35417in</Width>
           <Style>
@@ -326,7 +328,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>BÁO CÁO CÔNG NỢ KHÁCH HÀNG</Value>
+                  <Value>BÁO CÁO THU CHI</Value>
                   <Style>
                     <FontFamily>Times New Roman</FontFamily>
                     <FontSize>14pt</FontSize>
@@ -338,10 +340,10 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox15</rd:DefaultName>
-          <Top>0.37264in</Top>
-          <Left>1.09248in</Left>
+          <Top>0.92125in</Top>
+          <Left>1.97663in</Left>
           <Height>0.25in</Height>
-          <Width>3.55208in</Width>
+          <Width>2.2096in</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
@@ -371,8 +373,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox16</rd:DefaultName>
-          <Top>0.81709in</Top>
-          <Left>1.63415in</Left>
+          <Top>1.3657in</Top>
+          <Left>1.80997in</Left>
           <Height>0.25in</Height>
           <Width>0.70833in</Width>
           <ZIndex>2</ZIndex>
@@ -406,8 +408,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox17</rd:DefaultName>
-          <Top>0.81709in</Top>
-          <Left>2.34248in</Left>
+          <Top>1.3657in</Top>
+          <Left>2.5183in</Left>
           <Height>0.25in</Height>
           <Width>1.89583in</Width>
           <ZIndex>3</ZIndex>
@@ -439,8 +441,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox16</rd:DefaultName>
-          <Top>1.25348in</Top>
-          <Left>1.09248in</Left>
+          <Top>1.80209in</Top>
+          <Left>1.2683in</Left>
           <Height>0.25in</Height>
           <Width>0.70833in</Width>
           <ZIndex>4</ZIndex>
@@ -472,8 +474,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>TuNgay</rd:DefaultName>
-          <Top>1.25348in</Top>
-          <Left>1.80081in</Left>
+          <Top>1.80209in</Top>
+          <Left>1.97663in</Left>
           <Height>0.25in</Height>
           <Width>1.30208in</Width>
           <ZIndex>5</ZIndex>
@@ -505,8 +507,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox16</rd:DefaultName>
-          <Top>1.25348in</Top>
-          <Left>3.35416in</Left>
+          <Top>1.80209in</Top>
+          <Left>3.52998in</Left>
           <Height>0.25in</Height>
           <Width>0.70833in</Width>
           <ZIndex>6</ZIndex>
@@ -538,8 +540,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>DenNgay</rd:DefaultName>
-          <Top>1.25348in</Top>
-          <Left>4.07638in</Left>
+          <Top>1.80209in</Top>
+          <Left>4.2522in</Left>
           <Height>0.25in</Height>
           <Width>1.38542in</Width>
           <ZIndex>7</ZIndex>

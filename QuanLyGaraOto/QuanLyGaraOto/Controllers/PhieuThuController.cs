@@ -71,7 +71,7 @@ namespace QuanLyGaraOto.Controllers
             lapPhieuThuViewModel = new LapPhieuThuViewModel();
             lapPhieuThuViewModel.PhieuThuTien.NGAYLAP = DateTime.Now;
             lapPhieuThuViewModel.SoTienThuToiThieu =
-                int.Parse(context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO == "SoTienThuToiThieu").GIATRI);
+            int.Parse(context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO == "SoTienThuToiThieu").GIATRI);
             int UserId = int.Parse(Session["UserID"].ToString());
             lapPhieuThuViewModel.PhieuThuTien.MA_NV = UserId;
             lapPhieuThuViewModel.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == UserId).HOTEN;

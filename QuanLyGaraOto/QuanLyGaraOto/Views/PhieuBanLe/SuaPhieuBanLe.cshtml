@@ -47,7 +47,7 @@
     }
 </style>
 @Html.Raw(TempData["msg"])
-<h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU DỊCH VỤ</h3>
+<h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU BÁN LẺ</h3>
 @using (Html.BeginForm("SuaPhieuBanLe", "PhieuBanLe", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <input type="hidden" name="PhieuBanLe.ID_PHIEUBANLE" value="@Model.PhieuBanLe.ID_PHIEUBANLE" />
@@ -76,6 +76,12 @@
             <tr>
                 <td><label class="input-sm">Người lập:</label></td>
                 <td><label class="input-sm">@Model.TenNV</label></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="input-sm">Tên khách hàng:</label></td>
+                <td><label class="input-sm">@Model.TenKH</label></td>
                 <td></td>
                 <td></td>
             </tr>
@@ -140,9 +146,9 @@
                 <label class="input-sm">Số lượng:</label>
                 <input type="number" maxlength="3" pattern="[0-9]" class=" txtSoLuong form-control input-sm" style="width:8%" />
                 <label class="input-sm">Đơn giá:</label>
-                <input type="number" maxlength="8" pattern="[0-9]" class="txtDonGia form-control input-sm" style="width:10%" />
+                <input type="number" maxlength="8" pattern="[0-9]" class="txtDonGia form-control input-sm" style="width:10%" readonly/>
                 <label class="input-sm">Bảo hành:</label>
-                <input type="number" maxlength="2" pattern="[0-9]" class="txtBH form-control input-sm" style="width:6%;" />
+                <input type="number" maxlength="2" pattern="[0-9]" class="txtBH form-control input-sm" style="width:6%;" readonly/>
                 <label class="input-sm">Thành tiền:</label>
                 <label class="lblThanhTien input-sm" style="width:10%"></label>
 

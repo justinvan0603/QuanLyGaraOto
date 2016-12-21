@@ -67,6 +67,8 @@ namespace QuanLyGaraOto.Controllers
                 {
                     var target = context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO.Equals(thamso.TENTHAMSO));
                     target.GIATRI = thamso.GIATRI;
+                    //Moi them sua theo yeu cau cua Son
+                    context.SaveChanges();
                     TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Đã cập nhật thành công! </div> </div> </div>";
                     return RedirectToAction("Index", new { currentFilter = String.Empty, searchString = String.Empty });
                 }

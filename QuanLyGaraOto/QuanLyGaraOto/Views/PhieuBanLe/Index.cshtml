@@ -38,7 +38,7 @@
             @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control input-sm" })
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-info btn-sm" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+            <button type="submit" class="btn btn-info btn-sm" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Tìm</button>
         </div>
     </div>
 }
@@ -79,8 +79,8 @@
                         <td style="vertical-align: middle">
                             @*@Html.ActionLink("Sửa", "SuaPhieuBanLe", new { id = @item.ID_PHIEUBANLE }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })*@
                             <button class="btnDelete btn btn-danger glyphicon glyphicon-remove btn-sm" type="button">Xóa</button>
-                            <a href="@Url.Action("In", "PhieuBanLe", new { id = @item.ID_PHIEUBANLE})" class="btn btn-info glyphicon glyphicon-pencil btn-sm">In</a>
-                            <a href="@Url.Action("SuaPhieuBanLe", "PhieuBanLe", new { idphieu = @item.ID_PHIEUBANLE})" class="btn btn-warning glyphicon glyphicon-pencil btn-sm">Sửa</a>
+                            <a href="@Url.Action("In", "PhieuBanLe", new { id = @item.ID_PHIEUBANLE})" class="btn btn-info glyphicon glyphicon glyphicon-print btn-sm">In</a>
+                            <a href="@Url.Action("SuaPhieuBanLe", "PhieuBanLe", new { id = @item.ID_PHIEUBANLE})" class="btn btn-warning glyphicon glyphicon-pencil btn-sm">Sửa</a>
                             <br />
                             <a href="@Url.Action("ThemMoi", "PhieuThu", new { idphieu = @item.ID_PHIEUBANLE, type = "pbl" })" class="btn btn-primary btn-sm glyphicon glyphicon-plus">Lập phiếu thu</a>
                             @if (Model.service.CHITIET_PHIEUBH.Where(e => e.MAPHIEU_BANLE == item.ID_PHIEUBANLE).Count() > 0)
