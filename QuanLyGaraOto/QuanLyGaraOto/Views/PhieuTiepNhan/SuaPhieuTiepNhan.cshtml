@@ -8,42 +8,46 @@
     <title>@ViewBag.Title</title>
 </head>
 
-<h3 class="text-center" style="color:green;">Sửa thông tin phiếu tiếp nhận</h3>
+<h3 class="text-center" style="color:green;">SỬA THÔNG TIN PHIẾU TIẾP NHẬN</h3>
 
 @using (Html.BeginForm("SuaPhieuTiepNhan", "PhieuTiepNhan", FormMethod.Post, new { @id = "#suathongtinphieutiepnhan_form" }))
 {
-    <div class="form-group">
-        <label class="input-sm" style="color : red;">Mã phiếu :</label>
-        <input class="form-control input-sm" type="text" maxlength="100" readonly="readonly" value="@(Model.selectedPhieuTiepNhan.MA_PHIEUTIEPNHAN != null ? Model.selectedPhieuTiepNhan.MA_PHIEUTIEPNHAN.ToString() : "" )" name="MA_PHIEUTIEPNHAN" required />
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label class="input-sm" style="color : red;">Mã phiếu :</label>
+            <input class="form-control input-sm" type="text" maxlength="100" readonly="readonly" value="@(Model.selectedPhieuTiepNhan.MA_PHIEUTIEPNHAN != null ? Model.selectedPhieuTiepNhan.MA_PHIEUTIEPNHAN.ToString() : "" )" name="MA_PHIEUTIEPNHAN" required />
+        </div>
+        <div class="form-group ">
+            <label class="input-sm">Ngày tiếp nhận :</label>
+            <input class="form-control input-sm" readonly="readonly" id="datebox_ngaytiepnhan" type="text" value="@String.Format("{0:yyyy/MM/dd}", @Model.selectedPhieuTiepNhan.NGAYLAP)" maxlength="30" name="NGAYLAP" required />
+        </div>
+        <div class="form-group ">
+            <label class="input-sm">Khách hàng :</label>
+            <input class="form-control input-sm" type="text" value="@Model.selectedPhieuTiepNhan.KHACHHANG.TEN_KH" readonly="readonly" maxlength="30" name="MA_KH" required /> <!--auto fill information of the staff-->
+        </div>
+        <div class="form-group ">
+            <label class="input-sm">Biển số xe :</label>
+            <input class="form-control input-sm" readonly="readonly" type="text" value="@Model.selectedPhieuTiepNhan.BIENSO_XE" maxlength="30" name="BIENSO_XE" required />
+            <a href="/Xe/SuaThongTinXe?bienSoXe=@Model.selectedPhieuTiepNhan.BIENSO_XE">Sửa thông tin xe</a> <!-- toi trang sua thong tin xe -->
+        </div>
     </div>
-    <div class="form-group ">
-        <label class="input-sm">Ngày tiếp nhận :</label>
-        <input class="form-control input-sm" readonly="readonly" id="datebox_ngaytiepnhan" type="text" value="@String.Format("{0:yyyy/MM/dd}", @Model.selectedPhieuTiepNhan.NGAYLAP)" maxlength="30" name="NGAYLAP" required />
-    </div>
-    <div class="form-group ">
-        <label class="input-sm">Khách hàng :</label>
-        <input class="form-control input-sm" type="text" value="@Model.selectedPhieuTiepNhan.KHACHHANG.TEN_KH" readonly="readonly" maxlength="30" name="MA_KH" required /> <!--auto fill information of the staff-->
-    </div>
-    <div class="form-group ">
-        <label class="input-sm">Biển số xe :</label>
-        <input class="form-control input-sm" readonly="readonly" type="text" value="@Model.selectedPhieuTiepNhan.BIENSO_XE" maxlength="30" name="BIENSO_XE" required />
-        <a href="/Xe/SuaThongTinXe?bienSoXe=@Model.selectedPhieuTiepNhan.BIENSO_XE">Sửa thông tin xe</a> <!-- toi trang sua thong tin xe -->
-    </div>
-    <div class="form-group ">
-        <label class="input-sm">Mã số chờ :</label>
-        <input class="form-control input-sm" type="text" value="@Model.selectedPhieuTiepNhan.MASOCHO" readonly="readonly" maxlength="30" name="MASOCHO" required /> <!--auto fill information of the staff-->
-    </div>
-    <div class="form-group ">
-        <label class="input-sm">Ngày trả xe :</label>
-        <input class="form-control input-sm date ngayhengiao" id="datepicker_ngaytra" type="text" value="@String.Format("{0:yyyy/MM/dd}", @Model.selectedPhieuTiepNhan.NGAYTRAXE)" name="NGAYTRAXE" placeholder="27/8/2016" />
+    <div class="col-sm-4">
+        <div class="form-group ">
+            <label class="input-sm">Mã số chờ :</label>
+            <input class="form-control input-sm" type="text" value="@Model.selectedPhieuTiepNhan.MASOCHO" readonly="readonly" maxlength="30" name="MASOCHO" required /> <!--auto fill information of the staff-->
+        </div>
+        <div class="form-group ">
+            <label class="input-sm">Ngày trả xe :</label>
+            <input class="form-control input-sm date ngayhengiao" id="datepicker_ngaytra" type="text" value="@String.Format("{0:yyyy/MM/dd}", @Model.selectedPhieuTiepNhan.NGAYTRAXE)" name="NGAYTRAXE" placeholder="27/8/2016" />
 
-    </div>
-    <div class="form-group ">
-        <label class="input-sm">Tình trạng :</label>
-        <textarea class="form-control input-sm" name="TINHTRANG" required>@Model.selectedPhieuTiepNhan.TINHTRANG</textarea> <!--auto fill information of the staff-->
-    </div>
+        </div>
+        <div class="form-group ">
+            <label class="input-sm">Tình trạng :</label>
+            <textarea class="form-control input-sm" name="TINHTRANG" required>@Model.selectedPhieuTiepNhan.TINHTRANG</textarea> <!--auto fill information of the staff-->
+        </div>
 
-    <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
+        <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
+    </div>
 
     <link href="~/Content/css/plugin/DatePicker/datepicker.css" rel="stylesheet" />
     <script src="~/Content/plugin/DatePicker/jquery-ui.js"></script>

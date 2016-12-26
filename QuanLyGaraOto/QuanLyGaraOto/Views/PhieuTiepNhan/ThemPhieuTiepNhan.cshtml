@@ -13,14 +13,14 @@
 {
     <div class="form-group ">
         <label class="input-sm"> Ngày lập :</label>
-        <input class="form-control input-sm" type="datetime" readonly="readonly" name="ngayTiepNhan" value="@DateTime.Now" />
+        <input class="form-control input-sm" type="text" readonly="readonly" name="ngayTiepNhan" value="@DateTime.Now.ToShortDateString()" />
     </div>
        <!-- colum sm 6-->
     <div class="col-sm-4">
         <h4> THÔNG TIN KHÁCH HÀNG</h4>
         <div class="form-group">
             <label class="input-sm">Tên khách hàng:</label>
-            <input class="form-control input-sm" type="text" name="tenKhachHang" value="@(Model.thongTinPhieuMoi.tenKhachHang != null ? Model.thongTinPhieuMoi.tenKhachHang : "")" />
+            <input class="form-control input-sm" type="text" maxlength="100" name="tenKhachHang" value="@(Model.thongTinPhieuMoi.tenKhachHang != null ? Model.thongTinPhieuMoi.tenKhachHang : "")" />
             @Html.ValidationMessage("tenKhachHang", new { @style = "color:red;" })
         </div>
         <div class="form-group ">
@@ -30,12 +30,12 @@
         </div>
         <div class="form-group ">
             <label class="input-sm">Số điện thoại :</label>
-            <input class="form-control input-sm" type="text" name="dienThoai" value="@(Model.thongTinPhieuMoi.dienThoai != null ? Model.thongTinPhieuMoi.dienThoai: "" )" />
+            <input class="form-control input-sm" type="number" maxlength="12" name="dienThoai" value="@(Model.thongTinPhieuMoi.dienThoai != null ? Model.thongTinPhieuMoi.dienThoai: "" )" />
             @Html.ValidationMessage("dienThoai", new { @style = "color:red;" })
         </div>
         <div class="form-group ">
             <label class="input-sm">Số CMND :</label>
-            <input class="form-control input-sm" type="text" name="soCmnd" value="@(Model.thongTinPhieuMoi.soCmnd != null ? Model.thongTinPhieuMoi.soCmnd: "" )" />
+            <input class="form-control input-sm" type="number" maxlength="12" name="soCmnd" value="@(Model.thongTinPhieuMoi.soCmnd != null ? Model.thongTinPhieuMoi.soCmnd: "" )" />
             @Html.ValidationMessage("soCmnd", new { @style = "color:red;" })
         </div>
     </div>
@@ -44,7 +44,7 @@
         <h4>THÔNG TIN XE</h4>
         <div class="form-group ">
             <label class="input-sm">Biển số xe :</label>
-            <input class="form-control input-sm" type="text" name="bienSoXe" value="@(Model.thongTinPhieuMoi.bienSoXe != null ? Model.thongTinPhieuMoi.bienSoXe : "")" />
+            <input class="form-control input-sm" maxlength="10" type="text" name="bienSoXe" value="@(Model.thongTinPhieuMoi.bienSoXe != null ? Model.thongTinPhieuMoi.bienSoXe : "")" />
         </div>
         <div class="form-group">
             <label class="input-sm">Hiệu xe :</label>
@@ -58,12 +58,12 @@
         </div>
         <div class="form-group">
             <label class="input-sm">Số khung :</label>
-            <input class="form-control input-sm" type="text" name="soKhung" value="@(Model.thongTinPhieuMoi.soKhung != null ? Model.thongTinPhieuMoi.soKhung: "" )" />
+            <input class="form-control input-sm" maxlength="10" type="text" name="soKhung" value="@(Model.thongTinPhieuMoi.soKhung != null ? Model.thongTinPhieuMoi.soKhung: "" )" />
 
         </div>
         <div class="form-group">
             <label class="input-sm">Số máy :</label>
-            <input class="form-control input-sm" type="text" name="soMay" value="@(Model.thongTinPhieuMoi.soMay != null ? Model.thongTinPhieuMoi.soMay: "" )" />
+            <input class="form-control input-sm" maxlength="10" type="text" name="soMay" value="@(Model.thongTinPhieuMoi.soMay != null ? Model.thongTinPhieuMoi.soMay: "" )" />
         </div>
     </div>
     <div class="col-sm-4">
@@ -73,13 +73,13 @@
         </div>
         <div class="form-group">
             <label class="input-sm">Đời xe :</label>
-            <input class="form-control input-sm" type="text" name="doiXe" value="@(Model.thongTinPhieuMoi.doiXe != null ? Model.thongTinPhieuMoi.doiXe: "") " />
+            <input class="form-control input-sm" type="number" name="doiXe" value="@(Model.thongTinPhieuMoi.doiXe != null ? Model.thongTinPhieuMoi.doiXe: "") " />
         </div>
         <div class="form-group">
             <label class="input-sm">Số Km :</label>
-            <input class="form-control input-sm" type="text" name="soKm" value="@(Model.thongTinPhieuMoi.soKm != null ? Model.thongTinPhieuMoi.soKm : 0 )" />
+            <input class="form-control input-sm" type="number" name="soKm" value="@(Model.thongTinPhieuMoi.soKm != null ? Model.thongTinPhieuMoi.soKm : 0 )" />
         </div>
     </div>
-    <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
+    <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span>Lưu</button>
 }
 

@@ -202,6 +202,8 @@ namespace QuanLyGaraOto.Controllers
 
 
                 this.service.XEs.Add(xe);
+                this.service.SaveChanges();
+                
                 this.service.PHIEU_TIEPNHAN.Add(phieuTiepNhan);
                 this.service.SaveChanges();
 
