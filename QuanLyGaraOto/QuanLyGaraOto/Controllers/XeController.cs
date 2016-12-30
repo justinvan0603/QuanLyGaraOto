@@ -153,6 +153,7 @@ namespace QuanLyGaraOto.Controllers
             thongTinXeMoi.SO_KM = arg.SO_KM;
             thongTinXeMoi.SO_MAY = arg.SO_MAY;
             thongTinXeMoi.TINH_TRANG = arg.TINH_TRANG;
+            thongTinXeMoi.DOI_XE = arg.DOI_XE;
             this.service.Entry(thongTinXeMoi).State = System.Data.Entity.EntityState.Modified;
             this.service.SaveChanges();
             return RedirectToAction("Index");

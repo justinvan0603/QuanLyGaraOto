@@ -41,9 +41,9 @@ namespace QuanLyGaraOto.Controllers
                     switch (searchOption)
                     {
                         case 0: { break; }
-                        case 1:
+                        case 1: // loc the ma phieu chi
                             {
-                                listOfPhieuChis = listOfPhieuChis.Where(e => e.MA_PHIEUCHI == searchString).ToList();
+                                listOfPhieuChis = listOfPhieuChis.Where(e => e.MA_PHIEUCHI.Contains(searchString)).ToList();
                                 break;
                             }
                         case 2:

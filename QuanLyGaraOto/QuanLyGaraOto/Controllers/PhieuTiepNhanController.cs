@@ -87,6 +87,11 @@ namespace QuanLyGaraOto.Controllers
                                        
                                 }
                                 break;
+                            } 
+                        case 3: // loc theo ma phieu
+                            {
+                                listViewModels = listViewModels.Where(e => e.maPhieuTiepNhan == int.Parse(searchString)).ToList();
+                                break;
                             }
 
 
@@ -181,6 +186,7 @@ namespace QuanLyGaraOto.Controllers
                 xe.HIEU_XE = infor.hieuXe;
                 xe.MA_KH = khachHang.MA_KH;
                 xe.HINHTHUC = infor.hinhThuc;
+                xe.DOI_XE = infor.doiXe;
                 xe.NGAY_TIEPNHAN = infor.ngayTiepNhan;
                 xe.SO_KHUNG = infor.soKhung;
                 xe.SO_KM = infor.soKm;
