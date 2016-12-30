@@ -210,9 +210,17 @@
             } else if ($(".txtMaPhieu").val().length <= 0) {
                 alert("Vui lòng nhập mã số phiếu dịch vụ!");
                 e.preventDefault();
-            } else if ($(".ngayhengiao").val() < $(".ngaylap").val()) {
-                alert("Ngày hẹn giao phải lớn hơn hoặc bằng ngày lập phiếu!");
-                e.preventDefault();
+            } else {
+                var StringngHenGiao = $(".ngayhengiao").val();
+                var StringNgDatHang = $(".ngaylap").val();
+                var res1 = StringngHenGiao.split("/");
+                var res2 = StringNgDatHang.split("/");
+                var ngHenGiao = new Date(res1[2], res1[1]-1, res1[0]);
+                var ngLap = new Date(res2[2], res2[1]-1, res2[0]);
+                if (ngHenGiao < ngLap) {
+                    alert("Ngày hẹn giao phải lớn hơn hoặc bằng ngày lập phiếu!");
+                    e.preventDefault();
+                }
             }
         })
     $("body")
