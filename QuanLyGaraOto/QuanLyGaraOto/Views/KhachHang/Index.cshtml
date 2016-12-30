@@ -91,7 +91,7 @@
             }
         </tbody>
     </table>
-    Page @(Model.ListKhachHang.PageCount < Model.ListKhachHang.PageNumber ? 0 : Model.ListKhachHang.PageNumber) of @Model.ListKhachHang.PageCount
+    Trang @(Model.ListKhachHang.PageCount < Model.ListKhachHang.PageNumber ? 0 : Model.ListKhachHang.PageNumber) của @Model.ListKhachHang.PageCount
 
     @Html.PagedListPager(Model.ListKhachHang, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
 </div>
