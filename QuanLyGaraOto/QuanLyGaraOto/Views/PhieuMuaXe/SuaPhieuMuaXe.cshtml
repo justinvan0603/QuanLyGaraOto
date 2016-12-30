@@ -2,13 +2,13 @@
 @model QuanLyGaraOto.ViewModel.PhieuMuaXeViewModel
 @{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
-    ViewBag.Title = "Sửa mua xe mới";
+    ViewBag.Title = "Sửa phiếu mua xe";
 }
 <head>
     <title>@ViewBag.Title</title>
 </head>
 
-<h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU MUA XE</h3>
+<h3 class="text-center" style="color:green;">CẬP NHẬT PHIẾU MUA XE</h3>
 
 @using (Html.BeginForm("SuaPhieuMuaXe", "PhieuMuaXe", FormMethod.Post, new { @id = "#new_sale_bill_form" }))
 {

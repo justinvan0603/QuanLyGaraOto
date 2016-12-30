@@ -77,7 +77,7 @@
             }
         </tbody>
     </table>
-    Trang @(Model.listOfPHIEUBANXEs.PageCount < Model.listOfPHIEUBANXEs.PageNumber ? 0 : Model.listOfPHIEUBANXEs.PageNumber) of @Model.listOfPHIEUBANXEs.PageCount
+    Trang @(Model.listOfPHIEUBANXEs.PageCount < Model.listOfPHIEUBANXEs.PageNumber ? 0 : Model.listOfPHIEUBANXEs.PageNumber) của @Model.listOfPHIEUBANXEs.PageCount
     @Html.PagedListPager(Model.listOfPHIEUBANXEs, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
 </div>
 

@@ -78,7 +78,7 @@
             }
         </tbody>
     </table>
-    Trang @(Model.danhSachPhieuMuaXe.PageCount < Model.danhSachPhieuMuaXe.PageNumber ? 0 : Model.danhSachPhieuMuaXe.PageNumber) of @Model.danhSachPhieuMuaXe.PageCount
+    Trang @(Model.danhSachPhieuMuaXe.PageCount < Model.danhSachPhieuMuaXe.PageNumber ? 0 : Model.danhSachPhieuMuaXe.PageNumber) của @Model.danhSachPhieuMuaXe.PageCount
     @Html.PagedListPager(Model.danhSachPhieuMuaXe, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption }))
 </div>
 
