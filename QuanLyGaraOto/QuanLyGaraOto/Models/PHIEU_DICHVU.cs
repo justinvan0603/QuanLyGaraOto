@@ -17,8 +17,8 @@ namespace QuanLyGaraOto.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PHIEU_DICHVU()
         {
-            this.PHIEU_THUTIEN = new HashSet<PHIEU_THUTIEN>();
             this.CHITIET_PHIEUDV = new HashSet<CHITIET_PHIEUDV>();
+            this.PHIEU_THUTIEN = new HashSet<PHIEU_THUTIEN>();
         }
     
         public int ID_PHIEUDV { get; set; }
@@ -32,12 +32,12 @@ namespace QuanLyGaraOto.Models
         public Nullable<decimal> TIENCONG { get; set; }
         public Nullable<int> MA_NHANVIEN { get; set; }
     
-        public virtual PHIEU_TIEPNHAN PHIEU_TIEPNHAN { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PHIEU_THUTIEN> PHIEU_THUTIEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_PHIEUDV> CHITIET_PHIEUDV { get; set; }
         public virtual NHANVIEN NHANVIEN { get; set; }
+        public virtual PHIEU_TIEPNHAN PHIEU_TIEPNHAN { get; set; }
         public virtual THO THO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PHIEU_THUTIEN> PHIEU_THUTIEN { get; set; }
     }
 }

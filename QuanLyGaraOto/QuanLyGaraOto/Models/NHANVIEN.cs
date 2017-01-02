@@ -17,6 +17,7 @@ namespace QuanLyGaraOto.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NHANVIEN()
         {
+            this.PHIEU_BANXE = new HashSet<PHIEU_BANXE>();
             this.PHIEU_DATHANG = new HashSet<PHIEU_DATHANG>();
             this.PHIEU_BAOHANH = new HashSet<PHIEU_BAOHANH>();
             this.PHIEU_DICHVU = new HashSet<PHIEU_DICHVU>();
@@ -24,7 +25,6 @@ namespace QuanLyGaraOto.Models
             this.PHIEU_CHI = new HashSet<PHIEU_CHI>();
             this.PHIEU_THUTIEN = new HashSet<PHIEU_THUTIEN>();
             this.PHIEU_TIEPNHAN = new HashSet<PHIEU_TIEPNHAN>();
-            this.PHIEU_BANXE = new HashSet<PHIEU_BANXE>();
             this.PHIEU_MUAXE = new HashSet<PHIEU_MUAXE>();
         }
     
@@ -39,6 +39,8 @@ namespace QuanLyGaraOto.Models
     
         public virtual NHOMNGUOIDUNG NHOMNGUOIDUNG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PHIEU_BANXE> PHIEU_BANXE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEU_DATHANG> PHIEU_DATHANG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEU_BAOHANH> PHIEU_BAOHANH { get; set; }
@@ -52,8 +54,6 @@ namespace QuanLyGaraOto.Models
         public virtual ICollection<PHIEU_THUTIEN> PHIEU_THUTIEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEU_TIEPNHAN> PHIEU_TIEPNHAN { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PHIEU_BANXE> PHIEU_BANXE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEU_MUAXE> PHIEU_MUAXE { get; set; }
     }
