@@ -95,7 +95,7 @@
     // Handle when user click delete button
     //
     $(document).ready(function () {
-        $("#button_delete").on("click", function (e) {
+        $(".btnDelete").on("click", function (e) {
             var $item = $(this).closest("tr").find("#id").text();
             var itemid = $item.valueOf();
             var isSucess = -1;

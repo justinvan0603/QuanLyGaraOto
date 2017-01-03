@@ -151,6 +151,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult ThemPhieuTiepNhan()
         {
+            BANGTHAMSO SL_TIEPNHAN_TOIDA = this.service.BANGTHAMSOes.Where(e => e.TENTHAMSO == "SoXeTiepNhanToiDa").SingleOrDefault();
+
+            // kiem tra so luong tiep nhan toi da trong ngay
+            List<PHIEU_TIEPNHAN> temp = this.service.PHIEU_TIEPNHAN.ToList();
+            if (temp.Where(e => e.NGAYLAP.Value.Date.Equals(DateTime.Now.Date)).Count() >= int.Parse(SL_TIEPNHAN_TOIDA.GIATRI))
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Quá số lượng tiếp nhận xe tối đa trong ngày ! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             PhieuTiepNhanViewModel viewModel = new PhieuTiepNhanViewModel();
             viewModel.thongTinPhieuMoi = new ThemPhieuTiepNhanModel();
             viewModel.danhSachHieuXe = this.service.HIEUXEs.ToList();
@@ -234,6 +243,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult ThemPhieuTiepNhanTuKhachQuen()
         {
+            BANGTHAMSO SL_TIEPNHAN_TOIDA = this.service.BANGTHAMSOes.Where(e=> e.TENTHAMSO == "SoXeTiepNhanToiDa").SingleOrDefault();
+
+            // kiem tra so luong tiep nhan toi da trong ngay
+            List<PHIEU_TIEPNHAN> temp = this.service.PHIEU_TIEPNHAN.ToList();
+            if (temp.Where(e => e.NGAYLAP.Value.Date.Equals(DateTime.Now.Date)).Count() >= int.Parse(SL_TIEPNHAN_TOIDA.GIATRI))
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Quá số lượng tiếp nhận xe tối đa trong ngày ! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             PhieuTiepNhanViewModel viewModel = new PhieuTiepNhanViewModel();
             viewModel.thongTinPhieuMoi = new ThemPhieuTiepNhanModel();
             viewModel.thongTinPhieuMoiTuKhachQuen = new ThemPhieuTiepNhanTuKhachQuenModel();

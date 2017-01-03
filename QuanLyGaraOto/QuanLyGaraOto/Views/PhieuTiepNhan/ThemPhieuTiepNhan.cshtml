@@ -69,7 +69,7 @@
     <div class="col-sm-4">
         <div class="form-group">
             <label for="tinhTrang" class="input-sm">Tình trạng xe :</label>
-            <textarea class="form-control" rows="5" id="tinhTrang" name="tinhTrang">@(Model.thongTinPhieuMoi.tinhTrang != null ? Model.thongTinPhieuMoi.tinhTrang : "")</textarea>
+            <textarea class="form-control" rows="5" id="tinhTrang" maxlength="1000" name="tinhTrang">@(Model.thongTinPhieuMoi.tinhTrang != null ? Model.thongTinPhieuMoi.tinhTrang : "")</textarea>
         </div>
         <div class="form-group">
             <label class="input-sm">Đời xe :</label>

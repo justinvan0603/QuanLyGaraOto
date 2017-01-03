@@ -15,7 +15,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label class="input-sm" style="color : red;">Mã phiếu :</label>
-            <input class="form-control input-sm" type="text" maxlength="100" value="@Environment.TickCount" name="maPhieuMuaXe" required />
+            <input class="form-control input-sm" type="text" maxlength="100" name="maPhieuMuaXe" required />
         </div>
         <div class="form-group ">
             <label class="input-sm"> Ngày lập :</label>
@@ -63,7 +63,7 @@
                 <input class="form-control input-sm" type="text" placeholder="Số máy" maxlength="30" name="soMay" required />
             </div>
             <label for="tinhTrang" class="input-sm">Tình trạng xe :</label>
-            <textarea class="form-control" rows="5" id="tinhTrang" name="tinhTrang"></textarea>
+            <textarea class="form-control" maxlength="1000"  rows="5" id="tinhTrang" name="tinhTrang"></textarea>
         </div>
         <div class="form-group">
             <label class="input-sm">Đời xe :</label>
@@ -73,7 +73,7 @@
             <label class="input-sm">Trị giá (VNĐ):</label>
             <input class="form-control input-sm" type="number" id="textbox_trigia" required maxlength="20" name="tongGiaTri" />
         </div>
-        <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
+        <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span>Lưu</button>
     </div>
 
 }

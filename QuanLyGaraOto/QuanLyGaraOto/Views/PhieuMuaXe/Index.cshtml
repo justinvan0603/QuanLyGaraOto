@@ -96,7 +96,7 @@
     // Handle when user click delete button
     //
     $(document).ready(function () {
-        $("#button_delete").on("click", function (e) {
+        $(".btnDelete").on("click", function (e) {
 
             e.preventDefault();
             var $item = $(this).closest("tr").find("#id").text();
