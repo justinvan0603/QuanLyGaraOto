@@ -41,6 +41,8 @@ namespace QuanLyGaraOto.ViewModel
 
         public int? soKm { get; set; }
 
+        public bool gioiTinh { get; set; }
+
         public string doiXe { get; set; }
         public string tinhTrang { get; set; }
 

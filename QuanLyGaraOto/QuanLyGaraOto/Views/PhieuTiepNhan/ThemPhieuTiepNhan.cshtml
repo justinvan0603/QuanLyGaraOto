@@ -38,6 +38,15 @@
             <input class="form-control input-sm" type="number" maxlength="12" name="soCmnd" value="@(Model.thongTinPhieuMoi.soCmnd != null ? Model.thongTinPhieuMoi.soCmnd: "" )" />
             @Html.ValidationMessage("soCmnd", new { @style = "color:red;" })
         </div>
+        <div class="form-group">
+            <label class="input-sm">Giới tính:</label>
+            @*<input type="number" maxlength="20" name="SDT" class="form-control input-sm" />*@
+            @*<label class="radio-inline"><input type="radio" name="GIOITINH" value="true" checked="checked">Nam</label>*@
+            <label class="radio-inline">@Html.RadioButtonFor(m => m.thongTinPhieuMoi.gioiTinh, "true", new { @class = " input-sm", @checked = "checked" }) Nam</label>
+            <label class="radio-inline">@Html.RadioButtonFor(m => m.thongTinPhieuMoi.gioiTinh, "false", new { @class = " input-sm" }) Nữ</label>
+            @*@Html.RadioButtonFor(m => m.GIOITINH, "false", new { @class = "radio-inline input-sm" })<span>Nữ</span>*@
+
+        </div>
     </div>
     <!-- colum sm 6-->
     <div class="col-sm-4">
