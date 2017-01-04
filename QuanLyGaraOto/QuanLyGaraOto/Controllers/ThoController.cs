@@ -120,6 +120,7 @@ namespace QuanLyGaraOto.Controllers
                 target.TENTHO = tho.TENTHO;
                 target.SDT = tho.SDT;
                 target.DIACHI = tho.DIACHI;
+                target.GIOITINH = tho.GIOITINH;
                 context.SaveChanges();
                 TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Cập nhật thành công! </div> </div> </div>";
             }

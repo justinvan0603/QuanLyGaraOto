@@ -44,6 +44,7 @@
                             <th style="display:none">Id</th>
                             <th>@Html.ActionLink("Họ tên", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, searchOption = ViewBag.CurrentSearchOption })</th>
                             <th>Số điện thoại</th>
+                            <th>Giới tính</th>
                             <th>Địa chỉ</th>
                             <th>Thao tác</th>
                         </tr>
@@ -56,6 +57,14 @@
                                     <td id="id" style="display:none">@item.MA_THO</td>
                                     <td style="vertical-align: middle"> @item.TENTHO</td>
                                     <td style="vertical-align: middle"> @item.SDT</td>
+                                    @if (@item.GIOITINH.Value == true)
+                                    {
+                                        <td style="vertical-align: middle">Nam</td>
+                                    }
+                                    else
+                                    {
+                                        <td style="vertical-align: middle">Nữ</td>
+                                    }
                                     <td style="vertical-align: middle">@item.DIACHI</td>
                                     <td style="vertical-align: middle">
                                         @Html.ActionLink("Sửa", "CapNhat", new { id = @item.MA_THO }, new { @class = "btn btn-warning glyphicon glyphicon-pencil btn-sm" })
