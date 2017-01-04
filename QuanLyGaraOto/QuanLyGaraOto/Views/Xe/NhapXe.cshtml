@@ -26,14 +26,16 @@
             <select name="HIEU_XE" class="cboNhom form-control input-sm">
                 @foreach (var item in Model.danhSachHieuXe)
                 {
-                    <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+                    if (!item.MA_HIEUXE.Equals("Tất cả"))
+                    {
+                        <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+                    }
                 }
             </select>
         </div>
         <div class="form-group">
             <label class="input-sm">Khách hàng :</label>
             <select name="MA_KH" class="cboNhom form-control input-sm">
-                <option value="@null" style="color: blue; font-weight : bold;">Khách vãng lai</option> <!--trường hợp là khách vãng lai-->
                 @foreach (var item in Model.danhSachKhachHang)
                 {
                     <option value="@item.MA_KH">@item.TEN_KH</option>

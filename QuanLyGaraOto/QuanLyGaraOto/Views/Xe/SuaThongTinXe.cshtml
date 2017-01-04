@@ -28,16 +28,18 @@
         <div class="form-group">
             <label class="input-sm">Hiệu xe :</label>
             <select name="HIEU_XE" class="cboNhom form-control input-sm">
-                <option value="Hãng khác" style="color: blue; font-weight : bold;">Hãng khác</option> <!--trường hợp là khách vãng lai-->
                 @foreach (var item in Model.danhSachHieuXe)
                 {
-                    if (item.MA_HIEUXE == Model.selectedXe.HIEU_XE)
+                    if (!item.MA_HIEUXE.Equals("Tất cả"))
                     {
-                        <option value="@item.MA_HIEUXE" selected="selected">@item.MA_HIEUXE</option>
-                    }
-                    else
-                    {
-                        <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+                        if (item.MA_HIEUXE == Model.selectedXe.HIEU_XE)
+                        {
+                            <option value="@item.MA_HIEUXE" selected="selected">@item.MA_HIEUXE</option>
+                        }
+                        else
+                        {
+                            <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+                        }
                     }
                 }
             </select>
