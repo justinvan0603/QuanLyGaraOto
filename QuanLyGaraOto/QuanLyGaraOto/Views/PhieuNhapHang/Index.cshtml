@@ -66,7 +66,10 @@
                                 <td style="vertical-align: middle">
                                     <a href="@Url.Action("In", "PhieuNhapHang", new { id = @item.PhieuNhapHang.ID_PHIEUNHAPHANG })" class="btn btn-info glyphicon glyphicon-print btn-sm">In</a>
                                     @Html.ActionLink("Sửa", "CapNhat", new {id = @item.PhieuNhapHang.ID_PHIEUNHAPHANG}, new {@class = "btn btn-warning glyphicon glyphicon-pencil btn-sm"})
+                                    @if(item.PhieuNhapHang.PHIEU_CHI.ToList().Count ==0)
+                                    { 
                                     <a class="btn btn-primary btn-sm glyphicon glyphicon-plus" href="@Url.Action("NhapPhieuChiFromPhieuNhapHang", "PhieuChi", new { idPhieuNhapHang = @item.PhieuNhapHang.ID_PHIEUNHAPHANG })">Lập phiếu chi</a>
+                                    }
                                 </td>
                             </tr>
                         }

@@ -251,6 +251,7 @@ namespace QuanLyGaraOto.Controllers
                 return View("ResourceNotFoundView");
             }
             // start to update
+
             phieuMuaXe.MAKH = modifiedInfor.maKhachHang;
            // phieuMuaXe.MaNV = modifiedInfor.maNhanVien;
             phieuMuaXe.MAPHIEUMUA = modifiedInfor.maPhieuMuaXe;

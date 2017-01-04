@@ -14,7 +14,7 @@
 {
     <div class="col-sm-6">
         <div class="form-group" hidden="hidden">
-            <input class="form-control input-sm" hidden="hidden" type="text" maxlength="100" value="@Model.selectedBill.id" name="maPhieuMuaXe" required />
+            <input class="form-control input-sm" hidden="hidden" type="hidden" maxlength="100" value="@Model.selectedBill.id" name="id" required />
         </div>
         <div class="form-group">
             <label class="input-sm" style="color : red;">Mã phiếu :</label>
@@ -72,7 +72,7 @@
         </div>
         <div class="form-group">
             <label class="input-sm">Số Km :</label>
-            <input class="form-control input-sm" type="text" value="@Model.selectedBill.soKm"  placeholder="Biển số xe" maxlength="30" name="soKm" required />
+            <input class="form-control input-sm" type="text" value="@Model.selectedBill.soKm"   maxlength="30" name="soKm" required />
         </div>
     </div>
     <div class="col-sm-6">
