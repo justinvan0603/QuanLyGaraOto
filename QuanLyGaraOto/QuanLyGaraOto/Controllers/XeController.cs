@@ -33,42 +33,42 @@ namespace QuanLyGaraOto.Controllers
                 searchString = currentFilter;
             }
             ViewBag.CurrentFilter = searchString;
-            if (!String.IsNullOrEmpty(searchString))
+            switch (searchOption)
             {
-                if (searchOption != null)
-                {
-                    switch (searchOption)
-                    {
-                        case 0: { break; }
-                        case 1:
-                            {// loc theo bien so xe
-                                listOfXe = listOfXe.Where(e => e.BS_XE.ToLower().Contains(searchString.ToLower())).ToList();
-                                break;
-                            }
-                        case 2:
-                            {
-                                // loc theo hieu xe
-                                listOfXe = listOfXe.Where(e => e.HIEU_XE.ToLower().Contains(searchString.ToLower())).ToList();
-                                break;
-                            }
-                        case 3:
-                            {
-                                // loc theo xe ban
-                                listOfXe = listOfXe.Where(e => e.HINHTHUC == true).ToList();
-                                break;
-                            }
-                        case 4:
-                            {
-                                // loc theo xe sua chua
-                                listOfXe = listOfXe.Where(e => e.HINHTHUC == false).ToList();
-                                break;
-                            }
-
-                        default: { break; }
+                case 0: { break; }
+                case 1:
+                    {// loc theo bien so xe
+                        if (!String.IsNullOrEmpty(searchString))
+                        {
+                            listOfXe = listOfXe.Where(e => e.BS_XE.ToLower().Contains(searchString.ToLower())).ToList();
+                        }
+                        break;
                     }
-                }
+                case 2:
+                    {
+                        // loc theo hieu xe
+                        if (!String.IsNullOrEmpty(searchString))
+                        {
+                            listOfXe = listOfXe.Where(e => e.HIEU_XE.ToLower().Contains(searchString.ToLower())).ToList();
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        // loc theo xe ban
+                        listOfXe = listOfXe.Where(e => e.HINHTHUC == true).ToList();
+                        break;
+                    }
+                case 4:
+                    {
+                        // loc theo xe sua chua
+                        listOfXe = listOfXe.Where(e => e.HINHTHUC == false).ToList();
+                        break;
+                    }
 
+                default: { break; }
             }
+
 
             //switch (sortOrder)
             //{
