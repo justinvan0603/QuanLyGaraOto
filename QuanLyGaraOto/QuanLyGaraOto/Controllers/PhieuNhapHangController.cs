@@ -118,17 +118,26 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult ThemMoi(int idphieuDH = 60)
         {
             PhieuNhapHangViewModel vmPhieuNH = new PhieuNhapHangViewModel();
+
             GARADBEntities context = new GARADBEntities();
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN nv = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value);
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 5)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
+
             vmPhieuNH.ListNhaCungCap = context.NHACUNGCAPs.ToList();
             vmPhieuNH.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuNH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
             vmPhieuNH.ListHieuXe = context.HIEUXEs.ToList();
-            int UserId = int.Parse(Session["UserID"].ToString());
             vmPhieuNH.PhieuNhapHang.MA_NV = UserId;
             int slNhapMax = Int32.Parse(context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO == "SoLuongNhapHangToiDa").GIATRI);
             vmPhieuNH.SoLuongNhapToiDa = slNhapMax;
             vmPhieuNH.PhieuNhapHang.NGAYLAP = DateTime.Now.Date;
-            vmPhieuNH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == UserId).HOTEN;
+            vmPhieuNH.TenNV = nv.HOTEN;
             PHIEU_DATHANG pdhPhieuDathang = context.PHIEU_DATHANG.Single(pdh => pdh.Id_PhieuDatHang == idphieuDH);
             vmPhieuNH.PhieuNhapHang.MaNCC = pdhPhieuDathang.MaNCC;
             vmPhieuNH.MaPhieuDatHang = pdhPhieuDathang.MaPhieuDat;
@@ -140,17 +149,26 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult ThemMoiNhapLe()
         {
             PhieuNhapHangViewModel vmPhieuNH = new PhieuNhapHangViewModel();
+
             GARADBEntities context = new GARADBEntities();
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN nv = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value);
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 5)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
+
             vmPhieuNH.ListNhaCungCap = context.NHACUNGCAPs.ToList();
             vmPhieuNH.ListPhuTung = context.PHUTUNGs.ToList();
             vmPhieuNH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
             vmPhieuNH.ListHieuXe = context.HIEUXEs.ToList();
-            int UserId = int.Parse(Session["UserID"].ToString());
             vmPhieuNH.PhieuNhapHang.MA_NV = UserId;
             int slNhapMax = Int32.Parse(context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO == "SoLuongNhapHangToiDa").GIATRI);
             vmPhieuNH.SoLuongNhapToiDa = slNhapMax;
             vmPhieuNH.PhieuNhapHang.NGAYLAP = DateTime.Now.Date;
-            vmPhieuNH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == UserId).HOTEN;
+            vmPhieuNH.TenNV = nv.HOTEN;
             vmPhieuNH.PhieuNhapHang.MaNCC = null;
             vmPhieuNH.MaPhieuDatHang = "Không đặt trước";
             vmPhieuNH.PhieuNhapHang.ID_PHIEUDATHANG = null;
@@ -190,6 +208,16 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult CapNhat(int id = 2)
         {
             GARADBEntities context = new GARADBEntities();
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN nv = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value);
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 5)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
+
+
             PhieuNhapHangViewModel vmPhieuNH = new PhieuNhapHangViewModel();
             vmPhieuNH.PhieuNhapHang = context.PHIEU_NHAPHANG.Single(p => p.ID_PHIEUNHAPHANG == id);
             int slNhapMax = Int32.Parse(context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO == "SoLuongNhapHangToiDa").GIATRI);
@@ -198,7 +226,7 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuNH.ListNhaCungCap = context.NHACUNGCAPs.ToList();
             vmPhieuNH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
             vmPhieuNH.ListHieuXe = context.HIEUXEs.ToList();
-            vmPhieuNH.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == vmPhieuNH.PhieuNhapHang.MA_NV).HOTEN;
+            vmPhieuNH.TenNV = nv.HOTEN;
             if (vmPhieuNH.PhieuNhapHang.ID_PHIEUDATHANG != null)
             {
                 PHIEU_DATHANG pdhPhieuDathang = context.PHIEU_DATHANG.Single(pdh => pdh.Id_PhieuDatHang == vmPhieuNH.PhieuNhapHang.ID_PHIEUDATHANG);

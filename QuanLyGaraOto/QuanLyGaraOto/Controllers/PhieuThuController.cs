@@ -68,13 +68,21 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult ThemMoi(int? idphieu, string type)
         {
             GARADBEntities context = new GARADBEntities();
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN nv = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value);
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 3)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
+
             lapPhieuThuViewModel = new LapPhieuThuViewModel();
             lapPhieuThuViewModel.PhieuThuTien.NGAYLAP = DateTime.Now;
             lapPhieuThuViewModel.SoTienThuToiThieu =
             int.Parse(context.BANGTHAMSOes.Single(ts => ts.TENTHAMSO == "SoTienThuToiThieu").GIATRI);
-            int UserId = int.Parse(Session["UserID"].ToString());
             lapPhieuThuViewModel.PhieuThuTien.MA_NV = UserId;
-            lapPhieuThuViewModel.TenNV = context.NHANVIENs.Single(nv => nv.MA_NV == UserId).HOTEN;
+            lapPhieuThuViewModel.TenNV = nv.HOTEN;
             if (type.Equals("pbl"))
             {
                 PHIEU_BANLE phieuBanle = context.PHIEU_BANLE.Single(c => c.ID_PHIEUBANLE == idphieu);
@@ -168,6 +176,16 @@ namespace QuanLyGaraOto.Controllers
             try
             {
                 GARADBEntities context = new GARADBEntities();
+                int UserId = int.Parse(Session["UserID"].ToString());
+                NHANVIEN nv = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+                NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value);
+                if (groupuser.CAPDO != 2 && groupuser.CAPDO != 3)
+                {
+                    TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền thực hiện thao tác này! </div> </div> </div>";
+                    //return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+                    return Json(new { value = "-1", message = "Bạn không có quyền thực hiện thao tác này!" }, JsonRequestBehavior.AllowGet);
+                }
+
                 var target = context.PHIEU_THUTIEN.Find(id);
                 context.PHIEU_THUTIEN.Remove(target);
                 context.SaveChanges();

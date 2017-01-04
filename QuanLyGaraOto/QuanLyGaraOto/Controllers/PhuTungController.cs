@@ -63,9 +63,17 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult ThemMoi()
         {
-            GARADBEntities garadbEntities = new GARADBEntities();
+            GARADBEntities context = new GARADBEntities();
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN nv = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value);
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 5)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             List<HIEUXE> listHieuxes = new List<HIEUXE>();
-            listHieuxes = garadbEntities.HIEUXEs.ToList();
+            listHieuxes = context.HIEUXEs.ToList();
             return View(listHieuxes);
         }
 
@@ -91,6 +99,15 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult CapNhat(int id = 5)
         {
             GARADBEntities context = new GARADBEntities();
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN nv = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value);
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 5)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
+
             SuaPhuTungViewModel suaPhuTungViewModel = new SuaPhuTungViewModel();
             PHUTUNG phutung = context.PHUTUNGs.Single(c => c.ID == id);
             suaPhuTungViewModel.PhuTung = phutung;
@@ -128,6 +145,16 @@ namespace QuanLyGaraOto.Controllers
             try
             {
                 GARADBEntities context = new GARADBEntities();
+                int UserId = int.Parse(Session["UserID"].ToString());
+                NHANVIEN nv = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+                NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value);
+                if (groupuser.CAPDO != 2 && groupuser.CAPDO != 5)
+                {
+                    TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền thực hiện thao tác này! </div> </div> </div>";
+                    //return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+                    return Json(new { value = "-1", message = "Bạn không có quyền thực hiện thao tác này!" }, JsonRequestBehavior.AllowGet);
+                }
+
                 var target = context.PHUTUNGs.Find(id);
                 context.PHUTUNGs.Remove(target);
                 context.SaveChanges();
