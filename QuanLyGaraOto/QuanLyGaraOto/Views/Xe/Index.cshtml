@@ -16,7 +16,7 @@
 </style>
 <body>
     <h3 class="text-center" style="color: green;">DANH SÁCH XE</h3>
-
+    @Html.Raw(TempData["msg"])
     @using (@Html.BeginForm("Index", "Xe", FormMethod.Get, new { @class = "form-inline" }))
     {
         <div class="form-inline">

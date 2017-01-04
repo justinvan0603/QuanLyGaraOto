@@ -97,6 +97,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult NhapXe()
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi nhan vien cham soc khach hang va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             XeViewModel viewModel = new XeViewModel();
             viewModel.danhSachHieuXe = this.service.HIEUXEs.ToList();
             viewModel.danhSachKhachHang = this.service.KHACHHANGs.ToList();
@@ -127,6 +136,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult SuaThongTinXe(String bienSoXe)
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi nhan vien cham soc khach hang va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             XeViewModel viewModel = new XeViewModel();
             XE selectedXe = this.service.XEs.Where(e => e.BS_XE == bienSoXe).Single();
             if (selectedXe == null)

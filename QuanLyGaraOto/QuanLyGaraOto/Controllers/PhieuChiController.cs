@@ -74,6 +74,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult NhapPhieuChi()
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi ke toan va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 3)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             return View();
         }
 
@@ -120,6 +129,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult NhapPhieuChiFromPhieuNhapHang(int? idPhieuNhapHang)
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi ke toan va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 3)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             PHIEU_NHAPHANG phieuNhapHang = this.service.PHIEU_NHAPHANG.Where(e => e.ID_PHIEUNHAPHANG == idPhieuNhapHang).FirstOrDefault();
             PhieuChiViewModel viewModel = new PhieuChiViewModel();
             viewModel.idPhieuNhapHang = idPhieuNhapHang;
@@ -136,6 +154,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult SuaPhieuChi(int? id)
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi ke toan va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 3)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             PhieuChiViewModel viewModel = new PhieuChiViewModel();
             viewModel.selectedItem = this.service.PHIEU_CHI.Where(e => e.ID == id).FirstOrDefault();
             return View(viewModel);
@@ -162,6 +189,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpPost]
         public JsonResult Xoa(int billId)
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi ke toan va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 3)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return Json(new { value = "-1", message = "Permission denied" }, JsonRequestBehavior.AllowGet);
+            }
             try
             {
                 PHIEU_CHI phieuChi = this.service.PHIEU_CHI.Where(e => e.ID == billId).FirstOrDefault();

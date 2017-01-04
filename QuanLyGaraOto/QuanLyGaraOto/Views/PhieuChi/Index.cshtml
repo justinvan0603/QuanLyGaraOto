@@ -19,6 +19,7 @@
 
 @using (@Html.BeginForm("Index", "PhieuChi", FormMethod.Get, new { @class = "form-inline" }))
 {
+    @Html.Raw(TempData["msg"])
     <h3 class="text-center" style="color: green;">DANH SÁCH PHIẾU CHI</h3>
     <div class="form-inline">
         <div class="form-group">

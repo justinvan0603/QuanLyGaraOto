@@ -78,6 +78,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult ThemPhieuBaoHanhFromPhieuDichVu(int? idPhieuDichVu)
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi nhan vien cham soc khach hang va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             // kiem tra phieu dich vu do da duoc lap phieu bao hanh hay chua ?
             if (this.service.CHITIET_PHIEUBH.Where(e => e.MA_PHIEUDV == idPhieuDichVu).Count() > 0)
             {
@@ -134,6 +143,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult ThemPhieuBaoHanhFromPhieuBanLe(int idPhieuBanLe)
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi nhan vien cham soc khach hang va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             // kiem tra phieu dich vu do da duoc lap phieu bao hanh hay chua ?
             if (this.service.CHITIET_PHIEUBH.Where(e => e.MAPHIEU_BANLE == idPhieuBanLe).Count() > 0)
             {
@@ -185,6 +203,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult SuaPhieuBaoHanh(int idPhieuBaoHanh)
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi nhan vien cham soc khach hang va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             PhieuBaoHanhViewModel viewModel = new PhieuBaoHanhViewModel();
             viewModel.selectedItem = this.service.PHIEU_BAOHANH.Where(e => e.MA_PHIEUBH == idPhieuBaoHanh).FirstOrDefault();
             viewModel.danhSachChiTietBaoHanh = this.service.CHITIET_PHIEUBH.Where(e => e.MA_PHIEUBH == idPhieuBaoHanh).ToList();
@@ -250,6 +277,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpPost]
         public JsonResult Xoa(int? idPhieuBaoHanh)
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi nhan vien cham soc khach hang va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return Json(new { value = "-1", message = "Permission denied" }, JsonRequestBehavior.AllowGet);
+            }
             PHIEU_BAOHANH phieuBaoHanh = this.service.PHIEU_BAOHANH.Where(e => e.MA_PHIEUBH == idPhieuBaoHanh).FirstOrDefault();
             // after removing the verhical sale of bill => remove the correspoding receipt that is related to it
             List<CHITIET_PHIEUBH> danhSachChiTietPhieuBaoHanh = this.service.CHITIET_PHIEUBH.Where(e => e.MA_PHIEUBH == idPhieuBaoHanh).ToList();

@@ -8,13 +8,13 @@
     <title>@ViewBag.Title</title>
 </head>
 <style>
-    .table th , .clickable-row {
+    .table th, .clickable-row {
         width: auto !important;
         font-size: 10pt;
     }
 </style>
 <body>
-<h3 class="text-center" style="color: green;">DANH SÁCH PHIẾU THU</h3>
+    <h3 class="text-center" style="color: green;">DANH SÁCH PHIẾU THU</h3>
     @Html.Raw(TempData["msg"])
     @using (@Html.BeginForm("Index", "PhieuThu", FormMethod.Get, new { @class = "form-inline" }))
     {
@@ -78,55 +78,55 @@
         </div>
     </div>
 
-            <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-            <script>
-                $('#phieuthu-table')
-                    .on('click',
-                        '.clickable-row',
-                        function (event) {
-                            if ($(this).hasClass('active')) {
-                                $(this).removeClass('active');
-                            } else {
-                                $(this).addClass('active').siblings().removeClass('active');
-                            }
-                        });
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+        $('#phieuthu-table')
+            .on('click',
+                '.clickable-row',
+                function (event) {
+                    if ($(this).hasClass('active')) {
+                        $(this).removeClass('active');
+                    } else {
+                        $(this).addClass('active').siblings().removeClass('active');
+                    }
+                });
 
-                $(document)
-                    .ready(function () {
-                        $(".btnDelete")
-                            .on("click",
-                                function (e) {
-                                    e.preventDefault();
-                                    var $item = $(this).closest("tr").find("#id").text();
-                                    var itemid = $item.valueOf();
-                                    var isSucess = -1;
-                                    var message = "";
-                                    var row = $(this).closest("tr");
+        $(document)
+            .ready(function () {
+                $(".btnDelete")
+                    .on("click",
+                        function (e) {
+                            e.preventDefault();
+                            var $item = $(this).closest("tr").find("#id").text();
+                            var itemid = $item.valueOf();
+                            var isSucess = -1;
+                            var message = "";
+                            var row = $(this).closest("tr");
 
-                                    $.ajax({
-                                        url: '/PhieuThu/Xoa/',
-                                        data: JSON.stringify({ id: itemid }),
-                                        type: 'POST',
-                                        contentType: 'application/json; charset=utf-8',
-                                        success: function (result) {
-                                            isSuccess = result.value;
-                                            message = result.message;
-                                        },
-                                        error: function (result) {
-                                            isSuccess = result.value;
-                                            message = result.message;
-                                        }
-                                    })
-                                        .done(function () {
-                                            if (isSuccess == "1") {
-                                                row.remove();
-                                                location.reload();
-                                            } else {
-                                                location.reload();
-                                            }
-                                        });
+                            $.ajax({
+                                url: '/PhieuThu/Xoa/',
+                                data: JSON.stringify({ id: itemid }),
+                                type: 'POST',
+                                contentType: 'application/json; charset=utf-8',
+                                success: function (result) {
+                                    isSuccess = result.value;
+                                    message = result.message;
+                                },
+                                error: function (result) {
+                                    isSuccess = result.value;
+                                    message = result.message;
+                                }
+                            })
+                                .done(function () {
+                                    if (isSuccess == "1") {
+                                        row.remove();
+                                        location.reload();
+                                    } else {
+                                        location.reload();
+                                    }
                                 });
-                    });
-            </script>
+                        });
+            });
+    </script>
 
 </body>

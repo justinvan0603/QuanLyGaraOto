@@ -108,6 +108,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult NhapPhieuMuaXe()
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi nhan vien cham soc khach hang va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             PhieuMuaXeViewModel viewModel = new PhieuMuaXeViewModel();
             viewModel.danhSachKhachHang = this.service.KHACHHANGs.ToList(); // load danh sach khach hang
             viewModel.danhSachHieuXe = this.service.HIEUXEs.ToList(); // load danh sach hieu xe
@@ -171,6 +180,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult SuaPhieuMuaXe(int id)
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi nhan vien cham soc khach hang va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             // lay thong tin phieu mua xe tu database
             PHIEU_MUAXE phieuMuaXe = this.service.PHIEU_MUAXE.Where(e => e.ID_PHIEUMUAXE == id).FirstOrDefault();
             if (phieuMuaXe == null)
@@ -263,6 +281,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpPost]
         public JsonResult Xoa(int? billId)
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi nhan vien cham soc khach hang va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return Json(new { value = "-1", message = "Permission denied" }, JsonRequestBehavior.AllowGet);
+            }
             try
             {
                 PHIEU_MUAXE phieuMuaXe = this.service.PHIEU_MUAXE.Single(e => e.ID_PHIEUMUAXE == billId);

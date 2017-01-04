@@ -114,6 +114,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult NhapPhieuBanXe()
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi nhan vien cham soc khach hang va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             // dau tien, load tat ca danh sach xe co trong GARA co nhu cau ban (HINHTHUC == true)
             // sau do load danh sach khach hang de nhan vien co the chon neu do la khach quan trong GARA
             PhieuBanXeViewModel phieuBanXeViewModel = new PhieuBanXeViewModel();
@@ -170,6 +179,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpPost]
         public JsonResult Xoa(int? billId)
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi nhan vien cham soc khach hang va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return Json(new { value = "-1", message = "Permission denied" }, JsonRequestBehavior.AllowGet);
+            }
             PHIEU_BANXE phieuBanXe = this.service.PHIEU_BANXE.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
             // after removing the verhical sale of bill => remove the correspoding receipt that is related to it
             PHIEU_THUTIEN correspondingReceiptInformation = this.service.PHIEU_THUTIEN.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
@@ -194,6 +212,15 @@ namespace QuanLyGaraOto.Controllers
         [HttpGet]
         public ActionResult SuaPhieuBanXe(int? id)
         {
+            int UserId = int.Parse(Session["UserID"].ToString());
+            NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi nhan vien cham soc khach hang va super user 
+            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            }
             //int billId = Int32.Parse(Request.Params["billId"]);
             PHIEU_BANXE bill = this.service.PHIEU_BANXE.Single(e => e.ID_PHIEUBANXE == id); // find bill via id
             PhieuBanXeViewModel model = new PhieuBanXeViewModel();
