@@ -74,7 +74,7 @@ namespace QuanLyGaraOto.Controllers
                     switch (searchOption)
                     {
                         case 0: { break; }
-                        case 2: { danhSachPhieuMuaXe = danhSachPhieuMuaXe.Where(e => e.maPhieuMua == searchString).ToList(); break; }
+                        case 2: { danhSachPhieuMuaXe = danhSachPhieuMuaXe.Where(e => e.maPhieuMua.Contains(searchString)).ToList(); break; }
                         case 1:
                             {
                                 try

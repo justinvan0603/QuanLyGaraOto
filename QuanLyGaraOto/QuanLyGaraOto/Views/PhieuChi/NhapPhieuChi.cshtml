@@ -21,8 +21,8 @@
             <input class="form-control input-sm" readonly="readonly" type="text" id="datebox_ngaylapphieu" value="@DateTime.Now.Date" maxlength="30" name="NGAYLAP" required />
         </div>
         <div class="form-group ">
-            <label class="input-sm">Mã nhân viên:</label>
-            <input class="form-control input-sm" type="text" value="@Session["UserID"]" readonly="readonly" maxlength="30" name="MA_NV" required /> <!--auto fill information of the staff-->
+            <label class="input-sm">Nhân viên:</label>
+            <input class="form-control input-sm" type="text" value="@Session["staff_name"]" readonly="readonly" maxlength="30" name="MA_NV" required /> <!--auto fill information of the staff-->
         </div>
     </div>
     <div class="col-sm-8">

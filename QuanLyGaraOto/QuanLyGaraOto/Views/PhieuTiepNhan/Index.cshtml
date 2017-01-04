@@ -75,11 +75,11 @@
 
                         <td style="text-align : right;">
                             <a href="@Url.Action("In", "PhieuTiepNhan", new { id = @item.maPhieuTiepNhan })" class="btn btn-primary btn-sm glyphicon glyphicon-print">In</a>
-                            @Html.ActionLink("Sửa", "SuaPhieuTiepNhan", "PhieuTiepNhan", new { maPhieu = @item.maPhieuTiepNhan }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
+                            @Html.ActionLink("Sửa", "SuaPhieuTiepNhan", "PhieuTiepNhan", new { maPhieu = @item.maPhieuTiepNhan }, new { @class = "btn btn-warning btn-sm glyphicon glyphicon-pencil" })
                             @if (Model.service.PHIEU_DICHVU.Where(e => e.MAPHIEU_TIEPNHAN == item.maPhieuTiepNhan).Count() == 0)
                             {
-                                @Html.ActionLink("Lập phiếu dịch vụ", "NhapPhieuDichVu", "PhieuDichVu", new { maphieutiepnhan = @item.maPhieuTiepNhan }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
-                                <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+                                @Html.ActionLink("Lập phiếu dịch vụ", "NhapPhieuDichVu", "PhieuDichVu", new { maphieutiepnhan = @item.maPhieuTiepNhan }, new { @class = "btn btn-sm btn-primary glyphicon glyphicon-pencil" })
+                                <button id="button_delete" class="btnDelete btn btn-sm btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
                             }
 
 
