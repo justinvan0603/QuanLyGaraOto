@@ -1,93 +1,121 @@
-﻿<html>
+﻿<!DOCTYPE html>
+@model QuanLyGaraOto.ViewModel.PhieuChiViewModel
+@{
+    ViewBag.Title = "General";
+}
+<html>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryui")
 @Scripts.Render("~/bundles/bootstrap")
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
-@using QuanLyGaraOto.Models;
-@model QuanLyGaraOto.ViewModel.PhieuChiViewModel
-
 <head>
-    <title>In phiếu chi</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<title>@ViewBag.Title</title>*@
+
+    <style>
+        html, body {
+            margin: 0px !important;
+            padding: 0px !important;
+            overflow-x: hidden;
+        }
+
+        .row.content {
+            height: auto;
+        }
+
+        @@media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+
+            .row.content {
+                height: auto;
+            }
+        }
+
+        .table {
+            border-bottom: 0px !important;
+        }
+
+            .table th, .table td {
+                border: 1px !important;
+            }
+
+        .fixed-table-container {
+            border: 0px !important;
+        }
+
+        .table-info {
+            border-bottom: 0px !important;
+        }
+
+            .table-info th, .table td {
+                border: 1px !important;
+            }
+
+        .fixed-table-container {
+            border: 0px !important;
+        }
+    </style>
 </head>
-<body>
+<body style="background-color:#e6e6e6; ">
 
-    <h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU CHI</h3>
-    @using (Html.BeginForm("SuaPhieuChi", "PhieuChi", FormMethod.Post, new { @id = "#new_sale_bill_form" }))
-    {
-        <div class="form-group">
-            <label class="input-sm" style="color : red;">Mã phiếu :</label>
-            <input class="form-control input-sm" type="text" maxlength="100" readonly="readonly" name="MA_PHIEUCHI" required value="@Model.selectedItem.MA_PHIEUCHI" />
-        </div>
-        <div class="form-group ">
-            <label class="input-sm"> Ngày lập :</label>
-            <input class="form-control input-sm" readonly="readonly" type="text" id="datebox_ngaylapphieu" value="@Model.selectedItem.NGAYLAP" maxlength="30" name="NGAYLAP" required />
-        </div>
-        <div class="form-group ">
-            <label class="input-sm">Nhân viên:</label>
-            <input class="form-control input-sm" type="text" value="@(Model.selectedItem.MA_NV == null ? "Chưa cập nhật" : Model.selectedItem.NHANVIEN.HOTEN)" readonly="readonly" maxlength="30" name="MA_NV" required /> <!--auto fill information of the staff-->
-        </div>
-        <div class="form-group ">
-            <label class="input-sm">Trị giá (VNĐ):</label>
-            <input class="form-control input-sm" type="number" readonly="readonly" value="@Model.selectedItem.SOTIEN" id="textbox_trigia" required maxlength="20" name="SOTIEN" />
-        </div>
-        <div class="form-group ">
-            <label class="input-sm">Nội dung chi:</label>
-            <textarea class="form-control input-sm" rows="10" name="NOIDUNG" required>@Model.selectedItem.NOIDUNG</textarea>
-        </div>
-    }
+    <div class="container-fluid " style="margin-left: 100px;">
+        @using (Html.BeginForm("SuaPhieuChi", "PhieuChi", FormMethod.Post, new { @id = "#new_sale_bill_form" }))
+        {
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label class="input-sm" style="color : red;">Mã phiếu :</label>
+                    <input class="form-control input-sm" type="text" maxlength="100" readonly="readonly" name="MA_PHIEUCHI" required value="@Model.selectedItem.MA_PHIEUCHI" />
+                </div>
+                <div class="form-group ">
+                    <label class="input-sm"> Ngày lập :</label>
+                    <input class="form-control input-sm" readonly="readonly" type="text" id="datebox_ngaylapphieu" value="@Model.selectedItem.NGAYLAP" maxlength="30" name="NGAYLAP" required />
+                </div>
+                <div class="form-group ">
+                    <label class="input-sm">Nhân viên:</label>
+                    <input class="form-control input-sm" type="text" value="@(Model.selectedItem.MA_NV == null ? "Chưa cập nhật" : Model.selectedItem.NHANVIEN.HOTEN)" readonly="readonly" maxlength="30" name="MA_NV" required /> <!--auto fill information of the staff-->
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <div class="form-group ">
+                    <label class="input-sm">Trị giá (VNĐ):</label>
+                    <input class="form-control input-sm" type="text" readonly="readonly" value="@String.Format("{0:#,###,###,###}", Model.selectedItem.SOTIEN)" id="textbox_trigia" required maxlength="20" name="SOTIEN" />
+                </div>
+                <div class="form-group ">
+                    <label class="input-sm">Nội dung chi:</label>
+                    <textarea class="form-control input-sm" rows="10" name="NOIDUNG" maxlength="1000" required>@Model.selectedItem.NOIDUNG</textarea>
 
+                </div>
+            </div>
+
+        }
+        <div class="clearfix"></div>
+        <div class="container-fluid" style="margin-top: 20px">
+            <div class="row">
+                <div style="float: left; margin-left: 100px;">
+                    <p>
+                        <strong>Người lập</strong>
+                    </p>
+                    <p>
+                        <i>Ký tên</i>
+                    </p>
+                </div>
+                <div style="float: right; margin-right: 100px;">
+
+                    <p>
+                        <strong>Khách hàng</strong>
+                    </p>
+                    <p>
+                        <i>Ký tên</i>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-</html>
-
-@*<script>
-
-        ///
-        // Ultility method for comparing date validation
-        //
-        var isAfterStartDate = function (startDateStr, endDateStr) {
-            var inDate = new Date(startDateStr),
-                eDate = new Date(endDateStr);
-            if (eDate >= inDate) {
-                return true;
-            } else {
-                return false;
-            }
-
-        };
-        //
-        // Check data validation before submitting form
-        $("form").submit(function (e) {
-            // Firstly, check final payment date and creation date
-            var creationTime = $("#datebox_ngaytiepnhan").val();
-            var finalPaymentTime = $("#datebox_ngaytraxe").val();
-            if (isAfterStartDate(creationTime, finalPaymentTime) == false) {
-                alert("Hạn chót thanh toán phải lớn hơn hoặc cùng với ngày lập phiếu !");
-                e.preventDefault();
-            }
-
-            // check validation of paying
-            var remainder = new Number($("#textbox_sotienconlai").val());
-            var total = new Number($("#textbox_trigia").val());
-            if (remainder >= total) {
-                alert("Số tiền còn lại phải nhỏ hơn số tổng trị giá phiếu !");
-                e.preventDefault();
-            }
-        });
-        // update creation date in text box
-        document.getElementById("datebox_ngaylapphieu").valueAsDate = new Date();
-
-    </script>*@
-
-
-
-
-
-
-
-
-
-
-

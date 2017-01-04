@@ -1,126 +1,153 @@
-﻿<html>
+﻿<!DOCTYPE html>
+@model QuanLyGaraOto.ViewModel.PhieuBanXeViewModel
+@{
+    ViewBag.Title = "General";
+}
+<html>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryui")
 @Scripts.Render("~/bundles/bootstrap")
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
-@using QuanLyGaraOto.Models;
-@model QuanLyGaraOto.ViewModel.PhieuBanXeViewModel
-
 <head>
-    <title>In phiếu chi</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<title>@ViewBag.Title</title>*@
+
+    <style>
+        html, body {
+            margin: 0px !important;
+            padding: 0px !important;
+            overflow-x: hidden;
+        }
+
+        .row.content {
+            height: auto;
+        }
+
+        @@media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+
+            .row.content {
+                height: auto;
+            }
+        }
+
+        .table {
+            border-bottom: 0px !important;
+        }
+
+            .table th, .table td {
+                border: 1px !important;
+            }
+
+        .fixed-table-container {
+            border: 0px !important;
+        }
+
+        .table-info {
+            border-bottom: 0px !important;
+        }
+
+            .table-info th, .table td {
+                border: 1px !important;
+            }
+
+        .fixed-table-container {
+            border: 0px !important;
+        }
+    </style>
 </head>
-<body>
+<body style="background-color:#e6e6e6; ">
 
-    <h3 class="text-center" style="color:green;">PHIẾU BÁN XE</h3>
-    @using (Html.BeginForm("SuaPhieuBanXe", "PhieuBanXe", FormMethod.Post, new { @id = "#existing_sale_bill_form" }))
-    {
-        <div class="form-group">
-            <input class="form-control input-sm" style="display: none" readonly="readonly" type="text" maxlength="100" value="@Model.selectedPHIEUBANXE.ID_PHIEUBANXE" name="ID_PHIEUBANXE" required />
-        </div>
-        <div class="form-group">
-            <label class="input-sm" style="color : red;">Mã phiếu :</label>
-            <input class="form-control input-sm" readonly="readonly" type="text" maxlength="100" value="@Model.selectedPHIEUBANXE.MAPHIEUBAN" name="MAPHIEUBAN" required />
-        </div>
-        <div class="form-group">
-            <label class="input-sm"> Ngày lập :</label>
-            <input class="form-control input-sm" readonly="readonly" type="text" id="datebox_ngaylapphieu" maxlength="30" name="NGAYLAP" value="@String.Format("{0:dd/MM/yyyy}", Model.selectedPHIEUBANXE.NGAYLAP)" required />
-        </div>
-        <div class="form-group ">
-            <label class="input-sm">Mã Nhân viên lập :</label>
-            <input class="form-control input-sm" type="text" value="@Model.selectedPHIEUBANXE.MaNV" readonly="readonly" maxlength="30" name="MaNV" required /> <!--auto fill information of the staff-->
-        </div>
-        <div class="form-group ">
-            <label class="input-sm">Biển số xe</label>
-            <input class="form-control input-sm" type="text" value="@Model.selectedPHIEUBANXE.BS_XE" readonly="readonly" maxlength="30" name="BS_XE" required /> <!--auto fill information of the staff-->
-        </div>
-        <div class="form-group">
-            <label class="input-sm">Khách hàng :</label> <!--Information of customer is allowed to be modified-->
-            <select name="MAKH" class="cboNhom form-control input-sm">
-                <option value="@null" style="color: blue; font-weight : bold;">Khách vãng lai</option>
-                @foreach (var item in Model.listOfKhachHang)
-                {
-                    if (item.MA_KH == Model.selectedPHIEUBANXE.MAKH)
-                    {
-                        <option value="@item.MA_KH" selected>@item.TEN_KH</option>
-                    }
-                    else
-                    {
-                        <option value="@item.MA_KH">@item.TEN_KH</option>
-                    }
+    <div class="container-fluid " style="margin-left: 100px;">
+        @using (Html.BeginForm("SuaPhieuBanXe", "PhieuBanXe", FormMethod.Post, new { @id = "#existing_sale_bill_form" }))
+        {
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <input class="form-control input-sm" style="display: none" readonly="readonly" type="text" maxlength="100" value="@Model.selectedPHIEUBANXE.ID_PHIEUBANXE" name="ID_PHIEUBANXE" required />
+                </div>
+                <div class="form-group">
+                    <label class="input-sm" style="color : red;">Mã phiếu :</label>
+                    <input class="form-control input-sm" type="text" maxlength="100" value="@Model.selectedPHIEUBANXE.MAPHIEUBAN" name="MAPHIEUBAN" required />
+                </div>
+                <div class="form-group">
+                    <label class="input-sm"> Ngày lập :</label>
+                    <input class="form-control input-sm" readonly="readonly" type="text" id="datebox_ngaylapphieu" maxlength="30" name="NGAYLAP" value="@Model.selectedPHIEUBANXE.NGAYLAP" required />
+                </div>
+                <div class="form-group ">
+                    <label class="input-sm">Mã Nhân viên lập :</label>
+                    <input class="form-control input-sm" type="text" value="@Model.service.NHANVIENs.Where(e =>e.MA_NV == Model.selectedPHIEUBANXE.MaNV).Single().HOTEN" readonly="readonly" maxlength="30" name="MaNV" required /> <!--auto fill information of the staff-->
+                </div>
+                <div class="form-group ">
+                    <label class="input-sm">Biển số xe</label>
+                    <input class="form-control input-sm" type="text" value="@Model.selectedPHIEUBANXE.BS_XE" readonly="readonly" maxlength="30" name="BS_XE" required /> <!--auto fill information of the staff-->
+                </div>
+                <div class="form-group">
+                    <label class="input-sm">Khách hàng :</label> <!--Information of customer is allowed to be modified-->
+                    <select name="MAKH" class="cboNhom form-control input-sm">
+                        @foreach (var item in Model.listOfKhachHang)
+                        {
+                            if (item.MA_KH == Model.selectedPHIEUBANXE.MAKH)
+                            {
+                                <option value="@item.MA_KH" selected>@item.TEN_KH</option>
+                            }
+                            else
+                            {
+                                <option value="@item.MA_KH">@item.TEN_KH</option>
+                            }
 
 
-                }
-            </select>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="input-sm">Trị giá (VNĐ):</label>
+                    <input class="form-control input-sm" readonly type="number" value="@Model.selectedPHIEUBANXE.TRIGIA" id="textbox_trigia" required maxlength="20" name="TRIGIA" />
+                </div>
+                <div class="form-group ">
+                    <label class="input-sm">Số tiền còn lại :</label>
+                    <input id="textbox_sotienconlai" value="@Model.selectedPHIEUBANXE.SOTIENCONLAI" class="form-control input-sm" required type="number" name="SOTIENCONLAI" />
+                </div>
+                <div class="form-group">
+                    <label class="input-sm">Hạn chót thanh toán :</label>
+                    <input id="datebox_hanchotthanhtoan" class="input-sm date" type="text" value="@Model.selectedPHIEUBANXE.HANCHOTTHANHTOAN.Value.ToString("yyyy-MM-dd")" name="HANCHOTTHANHTOAN" />
+                </div>
+                <div class="form-group">
+                    <label class="input-sm">Hạn bảo hành (Tháng) :</label>
+                    <input class="form-control input-sm" required value="@Model.selectedPHIEUBANXE.HANBAOHANH" id="datebox_hanchotthanhtoan" type="number" maxlength="255" name="HANBAOHANH" />
+                </div>
+                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span>Cập nhật</button>
+            </div>
+        }
+        <div class="clearfix"></div>
+        <div class="container-fluid" style="margin-top: 20px">
+            <div class="row">
+                <div style="float: left; margin-left: 100px;">
+                    <p>
+                        <strong>Người lập</strong>
+                    </p>
+                    <p>
+                        <i>Ký tên</i>
+                    </p>
+                </div>
+                <div style="float: right; margin-right: 100px;">
+
+                    <p>
+                        <strong>Khách hàng</strong>
+                    </p>
+                    <p>
+                        <i>Ký tên</i>
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label class="input-sm">Trị giá (VNĐ):</label>
-            <input class="form-control input-sm" readonly type="number" value="@Model.selectedPHIEUBANXE.TRIGIA" id="textbox_trigia" required maxlength="20" name="TRIGIA" />
-        </div>
-        <div class="form-group ">
-            <label class="input-sm">Số tiền còn lại :</label>
-            <input id="textbox_sotienconlai" value="@Model.selectedPHIEUBANXE.SOTIENCONLAI" class="form-control input-sm" required type="number" name="SOTIENCONLAI" />
-        </div>
-        <div class="form-group">
-            <label class="input-sm">Hạn chót thanh toán :</label>
-            <input id="datebox_hanchotthanhtoan" class="input-sm date" type="text" value="@Model.selectedPHIEUBANXE.HANCHOTTHANHTOAN.Value.ToString("yyyy-MM-dd")" name="HANCHOTTHANHTOAN" />
-        </div>
-        <div class="form-group">
-            <label class="input-sm">Hạn bảo hành (Tháng) :</label>
-            <input class="form-control input-sm" required value="@Model.selectedPHIEUBANXE.HANBAOHANH" id="datebox_hanchotthanhtoan" type="number" maxlength="255" name="HANBAOHANH" />
-        </div>
-    }
+    </div>
 </body>
-</html>
-
-@*<script>
-
-        ///
-        // Ultility method for comparing date validation
-        //
-        var isAfterStartDate = function (startDateStr, endDateStr) {
-            var inDate = new Date(startDateStr),
-                eDate = new Date(endDateStr);
-            if (eDate >= inDate) {
-                return true;
-            } else {
-                return false;
-            }
-
-        };
-        //
-        // Check data validation before submitting form
-        $("form").submit(function (e) {
-            // Firstly, check final payment date and creation date
-            var creationTime = $("#datebox_ngaytiepnhan").val();
-            var finalPaymentTime = $("#datebox_ngaytraxe").val();
-            if (isAfterStartDate(creationTime, finalPaymentTime) == false) {
-                alert("Hạn chót thanh toán phải lớn hơn hoặc cùng với ngày lập phiếu !");
-                e.preventDefault();
-            }
-
-            // check validation of paying
-            var remainder = new Number($("#textbox_sotienconlai").val());
-            var total = new Number($("#textbox_trigia").val());
-            if (remainder >= total) {
-                alert("Số tiền còn lại phải nhỏ hơn số tổng trị giá phiếu !");
-                e.preventDefault();
-            }
-        });
-        // update creation date in text box
-        document.getElementById("datebox_ngaylapphieu").valueAsDate = new Date();
-
-    </script>*@
-
-
-
-
-
-
-
-
-
-
-

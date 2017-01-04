@@ -204,6 +204,7 @@ namespace QuanLyGaraOto.Controllers
                 khachHang.DIACHI = infor.diaChi;
                 khachHang.CMND = infor.soCmnd;
                 khachHang.GIOITINH = infor.gioiTinh;
+                khachHang.SOTIENNO = 0;
                 // luu thong tin khach hang
                 this.service.KHACHHANGs.Add(khachHang);
                 this.service.SaveChanges();

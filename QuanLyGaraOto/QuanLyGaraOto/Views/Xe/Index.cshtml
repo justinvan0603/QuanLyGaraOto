@@ -29,7 +29,7 @@
                 @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+                <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
             </div>
         </div>
     }
@@ -68,7 +68,7 @@
                             <td>@item.DOI_XE</td>
                             <td>@item.SO_KM</td>
                             <td>
-                                @Html.ActionLink("Sửa", "SuaThongTinXe", new { bienSoXe = @item.BS_XE }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
+                                @Html.ActionLink("Sửa", "SuaThongTinXe", new { bienSoXe = @item.BS_XE }, new { @class = "btn btn-warning btn-sm glyphicon glyphicon-pencil" })
                             </td>
                         </tr>
                     }

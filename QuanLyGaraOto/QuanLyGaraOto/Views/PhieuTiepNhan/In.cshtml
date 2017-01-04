@@ -1,100 +1,131 @@
-﻿<html>
+﻿<!DOCTYPE html>
+@model QuanLyGaraOto.ViewModel.PhieuTiepNhanViewModel
+@{
+    ViewBag.Title = "General";
+}
+<html>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryui")
 @Scripts.Render("~/bundles/bootstrap")
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
-@using QuanLyGaraOto.Models;
-@model QuanLyGaraOto.ViewModel.PhieuTiepNhanViewModel
-
 <head>
-    <title>In phiếu tiếp nhận</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<title>@ViewBag.Title</title>*@
+
+    <style>
+        html, body {
+            margin: 0px !important;
+            padding: 0px !important;
+            overflow-x: hidden;
+        }
+
+        .row.content {
+            height: auto;
+        }
+
+        @@media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+
+            .row.content {
+                height: auto;
+            }
+        }
+
+        .table {
+            border-bottom: 0px !important;
+        }
+
+            .table th, .table td {
+                border: 1px !important;
+            }
+
+        .fixed-table-container {
+            border: 0px !important;
+        }
+
+        .table-info {
+            border-bottom: 0px !important;
+        }
+
+            .table-info th, .table td {
+                border: 1px !important;
+            }
+
+        .fixed-table-container {
+            border: 0px !important;
+        }
+    </style>
 </head>
-<body>
+<body style="background-color:#e6e6e6; ">
 
-    <h3 class="text-center" style="color:green;">Phiếu tiếp nhận</h3>
+    <div class="container-fluid " style="margin-left: 100px;">
 
-    @using (Html.BeginForm("SuaPhieuTiepNhan", "PhieuTiepNhan", FormMethod.Post, new { @id = "#suathongtinphieutiepnhan_form" }))
-    {
-        <div class="form-group">
-            <label class="input-sm" style="color : red;">Mã phiếu :</label>
-            <input class="form-control input-sm" type="text" maxlength="100" readonly="readonly" value="@(Model.selectedPhieuTiepNhan.MA_PHIEUTIEPNHAN != null ? Model.selectedPhieuTiepNhan.MA_PHIEUTIEPNHAN.ToString() : "" )" name="MA_PHIEUTIEPNHAN" required />
+        <div class="row content">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <label class="input-sm" style="color : red;">Mã phiếu :</label>
+                        <input class="form-control input-sm" type="text" maxlength="100" readonly="readonly" value="@(Model.selectedPhieuTiepNhan.MA_PHIEUTIEPNHAN != null ? Model.selectedPhieuTiepNhan.MA_PHIEUTIEPNHAN.ToString() : "" )" name="MA_PHIEUTIEPNHAN" required />
+                    </div>
+                    <div class="form-group ">
+                        <label class="input-sm">Ngày tiếp nhận :</label>
+                        <input class="form-control input-sm" readonly="readonly" id="datebox_ngaytiepnhan" type="text" value="@String.Format("{0:yyyy/MM/dd}", @Model.selectedPhieuTiepNhan.NGAYLAP)" maxlength="30" name="NGAYLAP" required />
+                    </div>
+                    <div class="form-group ">
+                        <label class="input-sm">Khách hàng :</label>
+                        <input class="form-control input-sm" type="text" value="@Model.selectedPhieuTiepNhan.KHACHHANG.TEN_KH" readonly="readonly" maxlength="30" name="MA_KH" required /> <!--auto fill information of the staff-->
+                    </div>
+                    <div class="form-group ">
+                        <label class="input-sm">Biển số xe :</label>
+                        <input class="form-control input-sm" readonly="readonly" type="text" value="@Model.selectedPhieuTiepNhan.BIENSO_XE" maxlength="30" name="BIENSO_XE" required />
+                        <a href="/Xe/SuaThongTinXe?bienSoXe=@Model.selectedPhieuTiepNhan.BIENSO_XE">Sửa thông tin xe</a> <!-- toi trang sua thong tin xe -->
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="form-group ">
+                        <label class="input-sm">Mã số chờ :</label>
+                        <input class="form-control input-sm" type="text" value="@Model.selectedPhieuTiepNhan.MASOCHO" readonly="readonly" maxlength="30" name="MASOCHO" required /> <!--auto fill information of the staff-->
+                    </div>
+                    <div class="form-group ">
+                        <label class="input-sm">Ngày trả xe :</label>
+                        <input class="form-control input-sm date ngayhengiao" id="datepicker_ngaytra" type="text" value="@String.Format("{0:yyyy/MM/dd}", @Model.selectedPhieuTiepNhan.NGAYTRAXE)" name="NGAYTRAXE" placeholder="27/8/2016" />
+
+                    </div>
+                    <div class="form-group ">
+                        <label class="input-sm">Tình trạng :</label>
+                        <textarea class="form-control input-sm" name="TINHTRANG" maxlength="1000" required>@Model.selectedPhieuTiepNhan.TINHTRANG</textarea> <!--auto fill information of the staff-->
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
         </div>
-        <div class="form-group ">
-            <label class="input-sm">Ngày tiếp nhận :</label>
-            <input class="form-control input-sm" readonly="readonly" id="datebox_ngaytiepnhan" type="date" value="@Model.selectedPhieuTiepNhan.NGAYLAP.Value.ToString("yyyy-MM-dd")" maxlength="30" name="NGAYLAP" required />
+        <div class="container-fluid" style="margin-top: 20px">
+            <div class="row">
+                <div style="float: left; margin-left: 100px;">
+                    <p>
+                        <strong>Người lập</strong>
+                    </p>
+                    <p>
+                        <i>Ký tên</i>
+                    </p>
+                </div>
+                <div style="float: right; margin-right: 100px;">
+
+                    <p>
+                        <strong>Khách hàng</strong>
+                    </p>
+                    <p>
+                        <i>Ký tên</i>
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="form-group ">
-            <label class="input-sm">Khách hàng :</label>
-            <input class="form-control input-sm" type="text" value="@Model.selectedPhieuTiepNhan.KHACHHANG.TEN_KH" readonly="readonly" maxlength="30" name="MA_KH" required /> <!--auto fill information of the staff-->
-        </div>
-        <div class="form-group ">
-            <label class="input-sm">Biển số xe :</label>
-            <input class="form-control input-sm" readonly="readonly" type="date" value="@Model.selectedPhieuTiepNhan.BIENSO_XE" maxlength="30" name="BIENSO_XE" required />
-            <a href="/Xe/SuaThongTinXe?bienSoXe=@Model.selectedPhieuTiepNhan.BIENSO_XE">Sửa thông tin xe</a> <!-- toi trang sua thong tin xe -->
-        </div>
-        <div class="form-group ">
-            <label class="input-sm">Mã số chờ :</label>
-            <input class="form-control input-sm" type="text" value="@Model.selectedPhieuTiepNhan.MASOCHO" readonly="readonly" maxlength="30" name="MASOCHO" required /> <!--auto fill information of the staff-->
-        </div>
-        <div class="form-group ">
-            <label class="input-sm">Ngày trả xe :</label>
-            <input class="form-control input-sm" id="datebox_ngaytraxe" type="date" value="@(Model.selectedPhieuTiepNhan.NGAYTRAXE.Value.ToString("yyyy-MM-dd") != null  ? Model.selectedPhieuTiepNhan.NGAYTRAXE.Value.ToString("yyyy-MM-dd") : "" )" maxlength="30" name="NGAYTRAXE" required /> <!--auto fill information of the staff-->
-        </div>
-        <div class="form-group ">
-            <label class="input-sm">Tình trạng :</label>
-            <textarea class="form-control input-sm" name="TINHTRANG" required>@Model.selectedPhieuTiepNhan.TINHTRANG</textarea> <!--auto fill information of the staff-->
-        </div>
-    }
+    </div>
 </body>
-</html>
-
-@*<script>
-
-        ///
-        // Ultility method for comparing date validation
-        //
-        var isAfterStartDate = function (startDateStr, endDateStr) {
-            var inDate = new Date(startDateStr),
-                eDate = new Date(endDateStr);
-            if (eDate >= inDate) {
-                return true;
-            } else {
-                return false;
-            }
-
-        };
-        //
-        // Check data validation before submitting form
-        $("form").submit(function (e) {
-            // Firstly, check final payment date and creation date
-            var creationTime = $("#datebox_ngaytiepnhan").val();
-            var finalPaymentTime = $("#datebox_ngaytraxe").val();
-            if (isAfterStartDate(creationTime, finalPaymentTime) == false) {
-                alert("Hạn chót thanh toán phải lớn hơn hoặc cùng với ngày lập phiếu !");
-                e.preventDefault();
-            }
-
-            // check validation of paying
-            var remainder = new Number($("#textbox_sotienconlai").val());
-            var total = new Number($("#textbox_trigia").val());
-            if (remainder >= total) {
-                alert("Số tiền còn lại phải nhỏ hơn số tổng trị giá phiếu !");
-                e.preventDefault();
-            }
-        });
-        // update creation date in text box
-        document.getElementById("datebox_ngaylapphieu").valueAsDate = new Date();
-
-    </script>*@
-
-
-
-
-
-
-
-
-

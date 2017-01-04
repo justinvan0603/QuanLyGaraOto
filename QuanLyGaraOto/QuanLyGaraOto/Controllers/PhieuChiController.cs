@@ -247,7 +247,7 @@ namespace QuanLyGaraOto.Controllers
                 FileName = fileName,
                 PageOrientation = Orientation.Landscape,
                 PageSize = Size.A4,
-                PageMargins = { Left = 0, Right = 0 }, // it's in millimeters
+                PageMargins = { Left = 0, Right = 0, Bottom = 20 }, // it's in millimeters
                 CustomSwitches = "--disable-smart-shrinking"
             };
         }

@@ -29,11 +29,11 @@
     <h4>THÔNG TIN XE</h4>
     <div class="form-group">
         <label class="input-sm">Xe :</label>
-        <select id="selected_vehicle" name="bienSoXe" class="cboNhom form-control input-sm">
-            @foreach (var vehicle in Model.danhsachXe)
+        <select id="selected_vehicle" name="bienSoXe" class="cboVehicel form-control input-sm">
+            @*@foreach (var vehicle in Model.danhsachXe)
             {
                 <option value="@vehicle.BS_XE">@vehicle.BS_XE</option>
-            }
+            }*@
         </select>
     </div>
     <div class="form-group">
@@ -46,6 +46,7 @@
     // loc danh sach xe theo ma khach hang
     function onComboboxKhachHangChanged() {
         var selectedCustomerId = $('#customer_combobox').children("option").filter(":selected").attr("value");
+       // alert(selectedCustomerId);
         $.ajax({
             url: '/PhieuTiepNhan/getVehiclesByCustomerId/',
             type: 'post',
@@ -53,8 +54,9 @@
                 customerId: selectedCustomerId
             }
         }).done(function (response) {
-            $("#selected_vehicle").empty();
-            $("#selected_vehicle").html(response);
+            document.getElementById("selected_vehicle").options.length = 0;
+            $(".cboVehicel").empty();
+            $(".cboVehicel").html(response);
         });
     }
 </script>
