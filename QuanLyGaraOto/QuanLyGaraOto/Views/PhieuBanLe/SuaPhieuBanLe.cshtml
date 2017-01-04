@@ -356,7 +356,7 @@
             success: function (result) {
                 isSuccess = result.value;
                 message = result.message;
-                alert(message);
+                //alert(message);
             },
             error: function (result) {
                 isSuccess = result.value;
@@ -366,6 +366,7 @@
         }).done(function () {
             if (isSuccess == "1") {
                 row.remove();
+                location.reload();
                 //alert(result.message);
                 // window.location.replace("index");
             }
@@ -377,8 +378,15 @@
     });
 
     function cboPTSelectChanged() {
+        //var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
+        //$('.lblTonKho').text(parseInt(tonkho));
         var tonkho = $('.cboPT').children("option").filter(":selected").attr("title");
+        var dongia = $('.cboPT').children("option").filter(":selected").attr("itemprop");
+        var thoihanbaohanh = $('.cboPT').children("option").filter(":selected").attr("itemscope");
+        // alert(mapt);
         $('.lblTonKho').text(parseInt(tonkho));
+        $('.txtDonGia').val(parseInt(dongia));
+        $('.txtBH').val(parseInt(thoihanbaohanh));
     }
     function cboTCSelectChanged() {
 
@@ -591,15 +599,16 @@
                 $newrow.attr("value", id);
                // alert($newrow.attr("value"))
                 message = result.message;
-                alert(message);
+                //alert(message);
             },
             error: function (result) {
                 isSuccess = result.value;
                 message = result.message;
-                alert(message);
+               // alert(message);
             }
 
         }).done(function () {
+            location.reload();
             //if (isSuccess == "1") {
             //    //row.remove();
             //    //alert("Thêm Thành Công");
