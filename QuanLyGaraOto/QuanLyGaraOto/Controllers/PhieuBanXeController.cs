@@ -72,7 +72,7 @@ namespace QuanLyGaraOto.Controllers
                         case 1:
                             {
                                 PHIEUBANXEsDataTableModels = PHIEUBANXEsDataTableModels.Where(c =>
-                                 c.maPhieuBan == searchString).ToList(); break;
+                                 c.maPhieuBan.Contains(searchString)).ToList(); break;
                             }; // search theo ma phieu -> update code sau
                         case 2:
                             {

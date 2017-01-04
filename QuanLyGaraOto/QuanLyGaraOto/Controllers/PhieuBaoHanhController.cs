@@ -57,6 +57,11 @@ namespace QuanLyGaraOto.Controllers
                                 break;
 
                             }
+                        case 2 : // tim kiem theo ma phieu
+                            {
+                                listOfPhieuBaoHanh = listOfPhieuBaoHanh.Where(e => e.MA_PHIEUBH == int.Parse(searchString)).ToList();
+                                break;
+                            }
                         default: { break; }
                     }
                 }
