@@ -141,11 +141,13 @@
             }).done(function () {
                 if (isSuccess == "1") {
                     row.remove();
-                    alert(message);
+                    //alert(message);
+                    location.reload();
                     // window.location.replace("index");
                 }
                 else {
-                    alert(message);
+                    //alert(message);
+                    location.reload();
                 }
             });
         })

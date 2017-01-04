@@ -97,7 +97,7 @@
             </tr>
             <tr>
                 <td><label class="input-sm">Tiền công:</label></td>
-                <td>@Html.TextBoxFor(model => model.PhieuDichVu.TIENCONG, new { @class = "txtTienCong form-control input-sm", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })</td>
+                <td>@Html.TextBoxFor(model => model.PhieuDichVu.TIENCONG, new { @class = "txtTienCong form-control input-sm", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @maxlength = 6 })</td>
                 <td></td>
                 <td></td>
             </tr>

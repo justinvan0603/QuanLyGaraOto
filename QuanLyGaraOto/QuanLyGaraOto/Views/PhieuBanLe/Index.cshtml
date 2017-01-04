@@ -150,10 +150,12 @@
             }).done(function () {
                 if (isSuccess == "1") {
                     row.remove();
+                    location.reload();
                     //alert(message);
                     // window.location.replace("index");
                 }
                 else {
+                    location.reload();
                     //alert(message);
                 }
             });
