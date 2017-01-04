@@ -97,7 +97,7 @@
             </tr>
             <tr>
                 <td><label class="input-sm">Tiền công:</label></td>
-                <td>@Html.TextBoxFor(model => model.PhieuDichVu.TIENCONG, new { @class = "txtTienCong form-control input-sm" })</td>
+                <td>@Html.TextBoxFor(model => model.PhieuDichVu.TIENCONG, new { @class = "txtTienCong form-control input-sm", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })</td>
                 <td></td>
                 <td></td>
             </tr>
@@ -167,7 +167,7 @@
                 <label class="input-sm">Lượng tồn:</label>
                 <label class="lblTonKho input-sm" style="width:4%">@slTon</label>
                 <label class="input-sm">Số lượng:</label>
-                <input type="number" maxlength="3" pattern="[0-9]"  class=" txtSoLuong form-control input-sm" style="width:8%" />
+                <input type="number" maxlength="3" pattern="[0-9]" class=" txtSoLuong form-control input-sm" style="width:8%" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                 <label class="input-sm">Đơn giá:</label>
                 <input type="number" maxlength="8"  pattern="[0-9]" class="txtDonGia form-control input-sm" style="width:10%" value="@dongia" readonly/>
                 <label class="input-sm">Bảo hành:</label>
