@@ -274,6 +274,11 @@ namespace QuanLyGaraOto.Controllers
         [HttpPost]
         public ActionResult SuaPhieuBanLe(PhieuBanLeViewModel vmPhieuBanLe)
         {
+            GARADBEntities context = new GARADBEntities();
+            var target = context.PHIEU_BANLE.Single(pbl => pbl.ID_PHIEUBANLE == vmPhieuBanLe.PhieuBanLe.ID_PHIEUBANLE);
+            target.MaPhieuBan = vmPhieuBanLe.PhieuBanLe.MaPhieuBan;
+            context.SaveChanges();
+
             TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Cập nhật thành công! </div> </div> </div>";
             //TempData["msg"] = "<script>alert('Đã sửa thành công!');</script>";
             return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });

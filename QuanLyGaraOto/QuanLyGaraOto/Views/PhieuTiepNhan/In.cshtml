@@ -72,26 +72,26 @@
                 <div class="col-xs-4">
                     <div class="form-group">
                         <label class="input-sm" style="color : red;">Mã phiếu :</label>
-                        <input class="form-control input-sm" type="text" maxlength="100" readonly="readonly" value="@(Model.selectedPhieuTiepNhan.MA_PHIEUTIEPNHAN != null ? Model.selectedPhieuTiepNhan.MA_PHIEUTIEPNHAN.ToString() : "" )" name="MA_PHIEUTIEPNHAN" required />
+                        <input class="form-control input-sm" type="text" maxlength="100" @*readonly="readonly"*@ value="@(Model.selectedPhieuTiepNhan.MA_PHIEUTIEPNHAN != null ? Model.selectedPhieuTiepNhan.MA_PHIEUTIEPNHAN.ToString() : "" )" name="MA_PHIEUTIEPNHAN" required />
                     </div>
                     <div class="form-group ">
                         <label class="input-sm">Ngày tiếp nhận :</label>
-                        <input class="form-control input-sm" readonly="readonly" id="datebox_ngaytiepnhan" type="text" value="@String.Format("{0:yyyy/MM/dd}", @Model.selectedPhieuTiepNhan.NGAYLAP)" maxlength="30" name="NGAYLAP" required />
+                        <input class="form-control input-sm" @*readonly="readonly"*@ id="datebox_ngaytiepnhan" type="text" value="@String.Format("{0:yyyy/MM/dd}", @Model.selectedPhieuTiepNhan.NGAYLAP)" maxlength="30" name="NGAYLAP" required />
                     </div>
                     <div class="form-group ">
                         <label class="input-sm">Khách hàng :</label>
-                        <input class="form-control input-sm" type="text" value="@Model.selectedPhieuTiepNhan.KHACHHANG.TEN_KH" readonly="readonly" maxlength="30" name="MA_KH" required /> <!--auto fill information of the staff-->
+                        <input class="form-control input-sm" type="text" value="@Model.selectedPhieuTiepNhan.KHACHHANG.TEN_KH" @*readonly="readonly"*@ maxlength="30" name="MA_KH" required /> <!--auto fill information of the staff-->
                     </div>
                     <div class="form-group ">
                         <label class="input-sm">Biển số xe :</label>
-                        <input class="form-control input-sm" readonly="readonly" type="text" value="@Model.selectedPhieuTiepNhan.BIENSO_XE" maxlength="30" name="BIENSO_XE" required />
+                        <input class="form-control input-sm" @*readonly="readonly"*@ type="text" value="@Model.selectedPhieuTiepNhan.BIENSO_XE" maxlength="30" name="BIENSO_XE" required />
                         <a href="/Xe/SuaThongTinXe?bienSoXe=@Model.selectedPhieuTiepNhan.BIENSO_XE">Sửa thông tin xe</a> <!-- toi trang sua thong tin xe -->
                     </div>
                 </div>
                 <div class="col-xs-4">
                     <div class="form-group ">
                         <label class="input-sm">Mã số chờ :</label>
-                        <input class="form-control input-sm" type="text" value="@Model.selectedPhieuTiepNhan.MASOCHO" readonly="readonly" maxlength="30" name="MASOCHO" required /> <!--auto fill information of the staff-->
+                        <input class="form-control input-sm" type="text" value="@Model.selectedPhieuTiepNhan.MASOCHO" @*readonly="readonly"*@ maxlength="30" name="MASOCHO" required /> <!--auto fill information of the staff-->
                     </div>
                     <div class="form-group ">
                         <label class="input-sm">Ngày trả xe :</label>
