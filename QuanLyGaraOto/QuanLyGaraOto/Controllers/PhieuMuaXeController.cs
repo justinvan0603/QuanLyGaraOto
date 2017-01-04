@@ -160,7 +160,7 @@ namespace QuanLyGaraOto.Controllers
             phieuMuaXeMoi.MAKH = arg.maKhachHang;
             phieuMuaXeMoi.MaNV = int.Parse(Session["UserID"].ToString());
             phieuMuaXeMoi.TRIGIA = arg.tongGiaTri;
-
+            
 
             // tien hanh luu
             this.service.XEs.Add(xeMoi);
@@ -252,7 +252,7 @@ namespace QuanLyGaraOto.Controllers
             }
             // start to update
             phieuMuaXe.MAKH = modifiedInfor.maKhachHang;
-            phieuMuaXe.MaNV = modifiedInfor.maNhanVien;
+           // phieuMuaXe.MaNV = modifiedInfor.maNhanVien;
             phieuMuaXe.MAPHIEUMUA = modifiedInfor.maPhieuMuaXe;
             phieuMuaXe.NGAYLAP = modifiedInfor.ngayLapPhieu;
             phieuMuaXe.TRIGIA = modifiedInfor.tongGiaTri;

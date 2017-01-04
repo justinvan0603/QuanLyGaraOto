@@ -154,7 +154,7 @@ namespace QuanLyGaraOto.Controllers
         {
             //start to save new information of the new verhical sale of bill into datbase
             // firstly, update the information of staff that create the bill via session the application
-            phieuBanXeMoi.MaNV = 1; //this.service.NHANVIENs.Single(e => e.USERNAME.Equals(Session["Username"])).MA_NV;
+            phieuBanXeMoi.MaNV = int.Parse(Session["UserID"].ToString()); //this.service.NHANVIENs.Single(e => e.USERNAME.Equals(Session["Username"])).MA_NV;
             phieuBanXeMoi.SOTIENCONLAI = phieuBanXeMoi.TRIGIA; // mac dinh tri gia bang phieu thu
             // insert into database
             this.service.PHIEU_BANXE.Add(phieuBanXeMoi);
