@@ -18,8 +18,8 @@ namespace QuanLyGaraOto.ViewModel
         public List<SelectListItem> listSearchOption = new List<SelectListItem>(){ new SelectListItem(){Text = "", Value="0"},
                                                                                     new SelectListItem(){Text = "Biển số xe", Value="1"},
                                                                                     new SelectListItem(){Text = "Hiệu xe", Value="2"},
-                                                                                    new SelectListItem(){Text = "Xe bán", Value="3"},
-                                                                                    new SelectListItem(){Text = "Xe mua", Value="4"}};
+                                                                                    new SelectListItem(){Text = "Xe cửa hàng", Value="3"},
+                                                                                    new SelectListItem(){Text = "Xe sửa chữa", Value="4"}};
         public XE selectedXe { get; set; }
 
         // danh sach xe
