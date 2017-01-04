@@ -251,8 +251,8 @@ namespace QuanLyGaraOto.Controllers
             if (chiTietPBH != null)
             {
                 // tien hanh cap nhat thong tin
-                chiTietPBH.NGAYHENTRA = DateTime.ParseExact(chitiet.ngayHenTra, "dd/MM/yyyy", CultureInfo.CurrentCulture);
-                chiTietPBH.NGAYTRA = DateTime.ParseExact(chitiet.ngayTra, "dd/MM/yyyy", CultureInfo.CurrentCulture);
+                chiTietPBH.NGAYHENTRA = DateTime.ParseExact(chitiet.ngayHenTra, "yyyy/MM/dd", CultureInfo.CurrentCulture);
+                chiTietPBH.NGAYTRA = DateTime.ParseExact(chitiet.ngayTra, "yyyy/MM/dd", CultureInfo.CurrentCulture);
                 this.service.Entry(chiTietPBH).State = System.Data.Entity.EntityState.Modified;
                 this.service.SaveChanges();
                 // thong bao cho nguoi dung da cap nhat thanh cong

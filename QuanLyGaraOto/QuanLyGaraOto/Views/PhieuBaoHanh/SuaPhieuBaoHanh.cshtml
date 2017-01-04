@@ -119,11 +119,11 @@
                                 </td>
                                 <td><input class="txtMaTenPT form-control input-sm" type="text" value="@item.MA_PHUTUNG" readonly /></td>
                                 <td>
-                                    <input class="form-control input-sm date ngayhentra" type="text" value="@String.Format("{0:dd/MM/yyyy}", @item.NGAYHENTRA)" name="ngayhentra" placeholder="27/8/2016" />
+                                    <input class="form-control input-sm date ngayhentra" type="text" value="@String.Format("{0:yyyy/MM/dd}", @item.NGAYHENTRA)" name="ngayhentra" placeholder="27/8/2016" />
 
                                 </td>
                                 <td>
-                                    <input class="form-control input-sm date ngaytra" type="text" value="@String.Format("{0:dd/MM/yyyy}", @item.NGAYTRA)" name="ngaytra" placeholder="27/8/2016" />
+                                    <input class="form-control input-sm date ngaytra" type="text" value="@String.Format("{0:yyyy/MM/dd}", @item.NGAYTRA)" name="ngaytra" placeholder="27/8/2016" />
                                 </td>
                                 <td>
                                     <input id="button_update" type="button" value="Lưu" class="btn-update btn btn-primary btn-sm" />
@@ -145,7 +145,7 @@
 <script>
     $(function () {
         $(".date").datepicker({
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'yy/mm/dd',
             changeMonth: true,
             changeYear: true
         });
@@ -158,25 +158,39 @@
             alert("Vui lòng nhập dữ liệu vào bảng chi tiết!");
             e.preventDefault();
         }
-        if ($(".txtTienCong").val().length <= 0) {
-            alert("Vui lòng nhập giá trị tiền công!");
-            e.preventDefault();
-        }
-        else {
-            var tc = parseInt($(".txtTienCong").val());
-            if (tc <= 1000) {
-                alert("Giá trị tiền công tối thiểu là 1000!");
-                e.preventDefault();
-            }
-        }
-        if ($(".txtMaPhieu").val().length <= 0) {
-            alert("Vui lòng nhập mã số phiếu dịch vụ!");
-            e.preventDefault();
-        }
+        //if ($(".txtTienCong").val().length <= 0) {
+        //    alert("Vui lòng nhập giá trị tiền công!");
+        //    e.preventDefault();
+        //}
+        //else {
+        //    var tc = parseInt($(".txtTienCong").val());
+        //    if (tc <= 1000) {
+        //        alert("Giá trị tiền công tối thiểu là 1000!");
+        //        e.preventDefault();
+        //    }
+        //}
+        //if ($(".txtMaPhieu").val().length <= 0) {
+        //    alert("Vui lòng nhập mã số phiếu dịch vụ!");
+        //    e.preventDefault();
+        //}
         //alert("method call");
         //e.preventDefault();
         //alert("stop submit");
     })
+
+    ///
+    // Ultility method for comparing date validation
+    //
+    var isAfterStartDate = function (startDateStr, endDateStr) {
+        var inDate = new Date(startDateStr),
+            eDate = new Date(endDateStr);
+        if (eDate >= inDate) {
+            return true;
+        } else {
+            return false;
+        }
+
+    };
 
     $('#chitietphieu-table').on('click', '.clickable-row', function (event) {
         if ($(this).hasClass('active')) {
@@ -195,37 +209,43 @@
         var ngayHenTra = row.find("input.ngayhentra").val(); // lay gia tri ngay hen tra
         var ngayTra = row.find("input.ngaytra").val(); // lay gia tri ngay tra
 
-        var recordId = row.find("input.ID").attr("value");
-        var detail = { "detailId": recordId, "ngayHenTra": ngayHenTra, "ngayTra": ngayTra }
+        // kiem tra ngay tra va ngay hen tra du lieu co hop ly ?
+        if (isAfterStartDate(ngayHenTra, ngayTra) == false) {
+            alert("Ngày trả phải cùng hoặc sau ngày hẹn trả");
+        } else {
 
-        $.ajax({
+            var recordId = row.find("input.ID").attr("value");
+            var detail = { "detailId": recordId, "ngayHenTra": ngayHenTra, "ngayTra": ngayTra }
 
-            url: '/PhieuBaoHanh/CapNhatChiTietBaoHanh/',
-            data: JSON.stringify({ chitiet: detail }),
-            type: 'POST',
-            contentType: 'application/json; charset=utf-8',
+            $.ajax({
 
-            success: function (result) {
-                isSuccess = result.value;
-                message = result.message;
-                //alert(message);
-            },
-            error: function (result) {
-                isSuccess = result.value;
-                message = result.message;
-            }
+                url: '/PhieuBaoHanh/CapNhatChiTietBaoHanh/',
+                data: JSON.stringify({ chitiet: detail }),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
 
-        }).done(function () {
-            if (isSuccess == "1") {
-                location.reload();
-            }
-                //    alert("Thêm Thành Công");
-                //    // window.location.replace("index");
-                //}
-            else {
-                alert("Error. Please, check the data");
-            }
-        });
+                success: function (result) {
+                    isSuccess = result.value;
+                    message = result.message;
+                    //alert(message);
+                },
+                error: function (result) {
+                    isSuccess = result.value;
+                    message = result.message;
+                }
+
+            }).done(function () {
+                if (isSuccess == "1") {
+                    location.reload();
+                }
+                    //    alert("Thêm Thành Công");
+                    //    // window.location.replace("index");
+                    //}
+                else {
+                    alert("Error. Please, check the data");
+                }
+            });
+        }
 
     });
 </script>
