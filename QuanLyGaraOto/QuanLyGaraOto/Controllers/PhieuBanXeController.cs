@@ -139,6 +139,8 @@ namespace QuanLyGaraOto.Controllers
                 }
             }
             phieuBanXeViewModel.listOfKhachHang = this.service.KHACHHANGs.ToList();
+            int hantra = int.Parse(service.BANGTHAMSOes.Single(ht => ht.TENTHAMSO == "HanChotPhieuBanXe").GIATRI);
+            phieuBanXeViewModel.HanChotThanhToan = DateTime.Now.AddDays(hantra).Date.ToShortDateString();
             return View(phieuBanXeViewModel);
         }
 
@@ -167,7 +169,7 @@ namespace QuanLyGaraOto.Controllers
                 this.service.Entry(customer).State = System.Data.Entity.EntityState.Modified;
                 this.service.SaveChanges();
             }
-
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
             return RedirectToAction("Index"); // after the opertation completes, redirect to the list screen
         }
 
@@ -260,6 +262,7 @@ namespace QuanLyGaraOto.Controllers
                 this.service.SaveChanges();
             }
             // tro lai man hinh danh sach
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
             return RedirectToAction("Index");
         }
 

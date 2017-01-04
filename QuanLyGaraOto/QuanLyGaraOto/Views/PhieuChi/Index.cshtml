@@ -19,8 +19,9 @@
 
 @using (@Html.BeginForm("Index", "PhieuChi", FormMethod.Get, new { @class = "form-inline" }))
 {
-    @Html.Raw(TempData["msg"])
+
     <h3 class="text-center" style="color: green;">DANH SÁCH PHIẾU CHI</h3>
+    @Html.Raw(TempData["msg"])
     <div class="form-inline">
         <div class="form-group">
             <label for="searchOption">Tìm theo:</label>
@@ -64,7 +65,7 @@
                         <td>@item.NOIDUNG</td>
                         <td style="text-align: inherit">
                             @Html.ActionLink("In", "In", new { id = @item.ID }, new { @class = "btn btn-primary glyphicon glyphicon-print" })
-                            @Html.ActionLink("Sửa", "SuaPhieuChi", new { id = @item.ID }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
+                            @*@Html.ActionLink("Sửa", "SuaPhieuChi", new { id = @item.ID }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })*@
                             <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
 
                         </td>

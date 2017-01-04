@@ -7,38 +7,88 @@
 }
 <head>
     <title>@ViewBag.Title</title>
+    <style>
+        .table {
+            border-bottom: 0px !important;
+        }
+
+            .table th, .table td {
+                border: 1px !important;
+            }
+
+        .fixed-table-container {
+            border: 0px !important;
+        }
+
+        .table-info {
+            border-bottom: 0px !important;
+        }
+
+            .table-info th, .table td {
+                border: 1px !important;
+            }
+
+        .fixed-table-container {
+            border: 0px !important;
+        }
+    </style>
 </head>
 
 <h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU CHI MỚI</h3>
-@using (Html.BeginForm("NhapPhieuChi", "PhieuChi", FormMethod.Post, new { @id = "#new_sale_bill_form" }))
+@using (Html.BeginForm("NhapPhieuChi", "PhieuChi", FormMethod.Post, new {@id = "#new_sale_bill_form"}))
 {
     <div class="form-group">
-        <label class="input-sm" style="color : red;">Mã phiếu :</label>
-        <input class="form-control input-sm" type="text" maxlength="100" name="MA_PHIEUCHI" required value="@Environment.TickCount" />
     </div>
     <div class="form-group ">
-        <label class="input-sm"> Ngày lập :</label>
-        <input class="form-control input-sm" readonly="readonly" type="text" id="datebox_ngaylapphieu" value="@DateTime.Now" maxlength="30" name="NGAYLAP" required />
     </div>
     <div class="form-group ">
-        <label class="input-sm">Nhân viên:</label>
-        <input class="form-control input-sm" type="text" value="@Session["staff_name"]" readonly="readonly" maxlength="30" name="MA_NV" required /> <!--auto fill information of the staff-->
     </div>
     <div class="form-group ">
-        <label class="input-sm">Trị giá (VNĐ):</label>
-        <input class="form-control input-sm" type="number" value="@Model.triGia" id="textbox_trigia" required maxlength="20" name="SOTIEN">
     </div>
     <div class="form-group ">
-        <label class="input-sm">Nội dung chi:</label>
-        <textarea class="form-control input-sm" rows="10" name="NOIDUNG" required>@Model.noiDungChi</textarea>
     </div>
     <div class="form-group ">
-        <label class="input-sm">Mã phiếu nhập hàng :</label>
-        <input id="textbox_sotienconlai" value="@Model.idPhieuNhapHang" readonly="readonly" class="form-control input-sm" type="text" name="ID_PHIEUNHAPHANG" />
     </div>
     <div class="form-group">
-        <label class="input-sm">Mã phiếu mua xe :</label>
-        <input class="form-control  input-sm" readonly="readonly" id="datebox_hanchotthanhtoan" type="text" maxlength="255" name="ID_PHIEUMUAXE" />
     </div>
+
+
+    <table class="table-info borderless">
+        <tr>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
+        </tr>
+        <tbody>
+        <tr>
+            <td><label class="input-sm" style="color: red;">Mã phiếu :</label></td>
+            <td><input class="form-control input-sm" type="text" maxlength="100" name="MA_PHIEUCHI" required value="@Environment.TickCount"/></td>
+            <td><label class="input-sm"> Ngày lập :</label></td>
+            <td><input class="form-control input-sm" readonly="readonly" type="text" id="datebox_ngaylapphieu" value="@DateTime.Now" maxlength="30" name="NGAYLAP" required/></td>
+        </tr>
+        <tr>
+            <td><label class="input-sm">Nhân viên:</label></td>
+            <td><input class="form-control input-sm" type="text" value="@Session["staff_name"]" readonly="readonly" maxlength="30" name="MA_NV" required/> <!--auto fill information of the staff--></td>
+            <td><label class="input-sm">Trị giá (VNĐ):</label></td>
+            <td><input class="form-control input-sm" type="number" value="@Model.triGia" id="textbox_trigia" required maxlength="20" name="SOTIEN"></td>
+        </tr>
+        <tr style="display: none">
+            <td><label class="input-sm">Mã phiếu nhập hàng :</label></td>
+            <td><input id="textbox_sotienconlai" value="@Model.idPhieuNhapHang" readonly="readonly" class="form-control input-sm" type="text" name="ID_PHIEUNHAPHANG"/></td>
+            <td> <label class="input-sm">Mã phiếu mua xe :</label></td>
+            <td><input class="form-control  input-sm" readonly="readonly" id="datebox_hanchotthanhtoan" type="text" maxlength="255" name="ID_PHIEUMUAXE"/></td>
+        </tr>
+        <tr>
+            <td><label class="input-sm">Nội dung chi:</label></td>
+            <td><textarea class="form-control input-sm" rows="10" name="NOIDUNG" required>@Model.noiDungChi</textarea></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
     <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
 }

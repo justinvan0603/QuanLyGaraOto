@@ -91,6 +91,7 @@ namespace QuanLyGaraOto.Controllers
         {
             int UserId = int.Parse(Session["UserID"].ToString());
             NHANVIEN st = this.service.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            phieuChi.MA_NV = st.MA_NV;
             NHOMNGUOIDUNG groupuser = this.service.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
             // kiem tra quyen han truoc khi xu ly, phieu chi chi lien quan voi ke toan va super user 
             if (groupuser.CAPDO != 2 && groupuser.CAPDO != 3)
@@ -99,17 +100,21 @@ namespace QuanLyGaraOto.Controllers
                 return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
             }
             // kiem tra co ton tai du lieu hay khong
-            if (this.service.PHIEU_CHI.Where(e => e.MA_PHIEUCHI == phieuChi.MA_PHIEUCHI).Count() > 0)
+            if (service.PHIEU_CHI.Where(e => e.MA_PHIEUCHI == phieuChi.MA_PHIEUCHI).Count() > 0)
             {
                 return View("DuplicatedBillExceptionView");
             }
-            else
+            try
             {
-                // luu phieu chi vao trong databse
-                this.service.PHIEU_CHI.Add(phieuChi);
-                this.service.SaveChanges();
-                return RedirectToAction("Index");
+                service.PHIEU_CHI.Add(phieuChi);
+                service.SaveChanges();
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
             }
+            catch (Exception)
+            {
+                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Đã có lỗi xảy ra! Vui lòng thử lại! </div> </div> </div>";
+            }
+            return RedirectToAction("Index");
         }
 
 
@@ -150,7 +155,7 @@ namespace QuanLyGaraOto.Controllers
             PHIEU_NHAPHANG phieuNhapHang = this.service.PHIEU_NHAPHANG.Where(e => e.ID_PHIEUNHAPHANG == idPhieuNhapHang).FirstOrDefault();
             PhieuChiViewModel viewModel = new PhieuChiViewModel();
             viewModel.idPhieuNhapHang = idPhieuNhapHang;
-            viewModel.noiDungChi = "Nhập phụ tùng. Mã phiếu nhập : " + phieuNhapHang.MA_PHIEUNHAPHANG + ".Ngày nhập : " + phieuNhapHang.NGAYLAP.ToString();
+            viewModel.noiDungChi = "Nhập phụ tùng. Mã phiếu nhập : " + phieuNhapHang.MA_PHIEUNHAPHANG + ".Ngày nhập : " + phieuNhapHang.NGAYLAP;
             viewModel.triGia = phieuNhapHang.TONGTIEN;
             return View(viewModel);
         }
