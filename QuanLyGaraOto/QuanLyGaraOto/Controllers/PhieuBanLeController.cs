@@ -16,13 +16,13 @@ namespace QuanLyGaraOto.Controllers
             GARADBEntities context = new GARADBEntities();
 
             int UserId = int.Parse(Session["UserID"].ToString());
-            NHANVIEN st = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
-            NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
-            if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
-            {
-                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
-                return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
-            }
+            //NHANVIEN st = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            //NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == st.MA_NHOMNGUOIDUNG.Value);
+            //if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
+            //{
+            //    TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+            //    return RedirectToAction("Index", new { sortOrder = String.Empty, currentFilter = String.Empty, searchString = String.Empty });
+            //}
 
             //if (context.PHIEU_THUTIEN.Any(pt => pt.ID_PHIEUBANLE == id.Value))
             //{
