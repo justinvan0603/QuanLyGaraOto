@@ -214,7 +214,7 @@ namespace QuanLyGaraOto.Controllers
                 xe.BS_XE = infor.bienSoXe;
                 xe.HIEU_XE = infor.hieuXe;
                 xe.MA_KH = khachHang.MA_KH;
-                xe.HINHTHUC = infor.hinhThuc;
+                xe.HINHTHUC = false;
                 xe.DOI_XE = infor.doiXe;
                 xe.NGAY_TIEPNHAN = infor.ngayTiepNhan;
                 xe.SO_KHUNG = infor.soKhung;
