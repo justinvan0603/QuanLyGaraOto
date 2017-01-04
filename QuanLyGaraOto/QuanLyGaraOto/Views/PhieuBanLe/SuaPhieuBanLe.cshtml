@@ -46,8 +46,9 @@
         margin-bottom: 5px;
     }
 </style>
-@Html.Raw(TempData["msg"])
+
 <h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU BÁN LẺ</h3>
+@Html.Raw(TempData["msg"])
 @using (Html.BeginForm("SuaPhieuBanLe", "PhieuBanLe", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <input type="hidden" name="PhieuBanLe.ID_PHIEUBANLE" value="@Model.PhieuBanLe.ID_PHIEUBANLE" />

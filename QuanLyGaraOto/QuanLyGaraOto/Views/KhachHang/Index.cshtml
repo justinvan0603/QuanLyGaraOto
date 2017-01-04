@@ -17,8 +17,9 @@
         font-size: 10pt;
     }
 </style>
-@Html.Raw(TempData["msg"])
+
 <h3 class="text-center" style="color:green;">DANH SÁCH KHÁCH HÀNG </h3>
+@Html.Raw(TempData["msg"])
 @using (@Html.BeginForm("Index", "KhachHang", FormMethod.Get, new { @class = "form-inline" }))
 {
     <div class="form-inline">

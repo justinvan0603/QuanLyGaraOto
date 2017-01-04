@@ -39,8 +39,9 @@
         margin-bottom: 5px;
     }
 </style>
-@Html.Raw(TempData["msg"])
+
 <h3 class="text-center" style="color:green;">THÔNG TIN PHIẾU DỊCH VỤ</h3>
+@Html.Raw(TempData["msg"])
 @using (Html.BeginForm("SuaPhieuDichVu", "PhieuDichVu", FormMethod.Post, new { @class = "form-horizontal" }))
 { 
     <input type="hidden" name="PhieuDichVu.ID_PHIEUDV" value="@Model.PhieuDichVu.ID_PHIEUDV"/>
@@ -653,7 +654,8 @@
         }).done(function () {
             if (isSuccess == "1") {
             //    row.remove();
-                alert("Thêm Thành Công");
+                //alert("Thêm Thành Công");
+                location.reload();
             //     window.location.replace("index");
             }
             //else {

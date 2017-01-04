@@ -5,7 +5,7 @@
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
     ViewBag.Title = "Danh sách phiếu bán lẻ";
 }
-@Html.Raw(TempData["msg"])
+
 <head>
     <title>@ViewBag.Title</title>
 </head>
@@ -22,8 +22,7 @@
 <h3 class="text-center" style="color:green;">DANH SÁCH PHIẾU BÁN LẺ</h3>
 
 
-
-
+@Html.Raw(TempData["msg"])
 @using (@Html.BeginForm("Index", "PhieuBanLe", FormMethod.Get, new { @class = "form-inline" }))
 {
     <div class="form-inline">
