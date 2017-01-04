@@ -191,6 +191,7 @@ namespace QuanLyGaraOto.Controllers
             }
             // lay thong tin phieu mua xe tu database
             PHIEU_MUAXE phieuMuaXe = this.service.PHIEU_MUAXE.Where(e => e.ID_PHIEUMUAXE == id).FirstOrDefault();
+
             if (phieuMuaXe == null)
             {
                 return View("ResourceNotFoundView");
@@ -203,6 +204,7 @@ namespace QuanLyGaraOto.Controllers
                 this.service.SaveChanges();
                 return View("ResourceNotFoundView");
             }
+            String tennv = service.NHANVIENs.Single(nvien => nvien.MA_NV == phieuMuaXe.MaNV.Value).HOTEN;
             PhieuNhapMuaXeModel selectededBill = new PhieuNhapMuaXeModel();
             selectededBill.id = phieuMuaXe.ID_PHIEUMUAXE;
             selectededBill.maPhieuMuaXe = phieuMuaXe.MAPHIEUMUA;
@@ -211,6 +213,7 @@ namespace QuanLyGaraOto.Controllers
             selectededBill.hieuXe = xe.HIEU_XE;
             selectededBill.maKhachHang = phieuMuaXe.MAKH;
             selectededBill.maNhanVien = phieuMuaXe.MaNV;
+            selectededBill.TenNV = tennv;
             selectededBill.ngayLapPhieu = phieuMuaXe.NGAYLAP;
             selectededBill.soKhung = xe.SO_KHUNG;
             selectededBill.soKm = xe.SO_KM;

@@ -24,7 +24,7 @@
             <input class="form-control input-sm" readonly="readonly" type="text" id="datebox_ngaylapphieu" maxlength="30" name="NGAYLAP" value="@Model.selectedPHIEUBANXE.NGAYLAP.Value.Date.ToShortDateString()" required />
         </div>
         <div class="form-group ">
-            <label class="input-sm">Mã Nhân viên lập :</label>
+            <label class="input-sm">Nhân viên lập :</label>
             <input class="form-control input-sm" type="text" value="@Model.service.NHANVIENs.Where(e =>e.MA_NV == Model.selectedPHIEUBANXE.MaNV).Single().HOTEN" readonly="readonly" maxlength="30" name="MaNV" required /> <!--auto fill information of the staff-->
         </div>
         <div class="form-group ">
