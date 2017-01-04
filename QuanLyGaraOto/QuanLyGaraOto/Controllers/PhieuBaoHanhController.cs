@@ -236,7 +236,7 @@ namespace QuanLyGaraOto.Controllers
             PHIEU_BAOHANH.TINHTRANG = tinhTrang;
             this.service.Entry(PHIEU_BAOHANH).State = System.Data.Entity.EntityState.Modified;
             this.service.SaveChanges();
-
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Cập nhật thành công! </div> </div> </div>";
             return RedirectToAction("Index");
         }
 

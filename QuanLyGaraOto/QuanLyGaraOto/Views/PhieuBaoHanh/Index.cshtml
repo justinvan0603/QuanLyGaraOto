@@ -19,8 +19,9 @@
 
 @using (@Html.BeginForm("Index", "PhieuBaoHanh", FormMethod.Get, new { @class = "form-inline" }))
 {
-    @Html.Raw(TempData["msg"])
+
     <h3 class="text-center" style="color: green;">DANH SÁCH PHIẾU BẢO HÀNH</h3>
+    @Html.Raw(TempData["msg"])
     <div class="form-inline">
         <div class="form-group">
             <label for="searchOption">Tìm theo:</label>

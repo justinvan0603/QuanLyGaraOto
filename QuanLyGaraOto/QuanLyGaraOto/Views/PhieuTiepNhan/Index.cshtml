@@ -20,19 +20,20 @@
 
 @using (@Html.BeginForm("Index", "PhieuTiepNhan", FormMethod.Get, new { @class = "form-inline" }))
 {
-    @Html.Raw(TempData["msg"])
+
     <h3 class="text-center" style="color: green;">DANH SÁCH PHIẾU TIẾP NHẬN</h3>
+    @Html.Raw(TempData["msg"])
     <div class="form-inline">
         <div class="form-group">
             <label for="searchOption">Tìm theo:</label>
-            @Html.DropDownList("searchOption", Model.filterOptions, new { @class = "form-control" })
+            @Html.DropDownList("searchOption", Model.filterOptions, new { @class = "form-control input-sm" })
         </div>
         <div class="form-group">
             <label for="searchOption">Giá trị:</label>
-            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Ví dụ : 08/25/2016" })
+            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control input-sm", @placeholder = "Ví dụ : 08/25/2016" })
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-info" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
+            <button type="submit" class="btn btn-info btn-sm" style="margin-top:25px;"><span class="glyphicon glyphicon-search"></span>Tìm kiếm</button>
         </div>
     </div>
 }
@@ -42,7 +43,7 @@
 </div>
 
 <div class="table-responsive" style="padding-top:10px;">
-    <table id="phieutiepnhan_table" class="table table-bordered table table-hover" style="text-align : center">
+    <table id="phieutiepnhan_table" class="table table-bordered table table-hover">
         <thead style="color:red; background-color: white; ">
             <tr>
                 <th>Mã phiếu</th>
