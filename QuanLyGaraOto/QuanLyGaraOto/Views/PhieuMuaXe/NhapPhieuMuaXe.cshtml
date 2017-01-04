@@ -28,7 +28,7 @@
         <div class="form-group">
             <label class="input-sm">Khách hàng :</label>
             <select name="maKhachHang" class="cboNhom form-control input-sm">
-                <option value="@null" style="color: blue; font-weight : bold;">Khách vãng lai</option> <!--trường hợp là khách vãng lai-->
+                <option style="color: blue; font-weight : bold;">Khách vãng lai</option> <!--trường hợp là khách vãng lai-->
                 @foreach (var item in Model.danhSachKhachHang)
                 {
                     <option value="@item.MA_KH">@item.TEN_KH</option>
@@ -39,10 +39,12 @@
         <div class="form-group">
             <label class="input-sm">Hiệu xe :</label>
             <select name="hieuXe" class="cboNhom form-control input-sm">
-                <option value="Hãng khác" style="color: blue; font-weight : bold;">Hãng khác</option> <!--trường hợp là khách vãng lai-->
                 @foreach (var item in Model.danhSachHieuXe)
                 {
-                    <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+                    if (!item.MA_HIEUXE.Equals("Tất cả"))
+                    {
+                        <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+                    }
                 }
             </select>
         </div>
@@ -63,15 +65,24 @@
                 <input class="form-control input-sm" type="text" placeholder="Số máy" maxlength="30" name="soMay" required />
             </div>
             <label for="tinhTrang" class="input-sm">Tình trạng xe :</label>
-            <textarea class="form-control" maxlength="1000"  rows="5" id="tinhTrang" name="tinhTrang"></textarea>
+            <textarea class="form-control" maxlength="1000" rows="5" id="tinhTrang" name="tinhTrang"></textarea>
         </div>
         <div class="form-group">
             <label class="input-sm">Đời xe :</label>
-            <input class="form-control input-sm" type="text" placeholder="Đời xe" maxlength="30" name="doiXe" required />
+            <select name="doiXe" class=" form-control input-sm">
+                @for (int i = 2000; i <= DateTime.Now.Year; ++i)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
         </div>
+        @*<div class="form-group">
+            <label class="input-sm">Đời xe :</label>
+            <input class="form-control input-sm" type="number" placeholder="Đời xe" max="@DateTime.Now.Year" maxlength="4" name="doiXe" required oninput="setCustomValidity('')" oninvalid="setCustomValidity('Thời gian bảo hành không được để trống')" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+        </div>*@
         <div class="form-group ">
             <label class="input-sm">Trị giá (VNĐ):</label>
-            <input class="form-control input-sm" type="number" id="textbox_trigia" required maxlength="20" name="tongGiaTri" />
+            <input class="form-control input-sm" type="number" id="textbox_trigia" required maxlength="20" name="tongGiaTri" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Dữ liệu không được trống')" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
         </div>
         <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span>Lưu</button>
     </div>

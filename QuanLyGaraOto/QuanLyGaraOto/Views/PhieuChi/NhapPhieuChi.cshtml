@@ -28,7 +28,7 @@
     <div class="col-sm-8">
         <div class="form-group ">
             <label class="input-sm">Trị giá (VNĐ):</label>
-            <input class="form-control input-sm" type="number" id="textbox_trigia" required maxlength="20" name="SOTIEN" />
+            <input class="form-control input-sm" type="number" id="textbox_trigia" required maxlength="20" name="SOTIEN" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Dữ liệu không được trống')" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
         </div>
         <div class="form-group ">
             <label class="input-sm">Nội dung chi:</label>

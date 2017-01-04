@@ -158,7 +158,7 @@ namespace QuanLyGaraOto.Controllers
             phieuMuaXeMoi.NGAYLAP = arg.ngayLapPhieu;
             phieuMuaXeMoi.BS_XE = arg.bienSoXe;
             phieuMuaXeMoi.MAKH = arg.maKhachHang;
-            phieuMuaXeMoi.MaNV = 1; // this.service.NHANVIENs.Single(e => e.USERNAME.Equals(Session["Username"])).MA_NV;
+            phieuMuaXeMoi.MaNV = int.Parse(Session["UserID"].ToString());
             phieuMuaXeMoi.TRIGIA = arg.tongGiaTri;
 
 
