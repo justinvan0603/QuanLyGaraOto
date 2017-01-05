@@ -29,8 +29,10 @@
         <label class="input-sm">Giới tính:</label>
         @*<input type="number" maxlength="20" name="SDT" class="form-control input-sm" />*@
         @*<label class="radio-inline"><input type="radio" name="GIOITINH" value="true" checked="checked">Nam</label>*@
-        <label class="radio-inline">@Html.RadioButtonFor(m => m.NhanVien.GIOITINH, "true", new { @class = " input-sm", @checked = "checked" }) Nam</label>
-        <label class="radio-inline">@Html.RadioButtonFor(m => m.NhanVien.GIOITINH, "false", new { @class = " input-sm" }) Nữ</label>
+        <label class="radio-inline">@Html.RadioButton("GIOITINH", true,Model.NhanVien.GIOITINH.Value, new { @class = " input-sm" }) Nam</label>
+        <label class="radio-inline">@Html.RadioButton("GIOITINH", false, !Model.NhanVien.GIOITINH.Value, new { @class = " input-sm" }) Nữ</label>
+        @*<label class="radio-inline">@Html.RadioButtonFor(m => m.NhanVien.GIOITINH, "true", new { @class = " input-sm" }) Nam</label>
+        <label class="radio-inline">@Html.RadioButtonFor(m => m.NhanVien.GIOITINH, "false", new { @class = " input-sm" }) Nữ</label>*@
         @*@Html.RadioButtonFor(m => m.GIOITINH, "false", new { @class = "radio-inline input-sm" })<span>Nữ</span>*@
 
     </div>

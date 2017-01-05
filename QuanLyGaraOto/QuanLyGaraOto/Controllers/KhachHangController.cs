@@ -115,6 +115,7 @@ namespace QuanLyGaraOto.Controllers
                 target.SDT = client.SDT;
                 target.CMND = client.CMND;
                 target.DIACHI = client.DIACHI;
+                target.GIOITINH = client.GIOITINH;
                 context.SaveChanges();
                 TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Đã cập nhật thành công! </div> </div> </div>";
                 //TempData["msg"] = "<script>alert('Đã cập nhật thành công');</script>";

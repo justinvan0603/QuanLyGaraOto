@@ -107,6 +107,7 @@ namespace QuanLyGaraOto.Controllers
                 target.MA_NHOMNGUOIDUNG = nv.MA_NHOMNGUOIDUNG;
                 target.SDT = nv.SDT;
                 target.DIACHI = nv.DIACHI;
+                target.GIOITINH = nv.GIOITINH;
                 context.SaveChanges();
                 TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Cập nhật tài khoản thành công! </div> </div> </div>";
                 //TempData["msg"] = "<script>alert('Sửa tài khoản thành công!');</script>";
