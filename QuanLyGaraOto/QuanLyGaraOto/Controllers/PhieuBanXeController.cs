@@ -127,17 +127,8 @@ namespace QuanLyGaraOto.Controllers
             // sau do load danh sach khach hang de nhan vien co the chon neu do la khach quan trong GARA
             PhieuBanXeViewModel phieuBanXeViewModel = new PhieuBanXeViewModel();
             // load danh sach xe ban trong database (chi load danh sach xe ban chua duoc ban)
-            List<XE> temporaryList = this.service.XEs.Where(e => e.HINHTHUC == true).ToList();
-            phieuBanXeViewModel.listOfXes = new List<XE>();
-            foreach (XE xe in temporaryList.ToList())
-            {
-                if (this.service.PHIEU_BANXE.Where(e => e.BS_XE == xe.BS_XE).Count() == 0)
-                {
-                    // xoa xe nay ra khoi danh sach neu xe nay da duoc ban 
-                    // phieuBanXeViewModel.listOfXes.Remove(xe);
-                    phieuBanXeViewModel.listOfXes.Add(xe);
-                }
-            }
+            phieuBanXeViewModel.listOfXes = this.service.XEs.Where(e => e.HINHTHUC == true).ToList();
+           
             phieuBanXeViewModel.listOfKhachHang = this.service.KHACHHANGs.ToList();
             int hantra = int.Parse(service.BANGTHAMSOes.Single(ht => ht.TENTHAMSO == "HanChotPhieuBanXe").GIATRI);
             phieuBanXeViewModel.HanChotThanhToan = DateTime.Now.AddDays(hantra).Date.ToShortDateString();
@@ -161,6 +152,7 @@ namespace QuanLyGaraOto.Controllers
             // update lai hinh thuc va khach hang so huu
             XE xe = this.service.XEs.Where(e => e.BS_XE == phieuBanXeMoi.BS_XE).Single();
             xe.HINHTHUC = false; // khong con la xe cua cua hang nua
+            xe.TINH_TRANG = "";
             xe.MA_KH = phieuBanXeMoi.MAKH; // update khach hang so huu
             this.service.SaveChanges();
             // tien hanh lap phieu thu         
@@ -191,7 +183,9 @@ namespace QuanLyGaraOto.Controllers
             PHIEU_THUTIEN correspondingReceiptInformation = this.service.PHIEU_THUTIEN.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
             if (correspondingReceiptInformation == null)
             {
-                this.service.PHIEU_BANXE.Remove(phieuBanXe);
+                XE xe = service.XEs.Find(phieuBanXe.BS_XE);
+                xe.HINHTHUC = true;
+                this.service.PHIEU_BANXE.Remove(phieuBanXe);              
                 this.service.SaveChanges();
                 // tra ve 
                 TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xoá thành công! </div> </div> </div>";
