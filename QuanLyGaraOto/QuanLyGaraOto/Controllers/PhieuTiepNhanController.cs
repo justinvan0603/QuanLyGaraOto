@@ -222,7 +222,7 @@ namespace QuanLyGaraOto.Controllers
                 xe.SO_KHUNG = infor.soKhung;
                 xe.SO_KM = infor.soKm;
                 xe.SO_MAY = infor.soMay;
-                xe.TINH_TRANG = infor.tinhTrang; // tinh trang ban dau cua xe cung la tinh trang cua phieu tiep nhan
+                //xe.TINH_TRANG = infor.tinhTrang; // tinh trang ban dau cua xe cung la tinh trang cua phieu tiep nhan
 
 
 
