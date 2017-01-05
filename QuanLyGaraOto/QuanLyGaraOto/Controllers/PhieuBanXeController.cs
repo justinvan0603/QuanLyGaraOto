@@ -242,9 +242,10 @@ namespace QuanLyGaraOto.Controllers
             // start to update information (note : only update the non-readonly attribute from view)
             updatingBillInfor.HANBAOHANH = modifiedBillInformation.HANBAOHANH;
             updatingBillInfor.HANCHOTTHANHTOAN = modifiedBillInformation.HANCHOTTHANHTOAN;
-            updatingBillInfor.MAKH = modifiedBillInformation.MAKH;
+            //updatingBillInfor.MAKH = modifiedBillInformation.MAKH;
             updatingBillInfor.TRIGIA = modifiedBillInformation.TRIGIA;
-            updatingBillInfor.SOTIENCONLAI = modifiedBillInformation.SOTIENCONLAI;
+            //Khi cap nhat lai tri gia phieu ban xe (truong hop chua lap phieu thu nao) thi so tien con lai moi = tong tri gia
+            updatingBillInfor.SOTIENCONLAI = modifiedBillInformation.TRIGIA;
             this.service.Entry(updatingBillInfor).State = System.Data.Entity.EntityState.Modified; // 
             this.service.SaveChanges(); // synchronize database
             // tro lai man hinh danh sach
