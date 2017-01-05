@@ -160,7 +160,6 @@ namespace QuanLyGaraOto.Controllers
             //else
             //{
             XE xe = this.service.XEs.Where(e => e.BS_XE.Equals(arg.bienSoXe)).Single();
-            xe.MA_KH = null;
             xe.HINHTHUC = true;
             xe.TINH_TRANG = arg.tinhTrang;
             this.service.Entry(xe).State = System.Data.Entity.EntityState.Modified;
