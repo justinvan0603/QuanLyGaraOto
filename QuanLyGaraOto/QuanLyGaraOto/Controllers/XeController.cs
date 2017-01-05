@@ -126,6 +126,7 @@ namespace QuanLyGaraOto.Controllers
             thongTinXeMoi.HINHTHUC = false; // xe sua tu khach hang
             this.service.XEs.Add(thongTinXeMoi);
             this.service.SaveChanges();
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
             // tro ve trang danh sach
             return Redirect("Index");
         }
@@ -175,6 +176,7 @@ namespace QuanLyGaraOto.Controllers
             thongTinXeMoi.DOI_XE = arg.DOI_XE;
             this.service.Entry(thongTinXeMoi).State = System.Data.Entity.EntityState.Modified;
             this.service.SaveChanges();
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Cập nhật thành công! </div> </div> </div>";
             return RedirectToAction("Index");
         }
 

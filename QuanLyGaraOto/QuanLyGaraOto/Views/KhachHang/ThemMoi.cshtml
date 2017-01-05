@@ -24,7 +24,7 @@
     <div class="form-group">
         <label class="input-sm">Số CMND:</label>
        @* <input type="number" maxlength="20" name="CMND" class="form-control input-sm" />*@
-      @Html.TextBoxFor(m => m.CMND, new { @class = "form-control input-sm", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })
+      @Html.TextBoxFor(m => m.CMND, new { @class = "form-control input-sm", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @maxlength=9 })
         @Html.ValidationMessage("CMND", new { @style = "color:red;" })
     </div>
     <div class="form-group">
@@ -39,7 +39,7 @@
     <div class="form-group">
         <label class="input-sm">Số điện thoại:</label>
         @*<input type="number" maxlength="20" name="SDT" class="form-control input-sm" />*@
-        @Html.TextBoxFor(m => m.SDT, new { @class = "form-control input-sm", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })
+        @Html.TextBoxFor(m => m.SDT, new { @class = "form-control input-sm", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @maxlength = 11 })
         @Html.ValidationMessage("SDT", new { @style = "color:red;" })
 
     </div>

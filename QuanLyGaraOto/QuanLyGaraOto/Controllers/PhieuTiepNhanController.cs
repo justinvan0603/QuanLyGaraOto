@@ -153,6 +153,8 @@ namespace QuanLyGaraOto.Controllers
             this.service.Entry(phieuTiepNhan).State = System.Data.Entity.EntityState.Modified;
             this.service.SaveChanges();
             // tro lai man hinh danh sach
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Cập nhật thành công! </div> </div> </div>";
+
             return RedirectToAction("Index");
         }
 
@@ -243,6 +245,8 @@ namespace QuanLyGaraOto.Controllers
                 this.service.SaveChanges();
 
                 // tro ve man hinh danh sach
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
+
                 return RedirectToAction("Index");
             }
             else
@@ -321,6 +325,8 @@ namespace QuanLyGaraOto.Controllers
             PhieuTiepNhan.NGAYTRAXE = DateTime.Now; // mac dinh la thoi gian hien tai.
             this.service.PHIEU_TIEPNHAN.Add(PhieuTiepNhan);
             this.service.SaveChanges();
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
+
             return RedirectToAction("Index");
         }
 
