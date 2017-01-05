@@ -1,8 +1,21 @@
 ﻿@using PagedList.Mvc;
+@using QuanLyGaraOto.Models;
 @model QuanLyGaraOto.ViewModel.PhieuMuaXeViewModel
 @{
     Layout = "~/Views/Layout/_GeneralLayout.cshtml";
     ViewBag.Title = "Phiếu mua xe mới";
+    List<XE> listOfXe = new List<XE>();
+    try
+    {
+        int maKHdau = Model.danhSachKhachHang[0].MA_KH;
+
+        listOfXe = Model.service.XEs.Where(e => e.MA_KH == maKHdau).ToList();
+    }
+    catch (Exception)
+    {
+        listOfXe = new List<XE>();
+    }
+
 }
 <head>
     <title>@ViewBag.Title</title>
@@ -27,8 +40,7 @@
         </div>
         <div class="form-group">
             <label class="input-sm">Khách hàng :</label>
-            <select name="maKhachHang" class="cboNhom form-control input-sm">
-                <option style="color: blue; font-weight : bold;">Khách vãng lai</option> <!--trường hợp là khách vãng lai-->
+            <select name="maKhachHang" id="customer_combobox" class="cboNhom form-control input-sm" onchange="onComboboxKhachHangChanged()">
                 @foreach (var item in Model.danhSachKhachHang)
                 {
                     <option value="@item.MA_KH">@item.TEN_KH</option>
@@ -36,29 +48,34 @@
             </select>
         </div>
 
-        <div class="form-group">
-            <label class="input-sm">Hiệu xe :</label>
-            <select name="hieuXe" class="cboNhom form-control input-sm">
-                @foreach (var item in Model.danhSachHieuXe)
-                {
-                    if (!item.MA_HIEUXE.Equals("Tất cả"))
+        @*<div class="form-group">
+                <label class="input-sm" hidden >Hiệu xe :</label>
+                <select name="hieuXe" hidden class="cboNhom form-control input-sm">
+                    @foreach (var item in Model.danhSachHieuXe)
                     {
-                        <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+                        if (!item.MA_HIEUXE.Equals("Tất cả"))
+                        {
+                            <option value="@item.MA_HIEUXE">@item.MA_HIEUXE</option>
+                        }
                     }
+                </select>
+            </div>*@
+
+        <div class="form-group">
+            <label class="input-sm">Xe :</label>
+            <select id="selected_vehicle" name="bienSoXe" class="cboVehicel form-control input-sm">
+                @foreach (var vehicle in listOfXe)
+                {
+                    <option value="@vehicle.BS_XE">@vehicle.BS_XE</option>
                 }
             </select>
         </div>
-
-        <div class="form-group">
-            <label class="input-sm">Biển số xe :</label>
-            <input class="form-control input-sm" type="text" placeholder="Biển số xe" maxlength="30" name="bienSoXe" required />
-        </div>
     </div>
-    <div class="col-sm-6">
+    @*<div class="col-sm-6">
         <div class="form-group">
             <div class="form-group">
-                <label class="input-sm">Số khung :</label>
-                <input class="form-control input-sm" type="text" placeholder="Số khung xe" maxlength="17" name="soKhung" required />
+                <label class="input-sm" hidden>Số khung :</label>
+                <input class="form-control input-sm" hidden type="text" placeholder="Số khung xe" maxlength="17" name="soKhung" required />
             </div>
             <div class="form-group">
                 <label class="input-sm">Số máy :</label>
@@ -79,17 +96,41 @@
                     <option value="@i">@i</option>
                 }
             </select>
-        </div>
-        @*<div class="form-group">
+        </div>*@
+    @*<div class="form-group">
             <label class="input-sm">Đời xe :</label>
             <input class="form-control input-sm" type="number" placeholder="Đời xe" max="@DateTime.Now.Year" maxlength="4" name="doiXe" required oninput="setCustomValidity('')" oninvalid="setCustomValidity('Thời gian bảo hành không được để trống')" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
         </div>*@
-        <div class="form-group ">
-            <label class="input-sm">Trị giá (VNĐ):</label>
-            <input class="form-control input-sm" type="number" id="textbox_trigia" required maxlength="10" name="tongGiaTri" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Dữ liệu không được trống')" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
-        </div>
-        <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span>Lưu</button>
+    <div>
+        <label for="tinhTrang" class="input-sm">Tình trạng xe :</label>
+        <textarea class="form-control" maxlength="1000" rows="5" id="tinhTrang" name="tinhTrang"></textarea>
     </div>
+    <div class="form-group ">
+        <label class="input-sm">Trị giá (VNĐ):</label>
+        <input class="form-control input-sm" type="number" id="textbox_trigia" required maxlength="10" name="tongGiaTri" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Dữ liệu không được trống')" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+    </div>
+    <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span>Lưu</button>
+    @*</div>*@
 
 }
+
+<script>
+    // loc danh sach xe theo ma khach hang
+    function onComboboxKhachHangChanged() {
+        var selectedCustomerId = $('#customer_combobox').children("option").filter(":selected").attr("value");
+        // alert(selectedCustomerId);
+        $.ajax({
+            url: '/PhieuMuaXe/getVehiclesByCustomerId/',
+            type: 'post',
+            data: {
+                customerId: selectedCustomerId
+            }
+        }).done(function (response) {
+            document.getElementById("selected_vehicle").options.length = 0;
+            $(".cboVehicel").empty();
+            $(".cboVehicel").html(response);
+        });
+    }
+</script>
+
 

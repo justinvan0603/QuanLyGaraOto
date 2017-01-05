@@ -134,24 +134,37 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult NhapPhieuMuaXe(PhieuNhapMuaXeModel arg)
         {
             // dieu tien, kiem tra xem bien so xe do da ton tai trong du lieu cua kho chua
-            if (this.service.XEs.Where(e => e.BS_XE == arg.bienSoXe).ToList().Count > 0)
-            {
-                // chuyen huong
-                return Redirect("DuplicatedVerhicleExceptionView");
-            }
-            /* Cap nhat kho xe*/
-            XE xeMoi = new XE();
-            xeMoi.BS_XE = arg.bienSoXe;
-            xeMoi.DOI_XE = arg.doiXe;
-            xeMoi.HIEU_XE = arg.hieuXe;
-            xeMoi.HINHTHUC = true; // true -> la xe co the ban duoc trong gara
-            xeMoi.MA_KH = arg.maKhachHang; // nullable
-            xeMoi.NGAY_TIEPNHAN = arg.ngayLapPhieu; // ngay tiep nhan duoc hieu ngam la ngay lap phieu
-            xeMoi.SO_KHUNG = arg.soKhung;
-            xeMoi.SO_KM = arg.soKm;
-            xeMoi.SO_MAY = arg.soMay;
-            xeMoi.TINH_TRANG = arg.tinhTrang;
+            //if (this.service.XEs.Where(e => e.BS_XE == arg.bienSoXe).ToList().Count > 0)
+            //{
+            //    // chuyen huong
+            //    return Redirect("DuplicatedVerhicleExceptionView");
+            //}
 
+            //if (this.service.XEs.Where(e => e.BS_XE.ToUpper().Equals(arg.bienSoXe.ToUpper())).Count() == 0)
+            //{
+            //    /* Cap nhat kho xe*/
+            //    XE xeMoi = new XE();
+            //    xeMoi.BS_XE = arg.bienSoXe.ToUpper(); // in hoa bien so xe
+            //    xeMoi.DOI_XE = arg.doiXe;
+            //    xeMoi.HIEU_XE = arg.hieuXe;
+            //    xeMoi.HINHTHUC = true; // true -> la xe co the ban duoc trong gara
+            //    xeMoi.MA_KH = arg.maKhachHang; // nullable
+            //    xeMoi.NGAY_TIEPNHAN = arg.ngayLapPhieu; // ngay tiep nhan duoc hieu ngam la ngay lap phieu
+            //    xeMoi.SO_KHUNG = arg.soKhung;
+            //    xeMoi.SO_KM = arg.soKm;
+            //    xeMoi.SO_MAY = arg.soMay;
+            //    xeMoi.TINH_TRANG = arg.tinhTrang;
+            //    this.service.XEs.Add(xeMoi);
+
+            //}
+            //else
+            //{
+            XE xe = this.service.XEs.Where(e => e.BS_XE.Equals(arg.bienSoXe)).Single();
+            xe.MA_KH = null;
+            xe.HINHTHUC = true;
+            xe.TINH_TRANG = arg.tinhTrang;
+            this.service.Entry(xe).State = System.Data.Entity.EntityState.Modified;
+            //}
             /* thong tin phieu mua xe moi */
             PHIEU_MUAXE phieuMuaXeMoi = new PHIEU_MUAXE();
             phieuMuaXeMoi.MAPHIEUMUA = arg.maPhieuMuaXe;
@@ -160,12 +173,10 @@ namespace QuanLyGaraOto.Controllers
             phieuMuaXeMoi.MAKH = arg.maKhachHang;
             phieuMuaXeMoi.MaNV = int.Parse(Session["UserID"].ToString());
             phieuMuaXeMoi.TRIGIA = arg.tongGiaTri;
-            
-
             // tien hanh luu
-            this.service.XEs.Add(xeMoi);
             this.service.PHIEU_MUAXE.Add(phieuMuaXeMoi);
             this.service.SaveChanges();
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
             return Redirect("Index");
         }
 
@@ -254,7 +265,7 @@ namespace QuanLyGaraOto.Controllers
             // start to update
 
             phieuMuaXe.MAKH = modifiedInfor.maKhachHang;
-           // phieuMuaXe.MaNV = modifiedInfor.maNhanVien;
+            // phieuMuaXe.MaNV = modifiedInfor.maNhanVien;
             phieuMuaXe.MAPHIEUMUA = modifiedInfor.maPhieuMuaXe;
             phieuMuaXe.NGAYLAP = modifiedInfor.ngayLapPhieu;
             phieuMuaXe.TRIGIA = modifiedInfor.tongGiaTri;
@@ -396,6 +407,22 @@ namespace QuanLyGaraOto.Controllers
                 PageMargins = { Left = 0, Right = 0 }, // it's in millimeters
                 CustomSwitches = "--disable-smart-shrinking"
             };
+        }
+
+
+        /// <summary>
+        /// loc danh sach xe theo ma khach hang va tra ve View
+        /// </summary>
+        /// <param name="customerId">Id cua khach hang ma nguoi dung chon tren View</param>
+        /// <returns>Danh sach ung voi id khach hang</returns>
+        [HttpPost]
+        public ActionResult getVehiclesByCustomerId(int customerId)
+        {
+            var listOfVehicles = this.service.XEs.Where(e => e.MA_KH == customerId && e.HINHTHUC == false).Select(pt => "<option value='"
+                + pt.BS_XE + "' title='" +
+                pt.BS_XE + "' id='" + pt.BS_XE + "' itemscope='" + pt.BS_XE + "' itemprop='" +
+                pt.BS_XE + "'>" + pt.BS_XE + "</option>");
+            return Content(String.Join("", listOfVehicles));
         }
 
     }

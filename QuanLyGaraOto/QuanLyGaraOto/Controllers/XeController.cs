@@ -123,6 +123,7 @@ namespace QuanLyGaraOto.Controllers
             {
                 return View("DuplicatedVehicleExceptionView");
             }
+            thongTinXeMoi.BS_XE = thongTinXeMoi.BS_XE.ToUpper(); // in hoa ki tu bien so xe
             thongTinXeMoi.HINHTHUC = false; // xe sua tu khach hang
             this.service.XEs.Add(thongTinXeMoi);
             this.service.SaveChanges();

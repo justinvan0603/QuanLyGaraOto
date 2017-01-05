@@ -213,7 +213,7 @@ namespace QuanLyGaraOto.Controllers
 
                 // thong tin xe
                 var xe = new XE();
-                xe.BS_XE = infor.bienSoXe;
+                xe.BS_XE = infor.bienSoXe.ToUpper(); // in hoa bien so xe
                 xe.HIEU_XE = infor.hieuXe;
                 xe.MA_KH = khachHang.MA_KH;
                 xe.HINHTHUC = false;
