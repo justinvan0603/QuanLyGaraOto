@@ -222,7 +222,7 @@ namespace QuanLyGaraOto.Controllers
                 xe.SO_KHUNG = infor.soKhung;
                 xe.SO_KM = infor.soKm;
                 xe.SO_MAY = infor.soMay;
-                //xe.TINH_TRANG = infor.tinhTrang;
+                xe.TINH_TRANG = infor.tinhTrang; // tinh trang ban dau cua xe cung la tinh trang cua phieu tiep nhan
 
 
 
@@ -252,7 +252,6 @@ namespace QuanLyGaraOto.Controllers
             else
             {
                 PhieuTiepNhanViewModel viewModel = new PhieuTiepNhanViewModel();
-
                 viewModel.thongTinPhieuMoi = infor;
                 viewModel.danhSachHieuXe = this.service.HIEUXEs.ToList();
                 return View(viewModel);
@@ -324,6 +323,12 @@ namespace QuanLyGaraOto.Controllers
             PhieuTiepNhan.MASOCHO = this.service.PHIEU_TIEPNHAN.Count() + 1;
             PhieuTiepNhan.NGAYTRAXE = DateTime.Now; // mac dinh la thoi gian hien tai.
             this.service.PHIEU_TIEPNHAN.Add(PhieuTiepNhan);
+            // update tinh trang xe
+            XE xe = this.service.XEs.Where(e => e.BS_XE == infor.bienSoXe).Single();
+            if (xe != null)
+            {
+                xe.TINH_TRANG = infor.tinhTrang;
+            }
             this.service.SaveChanges();
             TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
 

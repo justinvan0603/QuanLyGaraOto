@@ -104,7 +104,7 @@ namespace QuanLyGaraOto.Controllers
 
             // tien hanh luu phieu bao hanh
             PHIEU_BAOHANH phieuBaoHanh = new PHIEU_BAOHANH();
-            phieuBaoHanh.MA_NV = 1; // test
+            phieuBaoHanh.MA_NV = UserId; // test
 
             phieuBaoHanh.TINHTRANG = "";
             phieuBaoHanh.NGAYLAP = DateTime.Now.Date;
@@ -169,7 +169,7 @@ namespace QuanLyGaraOto.Controllers
 
             // tien hanh luu phieu bao hanh
             PHIEU_BAOHANH phieuBaoHanh = new PHIEU_BAOHANH();
-            phieuBaoHanh.MA_NV = 1; // test
+            phieuBaoHanh.MA_NV = UserId; // test
 
             phieuBaoHanh.TINHTRANG = "";
             phieuBaoHanh.NGAYLAP = DateTime.Now.Date;
