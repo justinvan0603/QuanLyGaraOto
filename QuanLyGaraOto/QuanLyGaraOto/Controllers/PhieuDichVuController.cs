@@ -271,6 +271,7 @@ namespace QuanLyGaraOto.Controllers
             target.MATHO = viewModel.PhieuDichVu.MATHO;
             decimal tiencongcu = target.TIENCONG.Value;
             decimal chenhlech = viewModel.PhieuDichVu.TIENCONG.Value - tiencongcu;
+            target.MA_PHIEUDV = viewModel.PhieuDichVu.MA_PHIEUDV;
             target.TIENCONG = viewModel.PhieuDichVu.TIENCONG;
             target.TONGTIEN += chenhlech;
             target.SOTIEN_CONLAI += chenhlech;
