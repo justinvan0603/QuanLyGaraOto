@@ -17,7 +17,7 @@
 </style>
 @using (@Html.BeginForm("Index", "PhieuMuaXe", FormMethod.Get, new { @class = "form-inline" }))
 {
-     @Html.Raw(TempData["msg"])
+    @Html.Raw(TempData["msg"])
     <h3 class="text-center" style="color: green;">DANH SÁCH PHIẾU MUA XE</h3>
     <div class="form-inline">
         <div class="form-group">
@@ -69,7 +69,10 @@
                             @if (!item.isPaid) // only show delete button and create receipt voucher if the bill is not paid
                             {
                                 <a class="btnCreateReceiptVoucher btn btn-primary glyphicon glyphicon-notes" href="@Url.Action("NhapPhieuChiFromPhieuMuaXe", "PhieuChi", new { idPhieuMuaXe = @item.id })">Lập phiếu chi</a>
-                                <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+                                if (Model.service.PHIEU_BANXE.Where(e => e.BS_XE == item.bienSoXe).Count() == 0)
+                                {
+                                    <button id="button_delete" class="btnDelete btn btn-danger glyphicon glyphicon-remove" type="button">Xóa</button>
+                                }
 
                             }
                         </td>
@@ -127,10 +130,10 @@
             }).done(function () {
                 if (isSuccess == "1") {
                     row.remove();
-                     window.location.replace("index");
+                    window.location.replace("index");
                 }
                 else {
-                   // alert(message);
+                    alert(message);
                 }
             });
         })

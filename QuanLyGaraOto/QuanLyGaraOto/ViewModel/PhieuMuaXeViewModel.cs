@@ -32,6 +32,8 @@ namespace QuanLyGaraOto.ViewModel
         /// </summary>
         public List<KHACHHANG> danhSachKhachHang { get; set; }
 
+        public GARADBEntities service = new GARADBEntities();
+
 
     }
 }

@@ -180,7 +180,7 @@ namespace QuanLyGaraOto.Controllers
             if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
             {
                 TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
-                return Json(new { value = "-1", message = "Permission denied" }, JsonRequestBehavior.AllowGet);
+                return Json(new { value = "-1", message = "Bạn không có quyền hạn cho chức năng này" }, JsonRequestBehavior.AllowGet);
             }
             PHIEU_BANXE phieuBanXe = this.service.PHIEU_BANXE.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
             // chi xoa duoc nhung phieu ban xe chua lap phieu thu tien
