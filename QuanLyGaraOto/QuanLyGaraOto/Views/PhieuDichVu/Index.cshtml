@@ -111,15 +111,15 @@
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
-    $('.btnCreateBill').click(function (e) {
-        var $item = $(this).closest("tr").find("#conlai").text();
-        var value = $item.valueOf();
-        if (value == 0) {
-            e.preventDefault();
-            alert("Phiếu dịch vụ này đã thanh toán đủ!")
-        }
+    //$('.btnCreateBill').click(function (e) {
+    //    var $item = $(this).closest("tr").find("#conlai").text();
+    //    var value = $item.valueOf();
+    //    if (value == 0) {
+    //        e.preventDefault();
+    //        alert("Phiếu dịch vụ này đã thanh toán đủ!")
+    //    }
 
-    })
+    //})
     $('#phieudv-table').on('click', '.clickable-row', function (event) {
         if ($(this).hasClass('active')) {
             $(this).removeClass('active');
