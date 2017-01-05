@@ -18,7 +18,7 @@
         </div>
         <div class="form-group">
             <label class="input-sm" style="color : red;">Mã phiếu :</label>
-            <input class="form-control input-sm" type="text" maxlength="100" value="@Model.selectedBill.maPhieuMuaXe" name="maPhieuMuaXe" required />
+            <input class="form-control input-sm" type="text" maxlength="10" value="@Model.selectedBill.maPhieuMuaXe" name="maPhieuMuaXe" required />
         </div>
         <div class="form-group ">
             <label class="input-sm"> Ngày lập :</label>
@@ -78,11 +78,11 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label class="input-sm">Số khung :</label>
-            <input class="form-control input-sm" type="text" value="@Model.selectedBill.soKhung" placeholder="Số khung xe" maxlength="30" name="soKhung" required />
+            <input class="form-control input-sm" type="text" value="@Model.selectedBill.soKhung" placeholder="Số khung xe" maxlength="17" name="soKhung" required />
         </div>
         <div class="form-group">
             <label class="input-sm">Số máy :</label>
-            <input class="form-control input-sm" type="text" placeholder="Số máy" value="@Model.selectedBill.soMay" maxlength="30" name="soMay" required />
+            <input class="form-control input-sm" type="text" placeholder="Số máy" value="@Model.selectedBill.soMay" maxlength="20" name="soMay" required />
         </div>
         <div class="form-group">
             <label for="tinhTrang" class="input-sm">Tình trạng xe :</label>
