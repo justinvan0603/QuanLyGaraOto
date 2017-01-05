@@ -393,7 +393,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>THỐNG KÊ KHÁCH HÀNG NỢ</Value>
+                  <Value>THỐNG KÊ KHÁCH HÀNG NỢ QUÁ HẠN</Value>
                   <Style>
                     <FontFamily>Times New Roman</FontFamily>
                     <FontSize>14pt</FontSize>
@@ -405,10 +405,10 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox15</rd:DefaultName>
-          <Top>1.5243in</Top>
-          <Left>1.6823in</Left>
+          <Top>1.55207in</Top>
+          <Left>1.3698in</Left>
           <Height>0.25in</Height>
-          <Width>3.55208in</Width>
+          <Width>3.96875in</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>

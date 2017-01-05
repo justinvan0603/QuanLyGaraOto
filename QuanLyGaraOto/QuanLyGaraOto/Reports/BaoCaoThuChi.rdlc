@@ -28,7 +28,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>TONGTHU</Value>
+                              <Value>TỔNG THU</Value>
                               <Style>
                                 <FontFamily>Times New Roman</FontFamily>
                                 <FontSize>11pt</FontSize>
@@ -63,7 +63,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>TONGCHI</Value>
+                              <Value>TỔNG CHI</Value>
                               <Style>
                                 <FontFamily>Times New Roman</FontFamily>
                                 <FontSize>11pt</FontSize>
@@ -98,7 +98,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>CHENHLECH</Value>
+                              <Value>CHÊNH LỆCH</Value>
                               <Style>
                                 <FontFamily>Times New Roman</FontFamily>
                                 <FontSize>11pt</FontSize>
