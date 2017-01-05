@@ -28,12 +28,12 @@
     <div class="col-sm-8">
         <div class="form-group ">
             <label class="input-sm">Trị giá (VNĐ):</label>
-            <input class="form-control input-sm" type="number" id="textbox_trigia" required maxlength="20" name="SOTIEN" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Dữ liệu không được trống')" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+            <input class="form-control input-sm" type="number" id="textbox_trigia" required min="500" maxlength="15" name="SOTIEN" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Dữ liệu không được trống, giá trị phiếu chi nhỏ nhất là 500')" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
         </div>
         <div class="form-group ">
             <label class="input-sm">Nội dung chi:</label>
             <textarea class="form-control input-sm" rows="10" name="NOIDUNG" maxlength="1000" required></textarea>
         </div>
-        <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Lưu</button>
+        <button class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span>Lưu</button>
     </div>
 }

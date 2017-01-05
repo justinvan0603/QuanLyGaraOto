@@ -289,7 +289,7 @@ namespace QuanLyGaraOto.Controllers
             if (groupuser.CAPDO != 2 && groupuser.CAPDO != 4)
             {
                 TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
-                return Json(new { value = "-1", message = "Permission denied" }, JsonRequestBehavior.AllowGet);
+                return Json(new { value = "-1", message = "Bạn không có quyền quạn cho tính năng này" }, JsonRequestBehavior.AllowGet);
             }
             PHIEU_BAOHANH phieuBaoHanh = this.service.PHIEU_BAOHANH.Where(e => e.MA_PHIEUBH == idPhieuBaoHanh).FirstOrDefault();
             // after removing the verhical sale of bill => remove the correspoding receipt that is related to it
@@ -301,7 +301,7 @@ namespace QuanLyGaraOto.Controllers
             this.service.SaveChanges();
             this.service.PHIEU_BAOHANH.Remove(phieuBaoHanh);
             this.service.SaveChanges();
-            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xóa thành cồng</div> </div> </div>";
+            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xóa thành công</div> </div> </div>";
             // tra ve 
             return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
         }
