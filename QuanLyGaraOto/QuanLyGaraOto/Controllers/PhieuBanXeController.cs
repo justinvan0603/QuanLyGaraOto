@@ -159,16 +159,7 @@ namespace QuanLyGaraOto.Controllers
             // insert into database
             this.service.PHIEU_BANXE.Add(phieuBanXeMoi);
             this.service.SaveChanges();
-            // tien hanh lap phieu thu
-            // update so tien no neu khach hang la khach quen
-            if (phieuBanXeMoi.MAKH != null)
-            {
-                // tim thong tin khach hang theo id
-                KHACHHANG customer = this.service.KHACHHANGs.Where(e => e.MA_KH == phieuBanXeMoi.MAKH).FirstOrDefault();
-                customer.SOTIENNO += phieuBanXeMoi.SOTIENCONLAI;
-                this.service.Entry(customer).State = System.Data.Entity.EntityState.Modified;
-                this.service.SaveChanges();
-            }
+            // tien hanh lap phieu thu         
             TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
             return RedirectToAction("Index"); // after the opertation completes, redirect to the list screen
         }
@@ -192,18 +183,23 @@ namespace QuanLyGaraOto.Controllers
                 return Json(new { value = "-1", message = "Permission denied" }, JsonRequestBehavior.AllowGet);
             }
             PHIEU_BANXE phieuBanXe = this.service.PHIEU_BANXE.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
-            // after removing the verhical sale of bill => remove the correspoding receipt that is related to it
+            // chi xoa duoc nhung phieu ban xe chua lap phieu thu tien
             PHIEU_THUTIEN correspondingReceiptInformation = this.service.PHIEU_THUTIEN.Where(e => e.ID_PHIEUBANXE == billId).FirstOrDefault();
-            if (correspondingReceiptInformation != null)
+            if (correspondingReceiptInformation == null)
             {
-                this.service.PHIEU_THUTIEN.Remove(correspondingReceiptInformation);
+                this.service.PHIEU_BANXE.Remove(phieuBanXe);
                 this.service.SaveChanges();
+                // tra ve 
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xoá thành công! </div> </div> </div>";
+                return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
             }
-            this.service.PHIEU_BANXE.Remove(phieuBanXe);
-            this.service.SaveChanges();
-            // tra ve 
-            TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Xoá thành công! </div> </div> </div>";
-            return Json(new { value = "1", message = "Xóa thành công" }, JsonRequestBehavior.AllowGet);
+            else
+            {
+                // tra ve 
+                TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Không thể xóa phiếu bán đã lập phiếu thu </div> </div> </div>";
+                return Json(new { value = "-1", message = "Không thể xóa phiếu bán đã lập phiếu thu" }, JsonRequestBehavior.AllowGet);
+            }
+
 
         }
 
@@ -247,20 +243,10 @@ namespace QuanLyGaraOto.Controllers
             updatingBillInfor.HANBAOHANH = modifiedBillInformation.HANBAOHANH;
             updatingBillInfor.HANCHOTTHANHTOAN = modifiedBillInformation.HANCHOTTHANHTOAN;
             updatingBillInfor.MAKH = modifiedBillInformation.MAKH;
+            updatingBillInfor.TRIGIA = modifiedBillInformation.TRIGIA;
             updatingBillInfor.SOTIENCONLAI = modifiedBillInformation.SOTIENCONLAI;
-
             this.service.Entry(updatingBillInfor).State = System.Data.Entity.EntityState.Modified; // 
             this.service.SaveChanges(); // synchronize database
-
-            if (updatingBillInfor.MAKH != null)
-            {
-                // update lai thong tin tien no cua khach hang neu la khach quen
-                KHACHHANG customer = this.service.KHACHHANGs.Where(e => e.MA_KH == updatingBillInfor.MAKH).FirstOrDefault();
-                customer.SOTIENNO -= soTienConLaiCu; // khong quan tam den so tien con lai cu
-                customer.SOTIENNO += modifiedBillInformation.SOTIENCONLAI; // update lai so tien con lai moi
-                this.service.Entry(customer).State = System.Data.Entity.EntityState.Modified;
-                this.service.SaveChanges();
-            }
             // tro lai man hinh danh sach
             TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
             return RedirectToAction("Index");

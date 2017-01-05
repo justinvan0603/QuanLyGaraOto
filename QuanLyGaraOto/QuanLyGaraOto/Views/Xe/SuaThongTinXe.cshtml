@@ -75,7 +75,14 @@
             <select name="DOI_XE" class=" form-control input-sm">
                 @for (int i = 2000; i <= DateTime.Now.Year; ++i)
                 {
-                    <option value="@i">@i</option>
+                    if (i == int.Parse(Model.selectedXe.DOI_XE))
+                    {
+                        <option value="@i" selected>@i</option>
+                    }
+                    else
+                    {
+                        <option value="@i">@i</option>
+                    }
                 }
             </select>
         </div>
