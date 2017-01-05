@@ -185,6 +185,7 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuDH.ListNhaCungCap = context.NHACUNGCAPs.ToList();
             vmPhieuDH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
             vmPhieuDH.ListHieuXe = context.HIEUXEs.ToList();
+            nv = context.NHANVIENs.Single(staff => staff.MA_NV == vmPhieuDH.PhieuDatHang.MaNV);
             vmPhieuDH.TenNV = nv.HOTEN;
             vmPhieuDH.ListChiTietPhieuDH = new List<CHITIET_PHIEUDATHANG>();
             vmPhieuDH.ListChiTietPhieuDH = context.CHITIET_PHIEUDATHANG.Where(ct => ct.Id_PhieuDatHang == id).ToList();

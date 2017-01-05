@@ -226,6 +226,7 @@ namespace QuanLyGaraOto.Controllers
             vmPhieuNH.ListNhaCungCap = context.NHACUNGCAPs.ToList();
             vmPhieuNH.ListNhomNCC = context.NHOMNHACUNGCAPs.ToList();
             vmPhieuNH.ListHieuXe = context.HIEUXEs.ToList();
+            nv = context.NHANVIENs.Single(staff => staff.MA_NV == vmPhieuNH.PhieuNhapHang.MA_NV);
             vmPhieuNH.TenNV = nv.HOTEN;
             if (vmPhieuNH.PhieuNhapHang.ID_PHIEUDATHANG != null)
             {
