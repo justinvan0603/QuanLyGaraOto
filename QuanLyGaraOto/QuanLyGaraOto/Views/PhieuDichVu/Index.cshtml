@@ -78,7 +78,10 @@
                         <td style="vertical-align: middle">
                             @Html.ActionLink("In", "In", new { id = @item.Id_PhieuDV }, new { @class = "btn btn-info glyphicon glyphicon glyphicon-print btn-sm" })
                             @Html.ActionLink("Sửa", "SuaPhieuDichVu", new { id = @item.Id_PhieuDV }, new { @class = "btn btn-warning glyphicon glyphicon-pencil btn-sm" })
+                            @if(item.SoTienConLai >0)
+                            { 
                             <a href="@Url.Action("ThemMoi", "PhieuThu", new {idphieu = @item.Id_PhieuDV, type = "pdv"})" class="btn btn-primary btn-sm glyphicon glyphicon-plus">Lập phiếu thu</a>
+                            }
                             <!--<button id="btnDelete" type="button" class="btn btn-danger glyphicon-remove">Delete</button>-->
                             <button class="btnDelete btn btn-danger glyphicon glyphicon-remove btn-sm" type="button">Xóa</button>
 
