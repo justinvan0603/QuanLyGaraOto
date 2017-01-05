@@ -158,6 +158,10 @@ namespace QuanLyGaraOto.Controllers
             phieuBanXeMoi.SOTIENCONLAI = phieuBanXeMoi.TRIGIA; // mac dinh tri gia bang phieu thu
             // insert into database
             this.service.PHIEU_BANXE.Add(phieuBanXeMoi);
+            // update lai hinh thuc va khach hang so huu
+            XE xe = this.service.XEs.Where(e => e.BS_XE == phieuBanXeMoi.BS_XE).Single();
+            xe.HINHTHUC = false; // khong con la xe cua cua hang nua
+            xe.MA_KH = phieuBanXeMoi.MAKH; // update khach hang so huu
             this.service.SaveChanges();
             // tien hanh lap phieu thu         
             TempData["msg"] = @"<div id=""rowSuccess"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-success alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Thêm mới thành công! </div> </div> </div>";
