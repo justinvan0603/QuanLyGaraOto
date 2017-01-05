@@ -56,7 +56,7 @@
     </div>
     <div class="form-group ">
         <label class="input-sm">Số điện thoại:</label>
-        @Html.TextBox("SDT", Model.NhanVien.SDT, new { @class = "form-control" })
+        @Html.TextBox("SDT", Model.NhanVien.SDT, new { @class = "form-control", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })
         @*@Html.TextBoxFor(m => m.NhanVien.HOTEN, new { @class = "form-control" })*@
         @Html.ValidationMessage("SDT", new { @style = "color:red;" })
         @*<input class="form-control input-sm" type="text" maxlength="20" name="SDT" value="@Model.NhanVien.SDT" />*@
