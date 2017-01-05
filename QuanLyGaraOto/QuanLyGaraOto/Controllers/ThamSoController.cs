@@ -16,14 +16,14 @@ namespace QuanLyGaraOto.Controllers
             GARADBEntities context = new GARADBEntities();
 
 
-            int UserId = int.Parse(Session["UserID"].ToString());
-            NHANVIEN nv = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
-            NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value);
-            if (groupuser.CAPDO != 1 && groupuser.CAPDO != 2)
-            {
-                TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
-                return RedirectToAction("Index", "Home");
-            }
+            //int UserId = int.Parse(Session["UserID"].ToString());
+            //NHANVIEN nv = context.NHANVIENs.Single(staff => staff.MA_NV == UserId);
+            //NHOMNGUOIDUNG groupuser = context.NHOMNGUOIDUNGs.Single(gu => gu.MA_NHOMNGUOIDUNG == nv.MA_NHOMNGUOIDUNG.Value);
+            //if (groupuser.CAPDO != 1 && groupuser.CAPDO != 2)
+            //{
+            //    TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
+            //    return RedirectToAction("Index", "Home");
+            //}
 
             List<BANGTHAMSO> listThamSo = context.BANGTHAMSOes.ToList();
             ThamSoViewModel vmThamSo = new ThamSoViewModel();
@@ -57,7 +57,7 @@ namespace QuanLyGaraOto.Controllers
             if (groupuser.CAPDO != 1 && groupuser.CAPDO != 2)
             {
                 TempData["msg"] = @"<div id=""rowError"" class=""row""> <div class=""col-sm-10""> <div class=""alert alert-danger alert-dismissable fade in"" style=""padding-top: 5px; padding-bottom: 5px""> <a href=""#"" class=""close"" data-dismiss=""alert"" aria-label=""close"">&times;</a> Bạn không có quyền truy cập vào chức năng này! </div> </div> </div>";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "ThamSo", new {currentFilter = String.Empty,  searchString = String.Empty });
             }
             BANGTHAMSO modelThamSo = new BANGTHAMSO();
             
